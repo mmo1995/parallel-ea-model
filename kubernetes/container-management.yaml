@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: container-management
+  namespace: energylab
+  labels:
+    opt: generic-framework-service
+spec:
+  ports:
+  - port: 8073
+    protocol: TCP
+    targetPort: 8073
+  selector:
+    k8s-app: container-management
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container-management-deployment
+  namespace: energylab
+spec:
+  selector:
+    matchLabels:
+      k8s-app: container-management
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: container-management
+    spec:
+      containers:
+      - name: container-management
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/container-management:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8073
+      serviceAccountName: pods-creator

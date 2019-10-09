@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: initializer
+  namespace: energylab
+  labels:
+    opt: generic-framework-service
+spec:
+  ports:
+  - port: 8075
+    protocol: TCP
+    targetPort: 8075
+  selector:
+    k8s-app: initializer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: initializer-deployment
+spec:
+  selector:
+    matchLabels:
+      k8s-app: initializer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: initializer
+    spec:
+      containers:
+      - name: initializer
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/initializer:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8075

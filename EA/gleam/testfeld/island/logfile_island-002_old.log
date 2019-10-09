@@ -1,0 +1,580 @@
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:49 ========
+Aufrufparameter: experiment.exp logfile -n2 -P60 -Ibest -p+ -G100 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00   100    7   0   13390 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 60 7 0  0 100 78926.29444569693 20 13390  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 13390.
+#t 1.047025 13390  12788.6 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:50 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  80661  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  80677  0:00:00   100    4   0   14912 |      0                80677    20
+---------------------------------------------+----------------------------------
+# 4 60 4 0  0 100 80677.23917421176 20 14912  
+
+#t 1.047780 14912  14232 149   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:51 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  80687  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  80696  0:00:01   100    1   0   13929 |      0                80696    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  1 100 80696.18560547847 20 13929  
+
+#t 0.047299 13929  294488 139   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:52 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  80696  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  80696  0:00:00   100    2   0   13487 |      0                80696    20
+---------------------------------------------+----------------------------------
+# 4 60 2 0  0 100 80696.18560548 20 13487  
+
+#t 1.051498 13487  12826.5 134   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:53 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  80699  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  80700  0:00:00   100    3   0   13398 |      0                80700    20
+---------------------------------------------+----------------------------------
+# 4 60 3 0  0 100 80699.50244630217 20 13398  
+
+#t 1.053609 13398  12716.3 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:54 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  80700  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  80700  0:00:00   100    0   0   13321 |      0                80700    20
+---------------------------------------------+----------------------------------
+# 4 60 0 0  0 100 80699.5024463 20 13321  
+
+#t 1.065974 13321  12496.6 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:55 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  82438  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  82458  0:00:00   100    1   0   15439 |      0                82458    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 82458.16804561367 20 15439  
+
+#t 1.063308 15439  14519.8 154   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:56 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  82458  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  82459  0:00:00   100    4   0   13640 |      0                82459    20
+---------------------------------------------+----------------------------------
+# 4 60 4 0  0 100 82459.32965266154 20 13640  
+
+#t 1.036400 13640  13160.9 136   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:57 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  82461  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  82463  0:00:00   100    0   0   13391 |      0                82463    20
+---------------------------------------------+----------------------------------
+# 4 60 0 0  0 100 82462.82236000024 20 13391  
+
+#t 1.061651 13391  12613.4 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:28:58 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  82464  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  82464  0:00:00   100    2   0   13455 |      0                82464    20
+---------------------------------------------+----------------------------------
+# 4 60 2 0  0 100 82463.94812116629 20 13455  
+
+#t 1.029396 13455  13070.8 134   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:52 ========
+Aufrufparameter: experiment.exp logfile -n2 -P60 -Ibest -p+ -G100 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00   100    1   0   13361 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 78926.16794267 20 13361  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 13361.
+#t 1.050668 13361  12716.7 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:53 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00   100    2   0   13370 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 60 2 0  0 100 78926.29560372113 20 13370  
+
+#t 1.032444 13370  12949.9 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:55 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  81855  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83606  0:00:00   100    4   0   16902 |      0                83606    20
+---------------------------------------------+----------------------------------
+# 4 60 4 0  0 100 83606.42725520246 20 16902  
+
+#t 1.054726 16902  16025 169   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:56 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83606  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83636  0:00:00   100    1   0   14147 |      0                83636    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 83636.32793293595 20 14147  
+
+#t 1.058867 14147  13360.5 141   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:57 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83636  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83641  0:00:00   100    1   0   13609 |      0                83641    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 83640.6884056829 20 13609  
+
+#t 1.058562 13609  12856.1 136   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:58 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83641  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83649  0:00:00   100    0   0   13516 |      0                83649    20
+---------------------------------------------+----------------------------------
+# 4 60 0 0  0 100 83649.15937677951 20 13516  
+
+#t 1.051679 13516  12851.8 135   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:34:59 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83649  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83652  0:00:00   100    1   0   13304 |      0                83652    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 83652.18810766037 20 13304  
+
+#t 1.068463 13304  12451.5 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:35:00 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83652  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83653  0:00:00   100    1   0   13308 |      0                83653    20
+---------------------------------------------+----------------------------------
+# 4 60 1 0  0 100 83652.90577370404 20 13308  
+
+#t 1.066776 13308  12475 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:35:01 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83653  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83653  0:00:00   100    2   0   13369 |      0                83653    20
+---------------------------------------------+----------------------------------
+# 4 60 2 0  0 100 83652.90959500521 20 13369  
+
+#t 1.064731 13369  12556.2 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 05.09.2018 11:35:03 ========
+Experimentdatei: experiment.exp
+  60 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo    60/8    ja    File     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000  0:01:30   100  500 500       - |
+Init:  83653  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000  0:01:30   100  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  83653  0:00:00   100    0   0   13316 |      0                83653    20
+---------------------------------------------+----------------------------------
+# 4 60 0 0  0 100 83653.30932440834 20 13316  
+
+#t 1.027753 13316  12956.4 133   # sec Eval  Eval/sec Eval/Gen
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 60 Chromosome wurden 60 gespeichert.
+

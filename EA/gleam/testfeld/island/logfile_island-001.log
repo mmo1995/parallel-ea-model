@@ -1,0 +1,2508 @@
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:46:59 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1107 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.16794267 20 1107  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1107.
+#t 1.011200 1107  1094.74 221  0.00091346  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:01 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1122 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.16794267 20 1122  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1122.
+#t 1.010043 1122  1110.84 224  0.000900217  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:02 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1154 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.16794267 20 1154  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1154.
+#t 1.012773 1154  1139.45 230  0.00087762  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:04 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    2   0    1146 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 2 0  0 5 78926.1983681569 20 1146  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1146.
+#t 1.006790 1146  1138.27 229  0.000878525  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:05 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1117 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.19836816 20 1117  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1117.
+#t 1.024114 1117  1090.7 223  0.000916843  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:06 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1114 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.19836816 20 1114  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1114.
+#t 1.004607 1114  1108.89 222  0.000901802  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:07 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1127 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.19836816 20 1127  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1127.
+#t 1.006847 1127  1119.34 225  0.000893387  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:09 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1121 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.19836816 20 1121  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1121.
+#t 1.011596 1121  1108.15 224  0.000902405  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:10 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1138 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.19836816 20 1138  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1138.
+#t 1.005573 1138  1131.69 227  0.000883632  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 09:47:11 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1122 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.19836816 20 1122  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1122.
+#t 1.003842 1122  1117.71 224  0.00089469  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:39 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1123 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.16794267 20 1123  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1123.
+#t 1.011842 1123  1109.86 224  0.000901017  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:41 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1114 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.20211070971 20 1114  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1114.
+#t 1.013157 1114  1099.53 222  0.000909477  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:42 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1115 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.20211071 20 1115  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1115.
+#t 1.003986 1115  1110.57 223  0.000900436  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:44 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1132 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.20211071 20 1132  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1132.
+#t 1.020617 1132  1109.13 226  0.000901605  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:46 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1100 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.20211071 20 1100  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1100.
+#t 1.005194 1100  1094.32 220  0.000913813  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:47 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    2   0    1127 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 2 0  0 5 78926.20211071 20 1127  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1127.
+#t 1.052580 1127  1070.7 225  0.000933966  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:49 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    0   0    1145 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.20211071 20 1145  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1145.
+#t 1.014555 1145  1128.57 229  0.000886074  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:51 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78926  0:00:00     5    1   0    1102 |      0                78926    20
+---------------------------------------------+----------------------------------
+# 4 100 1 0  0 5 78926.20211071 20 1102  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1102.
+#t 1.015981 1102  1084.67 220  0.000921943  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+
+======== GLEAM/ParPop V2.2.0/Off vom 27.06.2018. Logfile vom: 03.07.2019 10:10:53 ========
+Aufrufparameter: experiment.exp logfile -n1 -P100 -Ibest -p+ -G5 -x0 
+Experimentdatei: experiment.exp
+Initialisierung:
+================
+  GenModell  "mbf_rast.mod" gelesen.
+  Bewertung  "mbf_rast.bew" gelesen.
+  ProgParams "mbf_rot_eng.tsk" gelesen.
+  EvoParams  "mbf_vpar.evo" gelesen.
+Initialisierung abgeschlossen.
+Chromosomen aus File "starter.mem":
+  AK gespeichert unter 12/1 
+  AK gespeichert unter 12/2 
+  AK gespeichert unter 12/3 
+  AK gespeichert unter 12/4 
+  AK gespeichert unter 12/5 
+  AK gespeichert unter 12/6 
+  AK gespeichert unter 12/7 
+  AK gespeichert unter 12/8 
+  AK gespeichert unter 12/9 
+  AK gespeichert unter 12/10
+  AK gespeichert unter 12/11
+  AK gespeichert unter 12/12
+  AK gespeichert unter 12/13
+  AK gespeichert unter 12/14
+  AK gespeichert unter 12/15
+  AK gespeichert unter 12/16
+  AK gespeichert unter 12/17
+  AK gespeichert unter 12/18
+  AK gespeichert unter 12/19
+  AK gespeichert unter 12/20
+  AK gespeichert unter 12/21
+  AK gespeichert unter 12/22
+  AK gespeichert unter 12/23
+  AK gespeichert unter 12/24
+  AK gespeichert unter 12/25
+  AK gespeichert unter 12/26
+  AK gespeichert unter 12/27
+  AK gespeichert unter 12/28
+  AK gespeichert unter 12/29
+  AK gespeichert unter 12/30
+  AK gespeichert unter 12/31
+  AK gespeichert unter 12/32
+  AK gespeichert unter 12/33
+  AK gespeichert unter 12/34
+  AK gespeichert unter 12/35
+  AK gespeichert unter 12/36
+  AK gespeichert unter 12/37
+  AK gespeichert unter 12/38
+  AK gespeichert unter 12/39
+  AK gespeichert unter 12/40
+  AK gespeichert unter 12/41
+  AK gespeichert unter 12/42
+  AK gespeichert unter 12/43
+  AK gespeichert unter 12/44
+  AK gespeichert unter 12/45
+  AK gespeichert unter 12/46
+  AK gespeichert unter 12/47
+  AK gespeichert unter 12/48
+  AK gespeichert unter 12/49
+  AK gespeichert unter 12/50
+  AK gespeichert unter 12/51
+  AK gespeichert unter 12/52
+  AK gespeichert unter 12/53
+  AK gespeichert unter 12/54
+  AK gespeichert unter 12/55
+  AK gespeichert unter 12/56
+  AK gespeichert unter 12/57
+  AK gespeichert unter 12/58
+  AK gespeichert unter 12/59
+  AK gespeichert unter 12/60
+  AK gespeichert unter 12/61
+  AK gespeichert unter 12/62
+  AK gespeichert unter 12/63
+  AK gespeichert unter 12/64
+  AK gespeichert unter 12/65
+  AK gespeichert unter 12/66
+  AK gespeichert unter 12/67
+  AK gespeichert unter 12/68
+  AK gespeichert unter 12/69
+  AK gespeichert unter 12/70
+  AK gespeichert unter 12/71
+  AK gespeichert unter 12/72
+  AK gespeichert unter 12/73
+  AK gespeichert unter 12/74
+  AK gespeichert unter 12/75
+  AK gespeichert unter 12/76
+  AK gespeichert unter 12/77
+  AK gespeichert unter 12/78
+  AK gespeichert unter 12/79
+  AK gespeichert unter 12/80
+  AK gespeichert unter 12/81
+  AK gespeichert unter 12/82
+  AK gespeichert unter 12/83
+  AK gespeichert unter 12/84
+  AK gespeichert unter 12/85
+  AK gespeichert unter 12/86
+  AK gespeichert unter 12/87
+  AK gespeichert unter 12/88
+  AK gespeichert unter 12/89
+  AK gespeichert unter 12/90
+  AK gespeichert unter 12/91
+  AK gespeichert unter 12/92
+  AK gespeichert unter 12/93
+  AK gespeichert unter 12/94
+  AK gespeichert unter 12/95
+  AK gespeichert unter 12/96
+  AK gespeichert unter 12/97
+  AK gespeichert unter 12/98
+  AK gespeichert unter 12/99
+  AK gespeichert unter 12/100
+  100 Chromosomen erfolgreich restauriert! Beste Fitness: 78926.2
+
+---Job-- --Größe- -------Init------- Erg HamDist Rank AkzeptanzRegel
+ Nr OptV Pop/Deme ZufG   Popul  Spar Chr     [%]  Par für Nachkommen
+  1  Evo   100/8    ja    best     -   1     0.1  1.5  localLeast-ES
+--------------------------------------------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |
+Ziel: 100000 27:46:40     5  500 500       - |
+Init:  78926  0:00:00     0    0   0       0 |
+---------------------------------------------+----------------------------------
+     Fitness Laufzeit   Gen  GDV GAk MaxEval |        Joblistenergebnisse
+Ziel: 100000 27:46:40     5  500 500       - | Anzahl Bestes Chr.: Fitness Länge
+ Ist:  78927  0:00:00     5    0   0    1084 |      0                78927    20
+---------------------------------------------+----------------------------------
+# 4 100 0 0  0 5 78926.70042351802 20 1084  
+
+Verbrauchte Gesamtzeit: 0:00. Gesamtevaluationen: 1084.
+#t 1.006570 1084  1076.92 216  0.00092857  # sec Eval  Eval/sec Eval/Gen  sec/Eval
+Chromosomenrettung in File "evo_tmp.mem":
+  Von 100 Chromosome wurden 100 gespeichert.
+

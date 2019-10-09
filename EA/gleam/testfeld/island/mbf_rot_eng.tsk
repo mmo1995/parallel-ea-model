@@ -1,0 +1,28 @@
+# -------------------------- Programmparameter Datei (TSK file) --------------------------
+GLEAM/AE  MathFkt 
+# erzeugt am Wed, 02.05.2017
+# ----------------------------------------------------------------------------------------
+Drehwinkel in Grad        = 30.0
+# --------------------------------------------------------------------------------
+Mit Init. d.Zufallszahlengenerators= 1
+Mit detaliertem Logging            = 1    # nur fuer die Engine (Command Line Version) 
+Mit Ergebnis-Simulation            = 1    # nur fuer die Engine (Command Line Version) 
+Mit Rettung der ErgebnisChromosomen= 1    # nur fuer die Engine (Command Line Version)
+# -------------------------------------------------------------
+Populationsgroesse                 =    120
+Nachbarschaftsgroesse              =      8    # (Pop|Deme): (5|4) (10|6) (>=20|8)
+InitStrategie f.die Startpopulation= neu
+InitStrategie-Parameter            =      0   
+Mindesthammingabstand f.XO/Reko [%]=      0.1
+Ranking-Parameter                  =      1.5  # 1.0 - 2.0 (Selektionsdruck: min - max)
+Akzeptanzregel fuer Nachkommen     = localLeast-ES
+Stellenanzahl der (Simu)-Parameter =      7    
+
+Maximale Laufzeit [sec]            =     100000    # 1,5 min
+Maximale Generationsanzahl         =   1000
+Max. Gen. ohne Akzeptanz im Deme   =    500    # GAk
+Max. Gen. ohne Deme-Verbesserung   =    500    # GDV
+Mindest-Zielfitness                = 100000.0
+# -------------------------- Island-Einstellungen: -------------------------
+Mit initialem textuellem Chr.File   = 1   # notwendig fuer PAR_POP_VERS (CLV)
+Mit Tests auf Jobabbruch            = 1   # notwendig fuer PAR_POP_VERS (CLV)

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coordination
+  namespace: energylab
+  labels:
+    opt: generic-framework-service
+spec:
+  ports:
+  - port: 8071
+    protocol: TCP
+    targetPort: 8071
+  selector:
+    k8s-app: coordination
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coordination-deployment
+spec:
+  selector:
+    matchLabels:
+      k8s-app: coordination
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: coordination
+    spec:
+      containers:
+      - name: coordination
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/coordination:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8071
+          protocol: TCP
