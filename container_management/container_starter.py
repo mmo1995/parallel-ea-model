@@ -1,11 +1,11 @@
 import logging
 import sys
-
+import time
 import redis
 from flask import Flask
 from flask import request
-#from kubernetes import client, config
-#from kubernetes.client.rest import ApiException
+from kubernetes import client, config
+from kubernetes.client.rest import ApiException
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,12 +16,13 @@ logging.basicConfig(
 
 
 app = Flask(__name__)
-r = redis.StrictRedis(host='localhost', port=6379)
+r = redis.StrictRedis(host='redis', port=6379)
 
 number_of_islands_key = 'proof.island.amount'
 initialize_islands_channel = 'proof.management.initialize.islands'
 
 JOB_NAME = "island-job"
+JOB_NAME_EA = "island-job-ea"
 NAMESPACE = "energylab"
 
 
@@ -29,34 +30,29 @@ NAMESPACE = "energylab"
 def create_islands():
     number_of_islands = request.json
     r.set(number_of_islands_key, number_of_islands)
-    r.publish(initialize_islands_channel, 1)
-    logging.info("Pod created. status='%s'" % str(number_of_islands))
-    #Uncomment the following lines to execute this service in a cluster to dynamically create Pods for the
-    #islands. Names and configurations have also to be adjusted to dynamically create Pods for the
-    #Migration & Synchronization Service.
-
-    #config.load_incluster_config()
-    #core_v1_api = client.CoreV1Api()
-    #for island_number in range(1, int(number_of_islands) + 1):
-    #    pod = create_pod_object(island_number)
-    #    create_pod(core_v1_api, pod, island_number)
+    config.load_incluster_config()
+    core_v1_api = client.CoreV1Api()
+    for island_number in range(1, int(number_of_islands) + 1):
+        pod_EA=create_pod_object_EA(island_number)
+        create_pod(core_v1_api, pod_EA, island_number)
+    time.sleep(25)
+    for island_number in range(1, int(number_of_islands) + 1):
+        pod = create_pod_object(island_number)
+        create_pod(core_v1_api, pod, island_number)
     return 'ok'
-
 
 
 def create_pod_object(island_number):
     # Configurate Pod container
     container = client.V1Container(
         name="island",
-        image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework/island:latest",
+        image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/island",
         image_pull_policy="Always",
         args=["--island.number="+str(island_number)])
     # Create the specification of pod
-    v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
+    #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
     spec = client.V1PodSpec(containers=[container],
-                            image_pull_secrets=[v1localObjectReference],
-                            restart_policy="Never",
-                            service_account_name="pods-creator")
+                            restart_policy="Always")
     # Instantiate the pod object
     pod = client.V1Pod(
         api_version="v1",
@@ -65,6 +61,24 @@ def create_pod_object(island_number):
         spec=spec)
     return pod
 
+def create_pod_object_EA(island_number):
+    # Configurate Pod container
+    container = client.V1Container(
+        name="ea",
+        image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/ea",
+        image_pull_policy="Always",
+        args=["--island.number="+str(island_number)])
+    # Create the specification of pod
+    #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
+    spec = client.V1PodSpec(containers=[container],
+                            restart_policy="Always")
+    # Instantiate the pod object
+    pod_EA = client.V1Pod(
+        api_version="v1",
+        kind="Pod",
+        metadata=client.V1ObjectMeta(name=JOB_NAME_EA + str(island_number), namespace=NAMESPACE),
+        spec=spec)
+    return pod_EA
 
 def create_pod(api_instance, pod, island_number):
     # Create pod
@@ -84,5 +98,6 @@ def create_pod(api_instance, pod, island_number):
 
 
 if __name__ == '__main__':
+    logging.info("sf")
     app.run(host="0.0.0.0", port="8073", threaded=True, debug=True, use_reloader=False)
 
