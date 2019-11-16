@@ -30,8 +30,8 @@ public class JobConfig {
     private double globalTerminationFitness = 100000.0;
     private int globalTerminationGeneration = 1000;
     private int globalTerminationTime = 90;
-    private int globalTerminationGDV = 500;
-    private int globalTerminationGAK = 100;
+    private int globalTerminationGDV = 500; // Generationen ohne Demeverbesserung
+    private int globalTerminationGAK = 100; // Generationen ohne Akzeptanz
 
     private int delay = 0;
 

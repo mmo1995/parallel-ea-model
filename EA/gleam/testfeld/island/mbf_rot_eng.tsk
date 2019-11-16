@@ -10,7 +10,7 @@ Mit Ergebnis-Simulation            = 1    # nur fuer die Engine (Command Line Ve
 Mit Rettung der ErgebnisChromosomen= 1    # nur fuer die Engine (Command Line Version)
 # -------------------------------------------------------------
 Populationsgroesse                 =    120
-Nachbarschaftsgroesse              =      8    # (Pop|Deme): (5|4) (10|6) (>=20|8)
+Nachbarschaftsgroesse              =      4    # (Pop|Deme): (5|4) (10|6) (>=20|8)
 InitStrategie f.die Startpopulation= neu
 InitStrategie-Parameter            =      0   
 Mindesthammingabstand f.XO/Reko [%]=      0.1

@@ -89,7 +89,7 @@ public class AlgorithmController {
                             jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
                             jobConfigTemp.setGlobalTerminationEpoch(globalTerminationGeneration_1);
                             jobConfigList.add(jobConfigTemp);
-                            // speedupresults.setJobConfig(jobConfig);
+                            //speedupresults.setJobConfig(jobConfig);
                             // speedUpResultsList.add(speedupresults);
                         }
                     }

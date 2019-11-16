@@ -23,6 +23,6 @@ public class IslandController {
 
     public void createIslands(int numberOfIslands){
         logger.info("creating islands");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create", numberOfIslands, String.class);
+       ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"com/create", numberOfIslands, String.class);
     }
 }
