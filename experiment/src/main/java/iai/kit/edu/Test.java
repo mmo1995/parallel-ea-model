@@ -8,10 +8,10 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     public static void main(String[] args) {
-     int[] numberOfIslands = new int[]{8,16,24,32,40,48,56,64,72,80,88,96,104,112,120};
+     int[] numberOfIslands = new int[]{1};
      int[] populationSizes = new int[]{1024};
      int[] migrationRates = new int[]{4};
-     int[] delays = new int[]{0,1,2,4,8,16,32};
+     int[] delays = new int[]{0};
      String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
 
              String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation

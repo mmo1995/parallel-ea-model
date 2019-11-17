@@ -3,7 +3,7 @@ package iai.kit.edu;
 public class Configuration {
     
       public int globalPopulationSize = 400;
-      public int numberOfIslands= 4;
+      public int numberOfIslands= 1;
       public int migrationRate= 3;
       public String topology= "ring";
       public String initialSelectionPolicy= "new";
