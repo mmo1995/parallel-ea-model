@@ -5,9 +5,9 @@ package edu.kit.iai.gleam.config;
  */
 public class ConstantStrings {
 
-   //public static final String coordinationURL = "http://localhost:8071";
+    public static final String coordinationURL = "http://localhost:8071";
 
-   public static final String coordinationURL = "http://coordination:8071";
+   // public static final String coordinationURL = "http://coordination:8071";
 
     public static final String islandsWithPopulationCounter = "proof.islands.population.initialized";
     public static final String islandsWithSubscribedNeighborsCounter = "proof.islands.neighbors.subscribed";
