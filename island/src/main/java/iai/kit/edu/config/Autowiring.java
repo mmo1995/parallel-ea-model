@@ -30,7 +30,8 @@ public class Autowiring {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        jedisConFactory.setHostName("redis");
+        //jedisConFactory.setHostName("redis");
+        jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
     }
