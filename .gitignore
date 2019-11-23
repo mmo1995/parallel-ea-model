@@ -7,3 +7,4 @@ venvs/
 */.pydevproject
 *.log
 container_management/__pycache__/
+*/gleam
