@@ -77,9 +77,11 @@ public class EAEpochSubscriber implements MessageListener {
 		  String chromosomeList = chromosomeConverter.convertChromosomeListToMasterSlave(populationIntialFile);
 		  ResponseEntity<String> answer3 = restTemplate.postForEntity("http://localhost:8090/opt/"+ id + "/" + wfid + "/input", chromosomeList, String.class);
 		 
-		this.eaEpochConfig.getPopulation().read(populationFile);
-		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
+		//this.eaEpochConfig.getPopulation().read(populationFile);
+		//intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
 	}
+	
+	
 
 	private void setTerminationCriterion() {
 		switch (this.eaEpochConfig.getEpochTerminationCriterion()) {

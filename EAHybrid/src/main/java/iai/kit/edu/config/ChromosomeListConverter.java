@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * 
  * @author Mohammad
@@ -16,6 +18,9 @@ import java.util.List;
  *
  */
 public class ChromosomeListConverter {
+	
+	@Autowired
+	File populationFile;
 	
 	
 	public String convertChromosomeListToMasterSlave(File file) {
@@ -129,9 +134,9 @@ public class ChromosomeListConverter {
 		return chromosomeList;
 		
 	}
-	public String convertChromosomeListToIsland() {
+	public File convertChromosomeListToIsland(String chromosomeList) {
 		//TODO: do the actual convertion
-		return "Noch nicht implementiert";
+		return this.populationFile;
 	}
 	
     private String readFile(File file) 
