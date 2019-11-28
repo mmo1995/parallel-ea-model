@@ -8,3 +8,5 @@ venvs/
 *.log
 container_management/__pycache__/
 */gleam
+*/gleam-esso
+*/gleam-esso/**
