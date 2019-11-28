@@ -50,10 +50,6 @@ public class Autowiring {
         return new GLEAMStarter(workspacePath());
     }
     
-    @Bean
-    ChromosomeListConverter chromosomeConverter() {
-    	return new ChromosomeListConverter();
-    }
 
     /**
      * Creates Redis Message Listener Container to establish subscribers to intermediate population channel

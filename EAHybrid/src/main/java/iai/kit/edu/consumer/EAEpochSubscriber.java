@@ -2,7 +2,6 @@ package iai.kit.edu.consumer;
 
 import com.google.gson.Gson;
 import iai.kit.edu.algorithm.AlgorithmStarter;
-import iai.kit.edu.config.ChromosomeListConverter;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.EAEpochConfig;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
@@ -29,8 +28,7 @@ public class EAEpochSubscriber implements MessageListener {
 	@Autowired
 	AlgorithmStarter algorithmStarter;
 
-	@Autowired
-	ChromosomeListConverter chromosomeConverter;
+
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -65,20 +63,9 @@ public class EAEpochSubscriber implements MessageListener {
 		algorithmStarter.setDelay(eaEpochConfig.getDelay());
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationIntialFile);
-
-		// algorithmStarter.start();
-
-		
-		  ResponseEntity<String> answer1 =restTemplate.getForEntity("http://localhost:8090/opt/taskID", String.class);
-		  String id = answer1.getBody(); 
-		  String configuration ="model: Schneewitchen\n" + "algorithmName: SimuJob"; 
-		  ResponseEntity<String> answer2 = restTemplate.postForEntity("http://localhost:8090/opt/"+ id + "/start", configuration, String.class); 
-		  String wfid = answer2.getBody();
-		  String chromosomeList = chromosomeConverter.convertChromosomeListToMasterSlave(populationIntialFile);
-		  ResponseEntity<String> answer3 = restTemplate.postForEntity("http://localhost:8090/opt/"+ id + "/" + wfid + "/input", chromosomeList, String.class);
-		 
-		//this.eaEpochConfig.getPopulation().read(populationFile);
-		//intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
+		algorithmStarter.start();
+		this.eaEpochConfig.getPopulation().read(populationFile);
+		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
 	}
 	
 	
