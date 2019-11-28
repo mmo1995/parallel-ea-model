@@ -4,7 +4,7 @@ public class ConstantStrings {
     /**
      * Stores application relevant Strings
      */
-    public static final String islandPath = "./gleam/testfeld/island/";
+    public static final String islandPath = "./gleam-esso/testfeld/island";
 
     public static final String initialPopulationCalculatedFileName = "initialChromosomeSet.aks";
     public static final String initialPopulationFileName = "starter.mem";
@@ -20,7 +20,7 @@ public class ConstantStrings {
     public static final String fileNamePartLog = "Log";
 
     public static final String workingDirectoryString = "user.dir";
-    public static final String gleamCLV = "/gleam/gleamParPopCLV";
+    public static final String gleamCLV = "/gleam-esso/gleamParPopEssO_CLV";
 
     public static final String gleamCLVIslandNumber = "-n";
     public static final String gleamCLVPopulationSize = "-P";
