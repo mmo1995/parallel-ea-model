@@ -4,7 +4,7 @@ public class ConstantStrings {
     /**
      * Stores application relevant Strings
      */
-    public static final String islandPath = "./gleam-esso/testfeld/island";
+    public static final String islandPath = "./gleam-esso/testfeld/island/";
 
     public static final String initialPopulationCalculatedFileName = "initialChromosomeSet.aks";
     public static final String initialPopulationFileName = "starter.mem";
