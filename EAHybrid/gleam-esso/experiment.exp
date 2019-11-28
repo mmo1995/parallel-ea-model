@@ -1,0 +1,9 @@
+GLEAM/AE  =======================================================================
+# Experiment "mbf_fox_rot" vom 26.06.2018                File: foxInitializer.exp
+# ===============================================================================
+Genmodell            = mbf_rast.mod
+Bewertung            = mbf_rast.bew
+Programmparameter    = mbf_rast_parPerf.tsk
+Evolutionsparameter  = mbf_vpar.evo
+Chromosomenspeicher  = starter.mem
+
