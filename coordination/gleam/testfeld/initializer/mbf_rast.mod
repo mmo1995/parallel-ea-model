@@ -1,5 +1,5 @@
 ************************ Handlungsmodell fuer GLEAM/AE *************************
-GLEAM/AE  MathFkt  MBF-Rast                                           25.06.1998
+GLEAM/AE  ExtSimuServ                                         25.06.1998
 1  1  1           gen_len_mode (1,2)  gen_akt_mode (1,2,3)  gen_segm_vert (1,2)
 20  20    3   3   min_ketten_len  max_ketten_len  min_abschn_len  abschn_delta
  20               Anzahl der Aktionen
