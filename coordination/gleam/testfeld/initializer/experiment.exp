@@ -3,7 +3,7 @@ GLEAM/AE  ======================================================================
 # ===============================================================================
 Genmodell            = mbf_rast.mod
 Bewertung            = mbf_rast.bew
-Programmparameter    = mbf_rot_eng.tsk
+Programmparameter    = mbf_rast_parPerf.tsk
 Evolutionsparameter  = mbf_vpar.evo
 Chromosomenspeicher  = starter.mem
 
