@@ -20,7 +20,7 @@ public class ConstantStrings {
     public static final String fileNamePartLog = "Log";
 
     public static final String workingDirectoryString = "user.dir";
-    public static final String gleamCLV = "/gleam/testfeld/initializer/gleamParPopCLV";
+    public static final String gleamCLV = "/gleam/gleamParPopEssO_CLV";
 
     public static final String gleamCLVIslandNumber = "-n";
     public static final String gleamCLVPopulationSize = "-P";

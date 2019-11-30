@@ -1,0 +1,30 @@
+Kommunikationspaket "libcurl" initialisiert. Ergebnis (bool): 1
+
+Get-Request zum Erhalt einer Task-ID: gesendet=1 URL="http://localhost:8090/opt/taskID"
+Empfangene Daten eines get-Requests zum Erhalt einer Task-ID:
+413
+----------------------------------------
+
+Get-Request für eine(n) Modellprüfung: gesendet=1 URL="http://localhost:8090/opt/413/Schneewitchen/active"
+Empfangene Daten eines get-Requests für eine(n) Modellprüfung:
+yes
+----------------------------------------
+
+Post-Request für eine(n) Modellstart: gesendet=1 URL="http://localhost:8090/opt/413/start"
+Daten eines post-Requests für Modellstart:
+model: Schneewitchen
+algorithmName: SimuJob
+
+----------------------------------------
+Empfangene Daten eines post-Requests für eine(n) Modellstart:
+1
+----------------------------------------
+
+--------------- Start der externen Simulationsdienste mit Modell "Schneewitchen" ausgeführt. ---------------
+  Arbeits-URL: "http://localhost:8090/opt/413/1"
+
+Task 413 erfolgreich gestoppt.
+
+--------------- Terminierung der externen Simulationsdienste mit Task-ID 413 ausgeführt. ---------------
+Kommunikationspaket "libcurl" beendet.
+
