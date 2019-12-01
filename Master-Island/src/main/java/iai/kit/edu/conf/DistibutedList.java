@@ -1,4 +1,4 @@
-package iai.kit.edu.controller;
+package iai.kit.edu.conf;
 
 import java.util.List;
 
