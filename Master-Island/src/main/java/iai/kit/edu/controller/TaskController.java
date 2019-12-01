@@ -36,7 +36,7 @@ public class TaskController {
 	
 	private Gson gson = new Gson();
 	private static RestTemplate restTemplate = new RestTemplate();
-	private static String containerIp = "localhost:8081";
+	private static String containerIp = "localhost:8071";
 	private static String data[];
 	private static String receivedChromosomesListBackup = "";
 	private int containers = 1;
