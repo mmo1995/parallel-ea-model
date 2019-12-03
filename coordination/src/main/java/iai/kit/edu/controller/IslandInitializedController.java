@@ -31,10 +31,10 @@ public class IslandInitializedController {
 
     @RequestMapping(value = "/island_status/initialized", method = RequestMethod.POST)
     public void receiveIslandStatusInitialized(@RequestBody int islandNumber) {
-        logger.debug("island " + islandNumber + " initialized");
+        logger.info("island " + islandNumber + " initialized");
         RedisAtomicInteger initializedIslandCounter = new RedisAtomicInteger(ConstantStrings.initializedIslandCounter, template.getConnectionFactory());
         int initializedIslands = initializedIslandCounter.incrementAndGet();
-        logger.debug("islands initialized: "+initializedIslands);
+        logger.info("islands initialized: "+initializedIslands);
         if (initializedIslands == jobConfig.getNumberOfIslands()) {
             logger.info("islands initialized");
             algorithmManager.sendConfig();

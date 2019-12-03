@@ -124,9 +124,66 @@ public class TaskController {
             @PathVariable String id,
             @PathVariable String wfid
     ) {
-    	System.out.println("I have recieved a GET request to take the result");
-    	return "0 5 1 \n 1 0 2.22 \n 2 0 7.15 \n 3 0 24.14 \n 4 0 15.4 \n 5 0 12.4";
-    	
+    	String reData = "";
+        String reDataNeu = "";
+        ArrayList<String> ZeroStatusOfHead = new ArrayList<String>();
+        ArrayList<String> PositiveStatusOfHead = new ArrayList<String>();
+        ArrayList<String> NegativeStatusOfHead = new ArrayList<String>();
+        int lengthOfData = 0;
+        int numOfChromosoms = 0;
+        int resValNumber = 0;
+
+        //ChildzondeListGet = zk.getChildren("/"+rootName, false);
+        if (data != null) {
+        	System.out.println("I have recieved a GET request to get the result, please wait ");
+/*		  System.out.println("I have recieved a GET request to get the result, please wait ");
+	  System.out.println("Chrildern number "+ ChildzondeListGet.size());
+
+   int m = 0;
+   for(String child : ChildzondeListGet)
+   {
+	        byte[] bn1 = zk.getData("/"+rootName+"/"+child,
+            false, null);
+            data[m] = new String(bn1,"UTF-8");
+            zkc.getConnectedSignal().countDown();
+            zk.delete("/"+rootName+"/"+child, -1);
+            m++;
+   }*/
+
+            lengthOfData = data.length;
+            for (int u = 0; u < data.length; u++) {
+//                System.out.println(data[u]);
+
+                String[] result = data[u].split("\\n");
+                numOfChromosoms = numOfChromosoms + result.length - 1;
+                String[] headTempResult = result[0].split("\\s+");
+
+                resValNumber = Integer.parseInt(headTempResult[2]);
+                if (Integer.parseInt(headTempResult[0]) == 0)
+                    ZeroStatusOfHead.add(headTempResult[0]);
+                else if (Integer.parseInt(headTempResult[0]) < 0)
+                    PositiveStatusOfHead.add(headTempResult[0]);
+                else
+                    NegativeStatusOfHead.add(headTempResult[0]);
+                for (int h = 1; h < result.length; h++) {
+                    reData = reData + result[h] + "\n";
+                }
+            }
+            if (ZeroStatusOfHead.size() == lengthOfData && Integer.parseInt(id) == 1 && Integer.parseInt(wfid) == 1)
+                reDataNeu = "0  " + numOfChromosoms + " " + resValNumber + "\n" + reData;
+            else if (PositiveStatusOfHead.size() != 0 && NegativeStatusOfHead.size() == 0 && Integer.parseInt(id) == 1 && Integer.parseInt(wfid) == 1)
+                reDataNeu = "1  " + numOfChromosoms + " " + resValNumber + "\n" + reData;
+            else if (PositiveStatusOfHead.size() == 0 && NegativeStatusOfHead.size() != 0 || (Integer.parseInt(id) != 1 && Integer.parseInt(wfid) != 1))
+                reDataNeu = "-1  " + numOfChromosoms + " " + resValNumber + "\n" + reData;
+            else if (PositiveStatusOfHead.size() != 0 && NegativeStatusOfHead.size() != 0 || (Integer.parseInt(id) == 1 && Integer.parseInt(wfid) != 1))
+                reDataNeu = "-2  " + numOfChromosoms + " " + resValNumber + "\n" + reData;
+            else
+                reDataNeu = "-3  " + numOfChromosoms + " " + resValNumber + "\n" + reData;
+            //System.out.println(reDataNeu);
+            data = null;
+            return reDataNeu;
+        }
+        return "."; // no results
     }
     
     public DistibutedList convertToDistributedList(String receivedChromosomesList) throws InterruptedException, IOException, JSONException {
