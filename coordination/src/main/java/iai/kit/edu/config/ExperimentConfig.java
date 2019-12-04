@@ -9,6 +9,7 @@ public class ExperimentConfig {
 
     private int[] populationSize;
     private int[] numberOfIslands;
+    private int[] numberOfCalculations;
     private int[] migrationRate;
     private int[] delay;
     private String [] topology;
@@ -119,6 +120,14 @@ public class ExperimentConfig {
 
     public void setNumberOfIslands(int[] numberOfIslands) {
         this.numberOfIslands = numberOfIslands;
+    }
+    
+    public int[] getNumberOfCalculations() {
+        return numberOfCalculations;
+    }
+
+    public void setNumberOfCalculations(int[] numberOfCalculations) {
+        this.numberOfCalculations = numberOfCalculations;
     }
 
     public int[] getMigrationRate() {

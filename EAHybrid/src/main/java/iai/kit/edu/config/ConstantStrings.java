@@ -39,6 +39,8 @@ public class ConstantStrings {
     public static final String gleamDelay = "-x";
 
     public static final String intermediatePopulation = "proof.population.intermediate";
+    public static final String numberOfCalculations = "proof.calculations.amount";
+    public static final String numberOfCalculationsInitialized = "proof.calculations.initialized";
 
     public static final String chromosomeEnding = "10000";
 

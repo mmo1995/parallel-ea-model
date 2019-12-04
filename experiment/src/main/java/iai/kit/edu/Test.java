@@ -9,6 +9,7 @@ public class Test {
 
     public static void main(String[] args) {
      int[] numberOfIslands = new int[]{2};
+     int[] numberOfCalculations = new int[] {2};
      int[] populationSizes = new int[]{20};
      int[] migrationRates = new int[]{4};
      int[] delays = new int[]{0};
@@ -28,6 +29,7 @@ public class Test {
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = new ExperimentConfig();
         experimentConfig.setNumberOfIslands(numberOfIslands);
+        experimentConfig.setNumberOfCalculations(numberOfCalculations);
         experimentConfig.setPopulationSize(populationSizes);
         experimentConfig.setMigrationRate(migrationRates);
         experimentConfig.setDelay(delays);

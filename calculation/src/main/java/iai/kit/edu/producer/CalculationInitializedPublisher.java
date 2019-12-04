@@ -1,6 +1,5 @@
 package iai.kit.edu.producer;
 
-import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+
 import iai.kit.edu.config.ConstantStrings;
 
 
@@ -20,11 +21,7 @@ import iai.kit.edu.config.ConstantStrings;
  *
  */
 public class CalculationInitializedPublisher {
-	@Value("${island.number}")
-	int islandNumber;
-	
-	@Value("${calculation.number}")
-	int calculationNumber;
+
 	
     @Autowired
     @Qualifier("stringTemplate")
@@ -32,9 +29,12 @@ public class CalculationInitializedPublisher {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void publishInitialized() {
-    	logger.info("Calculation Initialized with Island number:" + islandNumber + " and calculationNumber: "
-    			+ calculationNumber);
+    public void publishInitialized(int islandNumber, int calculationNumber) {
+        ChannelTopic topic = new ChannelTopic(ConstantStrings.CalculationInitialized + "." + islandNumber + "." + calculationNumber);
+        stringTemplate.convertAndSend(topic.getTopic(), "initialized");
+    	logger.info("Calculation initialized with island number " + islandNumber + 
+    			" and calculation number " + calculationNumber + ".");
+    	
    }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import iai.kit.edu.producer.CalculationInitializedPublisher;
@@ -41,6 +42,19 @@ public class Autowiring {
         jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
+    }
+    
+    /**
+     * Creates Redis Message Listener Container to interact with Redis
+     * @return
+     */
+    @Bean
+    RedisMessageListenerContainer redisMessageListenerContainer() {
+        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(jedisConnectionFactory());
+        
+
+        return container;
     }
 
     /**

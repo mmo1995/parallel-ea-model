@@ -19,18 +19,35 @@ app = Flask(__name__)
 r = redis.StrictRedis(host='localhost', port=6379)
 
 number_of_islands_key = 'proof.island.amount'
+number_of_calculations_key = 'proof.calculations.amount'
 initialize_islands_channel = 'proof.management.initialize.islands'
 
 JOB_NAME = "island-job"
 NAMESPACE = "energylab"
 
 
-@app.route('/com/create', methods=['POST'])
+@app.route('/com/create/islands', methods=['POST'])
 def create_islands():
     number_of_islands = request.json
     r.set(number_of_islands_key, number_of_islands)
     r.publish(initialize_islands_channel, 1)
     logging.info("Pod created. status='%s'" % str(number_of_islands))
+    #Uncomment the following lines to execute this service in a cluster to dynamically create Pods for the
+    #islands. Names and configurations have also to be adjusted to dynamically create Pods for the
+    #Migration & Synchronization Service.
+
+    #config.load_incluster_config()
+    #core_v1_api = client.CoreV1Api()
+    #for island_number in range(1, int(number_of_islands) + 1):
+    #    pod = create_pod_object(island_number)
+    #    create_pod(core_v1_api, pod, island_number)
+    return "ok"
+
+@app.route('/com/create/calculations', methods=['POST'])
+def create_calculations():
+    number_of_calculations = request.json
+    r.set(number_of_calculations_key, number_of_calculations)
+    logging.info("Pod created. status='%s'" % str(number_of_calculations))
     #Uncomment the following lines to execute this service in a cluster to dynamically create Pods for the
     #islands. Names and configurations have also to be adjusted to dynamically create Pods for the
     #Migration & Synchronization Service.

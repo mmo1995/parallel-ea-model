@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 public class JobConfig {
     private int globalPopulationSize;
     private int numberOfIslands;
+    private int numberOfCalculations;
     private int migrationRate;
     private String topology = "ring";
     private String initialSelectionPolicy = "new";
@@ -53,6 +54,14 @@ public class JobConfig {
 
     public void setNumberOfIslands(int numberOfIslands) {
         this.numberOfIslands = numberOfIslands;
+    }
+    
+    public int getNumberOfCalculations() {
+        return numberOfCalculations;
+    }
+
+    public void setNumberOfCalculations(int numberOfCalculations) {
+        this.numberOfCalculations = numberOfCalculations;
     }
 
     public int getMigrationRate() {

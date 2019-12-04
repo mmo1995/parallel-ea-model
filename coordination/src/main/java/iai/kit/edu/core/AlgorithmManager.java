@@ -2,6 +2,7 @@ package iai.kit.edu.core;
 
 import iai.kit.edu.config.CounterResetter;
 import iai.kit.edu.config.JobConfig;
+import iai.kit.edu.controller.CalculationController;
 import iai.kit.edu.controller.ConfigController;
 import iai.kit.edu.controller.InitializerEAController;
 import iai.kit.edu.controller.IslandController;
@@ -20,6 +21,8 @@ public class AlgorithmManager {
     @Autowired
     private IslandController islandController;
     @Autowired
+    private CalculationController calculationController;
+    @Autowired
     private ConfigController configController;
     @Autowired
     private PopulationController populationController;
@@ -34,6 +37,7 @@ public class AlgorithmManager {
     public void initialize() {
         counterResetter.resetCounters();
         islandController.createIslands(jobConfig.getNumberOfIslands());
+		calculationController.createCalculations(jobConfig.getNumberOfCalculations());
 
     }
 

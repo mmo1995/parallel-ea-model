@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Creates and starts islands
+ * Creates and starts calculations
  */
 
 @CrossOrigin(origins = "*")
 @Component
-public class IslandController {
+public class CalculationController {
 
     private RestTemplate restTemplate = new RestTemplate();
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public void createIslands(int numberOfIslands){
-        logger.info("creating islands");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/islands", numberOfIslands, String.class);
+    public void createCalculations(int numberOfCalculations){
+        logger.info("creating calculations");
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/calculations", numberOfCalculations, String.class);
     }
 }
