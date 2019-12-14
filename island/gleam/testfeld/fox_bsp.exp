@@ -1,9 +1,0 @@
-GLEAM/AE  =======================================================================
-# Experiment "mbf_fox_rot" vom 30.04.2003                       File: fox_bsp.exp
-# ===============================================================================
-Genmodell            = /projects/gleam/InitFiles/mbf_fox.mod
-Bewertung            = /projects/gleam/InitFiles/mbf_fox.bew
-Programmparameter    = mbf_rot_bsp.tsk
-Evolutionsparameter  = /projects/gleam/InitFiles/mbf_wpar.evo
-Chromosomenspeicher  = foxStarter.mem
-
