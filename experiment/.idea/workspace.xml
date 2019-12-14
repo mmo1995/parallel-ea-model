@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d591ce0-d435-4172-8af4-21de5bf93df2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/algorithm/GLEAMStarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/algorithm/GLEAMStarter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/config/Autowiring.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/config/Autowiring.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/config/ConstantStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/config/ConstantStrings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAHybrid/src/main/java/iai/kit/edu/consumer/CalculationInitializedSubscriber.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/java/iai/kit/edu/CalculationApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/java/iai/kit/edu/config/Autowiring.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/java/iai/kit/edu/config/ConstantStrings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/java/iai/kit/edu/controller/CalculationInitializedController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/java/iai/kit/edu/producer/CalculationInitializedPublisher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calculation/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../coordination/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../coordination/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../coordination/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../coordination/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../coordination/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../coordination/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iai/kit/edu/ExperimentConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iai/kit/edu/ExperimentConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iai/kit/edu/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iai/kit/edu/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/Autowiring.java" beforeDir="false" afterPath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/Autowiring.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/ConfigResetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/ConfigResetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/ConstantStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../island/src/main/java/iai/kit/edu/config/ConstantStrings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,6 +211,22 @@
       <screen x="0" y="27" width="1366" height="696" />
     </state>
     <state x="524" y="266" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.27.1366.696@0.27.1366.696" timestamp="1576312636551" />
+    <state width="1320" height="137" key="GridCell.Tab.0.bottom" timestamp="1576313750870">
+      <screen x="0" y="27" width="1366" height="696" />
+    </state>
+    <state width="1320" height="137" key="GridCell.Tab.0.bottom/0.27.1366.696@0.27.1366.696" timestamp="1576313750870" />
+    <state width="1320" height="137" key="GridCell.Tab.0.center" timestamp="1576313750869">
+      <screen x="0" y="27" width="1366" height="696" />
+    </state>
+    <state width="1320" height="137" key="GridCell.Tab.0.center/0.27.1366.696@0.27.1366.696" timestamp="1576313750869" />
+    <state width="1320" height="137" key="GridCell.Tab.0.left" timestamp="1576313750869">
+      <screen x="0" y="27" width="1366" height="696" />
+    </state>
+    <state width="1320" height="137" key="GridCell.Tab.0.left/0.27.1366.696@0.27.1366.696" timestamp="1576313750869" />
+    <state width="1320" height="137" key="GridCell.Tab.0.right" timestamp="1576313750870">
+      <screen x="0" y="27" width="1366" height="696" />
+    </state>
+    <state width="1320" height="137" key="GridCell.Tab.0.right/0.27.1366.696@0.27.1366.696" timestamp="1576313750870" />
     <state x="172" y="27" width="1012" height="696" key="SettingsEditor" timestamp="1576312622505">
       <screen x="0" y="27" width="1366" height="696" />
     </state>
