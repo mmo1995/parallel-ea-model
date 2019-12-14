@@ -109,12 +109,12 @@ public class GLEAMStarter implements AlgorithmStarter {
         commands.add(gleamExe);
         commands.add(expFile);
         commands.add(logFile);
-        commands.add(islandNumber);
+        //commands.add(islandNumber);
         commands.add(populationSize);
-        commands.addAll(initStrategy);
+        //commands.addAll(initStrategy);
         commands.add(logging);
         commands.add(terminationCriterion);
-        commands.add(delay);
+        //commands.add(delay);
     }
 
 

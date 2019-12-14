@@ -42,6 +42,7 @@ public class ConstantStrings {
     public static final String neighborPopulation = "proof.population.neighbor";
     public static final String intermediatePopulation = "proof.population.intermediate";
     public static final String resultPopulation = "proof.result";
+    public static final String eaReady = "proof.ea.status.ready";
 
     public static final String neighborsSubscribed = "Neighbors subscribed";
     public static final String populationReady = "Population ready";

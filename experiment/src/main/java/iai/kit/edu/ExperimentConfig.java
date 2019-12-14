@@ -5,9 +5,11 @@ public class ExperimentConfig {
     private int[] populationSize;
     private int[] numberOfIslands;
     private int[] numberOfCalculations;
+    private int [] numberOfGeneration;
     private int[] migrationRate;
     private int[] delay;
     private String [] topology;
+    private  String date;
 
     public String epochTerminationCriterion;
     public int epochTerminationEvaluation;
@@ -21,6 +23,22 @@ public class ExperimentConfig {
     private int globalTerminationGeneration;
 
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    public int[] getNumberOfGeneration() {
+        return numberOfGeneration;
+    }
+
+    public void setNumberOfGeneration(int[] numberOfGeneration) {
+        this.numberOfGeneration = numberOfGeneration;
+    }
+    
     public String getEpochTerminationCriterion() {
         return epochTerminationCriterion;
     }

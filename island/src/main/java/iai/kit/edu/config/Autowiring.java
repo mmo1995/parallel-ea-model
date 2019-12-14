@@ -81,6 +81,15 @@ public class Autowiring {
     ConfigurationSubscriber configurationListener() {
         return new ConfigurationSubscriber();
     }
+    
+    /**
+     * Creates new EA-Readiness subscriber
+     * @return
+     */
+    @Bean
+    EAReadinessSubscriber eaReadinessSubscriber() {
+        return new EAReadinessSubscriber();
+    }
 
     /**
      * Creates new start subscriber
@@ -191,6 +200,11 @@ public class Autowiring {
     @Bean(name = "configurationTopic")
     ChannelTopic configurationTopic() {
         return new ChannelTopic(ConstantStrings.managementConfig);
+    }
+    
+    @Bean(name = "eaReadyTopic")
+    ChannelTopic eaReadyTopic() {
+        return new ChannelTopic(ConstantStrings.eaReady + "." + islandConfig().getIslandNumber());
     }
 
     @Bean(name = "startTopic")

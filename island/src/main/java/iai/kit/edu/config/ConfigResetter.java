@@ -21,6 +21,8 @@ public class ConfigResetter {
     @Autowired
     InitSubscriber initSubscriber;
     @Autowired
+    EAReadinessSubscriber eaReadinessSubscriber;
+    @Autowired
     ConfigurationSubscriber configurationSubscriber;
     @Autowired
     StopSubscriber stopSubscriber;
@@ -42,6 +44,9 @@ public class ConfigResetter {
     @Autowired
     @Qualifier("startTopic")
     ChannelTopic startTopic;
+    @Autowired
+    @Qualifier("eaReadyTopic")
+    ChannelTopic eaReadyTopic;
     @Autowired
     @Qualifier("initialPopulationTopic")
     ChannelTopic initialPopulationTopic;
@@ -70,6 +75,7 @@ public class ConfigResetter {
         container.addMessageListener(configurationSubscriber, configurationTopic);
         container.addMessageListener(stopSubscriber, stopTopic);
         container.addMessageListener(startSubscriber, startTopic);
+        container.addMessageListener(eaReadinessSubscriber, eaReadyTopic);
         container.addMessageListener(initialPopulationSubscriber, initialPopulationTopic);
         container.addMessageListener(migrationCompletedSubscriber, migrationCompletedTopic);
         container.addMessageListener(intermediatePopulationSubscriber, intermediatePopulationTopic);
@@ -80,6 +86,7 @@ public class ConfigResetter {
         container.removeMessageListener(configurationSubscriber, configurationTopic);
         container.removeMessageListener(stopSubscriber, stopTopic);
         container.removeMessageListener(startSubscriber, startTopic);
+        container.removeMessageListener(eaReadinessSubscriber, eaReadyTopic);
         container.removeMessageListener(initialPopulationSubscriber, initialPopulationTopic);
         container.removeMessageListener(migrationCompletedSubscriber, migrationCompletedTopic);
         container.removeMessageListener(intermediatePopulationSubscriber, intermediatePopulationTopic);

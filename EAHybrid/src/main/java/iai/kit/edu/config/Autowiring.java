@@ -4,6 +4,8 @@ import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.algorithm.GLEAMStarter;
 import iai.kit.edu.consumer.ConfigurationSubscriber;
 import iai.kit.edu.consumer.EAEpochSubscriber;
+import iai.kit.edu.consumer.SlaveInitializedSubscriber;
+import iai.kit.edu.producer.EAReadinessPublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -61,6 +63,7 @@ public class Autowiring {
         container.setConnectionFactory(jedisConnectionFactory());
         container.addMessageListener(eaEpochListener(), eaEpochTopic());
         container.addMessageListener(eaConfigurationListener(), eaConfigTopic());
+        container.addMessageListener(slaveInitializedListener(), slaveInitializedtopic());
         return container;
     }
 
@@ -107,10 +110,38 @@ public class Autowiring {
     EAEpochSubscriber eaEpochSubscriber() {
         return new EAEpochSubscriber();
     }
+    
+    /**
+     * Creates listener that listens to corresponding slave initializer
+     * @return
+     */
+    @Bean
+    MessageListenerAdapter slaveInitializedListener() {
+        return new MessageListenerAdapter(slaveInitializedSubscriber());
+    }
+    
+    /**
+     * Creates corresponding subscriber
+     * @return
+     */
+    @Bean
+    SlaveInitializedSubscriber slaveInitializedSubscriber() {
+        return new SlaveInitializedSubscriber();
+    }
 
     @Bean
     ChannelTopic eaEpochTopic() {
         return new ChannelTopic(ConstantStrings.epochTopic + "." + islandNumber);
+    }
+    
+    @Bean(name = "eaReadyTopic")
+    ChannelTopic eaReadyTopic() {
+    	return new ChannelTopic(ConstantStrings.eaReady + "." + islandNumber);
+    }
+    
+    @Bean(name = "slaveInitializedTopic")
+    ChannelTopic slaveInitializedtopic() {
+    	return new ChannelTopic(ConstantStrings.slaveInitialized + "." + islandNumber);
     }
 
     /**
@@ -152,6 +183,14 @@ public class Autowiring {
     @Bean
     IntermediatePopulationPublisher intermediatePopulationPublisher(){
         return new IntermediatePopulationPublisher();
+    }
+    /**
+     * Publishes the readiness state of EA to corresponding Migration & Synchronization Service
+     * @return
+     */
+    @Bean
+    EAReadinessPublisher eaReadinessPublisher() {
+    	return new EAReadinessPublisher();
     }
 
 }

@@ -20,7 +20,7 @@ public class ConstantStrings {
     public static final String fileNamePartLog = "Log";
 
     public static final String workingDirectoryString = "user.dir";
-    public static final String gleamCLV = "/gleam-esso/gleamParPopEssO_CLV";
+    public static final String gleamCLV = "/gleam-esso/gleamEssO_CLV";
 
     public static final String gleamCLVIslandNumber = "-n";
     public static final String gleamCLVPopulationSize = "-P";
@@ -41,7 +41,9 @@ public class ConstantStrings {
     public static final String intermediatePopulation = "proof.population.intermediate";
     public static final String numberOfCalculations = "proof.calculations.amount";
     public static final String numberOfCalculationsInitialized = "proof.calculations.initialized";
-
+    public static final String eaReady = "proof.ea.status.ready";
+    public static final String slaveInitialized = "proof.slave.status.initialized";
+    
     public static final String chromosomeEnding = "10000";
 
     public static final String terminationEvaluation = "evaluation";
@@ -50,6 +52,7 @@ public class ConstantStrings {
     public static final String terminationTime = "time";
 
     public static final String epochTopic = "algorithm.EA.epoch";
+    
 
     public static final String EAConfig = "algorith.EA.config";
 }
