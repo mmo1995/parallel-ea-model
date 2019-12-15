@@ -23,7 +23,7 @@ public class ConstantStrings {
     public static final String fileNamePartLog = "Log";
 
     public static final String workingDirectoryString = "user.dir";
-    public static final String gleamCLV = "/gleam-esso/gleamEssO_CLV";
+    public static final String gleamCLV = "/gleam-esso/gleamParPopEssO_CLV";
 
     public static final String gleamCLVIslandNumber = "-n";
     public static final String gleamCLVPopulationSize = "-P";

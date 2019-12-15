@@ -8,8 +8,8 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     public static void main(String[] args) {
-     int[] numberOfIslands = new int[]{2};
-     int[] numberOfSlaves = new int[] {2};
+     int[] numberOfIslands = new int[]{1};
+     int[] numberOfSlaves = new int[] {1};
      int[] populationSizes = new int[]{10};
      int[] migrationRates = new int[]{4};
      int[] generationAmount = new int[]{1};
