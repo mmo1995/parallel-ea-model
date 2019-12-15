@@ -46,6 +46,7 @@ public class ConstantStrings {
 
     public static final String neighborsSubscribed = "Neighbors subscribed";
     public static final String populationReady = "Population ready";
+    public static final String slavesReady = "Slaves ready";
 
     public static final String topologyRing = "ring";
     public static final String topologyBiRing = "biRing";

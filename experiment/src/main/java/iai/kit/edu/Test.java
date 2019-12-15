@@ -8,8 +8,8 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     public static void main(String[] args) {
-     int[] numberOfIslands = new int[]{1};
-     int[] numberOfCalculations = new int[] {2};
+     int[] numberOfIslands = new int[]{2};
+     int[] numberOfSlaves = new int[] {2};
      int[] populationSizes = new int[]{10};
      int[] migrationRates = new int[]{4};
      int[] generationAmount = new int[]{1};
@@ -31,7 +31,7 @@ public class Test {
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = new ExperimentConfig();
         experimentConfig.setNumberOfIslands(numberOfIslands);
-        experimentConfig.setNumberOfCalculations(numberOfCalculations);
+        experimentConfig.setNumberOfSlaves(numberOfSlaves);
         experimentConfig.setPopulationSize(populationSizes);
         experimentConfig.setMigrationRate(migrationRates);
         experimentConfig.setDelay(delays);

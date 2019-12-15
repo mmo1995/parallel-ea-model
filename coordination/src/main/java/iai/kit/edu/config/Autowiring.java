@@ -90,7 +90,6 @@ public class Autowiring {
         return new IntermediatePopulationSubscriber();
     }
 
-
     /**
      * Creates Redis Message Listener Container to establish subscribers to intermediate population channel
      * @return intermediate population message listener container

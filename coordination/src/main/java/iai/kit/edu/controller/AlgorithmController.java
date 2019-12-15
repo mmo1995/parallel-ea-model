@@ -53,7 +53,7 @@ public class AlgorithmController {
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = gson.fromJson(json, ExperimentConfig.class);
         int[] numberOfIslands = experimentConfig.getNumberOfIslands();
-        int[] numberOfCalculations = experimentConfig.getNumberOfCalculations();
+        int[] numberOfSlaves = experimentConfig.getNumberOfSlaves();
         int[] populationSizes = experimentConfig.getPopulationSize();
         int[] delays = experimentConfig.getDelay();
         int[] migrationRates = experimentConfig.getMigrationRate();
@@ -76,7 +76,7 @@ public class AlgorithmController {
                         for (int m = 0; m < topologies.length; m++) {
                             JobConfig jobConfigTemp = new JobConfig();
                             jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                            jobConfigTemp.setNumberOfCalculations(numberOfCalculations[i]);
+                            jobConfigTemp.setNumberOfSlaves(numberOfSlaves[i]);
                             jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
                             jobConfigTemp.setDelay(delays[k]);
                             jobConfigTemp.setMigrationRate(migrationRates[l]);

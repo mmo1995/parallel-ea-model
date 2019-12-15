@@ -88,6 +88,11 @@ public class Autowiring {
     	return new ChannelTopic(ConstantStrings.slaveInitialized + "." + islandNumber);
     }
 
+    @Bean(name = "slaveReadyTopic")
+    ChannelTopic slaveReadytopic() {
+        return new ChannelTopic(ConstantStrings.slaveReady + "." + islandNumber);
+    }
+
 
     /**
      * Creates new Chromosomeinterpreter instance
@@ -166,7 +171,10 @@ public class Autowiring {
     }
 
 
-
+    @Bean
+    SlaveReadinessPublisher slaveReadinessPublisher() {
+        return new SlaveReadinessPublisher();
+    }
 
     @Bean(name = "configurationTopic")
     ChannelTopic configurationTopic() {

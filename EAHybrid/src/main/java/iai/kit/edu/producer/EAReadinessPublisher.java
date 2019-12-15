@@ -7,7 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 
-public class EAReadinessPublisher implements ApplicationRunner {
+public class EAReadinessPublisher {
 	
 	@Autowired
 	@Qualifier("stringTemplate")
@@ -18,8 +18,8 @@ public class EAReadinessPublisher implements ApplicationRunner {
 
 
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void publish(){
+		System.out.println("Publishing EA ready:");
 		redisTemplate.convertAndSend(topic.getTopic(), "EA ready");
 	}
 

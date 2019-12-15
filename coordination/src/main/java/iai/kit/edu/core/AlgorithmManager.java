@@ -2,9 +2,8 @@ package iai.kit.edu.core;
 
 import iai.kit.edu.config.CounterResetter;
 import iai.kit.edu.config.JobConfig;
-import iai.kit.edu.controller.CalculationController;
+import iai.kit.edu.controller.SlaveController;
 import iai.kit.edu.controller.ConfigController;
-import iai.kit.edu.controller.InitializerEAController;
 import iai.kit.edu.controller.IslandController;
 import iai.kit.edu.controller.PopulationController;
 import org.slf4j.Logger;
@@ -21,7 +20,7 @@ public class AlgorithmManager {
     @Autowired
     private IslandController islandController;
     @Autowired
-    private CalculationController calculationController;
+    private SlaveController slaveController;
     @Autowired
     private ConfigController configController;
     @Autowired
@@ -37,7 +36,8 @@ public class AlgorithmManager {
     public void initialize() {
         counterResetter.resetCounters();
         islandController.createIslands(jobConfig.getNumberOfIslands());
-		calculationController.createCalculations(jobConfig.getNumberOfCalculations());
+		slaveController.createSlaves(jobConfig.getNumberOfSlaves());
+
 
     }
 

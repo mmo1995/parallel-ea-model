@@ -46,14 +46,17 @@ public class IslandReadinessController {
     private synchronized void updateCounters(String islandStatusMessage) {
         RedisAtomicInteger islandsWithPopulationCounter = new RedisAtomicInteger(ConstantStrings.islandsWithPopulationCounter, template.getConnectionFactory());
         RedisAtomicInteger islandsWithSubscribedNeighborsCounter = new RedisAtomicInteger(ConstantStrings.islandsWithSubscribedNeighborsCounter, template.getConnectionFactory());
+        RedisAtomicInteger islandsWithReadySlavesCounter = new RedisAtomicInteger(ConstantStrings.islandsWithReadySlavesCounter, template.getConnectionFactory());
         if (islandStatusMessage.equals(ConstantStrings.populationReady)) {
             islandsWithPopulationCounter.incrementAndGet();
         } else if (islandStatusMessage.equals(ConstantStrings.neighborsSubscribed)) {
             islandsWithSubscribedNeighborsCounter.incrementAndGet();
+        } else if (islandStatusMessage.equals(ConstantStrings.slavesReady)) {
+            islandsWithReadySlavesCounter.incrementAndGet();
         }
         RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, template.getConnectionFactory());
         int numberOfIslands = numberOfIslandsCounter.get();
-        if (islandsWithPopulationCounter.get() == numberOfIslands && islandsWithSubscribedNeighborsCounter.get() == numberOfIslands) {
+        if (islandsWithPopulationCounter.get() == numberOfIslands && islandsWithSubscribedNeighborsCounter.get() == numberOfIslands && islandsWithReadySlavesCounter.get() == numberOfIslands) {
             resultController.reset();
             logger.info("starting islands");
             startPublisher.publish("start evolution");

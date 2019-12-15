@@ -11,6 +11,7 @@ public class ConstantStrings {
 
     public static final String islandsWithPopulationCounter = "proof.islands.population.initialized";
     public static final String islandsWithSubscribedNeighborsCounter = "proof.islands.neighbors.subscribed";
+    public static final String islandsWithReadySlavesCounter = "proof.islands.slaves.ready";
     public static final String receivedResultsCounter = "proof.results";
     public static final String numberOfIslands = "proof.island.amount";
     public static final String managementConfig = "proof.management.config";
@@ -23,5 +24,6 @@ public class ConstantStrings {
 
     public static final String neighborsSubscribed = "Neighbors subscribed";
     public static final String populationReady = "Population ready";
+    public static final String slavesReady = "Slaves ready";
 
 }

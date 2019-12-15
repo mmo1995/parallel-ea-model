@@ -1,4 +1,7 @@
 package iai.kit.edu.config;
+
+import org.springframework.beans.factory.annotation.Value;
+
 public class ConstantStrings {
 
     /**
@@ -39,10 +42,12 @@ public class ConstantStrings {
     public static final String gleamDelay = "-x";
 
     public static final String intermediatePopulation = "proof.population.intermediate";
-    public static final String numberOfCalculations = "proof.calculations.amount";
-    public static final String numberOfCalculationsInitialized = "proof.calculations.initialized";
+    public static final String numberOfSlaves = "proof.slaves.amount";
+    public static final String numberOfSlavesInitialized = "proof.slaves.initialized";
+    public static final String numberOfSlavesReady = "proof.slaves.ready";
     public static final String eaReady = "proof.ea.status.ready";
     public static final String slaveInitialized = "proof.slave.status.initialized";
+    public static final String slaveReady = "proof.slave.status.ready";
     
     public static final String chromosomeEnding = "10000";
 

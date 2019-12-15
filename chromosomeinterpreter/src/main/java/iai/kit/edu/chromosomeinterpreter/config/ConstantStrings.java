@@ -19,6 +19,7 @@ public class ConstantStrings {
     
     public static final String calculationInitialized= "proof.calculation.status.initialized";
     public static final String slaveInitialized = "proof.slave.status.initialized";
+    public static final String slaveReady = "proof.slave.status.ready";
 
 
 

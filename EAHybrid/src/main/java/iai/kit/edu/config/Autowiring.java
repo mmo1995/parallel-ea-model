@@ -2,9 +2,7 @@ package iai.kit.edu.config;
 
 import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.algorithm.GLEAMStarter;
-import iai.kit.edu.consumer.ConfigurationSubscriber;
-import iai.kit.edu.consumer.EAEpochSubscriber;
-import iai.kit.edu.consumer.SlaveInitializedSubscriber;
+import iai.kit.edu.consumer.*;
 import iai.kit.edu.producer.EAReadinessPublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,6 +49,15 @@ public class Autowiring {
     AlgorithmStarter algorithmStarter() {
         return new GLEAMStarter(workspacePath());
     }
+
+    /**
+     * Creates SlaveConfig
+     * @return
+     */
+    @Bean
+    SlavesConfig slavesConfig() {
+        return new SlavesConfig();
+    }
     
 
     /**
@@ -64,6 +71,8 @@ public class Autowiring {
         container.addMessageListener(eaEpochListener(), eaEpochTopic());
         container.addMessageListener(eaConfigurationListener(), eaConfigTopic());
         container.addMessageListener(slaveInitializedListener(), slaveInitializedtopic());
+        container.addMessageListener(slaveReadinessListener(), slaveReadyTopic());
+        container.addMessageListener(numberOfSlavesListener(), numberOfSlavesTopic());
         return container;
     }
 
@@ -94,6 +103,18 @@ public class Autowiring {
     }
 
     /**
+     * Creates integer template for integers stored in Redis
+     * @return integer template
+     */
+    @Bean(name = "integerTemplate")
+    public RedisTemplate<String, Integer> integerTemplate() {
+        final RedisTemplate<String, Integer> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+
+        return template;
+    }
+
+    /**
      * Creates listener that listens to corresponding Migration & Synchronization Service to start epochs
      * @return
      */
@@ -112,12 +133,30 @@ public class Autowiring {
     }
     
     /**
-     * Creates listener that listens to corresponding slave initializer
+     * Creates listener that listens to corresponding slave initialized publisher
      * @return
      */
     @Bean
     MessageListenerAdapter slaveInitializedListener() {
         return new MessageListenerAdapter(slaveInitializedSubscriber());
+    }
+
+    /**
+     * Creates listener that listens to corresponding slave readiness publisher
+     * @return
+     */
+    @Bean
+    MessageListenerAdapter slaveReadinessListener() {
+        return new MessageListenerAdapter(slaveReadinessSubscriber());
+    }
+
+    /**
+     * Creates listener that listens to corresponding numberOfSlaves publisher
+     * @return
+     */
+    @Bean
+    MessageListenerAdapter numberOfSlavesListener() {
+        return new MessageListenerAdapter(numberOfSlavesSubscriber());
     }
     
     /**
@@ -129,6 +168,24 @@ public class Autowiring {
         return new SlaveInitializedSubscriber();
     }
 
+    /**
+     * Creates corresponding subscriber
+     * @return
+     */
+    @Bean
+    SlaveReadinessSubscriber slaveReadinessSubscriber() {
+        return new SlaveReadinessSubscriber();
+    }
+
+    /**
+     * Creates corresponding subscriber
+     * @return
+     */
+    @Bean
+    NumberOfSlavesSubscriber numberOfSlavesSubscriber() {
+        return new NumberOfSlavesSubscriber();
+    }
+
     @Bean
     ChannelTopic eaEpochTopic() {
         return new ChannelTopic(ConstantStrings.epochTopic + "." + islandNumber);
@@ -138,10 +195,30 @@ public class Autowiring {
     ChannelTopic eaReadyTopic() {
     	return new ChannelTopic(ConstantStrings.eaReady + "." + islandNumber);
     }
+
+    @Bean(name = "slaveReadyTopic")
+    ChannelTopic slaveReadyTopic() {
+        return new ChannelTopic(ConstantStrings.slaveReady + "." + islandNumber);
+    }
     
     @Bean(name = "slaveInitializedTopic")
     ChannelTopic slaveInitializedtopic() {
     	return new ChannelTopic(ConstantStrings.slaveInitialized + "." + islandNumber);
+    }
+
+    @Bean(name = "numberOfSlavesInitializedString")
+    String numberOfSlavesInitializedString() {
+        return ConstantStrings.numberOfSlavesInitialized + "." + islandNumber;
+    }
+
+    @Bean(name = "numberOfSlavesReadyString")
+    String numberOfSlavesReadyString() {
+        return ConstantStrings.numberOfSlavesReady + "." + islandNumber;
+    }
+
+    @Bean(name = "numberOfSlavesTopic")
+    ChannelTopic numberOfSlavesTopic() {
+        return new ChannelTopic(ConstantStrings.numberOfSlaves);
     }
 
     /**

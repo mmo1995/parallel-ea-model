@@ -14,15 +14,16 @@ import org.springframework.web.client.RestTemplate;
 
 @CrossOrigin(origins = "*")
 @Component
-public class CalculationController {
+public class SlaveController {
 
     private RestTemplate restTemplate = new RestTemplate();
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public void createCalculations(int numberOfCalculations){
-        logger.info("creating calculations");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/calculations", numberOfCalculations, String.class);
+
+    public void createSlaves(int numberOfSlaves){
+        logger.info("creating slaves");
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/slaves", numberOfSlaves, String.class);
     }
 }

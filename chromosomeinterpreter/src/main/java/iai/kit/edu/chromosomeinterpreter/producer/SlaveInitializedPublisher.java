@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -21,7 +23,7 @@ import iai.kit.edu.chromosomeinterpreter.config.ConstantStrings;
 import iai.kit.edu.chromosomeinterpreter.config.IslandConfig;
 import iai.kit.edu.chromosomeinterpreter.core.Chromosomeinterpreter;
 
-public class SlaveInitializedPublisher {
+public class SlaveInitializedPublisher implements ApplicationRunner {
 	
     private RestTemplate restTemplate = new RestTemplate();
     @Autowired
@@ -46,14 +48,14 @@ public class SlaveInitializedPublisher {
 	@Autowired
 	@Qualifier("slaveInitializedTopic")
 	private ChannelTopic topic;
-	
-    public void publish() throws IOException {
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         String pathGeneration = "./files/generation.txt";
         String pathConsumtion = "./files/consumption.txt";
         chromosomeinterpreter.getGeneration = new String(Files.readAllBytes(Paths.get(pathGeneration)), "UTF-8");
         chromosomeinterpreter.getConsumption = new String(Files.readAllBytes(Paths.get(pathConsumtion)), "UTF-8");
-        redisTemplate.convertAndSend(topic.getTopic(), "Slave ready " + slaveNumber);
+        configResetter.initialize();
+        redisTemplate.convertAndSend(topic.getTopic(), "Slave initialized " + slaveNumber);
     }
-
 }
