@@ -3,6 +3,7 @@ package iai.kit.edu.controller;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
+import iai.kit.edu.producer.SlaveNumberPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class IslandInitializedController {
     @Autowired
     private AlgorithmManager algorithmManager;
     @Autowired
+    private SlaveNumberPublisher slaveNumberPublisher;
+    @Autowired
     private JobConfig jobConfig;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,6 +41,7 @@ public class IslandInitializedController {
         if (initializedIslands == jobConfig.getNumberOfIslands()) {
             logger.info("islands initialized");
             algorithmManager.sendConfig();
+            slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
         }
     }
 

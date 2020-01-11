@@ -22,6 +22,8 @@ import java.util.List;
 public class AlgorithmController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private long endTime = 0;
+    private int jobId = 0;
     @Autowired
     private AlgorithmManager algorithmManager;
     @Autowired

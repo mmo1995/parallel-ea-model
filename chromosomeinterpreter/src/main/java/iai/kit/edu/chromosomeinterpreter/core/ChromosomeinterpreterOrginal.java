@@ -3,7 +3,6 @@ package iai.kit.edu.chromosomeinterpreter.core;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import com.google.gson.*;
 
@@ -23,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 
-public class Chromosomeinterpreter {
+public class ChromosomeinterpreterOrginal {
     @Autowired
     private Gson gson;
     private String rest;
@@ -45,8 +44,8 @@ public class Chromosomeinterpreter {
 
     long startTime;
     long endTime;
-    double jobDuration;
-    double generationduration;
+    long jobDuration;
+    long generationduration;
 
     private RedisAtomicInteger amountOfGeneration;
     private int numberOfGenerationOfOneJob;
@@ -77,11 +76,13 @@ public class Chromosomeinterpreter {
         List<String> listOfChromosoms = new ArrayList<String>();
 
         /********************** Start isolation of each chromosome in one list slot*/
-        if (numberOfChromosomes == 1) {
+        if (numberOfChromosomes == 1)
+        {
             listOfChromosoms.add(0, rest);
             logger.info("Best Chromosome is received");
 
-        } else {
+        }
+        else {
             long startTime1 = System.currentTimeMillis();
 
             int thirdNumberOfSecondline = 0;
@@ -103,42 +104,11 @@ public class Chromosomeinterpreter {
             }
             long endTime1 = System.currentTimeMillis();
             long generationduration1 = (endTime1 - startTime1);
-            // logger.info("the time taken to isolation each chromosome in one list is " + generationduration1 + " Milli Second");
+            logger.info("the time taken to isolation each chromosome in one list is " + generationduration1 + " Milli Second");
 
         }
         /********************** End of isolation each chromosome in one list slot*/
-        listSchedulingPlan = new ArrayList<>(listOfChromosoms.size());
-        long startTime3 = System.currentTimeMillis();
-        listOfChromosoms.stream().parallel().forEach(chromosome -> {
-            try {
-                interpreterParallelChromosome(chromosome);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
-        long endTime3 = System.currentTimeMillis();
-        long generationduration1 = (endTime3 - startTime3);
-        logger.info("the time taken to interpretation all chromosomes  is " + generationduration1 + " Milli Second");
-
-        gson = new Gson();
-        String jsonInString = gson.toJson(listSchedulingPlan);
-        eaEpochPublisher.publishEAEpochConfig(jsonInString);
-        if  (listSchedulingPlan.size() == 1)
-        {
-            buildingFinalPlan (listSchedulingPlan);
-            // FileUtils.writeStringToFile(new File("/home/ws/na8117/Schreibtisch/Intermed_SchedulingOnline_V3_Redis/chromosomeinterpreter/A1.json"), jsonInString);
-
-        }
-        listSchedulingPlan = new ArrayList<>();
-        endTime = System.currentTimeMillis();
-        generationduration = TimeUnit.MILLISECONDS.toMinutes(endTime - startTime);
-        caculateDuration(generationduration);
-    }
-
-    public void interpreterParallelChromosome (String chromosome) throws IOException {
-
-        List<SchedulingPlan> listSchedulingPlanTemp = new ArrayList<>();
         String[] genes;
         List<Integer> resources;
         int indexOfFirstWhiteSpaceFirst = 0;
@@ -157,63 +127,10 @@ public class Chromosomeinterpreter {
         ResourcePlan resourcePlan;
         List<ResourcePlan> listResourcePlan;
         SchedulingPlan schedulingPlan;
-        schedulingPlan = new SchedulingPlan();
-        resources = new ArrayList<>();
+        listSchedulingPlan = new ArrayList<>(listOfChromosoms.size());
+        long startTime3 = System.currentTimeMillis();
 
-        genes = chromosome.split("\n"); // genes of the k-th chromosome
-        indexOfFirstWhiteSpace = StringUtils.ordinalIndexOf(genes[0], " ", 1);
-        indexOfSecondWhiteSpace = StringUtils.ordinalIndexOf(genes[0], " ", 2);
-        chromosomeID = Integer.parseInt((genes[0].substring(indexOfResourceID, indexOfFirstWhiteSpace)).replaceAll("\\s+", ""));
-        childID = Integer.parseInt((genes[0].substring(indexOfFirstWhiteSpace, indexOfSecondWhiteSpace)).replaceAll("\\s+", ""));
-        schedulingPlan.setplanID(chromosomeID);
-        schedulingPlan.setChildID(childID);
-        for (int r = 1; r < genes.length; r++) //for each gene in the chromosome to find the unique of resources
-        {
-            indexOfFirstWhiteSpaceFirst = StringUtils.ordinalIndexOf(genes[r], " ", 1);
-            resourceID = Integer.parseInt(genes[r].substring(indexOfResourceID, indexOfFirstWhiteSpaceFirst));
-            if (!resources.contains(resourceID)) {
-                resources.add(resourceID);
-            }
-        }
-
-        listResourcePlan = new ArrayList<>();
-        for (int t = 0; t < resources.size(); t++) {
-            resourcePlan = new ResourcePlan();
-            resourcePlan.setresourceID(resources.get(t));
-            resourcePlan.setPowerFraction(setPowerFractionInside(new float[24], 0, 23, 0, 0));
-            listResourcePlan.add(resourcePlan);
-        }
-
-        for (int r = 1; r < genes.length; r++) {
-            indexOfFirstWhiteSpaceFirst = StringUtils.ordinalIndexOf(genes[r], " ", 1);
-            indexOfFirstWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 2);
-            indexOfSecondWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 3);
-            indexOfThirdWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 4);
-            indexOfEndPowerFraction = genes[r].length();
-
-            resourceID = Integer.parseInt(genes[r].substring(indexOfResourceID, indexOfFirstWhiteSpaceFirst));
-            startHour = Integer.parseInt(genes[r].substring(indexOfFirstWhiteSpace + 1, indexOfSecondWhiteSpace));
-            duration = Integer.parseInt(genes[r].substring(indexOfSecondWhiteSpace + 1, indexOfThirdWhiteSpace));
-            powerFraction = Float.parseFloat(genes[r].substring(indexOfThirdWhiteSpace + 1, indexOfEndPowerFraction));
-            endHour = startHour + duration;
-            if (endHour > 24) {
-                endHour = 24;
-                //System.out.println("\n *******Start + endHour > 23**********" + "  " + endHour);
-            }
-
-            for (int ll = 0; ll < listResourcePlan.size(); ll++) {
-                if (resourceID == listResourcePlan.get(ll).getresourceID()) {
-
-                    listResourcePlan.get(ll).setPowerFraction(setPowerFractionInside(listResourcePlan.get(ll).getPowerFraction(), startHour, endHour, powerFraction, resourceID));
-                }
-            }
-
-        }
-        schedulingPlan.setResourcePlan(listResourcePlan);
-        listSchedulingPlan.add(schedulingPlan);
-
-
-      /*  for (int k = 0; k < listOfChromosoms.size();k++) {
+        for (int k = 0; k < listOfChromosoms.size();k++) {
 
             schedulingPlan = new SchedulingPlan();
             resources = new ArrayList<>();
@@ -259,18 +176,35 @@ public class Chromosomeinterpreter {
                     //System.out.println("\n *******Start + endHour > 23**********" + "  " + endHour);
                 }
 
-                    for (int ll = 0; ll < listResourcePlan.size(); ll++) {
-                        if (resourceID == listResourcePlan.get(ll).getresourceID()) {
+                for (int ll = 0; ll < listResourcePlan.size(); ll++) {
+                    if (resourceID == listResourcePlan.get(ll).getresourceID()) {
 
-                            listResourcePlan.get(ll).setPowerFraction(setPowerFractionInside(listResourcePlan.get(ll).getPowerFraction(), startHour, endHour, powerFraction, resourceID));
-                        }
+                        listResourcePlan.get(ll).setPowerFraction(setPowerFractionInside(listResourcePlan.get(ll).getPowerFraction(), startHour, endHour, powerFraction, resourceID));
                     }
+                }
 
             }
             schedulingPlan.setResourcePlan(listResourcePlan);
             listSchedulingPlan.add(schedulingPlan);
-        }*/
+        }
 
+        long endTime3 = System.currentTimeMillis();
+        long generationduration1 = (endTime3 - startTime3);
+        logger.info("the time taken to interpretation all chromosomes  is " + generationduration1 + " Milli Second");
+
+        gson = new Gson();
+        String jsonInString = gson.toJson(listSchedulingPlan);
+        eaEpochPublisher.publishEAEpochConfig(jsonInString);
+        if  (listSchedulingPlan.size() == 1)
+        {
+            buildingFinalPlan (listSchedulingPlan);
+            // FileUtils.writeStringToFile(new File("/home/ws/na8117/Schreibtisch/Intermed_SchedulingOnline_V3_Redis/chromosomeinterpreter/A1.json"), jsonInString);
+
+        }
+        listSchedulingPlan = new ArrayList<>(listOfChromosoms.size());
+        endTime = System.currentTimeMillis();
+        generationduration = TimeUnit.MILLISECONDS.toMinutes(endTime - startTime);
+        caculateDuration(generationduration);
     }
 
     public  float [] setPowerFractionInside (float [] powerFr,int start, int end, float pf, int resID) throws IOException {
@@ -364,7 +298,7 @@ public class Chromosomeinterpreter {
         logger.info("sending the final plan");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/finalplan", jsonInString, String.class);
     }
-    public void caculateDuration(double durationPar)
+    public void caculateDuration(long durationPar)
     {
         actualNumberOfGenerationOfOneJob++;
         jobDuration = jobDuration + durationPar;
@@ -388,6 +322,6 @@ public class Chromosomeinterpreter {
     }
 
     public void setDate(String date) {
-        Chromosomeinterpreter.date = date;
+        this.date = date;
     }
 }

@@ -3,6 +3,7 @@ package iai.kit.edu.config;
 import iai.kit.edu.consumer.IntermediatePopulationSubscriber;
 import iai.kit.edu.controller.InitializerEAController;
 import iai.kit.edu.core.AlgorithmManager;
+import iai.kit.edu.producer.SlaveNumberPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -131,6 +132,15 @@ public class Autowiring {
     }
 
     /**
+     * Creates new SlaveNumberPublisher
+     * @return new SlaveNumberPublisher
+     */
+    @Bean
+    SlaveNumberPublisher slaveNumberPublisher(){
+        return new SlaveNumberPublisher();
+    }
+
+    /**
      * Creates empty jobconfig
      * @return job configuration
      */
@@ -156,6 +166,5 @@ public class Autowiring {
     InitializerEAController initializerEAController() {
         return new InitializerEAController();
     }
-
 
 }

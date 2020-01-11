@@ -11,10 +11,11 @@ public class Test {
      int[] numberOfIslands = new int[]{1};
      int[] numberOfSlaves = new int[] {1};
      int[] populationSizes = new int[]{10};
-     int[] migrationRates = new int[]{4};
+     int[] migrationRates = new int[]{1};
      int[] generationAmount = new int[]{1};
      int[] delays = new int[]{0};
-     String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
+     //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
+        String[] topologies = new String[]{"ring"};
 
      String date = "2013-01-01";
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation

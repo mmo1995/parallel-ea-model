@@ -19,7 +19,6 @@ app = Flask(__name__)
 r = redis.StrictRedis(host='localhost', port=6379)
 
 number_of_islands_key = 'proof.island.amount'
-number_of_slaves_key = 'proof.slaves.amount'
 initialize_islands_channel = 'proof.management.initialize.islands'
 
 JOB_NAME = "island-job"
@@ -46,8 +45,6 @@ def create_islands():
 @app.route('/com/create/slaves', methods=['POST'])
 def create_calculations():
     number_of_slaves = request.json
-    r.set(number_of_slaves_key, number_of_slaves)
-    r.publish(number_of_slaves_key, number_of_slaves)
     logging.info("Pod created. status='%s'" % str(number_of_slaves))
     #Uncomment the following lines to execute this service in a cluster to dynamically create Pods for the
     #islands. Names and configurations have also to be adjusted to dynamically create Pods for the

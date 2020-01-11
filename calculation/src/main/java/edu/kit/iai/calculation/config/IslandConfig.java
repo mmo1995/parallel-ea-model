@@ -10,8 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 public class IslandConfig {
     //Island number, should be set as command line parameter --island.number=x
-    //@Value("${island.number}")
-    @Value("1")
+    @Value("${island.number}")
+    //@Value("1")
 
     private String islandNumber;
     private RedisTemplate<String, Integer> template;

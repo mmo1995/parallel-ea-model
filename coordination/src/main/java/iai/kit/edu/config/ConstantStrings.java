@@ -31,6 +31,8 @@ public class ConstantStrings {
 
     public static final String intermediatePopulation = "proof.population.intermediate";
 
+    public static final String numberOfSlavesTopic = "proof.slaves.amount";
+
     public static final String topologyRing = "ring";
     public static final String topologyBiRing = "biRing";
     public static final String topologyLadder = "ladder";

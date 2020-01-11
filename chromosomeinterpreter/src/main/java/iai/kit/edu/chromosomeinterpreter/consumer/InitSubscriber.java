@@ -34,7 +34,7 @@ public class InitSubscriber implements MessageListener {
 
     @Autowired
     static Chromosomeinterpreter chromosomeinterpreter;
-    
+
 	@Autowired
 	SlaveInitializedPublisher slaveInitializedPublisher;
 

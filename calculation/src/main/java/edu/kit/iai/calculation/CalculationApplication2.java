@@ -39,9 +39,5 @@ public class CalculationApplication2 {
         calculation.getConsumption = new String(Files.readAllBytes(Paths.get(pathConsumtion)), "UTF-8");
 
     }
-    
-    public static void stop() {
-        ctx.close();
-    }
 
 }
