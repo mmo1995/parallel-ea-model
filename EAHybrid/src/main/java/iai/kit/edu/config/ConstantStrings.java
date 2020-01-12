@@ -7,6 +7,9 @@ public class ConstantStrings {
     /**
      * Stores application relevant Strings
      */
+
+    public static final String starter = "localhost:8090";
+
     public static final String islandPath = "./gleam-esso/testfeld/island/";
 
     public static final String initialPopulationCalculatedFileName = "initialChromosomeSet.aks";

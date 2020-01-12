@@ -42,6 +42,8 @@ public class ResultController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    public static int actualNumberOfGenerationOfOneJob = 0;
+
 
     /**
      * Called by all islands to send partial results

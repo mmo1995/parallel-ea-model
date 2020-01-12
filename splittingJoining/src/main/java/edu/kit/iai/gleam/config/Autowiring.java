@@ -2,6 +2,7 @@ package edu.kit.iai.gleam.config;
 
 import edu.kit.iai.gleam.producer.ConfigurationAvailablePublisher;
 import edu.kit.iai.gleam.producer.InitialPopulationPublisher;
+import edu.kit.iai.gleam.producer.SlavesPopulationPublisher;
 import edu.kit.iai.gleam.producer.StartPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -91,6 +92,15 @@ public class Autowiring {
     @Bean
     ConfigurationAvailablePublisher configurationAvailablePublisher() {
         return new ConfigurationAvailablePublisher();
+    }
+
+    /**
+     * Creates new Slaves Population Publisher
+     * @return SlavesPopulationPublisher
+     */
+    @Bean
+    SlavesPopulationPublisher slavesPopulationPublisher() {
+        return new SlavesPopulationPublisher();
     }
 
     @Bean(name = "startTopic")

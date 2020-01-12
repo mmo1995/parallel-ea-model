@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Receives the initial population
  */
-public class InitialPopulationSubscriber implements MessageListener {
+public class SlavePopulationSubscriber implements MessageListener {
 
     @Autowired
     RedisTemplate<String, String> stringRedisTemplate;
@@ -40,7 +40,7 @@ public class InitialPopulationSubscriber implements MessageListener {
 
         ValueOperations<String, String> ops = this.stringRedisTemplate.opsForValue();
 
-            String initialPopulationJson = ops.get(ConstantStrings.initialPopulation + "." + islandConfig.getIslandNumber());
+            String initialPopulationJson = ops.get(ConstantStrings.slavePopulation + "." + islandConfig.getIslandNumber() + "." + islandConfig.getSlaveNumber());
             try {
                 //  System.out.print("I have recieved a new Chromosomes list with " + initialPopulationJson );
                 chromosomeiInt.mainChromosomeInterpreter(initialPopulationJson);

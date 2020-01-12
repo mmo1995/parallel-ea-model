@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,7 +29,8 @@ public class EAEpochSubscriber implements MessageListener {
 	@Autowired
 	AlgorithmStarter algorithmStarter;
 
-
+	@Value("${island.number}")
+	private int islandNumber;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -63,6 +65,7 @@ public class EAEpochSubscriber implements MessageListener {
 		algorithmStarter.setDelay(eaEpochConfig.getDelay());
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationIntialFile);
+		this.sendIslandNumber();
 		algorithmStarter.start();
 		this.eaEpochConfig.getPopulation().read(populationFile);
 		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
@@ -85,5 +88,10 @@ public class EAEpochSubscriber implements MessageListener {
 			algorithmStarter.setTerminationTime(eaEpochConfig.getEpochTerminationTime());
 			break;
 		}
+	}
+
+	private void sendIslandNumber(){
+		ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + ConstantStrings.starter + "/opt/island/number", islandNumber,String.class);
+
 	}
 }

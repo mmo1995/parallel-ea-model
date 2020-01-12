@@ -25,5 +25,10 @@ public class ConstantStrings {
     public static final String neighborsSubscribed = "Neighbors subscribed";
     public static final String populationReady = "Population ready";
     public static final String slavesReady = "Slaves ready";
+    public static final String numberOfSlavesTopic = "proof.slaves.amount";
+    public static final String slavePopulation = "proof.population.slave";
+
+    public static final String gleamConfigurationsGeneration = "proof.gleam.generation"; // used to differ between best chromosome and others
+
 
 }

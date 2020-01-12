@@ -11,7 +11,7 @@ public class ConstantStrings {
     public static final String managementConfig = "proof.management.config";
     public static final String statusMigrationCompleted = "proof.island.status.migration.completed";
     public static final String initializeIslands = "proof.management.initialize.islands";
-    public static final String initialPopulation = "proof.population.initial";
+    public static final String slavePopulation = "proof.population.slave";
     public static final String intermediatePopulation = "proof.population.intermediate";
     public static final String gleamConfigurationsGeneration = "proof.gleam.generation";
     public static final String dateForScheduling = "proof.date";

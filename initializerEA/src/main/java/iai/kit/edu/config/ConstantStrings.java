@@ -30,7 +30,7 @@ public class ConstantStrings {
     public static final String gleamCLVInitiStrategyFile = "-Ifile";
     public static final String gleamCLVInitStrategyMix = "-Imix";
     public static final String gleamCLVInitStrategyBestNew = "-IbestNeu";
-    public static final String gleamCLVInitStrategyNew = "-Ibest";
+    public static final String gleamCLVInitStrategyNew = "-Ineu";
     public static final String gleamCLVInitializationParameter = "-i";
     public static final String gleamCLVTerminationEvaluation = "-E";
     public static final String gleamCLVTerminationFitness = "-F";

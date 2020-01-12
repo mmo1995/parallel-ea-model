@@ -1,10 +1,7 @@
 package iai.kit.edu.chromosomeinterpreter.config;
 
-import iai.kit.edu.chromosomeinterpreter.consumer.CalculationInitializedSubscriber;
-import iai.kit.edu.chromosomeinterpreter.consumer.DateSubscriber;
-import iai.kit.edu.chromosomeinterpreter.consumer.InitSubscriber;
-import iai.kit.edu.chromosomeinterpreter.consumer.InitialPopulationSubscriber;
-import iai.kit.edu.chromosomeinterpreter.consumer.StopSubscribe;
+import iai.kit.edu.chromosomeinterpreter.consumer.*;
+import iai.kit.edu.chromosomeinterpreter.consumer.SlavePopulationSubscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +19,13 @@ public class ConfigResetter {
     @Autowired
     InitSubscriber initSubscriber;
     @Autowired
-    InitialPopulationSubscriber initialPopulationSubscriber;
+    SlavePopulationSubscriber slavePopulationSubscriber;
     @Autowired
     @Qualifier("initializeIslandsTopic")
     ChannelTopic initializeIslandsTopic;
     @Autowired
-    @Qualifier("initialPopulationTopic")
-    ChannelTopic initialPopulationTopic;
+    @Qualifier("slavePopulationTopic")
+    ChannelTopic slavePopulationTopic;
     
     @Autowired
     @Qualifier("calculationInitializedTopic")
@@ -57,7 +54,7 @@ public class ConfigResetter {
     public void initialize() {
         logger.info("initializing chromosomeinterpreter");
         container.addMessageListener(initSubscriber, initializeIslandsTopic); // need if the container is already existed
-        container.addMessageListener(initialPopulationSubscriber, initialPopulationTopic); // read the sub population to be interpreted
+        container.addMessageListener(slavePopulationSubscriber, slavePopulationTopic); // read the sub population to be interpreted
         container.addMessageListener(dateSubscriber,dateTopic); // get the date to be scheduled
         container.addMessageListener(calculationInitializedSubscriber, calculationInitializedTopic);
         //container.addMessageListener(stopSubscribe,stopSubschribingTopic); // get the date to be scheduled
@@ -65,7 +62,7 @@ public class ConfigResetter {
 
     public void reset() {
         logger.info("resetting chromosomeinterpreter");
-        container.removeMessageListener(initialPopulationSubscriber, initialPopulationTopic);
+        container.removeMessageListener(slavePopulationSubscriber, slavePopulationTopic);
         container.removeMessageListener(dateSubscriber, dateTopic);
         container.removeMessageListener(calculationInitializedSubscriber, calculationInitializedTopic);
         //container.removeMessageListener(stopSubscribe,stopSubschribingTopic);

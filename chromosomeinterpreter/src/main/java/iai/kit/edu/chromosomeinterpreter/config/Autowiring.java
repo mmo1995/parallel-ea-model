@@ -127,12 +127,12 @@ public class Autowiring {
     }
 
     /**
-     * Creates new initial population subscriber
+     * Creates new slave population subscriber
      * @return
      */
     @Bean
-    InitialPopulationSubscriber initialPopulationSubscriber() {
-        return new InitialPopulationSubscriber();
+    SlavePopulationSubscriber slavePopulationSubscriber() {
+        return new SlavePopulationSubscriber();
     }
     
     /**
@@ -193,9 +193,9 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.initializeIslands);
     }
 
-    @Bean(name = "initialPopulationTopic")
-    ChannelTopic initialPopulationTopic() {
-        return new ChannelTopic(ConstantStrings.initialPopulation+ "." + islandConfig().getIslandNumber());
+    @Bean(name = "slavePopulationTopic")
+    ChannelTopic slavePopulationTopic() {
+        return new ChannelTopic(ConstantStrings.slavePopulation+ "." + islandConfig().getIslandNumber() + "." + islandConfig().getSlaveNumber());
     }
 
     @Bean(name = "intermediatePopulationTopic")
