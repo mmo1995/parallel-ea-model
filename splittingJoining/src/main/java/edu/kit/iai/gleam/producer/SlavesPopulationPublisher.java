@@ -23,7 +23,7 @@ public class SlavesPopulationPublisher {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void publish(String message, String islandNumber,int slaveNumber) {
+    public void publish(String message, int islandNumber,int slaveNumber) {
         // logger.info ("publishing in " + initialPopulationTopic.getTopic() + "." + channelID + message );
         template.convertAndSend(ConstantStrings.slavePopulation + "." +  islandNumber + "." + slaveNumber, message);
     }

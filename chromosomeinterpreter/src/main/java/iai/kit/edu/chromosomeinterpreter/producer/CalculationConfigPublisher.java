@@ -14,7 +14,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 /**
  * Publishes configuration for one epoch to the EA Service
  */
-public class EAEpochPublisher {
+public class CalculationConfigPublisher {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -22,12 +22,16 @@ public class EAEpochPublisher {
     IslandConfig islandConfig;
 
     @Autowired
+    @Qualifier("calculationConfigTopic")
+    ChannelTopic calculationConfigTopic;
+
+    @Autowired
     @Qualifier("stringTemplate")
     RedisTemplate<String, String> stringTemplate;
 
 
-    public void publishEAEpochConfig(String populationPart) {
-        ChannelTopic topic = new ChannelTopic(ConstantStrings.epochTopic + "." + islandConfig.getIslandNumber());
+    public void publishCalculationConfig(String populationPart) {
+        ChannelTopic topic = calculationConfigTopic;
         Gson gson = new Gson();
 
         String populationPartJSON = gson.toJson(populationPart);

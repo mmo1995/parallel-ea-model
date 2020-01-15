@@ -6,9 +6,9 @@ public class ConstantStrings {
      */
 
     public static final String resultPopulation = "proof.result";
-    public static final String epochTopic = "algorithm.EA.epoch";
-    public static final String splittingJoiningURL = "http://localhost:8070";
-    //public static final String splittingJoiningURL = "http://splitting-joining:8070";
+    public static final String calculationConfigTopic = "proof.calculation.config";
+    public static final String splittingJoiningURL = "http://localhost:8074";
+    //public static final String splittingJoiningURL = "http://splitting-joining:8074";
     public static final String gleamConfigurationsGeneration = "proof.gleam.generation";
     public static final String dateForScheduling = "proof.date";
     public static final String stopSubscribing = "proof.stop.subscribe";

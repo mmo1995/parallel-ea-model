@@ -24,7 +24,7 @@ public class ConstantStrings {
 
 
  public static final String populationReady = "Population ready";
-    public static final String epochTopic = "algorithm.EA.epoch";
+ public static final String calculationConfigTopic = "proof.calculation.config";
 
 
 }

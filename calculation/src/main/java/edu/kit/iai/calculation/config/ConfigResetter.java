@@ -1,7 +1,7 @@
 package edu.kit.iai.calculation.config;
 
+import edu.kit.iai.calculation.consumer.CalculationConfigSubscriber;
 import edu.kit.iai.calculation.consumer.DateSubscriber;
-import edu.kit.iai.calculation.consumer.EAEpochSubscriber;
 import edu.kit.iai.calculation.consumer.InitSubscriber;
 import edu.kit.iai.calculation.consumer.StopSubscribe;
 import org.slf4j.Logger;
@@ -24,8 +24,8 @@ public class ConfigResetter implements ApplicationRunner {
     @Qualifier("initializeCalculationTopic")
     ChannelTopic initializeCalculationTopic;
     @Autowired
-    @Qualifier("eaEpochTopic")
-    ChannelTopic eaEpochTopic;
+    @Qualifier("calculationConfigTopic")
+    ChannelTopic calculationConfigTopic;
     @Autowired
     @Qualifier("dateTopic")
     ChannelTopic dateTopic;
@@ -37,7 +37,7 @@ public class ConfigResetter implements ApplicationRunner {
     @Autowired
     StopSubscribe stopSubscribe;
     @Autowired
-    EAEpochSubscriber eaEpochSubscriber;
+    CalculationConfigSubscriber calculationConfigSubscriber;
     @Autowired
     InitSubscriber initSubscriber;
 
@@ -50,7 +50,7 @@ public class ConfigResetter implements ApplicationRunner {
     public void initialize() {
         logger.info("initializing calculation");
         container.addMessageListener(initSubscriber, initializeCalculationTopic); // need if the container is already existed
-        container.addMessageListener(eaEpochSubscriber, eaEpochTopic);// read the sub population to be calculated
+        container.addMessageListener(calculationConfigSubscriber, calculationConfigTopic);// read the sub population to be calculated
         container.addMessageListener(dateSubscriber, dateTopic);// get the date to be scheduled
       //  container.addMessageListener(stopSubscribe,stopSubschribingTopic); // get the date to be scheduled
 
@@ -59,7 +59,7 @@ public class ConfigResetter implements ApplicationRunner {
 
     public void reset() {
         logger.info("resetting calculation");
-        container.removeMessageListener(eaEpochSubscriber, eaEpochTopic);
+        container.removeMessageListener(calculationConfigSubscriber, calculationConfigTopic);
         container.removeMessageListener(dateSubscriber, dateTopic);
         container.removeMessageListener(stopSubscribe,stopSubschribingTopic);
 

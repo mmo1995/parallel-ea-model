@@ -198,6 +198,11 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.slavePopulation+ "." + islandConfig().getIslandNumber() + "." + islandConfig().getSlaveNumber());
     }
 
+    @Bean(name = "calculationConfigTopic")
+    ChannelTopic calculationConfigTopic() {
+        return new ChannelTopic(ConstantStrings.calculationConfigTopic + "." + islandConfig().getIslandNumber() + "." + islandConfig().getSlaveNumber());
+    }
+
     @Bean(name = "intermediatePopulationTopic")
     ChannelTopic intermediatePopulationTopic() {
         return new ChannelTopic(ConstantStrings.intermediatePopulation + "." + islandConfig().getIslandNumber());
@@ -218,8 +223,8 @@ public class Autowiring {
         return new ConfigResetter();
     }
     @Bean
-    EAEpochPublisher eaEpochPublisher() {
-        return new EAEpochPublisher();
+    CalculationConfigPublisher calculationConfigPublisher() {
+        return new CalculationConfigPublisher();
     }
 
 }

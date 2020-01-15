@@ -65,7 +65,6 @@ public class EAEpochSubscriber implements MessageListener {
 		algorithmStarter.setDelay(eaEpochConfig.getDelay());
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationIntialFile);
-		this.sendIslandNumber();
 		algorithmStarter.start();
 		this.eaEpochConfig.getPopulation().read(populationFile);
 		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
@@ -88,10 +87,5 @@ public class EAEpochSubscriber implements MessageListener {
 			algorithmStarter.setTerminationTime(eaEpochConfig.getEpochTerminationTime());
 			break;
 		}
-	}
-
-	private void sendIslandNumber(){
-		ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + ConstantStrings.starter + "/opt/island/number", islandNumber,String.class);
-
 	}
 }

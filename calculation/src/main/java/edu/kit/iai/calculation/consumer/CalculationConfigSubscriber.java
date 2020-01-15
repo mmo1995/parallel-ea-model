@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
 /**
  * Receives configuration for one epoch
  */
-public class EAEpochSubscriber implements MessageListener {
+public class CalculationConfigSubscriber implements MessageListener {
 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

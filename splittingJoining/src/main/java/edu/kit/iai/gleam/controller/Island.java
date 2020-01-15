@@ -46,7 +46,6 @@ public class Island {
     @Autowired
     ConfigurationAvailablePublisher configurationAvailablePublisher;
 
-    private String currentIslandNumber = "";
 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -55,6 +54,8 @@ public class Island {
     private String rest;
     private RedisAtomicInteger amountOfGeneration;
     private RedisAtomicInteger amountOfSlaves;
+
+    private int currentIslandNumber = 1;
 
 
     @Autowired
@@ -152,13 +153,19 @@ public class Island {
     public void splitPopulationForSlaves(@RequestBody String initialPopulation) {
         synchronized (this){
             logger.info("received a population of one  generation");
-            currentIslandNumber = initialPopulation.substring(initialPopulation.indexOf("#")+1);
-            initialPopulation = initialPopulation.substring(0,initialPopulation.indexOf("#"));
             ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
+            RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
+            int numberOfIslands = numberOfIslandsCounter.get();
             int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
             receivedResultsCounter.set(0);
-            buildDistribution(initialPopulation, numberOfSlaves);
+            buildDistribution(initialPopulation,numberOfSlaves);
+            if(currentIslandNumber == numberOfIslands){
+                currentIslandNumber = 1;
+            }
+            else{
+                currentIslandNumber++;
+            }
         }
 
     }
@@ -192,8 +199,8 @@ public class Island {
             amountOfGeneration.set(1);
             resultController.actualNumberOfGenerationOfOneJob =0 ;
             //System.out.print("Following Chromosome List is sent to chromosome Interpreter" + partChrList);
-            ops.set(ConstantStrings.slavePopulation + "." + currentIslandNumber + ".1" , chromosmeList);
-            slavesPopulationPublisher.publish("Initial population available",currentIslandNumber, 1);
+            ops.set(ConstantStrings.slavePopulation + ".1.1" , chromosmeList);
+            slavesPopulationPublisher.publish("Initial population available",1,1);
             logger.info("population is available to one slave");
         }
 
@@ -259,8 +266,8 @@ public class Island {
             //System.out.print("Following Chromosome List is sent to chromosome Interpreter" + partChrList);
             int numberOfChannel = numberOfChrinList + 1;
             ops.set(ConstantStrings.slavePopulation + "." + currentIslandNumber + "." + numberOfChannel, partChrList);
-            slavesPopulationPublisher.publish("Initial population available", currentIslandNumber ,numberOfChannel);
-            logger.info ("population is available to slave Nr. " +  currentIslandNumber + "." + numberOfChannel);
+            slavesPopulationPublisher.publish("Initial population available", currentIslandNumber,numberOfChannel);
+            logger.info ("population is available to slave Nr. " + numberOfChannel);
 
 
         }

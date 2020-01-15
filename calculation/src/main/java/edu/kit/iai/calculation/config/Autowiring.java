@@ -1,7 +1,7 @@
 package edu.kit.iai.calculation.config;
 
+import edu.kit.iai.calculation.consumer.CalculationConfigSubscriber;
 import edu.kit.iai.calculation.consumer.DateSubscriber;
-import edu.kit.iai.calculation.consumer.EAEpochSubscriber;
 import edu.kit.iai.calculation.consumer.InitSubscriber;
 import edu.kit.iai.calculation.consumer.StopSubscribe;
 import edu.kit.iai.calculation.core.Calculation;
@@ -88,9 +88,9 @@ public class Autowiring {
      * Creates listener that listens to corresponding chromosome Interpreter Service to start epochs
      * @return
      */
-    @Bean(name = "eaEpochListener")
-    MessageListenerAdapter eaEpochListener() {
-        return new MessageListenerAdapter(eaEpochSubscriber());
+    @Bean(name = "calculationConfigListener")
+    MessageListenerAdapter calculationConfigListener() {
+        return new MessageListenerAdapter(calculationConfigSubscriber());
     }
 
     /**
@@ -98,13 +98,13 @@ public class Autowiring {
      * @return
      */
     @Bean
-    EAEpochSubscriber eaEpochSubscriber() {
-        return new EAEpochSubscriber();
+    CalculationConfigSubscriber calculationConfigSubscriber() {
+        return new CalculationConfigSubscriber();
     }
 
-    @Bean(name = "eaEpochTopic")
-    ChannelTopic eaEpochTopic() {
-        return new ChannelTopic(ConstantStrings.epochTopic + "." + islandNumber);
+    @Bean(name = "calculationConfigTopic")
+    ChannelTopic calculationConfigTopic() {
+        return new ChannelTopic(ConstantStrings.calculationConfigTopic + "." + islandNumber + "." + slaveNumber);
     }
 
     /**

@@ -8,7 +8,7 @@ import com.google.gson.*;
 
 
 import iai.kit.edu.chromosomeinterpreter.config.ConstantStrings;
-import iai.kit.edu.chromosomeinterpreter.producer.EAEpochPublisher;
+import iai.kit.edu.chromosomeinterpreter.producer.CalculationConfigPublisher;
 import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class ChromosomeinterpreterOrginal {
     public static String getConsumption;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    EAEpochPublisher eaEpochPublisher;
+    CalculationConfigPublisher calculationConfigPublisher;
     @Autowired
     @Qualifier("integerTemplate")
     RedisTemplate<String, Integer> intTemplate;
@@ -194,7 +194,7 @@ public class ChromosomeinterpreterOrginal {
 
         gson = new Gson();
         String jsonInString = gson.toJson(listSchedulingPlan);
-        eaEpochPublisher.publishEAEpochConfig(jsonInString);
+        calculationConfigPublisher.publishCalculationConfig(jsonInString);
         if  (listSchedulingPlan.size() == 1)
         {
             buildingFinalPlan (listSchedulingPlan);
