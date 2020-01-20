@@ -10,6 +10,7 @@ public class JobConfig {
     private int globalPopulationSize;
     private int numberOfIslands;
     private int numberOfSlaves;
+    private int numberOfGeneration;
     private int migrationRate;
     private String topology = "ring";
     private String initialSelectionPolicy = "new";
@@ -63,6 +64,15 @@ public class JobConfig {
 
     public void setNumberOfSlaves(int numberOfSlaves) {
         this.numberOfSlaves = numberOfSlaves;
+    }
+
+
+    public int getNumberOfGeneration() {
+        return numberOfGeneration;
+    }
+
+    public void setNumberOfGeneration(int numberOfGeneration) {
+        this.numberOfGeneration = numberOfGeneration;
     }
 
     public int getMigrationRate() {

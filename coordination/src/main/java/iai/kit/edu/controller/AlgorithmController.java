@@ -2,12 +2,16 @@ package iai.kit.edu.controller;
 
 
 import com.google.gson.Gson;
+import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.ExperimentConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,6 +37,12 @@ public class AlgorithmController {
 
     private boolean experiment;
 
+    private RedisAtomicInteger amountOfGeneration;
+
+    @Autowired
+    @Qualifier("integerTemplate")
+    RedisTemplate<String, Integer> template;
+
     /**
      * Receive configuration for one optimization task
      * @param json of configuration
@@ -51,6 +61,7 @@ public class AlgorithmController {
      */
     @RequestMapping(value = "/start/jobs", method = RequestMethod.POST)
     public void receiveStartConfigurations(@RequestBody String json) {
+        amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = gson.fromJson(json, ExperimentConfig.class);
@@ -69,6 +80,7 @@ public class AlgorithmController {
         int globalTerminationEvaluation_1 = experimentConfig.getGlobalTerminationEvaluation();
         double globalTerminationFitness_1 = experimentConfig.getGlobalTerminationFitness();
         int globalTerminationGeneration_1 = experimentConfig.getGlobalTerminationGeneration();
+        int[] numberOfGeneration = experimentConfig.getNumberOfGeneration();
 
         jobConfigList = new ArrayList<>();
         for (int i = 0; i < numberOfIslands.length; i++) {
@@ -79,6 +91,7 @@ public class AlgorithmController {
                             JobConfig jobConfigTemp = new JobConfig();
                             jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
                             jobConfigTemp.setNumberOfSlaves(numberOfSlaves[i]);
+                            jobConfigTemp.setNumberOfGeneration(numberOfGeneration[i]);
                             jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
                             jobConfigTemp.setDelay(delays[k]);
                             jobConfigTemp.setMigrationRate(migrationRates[l]);
@@ -90,6 +103,7 @@ public class AlgorithmController {
                             jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
                             jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
                             jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
+                            jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
                             jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
                             jobConfigTemp.setGlobalTerminationEpoch(globalTerminationGeneration_1);
                             jobConfigList.add(jobConfigTemp);
@@ -102,6 +116,7 @@ public class AlgorithmController {
         }
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
+        amountOfGeneration.set(jobConfig.getNumberOfGeneration()+1);
         algorithmManager.initialize();
     }
 

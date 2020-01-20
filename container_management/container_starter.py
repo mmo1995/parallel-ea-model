@@ -49,7 +49,6 @@ def create_calculations():
     #Uncomment the following lines to execute this service in a cluster to dynamically create Pods for the
     #islands. Names and configurations have also to be adjusted to dynamically create Pods for the
     #Migration & Synchronization Service.
-
     #config.load_incluster_config()
     #core_v1_api = client.CoreV1Api()
     #for island_number in range(1, int(number_of_islands) + 1):

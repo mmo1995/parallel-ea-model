@@ -37,12 +37,23 @@ public class ResultController {
     @Autowired
     RestTemplate restTemplate;
 
+    private String header = "";
+
     private List<String> aggregatedResult = new ArrayList<>();
+
+    private StringBuilder aggregatedSlavesResult = new StringBuilder("");
     Gson gson = new Gson();
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private RedisAtomicInteger amountOfGeneration;
+
+    private int numberOfGenerationOfOneJob;
+
     public static int actualNumberOfGenerationOfOneJob = 0;
+
+    @Autowired
+    Island isl;
 
 
     /**
@@ -72,6 +83,32 @@ public class ResultController {
     }
 
     /**
+     * Called by all slaves to send partial results
+     * @param islandAndSlaveNumber
+     */
+    @RequestMapping(value = "/sjs/slavesPopulation/result", method = RequestMethod.POST)
+    public void receiveResultFromSlave(@RequestBody int[] islandAndSlaveNumber) {
+        int islandNumber = islandAndSlaveNumber[0];
+        int slaveNumber = islandAndSlaveNumber[1];
+        //
+        logger.info("received result from slave " + slaveNumber);
+
+        synchronized (aggregatedSlavesResult) {
+            RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter, intTemplate.getConnectionFactory());
+            receivedSlavesResultsCounter.incrementAndGet();
+            ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
+            String resultJson = ops.get(ConstantStrings.resultPopulation + "." + islandNumber + "." + slaveNumber);
+            //System.out.println("resultJson is" + resultJson);
+            aggregatedSlavesResult.append(resultJson);
+            if (isIntermediateResultComplete()) {
+                sendResultToStarter();
+            }
+
+        }
+
+    }
+
+    /**
      * Check whether all islands have sent their partial results
      * @return
      */
@@ -88,6 +125,27 @@ public class ResultController {
 
     }
 
+    /**
+     * Check whether all slaves have sent their partial results
+     * @return
+     */
+    private boolean isIntermediateResultComplete() {
+        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter, intTemplate.getConnectionFactory());
+        ValueOperations<String, Integer> ops = this.intTemplate.opsForValue();
+        int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
+        int receivedSlavesResults = receivedSlavesResultsCounter.get();
+        logger.debug("number of slaves: " + numberOfSlaves + ", received results: " + receivedSlavesResults);
+        if (receivedSlavesResults == numberOfSlaves) {
+            receivedSlavesResultsCounter.set(0);
+            header = "0" +" "+isl.numberOfChromosomes+" "+"3"+"\n";
+            //System.out.println("header is " + header);
+            header = header + aggregatedSlavesResult.toString();
+            return true;
+        }
+        return false;
+
+    }
+
     private void sendResultToCoordination() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -98,8 +156,44 @@ public class ResultController {
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL + "/ojm/result", entity, String.class);
     }
 
+    private void sendResultToStarter() {
+
+      /*  HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String aggregatedResultJson = this.gson.toJson(this.aggregatedResult);
+        HttpEntity<String> entity = new HttpEntity<String>(aggregatedResultJson, headers);*/
+        actualNumberOfGenerationOfOneJob++;
+        amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, intTemplate.getConnectionFactory());
+        numberOfGenerationOfOneJob = amountOfGeneration.get();
+        if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
+            //logger.info("sending back the result of one generation");
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+            logger.info("sending back the result of one generation");
+            aggregatedSlavesResult = new StringBuilder("");
+        }
+        else
+        {
+            actualNumberOfGenerationOfOneJob = 0;
+            amountOfGeneration.set(0);
+            logger.info("sending back the result of last generation");
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+            aggregatedSlavesResult = new StringBuilder("");
+            logger.info("one job is done");
+            logger.info("******************************************");
+            /*ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
+            if (isl.numberOfChromosomes == 1)
+            {
+                ops.set(ConstantStrings.stopSubscribing + "." + 1, "stop");
+                logger.info("stop signal is sent to slave Nr. 1");
+                stopingPublisher.publish("stop", 1);
+            }*/
+        }
+    }
+
     public void reset() {
         logger.debug("reset result list");
         aggregatedResult = new ArrayList<>();
     }
+
+
 }

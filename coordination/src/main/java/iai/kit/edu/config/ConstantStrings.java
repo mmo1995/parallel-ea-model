@@ -23,6 +23,8 @@ public class ConstantStrings {
     public static final String fileNamePartlog = "log";
     public static final String fileNamePartLog = "Log";
 
+    public static final String gleamConfigurationsGeneration = "proof.gleam.generation";
+
     public static final String islandMigrantsReceivedCounter = "proof.island.migrants.received.counter";
     public static final String islandsWithPopulationCounter = "proof.islands.population.initialized";
     public static final String islandsWithSubscribedNeighborsCounter = "proof.islands.neighbors.subscribed";

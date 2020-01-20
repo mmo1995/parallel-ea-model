@@ -11,9 +11,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class IslandConfig {
     //Island number, should be set as command line parameter --island.number=x
     @Value("${island.number}")
-    //@Value("1")
+    private int islandNumber;
 
-    private String islandNumber;
+
+
+    @Value("${slave.number}")
+    private int slaveNumber;
+
     private RedisTemplate<String, Integer> template;
     private boolean stopped = false;
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
@@ -23,7 +27,19 @@ public class IslandConfig {
     }
 
 
-    public String getIslandNumber() {
+    public int getIslandNumber() {
         return islandNumber;
+    }
+
+    public void setIslandNumber(int islandNumber) {
+        this.islandNumber = islandNumber;
+    }
+
+    public int getSlaveNumber() {
+        return slaveNumber;
+    }
+
+    public void setSlaveNumber(int slaveNumber) {
+        this.slaveNumber = slaveNumber;
     }
 }

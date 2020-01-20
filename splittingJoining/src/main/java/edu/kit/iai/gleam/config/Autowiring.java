@@ -1,5 +1,6 @@
 package edu.kit.iai.gleam.config;
 
+import edu.kit.iai.gleam.controller.Island;
 import edu.kit.iai.gleam.producer.ConfigurationAvailablePublisher;
 import edu.kit.iai.gleam.producer.InitialPopulationPublisher;
 import edu.kit.iai.gleam.producer.SlavesPopulationPublisher;
@@ -75,6 +76,15 @@ public class Autowiring {
     @Bean
     StartPublisher startPublisher() {
         return new StartPublisher();
+    }
+
+    /**
+     * Creates a Island Object
+     * @return
+     */
+    @Bean
+    Island island() {
+        return new Island();
     }
 
     /**
