@@ -92,8 +92,8 @@ public class AlgorithmWrapper {
     public void startEpoch() {
         synchronized (population) {
             if (isGlobalTerminationCriterionReached() || islandConfig.isStopped()) {
-                configResetter.reset();
                 resultController.sendResult();
+                configResetter.reset();
             } else {
 
                 eaEpochConfig.setPopulation((GLEAMPopulation) population);

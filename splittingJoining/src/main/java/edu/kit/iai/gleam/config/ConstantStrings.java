@@ -17,6 +17,7 @@ public class ConstantStrings {
     public static final String islandsWithReadySlavesCounter = "proof.islands.slaves.ready";
     public static final String receivedResultsCounter = "proof.results";
     public static final String receivedSlavesResultsCounter = "proof.results.slaves";
+    public static final String numberOfGenerationForOneIsland = "proof.island.generation.amount";
     public static final String numberOfIslands = "proof.island.amount";
     public static final String managementConfig = "proof.management.config";
     public static final String managementStart = "proof.management.start";

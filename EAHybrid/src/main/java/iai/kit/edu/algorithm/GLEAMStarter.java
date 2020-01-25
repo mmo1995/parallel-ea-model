@@ -37,6 +37,8 @@ public class GLEAMStarter implements AlgorithmStarter {
 
     private List<String> commands;
 
+
+
     private boolean firstEpoch = true;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -78,6 +80,8 @@ public class GLEAMStarter implements AlgorithmStarter {
     public void setDelay(int delay) {
         this.delay = ConstantStrings.gleamDelay + delay;
     }
+
+
 
     public void start() {
         if (firstEpoch) {
@@ -147,7 +151,7 @@ public class GLEAMStarter implements AlgorithmStarter {
     }
 
     public void reset() {
-        this.firstEpoch = true;
+        //this.firstEpoch = true;
         this.deleteStopFile();
         this.terminationCriterion="";
     }

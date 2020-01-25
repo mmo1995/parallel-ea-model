@@ -116,7 +116,7 @@ public class AlgorithmController {
         }
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
-        amountOfGeneration.set(jobConfig.getNumberOfGeneration()+1);
+        amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
         algorithmManager.initialize();
     }
 

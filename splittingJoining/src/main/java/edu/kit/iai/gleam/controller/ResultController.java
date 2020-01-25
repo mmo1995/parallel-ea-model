@@ -94,14 +94,14 @@ public class ResultController {
         logger.info("received result from slave " + slaveNumber);
 
         synchronized (aggregatedSlavesResult) {
-            RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter, intTemplate.getConnectionFactory());
+            RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
             receivedSlavesResultsCounter.incrementAndGet();
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             String resultJson = ops.get(ConstantStrings.resultPopulation + "." + islandNumber + "." + slaveNumber);
             //System.out.println("resultJson is" + resultJson);
             aggregatedSlavesResult.append(resultJson);
-            if (isIntermediateResultComplete()) {
-                sendResultToStarter();
+            if (isIntermediateResultComplete(islandNumber)) {
+                sendResultToStarter(islandNumber);
             }
 
         }
@@ -129,8 +129,8 @@ public class ResultController {
      * Check whether all slaves have sent their partial results
      * @return
      */
-    private boolean isIntermediateResultComplete() {
-        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter, intTemplate.getConnectionFactory());
+    private boolean isIntermediateResultComplete(int islandNumber) {
+        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
         ValueOperations<String, Integer> ops = this.intTemplate.opsForValue();
         int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
         int receivedSlavesResults = receivedSlavesResultsCounter.get();
@@ -156,13 +156,14 @@ public class ResultController {
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL + "/ojm/result", entity, String.class);
     }
 
-    private void sendResultToStarter() {
+    private void sendResultToStarter(int islandNumber) {
+        RedisAtomicInteger numberOfGenerationForOneIsland = new RedisAtomicInteger(ConstantStrings.numberOfGenerationForOneIsland + "." + islandNumber, intTemplate.getConnectionFactory());
+        int actualNumberOfGenerationOfOneJob = numberOfGenerationForOneIsland.incrementAndGet();
 
       /*  HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String aggregatedResultJson = this.gson.toJson(this.aggregatedResult);
         HttpEntity<String> entity = new HttpEntity<String>(aggregatedResultJson, headers);*/
-        actualNumberOfGenerationOfOneJob++;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, intTemplate.getConnectionFactory());
         numberOfGenerationOfOneJob = amountOfGeneration.get();
         if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
@@ -174,7 +175,7 @@ public class ResultController {
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
-            amountOfGeneration.set(0);
+            //amountOfGeneration.set(0);
             logger.info("sending back the result of last generation");
             ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
             aggregatedSlavesResult = new StringBuilder("");
