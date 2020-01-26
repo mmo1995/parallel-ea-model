@@ -39,6 +39,8 @@ public class ResultController {
 
     private String header = "";
 
+    private String finalplan;
+
     private List<String> aggregatedResult = new ArrayList<>();
 
     private StringBuilder aggregatedSlavesResult = new StringBuilder("");
@@ -98,15 +100,34 @@ public class ResultController {
             receivedSlavesResultsCounter.incrementAndGet();
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             String resultJson = ops.get(ConstantStrings.resultPopulation + "." + islandNumber + "." + slaveNumber);
+            String[] numberOfChromosomes = resultJson.split("\n");
             //System.out.println("resultJson is" + resultJson);
             aggregatedSlavesResult.append(resultJson);
             if (isIntermediateResultComplete(islandNumber)) {
-                sendResultToStarter(islandNumber);
+                if(numberOfChromosomes.length>1){
+                    sendResultToStarter(islandNumber);
+                }
+                else{
+                    sendFinalResultToCoordination(resultJson);
+                }
+
             }
 
         }
 
     }
+
+    @RequestMapping(value = "/opt/finalplan", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
+    public void finalplan(@RequestBody String receivedFinalPlan) {
+            logger.info("received the optimal scheduling plan with real values");
+            saveFinalPlan(receivedFinalPlan);
+    }
+
+    public synchronized void saveFinalPlan (String saveFinalPlane)
+    {
+        finalplan = saveFinalPlane;
+    }
+
 
     /**
      * Check whether all islands have sent their partial results
@@ -147,7 +168,6 @@ public class ResultController {
     }
 
     private void sendResultToCoordination() {
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String aggregatedResultJson = this.gson.toJson(this.aggregatedResult);
@@ -155,6 +175,13 @@ public class ResultController {
         logger.info("sending result");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL + "/ojm/result", entity, String.class);
     }
+
+    private void sendFinalResultToCoordination(String finalResultCol){
+        logger.info("sending final result");
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
+
+    }
+
 
     private void sendResultToStarter(int islandNumber) {
         RedisAtomicInteger numberOfGenerationForOneIsland = new RedisAtomicInteger(ConstantStrings.numberOfGenerationForOneIsland + "." + islandNumber, intTemplate.getConnectionFactory());

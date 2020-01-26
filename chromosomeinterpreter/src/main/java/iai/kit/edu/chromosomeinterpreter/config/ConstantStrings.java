@@ -2,7 +2,7 @@ package iai.kit.edu.chromosomeinterpreter.config;
 public class ConstantStrings {
 
       public static final String coordinationURL = "http://localhost:8071";
-   public static final String splittingJoiningURL = "http://localhost:8070";
+   public static final String splittingJoiningURL = "http://localhost:8074";
     public static final String starter = "http://localhost:8090";
     /*public static final String coordinationURL = "http://coordination:8071";
     public static final String splittingJoiningURL = "http://splitting-joining:8070";

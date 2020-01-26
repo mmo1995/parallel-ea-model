@@ -362,7 +362,7 @@ public class Chromosomeinterpreter {
         gson = new Gson();
         String jsonInString = gson.toJson(tempFinalScheduling);
         logger.info("sending the final plan");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/finalplan", jsonInString, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL +"/opt/finalplan", jsonInString, String.class);
     }
     public void caculateDuration(double durationPar)
     {

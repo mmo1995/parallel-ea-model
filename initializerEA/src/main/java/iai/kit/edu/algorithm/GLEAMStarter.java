@@ -27,6 +27,7 @@ public class GLEAMStarter  implements AlgorithmStarter {
     private String gleamExe = workingDirectory + ConstantStrings.gleamCLV;
     private String expFile = ConstantStrings.expFile;
     private String logFile = ConstantStrings.logFile;
+    private String bestChromosomeLogFile = ConstantStrings.bestChromosomeLogFile;
     private String islandNumber;
     private String populationSize;
     private List<String> initStrategy;
@@ -75,6 +76,11 @@ public class GLEAMStarter  implements AlgorithmStarter {
         runGLEAM();
 
     }
+    public void chooseBestChromosome() {
+        addCommandsForChoosingBestChromosome();
+        runGLEAM();
+
+    }
 
     private void addCommandsForInitializationRun() {
         commands = new ArrayList<>();
@@ -83,6 +89,14 @@ public class GLEAMStarter  implements AlgorithmStarter {
         commands.add(logFile);
         commands.add(islandNumber);
         commands.add(populationSize);
+        commands.addAll(initStrategy);
+    }
+    private void addCommandsForChoosingBestChromosome() {
+        commands = new ArrayList<>();
+        commands.add(gleamExe);
+        commands.add(expFile);
+        commands.add(bestChromosomeLogFile);
+        commands.add(islandNumber);
         commands.addAll(initStrategy);
     }
 

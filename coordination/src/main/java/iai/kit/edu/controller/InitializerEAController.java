@@ -20,6 +20,8 @@ import java.util.List;
  */
 public class InitializerEAController {
 
+    RestTemplate restTemplate = new RestTemplate();
+
     private final Logger logger=LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -36,7 +38,7 @@ public class InitializerEAController {
         initializerEAConfig.setInitStrategy(initialSelectionPolicy);
         Gson gson=new Gson();
 
-        RestTemplate restTemplate = new RestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -46,5 +48,16 @@ public class InitializerEAController {
         ResponseEntity<String> initialPopulationString = restTemplate.postForEntity(ConstantStrings.initializerEAURL +"/ine/population/initial", entity,String.class);
         List<String> initialPopulation = gson.fromJson(initialPopulationString.getBody(),List.class);
         return initialPopulation;
+    }
+
+    /**
+     * Sends request to InitializerEAService to choose best chromosome from population
+     * @param population the population, from which the best chromosome has to be chosen
+     * @return the best chromosome has been chosen
+     */
+    public String chooseBestChromosome(List<String> population){
+
+        ResponseEntity<String> bestChromosomeString = restTemplate.postForEntity(ConstantStrings.initializerEAURL +"/chromosomes/best", population,String.class);
+        return bestChromosomeString.getBody();
     }
 }

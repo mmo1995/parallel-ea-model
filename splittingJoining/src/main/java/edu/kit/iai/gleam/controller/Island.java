@@ -144,7 +144,7 @@ public class Island {
 
 
     /**
-     * receives population from starter service, divides it and notifies slaves
+     * receives population from starter/coordination service, divides it and notifies slaves
      * that population is available
      * @param initialPopulation
      */

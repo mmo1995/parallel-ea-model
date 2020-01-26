@@ -2,6 +2,9 @@ package iai.kit.edu.controller;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.ExperimentConfig;
 import iai.kit.edu.config.JobConfig;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +35,17 @@ public class AlgorithmController {
     private int jobId = 0;
     @Autowired
     private AlgorithmManager algorithmManager;
+
+    @Autowired
+    private InitializerEAController initializerEAController;
+
     @Autowired
     private JobConfig jobConfig;
+
+    private static RestTemplate restTemplate = new RestTemplate();
+    private static String splittingJoining = "localhost:8074";
+
+    private List<String> resultsCollection;
 
     private List<JobConfig> jobConfigList;
 
@@ -64,6 +78,7 @@ public class AlgorithmController {
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
         Gson gson = new Gson();
+        resultsCollection = new ArrayList<>();
         ExperimentConfig experimentConfig = gson.fromJson(json, ExperimentConfig.class);
         int[] numberOfIslands = experimentConfig.getNumberOfIslands();
         int[] numberOfSlaves = experimentConfig.getNumberOfSlaves();
@@ -129,11 +144,83 @@ public class AlgorithmController {
     public void receiveResult(@RequestBody String resultJson) {
         logger.info("receiving result");
         Gson gson = new Gson();
+
         List<String> result = gson.fromJson(resultJson, List.class);
+        String bestChromosome = initializerEAController.chooseBestChromosome(result);
+        String formattedChromosome = formatBestChromosome(bestChromosome);
+        sendFormattedChromosome(formattedChromosome);
+    }
+
+    /**
+     * Receive final result
+     * @param constraintsAndresultJson of final result
+     */
+    @RequestMapping(value = "/finalResult", method = RequestMethod.POST)
+    public void receiveFinalResult(@RequestBody String constraintsAndresultJson) {
+        logger.info("receiving final result");
+        String  constraintResults = constraintsAndresultJson.substring(0, constraintsAndresultJson.indexOf("#"));
+        String resultJson = constraintsAndresultJson.substring(constraintsAndresultJson.indexOf("#")+1, constraintsAndresultJson.length());
+        String [] splitconstraintResults = constraintResults.split("\n");
+        String [] constraintResultsValues = splitconstraintResults[0].split(" ");
+        jobId ++;
+        logger.info("received the results of the optimal scheduling plan #"+ splitconstraintResults[0] + "#");
+        logger.info("#####");
+
+        JsonObject dataToVisualizeObject = new JsonObject();
+        JsonArray dataToVisualizeArray = new JsonArray();
+        Gson gson = new Gson();
+        //String jsonInString = gson.toJson(resultJson);
+        JsonObject finalSchPlan = new JsonParser().parse(resultJson).getAsJsonObject();
+        dataToVisualizeArray.add(finalSchPlan);
+        dataToVisualizeObject.addProperty("JobID", jobId);
+        dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
+        dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
+        dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
+        dataToVisualizeObject.addProperty("Generation",jobConfig.getGlobalTerminationGeneration());
+        dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
+        dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
+        dataToVisualizeObject.addProperty("NumberOfHourlyDeviation", constraintResultsValues[4]);
+
+        dataToVisualizeObject.add("data", dataToVisualizeArray);
+        String jsonInString1 = gson.toJson(dataToVisualizeObject);
+        String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
+        resultsCollection.add(replacedJsonInString1);
+
         if (experiment && jobConfigList.size() != 0) {
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
             logger.info("received job config: " + jobConfig.toString());
             algorithmManager.initialize();
         }
+        else{
+            logger.info("All jobs are finished");
+            jobId = 0;
+        }
+    }
+
+    public String formatBestChromosome(String bestChromosome){
+        String formattedChromosome = "1 2 1\n";
+        String[] lines = bestChromosome.split("\\r?\\n");
+        String[] firstLine = lines[0].split("\\s+");
+        String numberOfGenes = firstLine[3];
+        formattedChromosome = formattedChromosome.concat("0 0 " + numberOfGenes + "\n");
+        for(int i = 0; i<lines.length; i++){
+            String currentLine = lines[i];
+            String[] currentLineArray = currentLine.split("\\s+");
+            if(currentLineArray[0].equals("")) {
+                String newLine = "";
+                newLine = newLine.concat(currentLineArray[1] + "  ");
+                newLine = newLine.concat(currentLineArray[2] + " ");
+                newLine = newLine.concat(currentLineArray[3] + " ");
+                newLine = newLine.concat(String.valueOf(Double.parseDouble(currentLineArray[14])));
+                newLine = newLine.concat("\n");
+                formattedChromosome = formattedChromosome.concat(newLine);
+            }
+        }
+        return formattedChromosome;
+    }
+
+    private void sendFormattedChromosome(String formattedChromosome){
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", formattedChromosome,String.class);
+
     }
 }

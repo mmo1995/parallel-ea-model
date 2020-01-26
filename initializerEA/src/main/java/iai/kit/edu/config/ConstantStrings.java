@@ -13,6 +13,7 @@ public class ConstantStrings {
     public static final String gleamTerminalLogFileName = "gleamCommandLineLog";
     public static final String expFile = "experiment.exp";
     public static final String logFile = "logfile";
+    public static final String bestChromosomeLogFile = "bestLogFile";
 
     public static final String fileEndingAks = ".aks";
     public static final String fileEndingMem = ".mem";

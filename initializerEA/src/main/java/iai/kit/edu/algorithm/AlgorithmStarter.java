@@ -10,4 +10,5 @@ public interface AlgorithmStarter {
     public void setInitStrategy(String initStrategy);
     public void setAmountFitness(double amountFitness);
     public void init();
+    public void chooseBestChromosome();
 }
