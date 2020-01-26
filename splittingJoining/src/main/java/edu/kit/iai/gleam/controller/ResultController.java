@@ -103,14 +103,12 @@ public class ResultController {
             String[] numberOfChromosomes = resultJson.split("\n");
             //System.out.println("resultJson is" + resultJson);
             aggregatedSlavesResult.append(resultJson);
-            if (isIntermediateResultComplete(islandNumber)) {
-                if(numberOfChromosomes.length>1){
+            if(numberOfChromosomes.length>1){
+                if(isIntermediateResultComplete(islandNumber)){
                     sendResultToStarter(islandNumber);
                 }
-                else{
-                    sendFinalResultToCoordination(resultJson);
-                }
-
+            } else{
+                sendFinalResultToCoordination(resultJson);
             }
 
         }

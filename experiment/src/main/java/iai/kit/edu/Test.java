@@ -9,8 +9,8 @@ public class Test {
 
     public static void main(String[] args) {
      int[] numberOfIslands = new int[]{1};
-     int[] numberOfSlaves = new int[] {3};
-     int[] populationSizes = new int[]{60};
+     int[] numberOfSlaves = new int[] {2};
+     int[] populationSizes = new int[]{10};
      int[] migrationRates = new int[]{1};
      int[] generationAmount = new int[]{1};
      int[] delays = new int[]{0};
@@ -21,13 +21,13 @@ public class Test {
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000.0;
-        int epochTerminationGeneration = 3;
+        int epochTerminationGeneration = 1;
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 100000;
-        int globalTerminationGeneration = 1; // in case of fitness and doesn't find the best solution
+        int globalTerminationGeneration = 2; // in case of fitness and doesn't find the best solution
 
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = new ExperimentConfig();
