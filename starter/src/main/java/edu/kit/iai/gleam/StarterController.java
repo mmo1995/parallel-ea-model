@@ -58,9 +58,12 @@ public class StarterController {
      **/
     @RequestMapping(value = "/opt/taskID", method = RequestMethod.GET)
     public String getIDforTask(){
-        String returnedTaskID = String.valueOf(taskID);
-        taskID++;
-        return  returnedTaskID;
+        synchronized (this){
+            String returnedTaskID = String.valueOf(taskID);
+            taskID++;
+            return  returnedTaskID;
+        }
+
 
        /* @SuppressWarnings("resource")
         BufferedReader input = new BufferedReader(new FileReader("taskID.txt"));

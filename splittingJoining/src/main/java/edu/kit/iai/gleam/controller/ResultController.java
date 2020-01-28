@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Receives the partial results from all islands, joins them and sends them to the Coordination Service
@@ -43,7 +45,10 @@ public class ResultController {
 
     private List<String> aggregatedResult = new ArrayList<>();
 
-    private StringBuilder aggregatedSlavesResult = new StringBuilder("");
+    //private StringBuilder aggregatedSlavesResult = new StringBuilder("");
+
+    private Map<String, String> aggregatedSlavesResult = new HashMap<>();
+
     Gson gson = new Gson();
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -104,7 +109,12 @@ public class ResultController {
             resultJson = resultJson.substring(0, resultJson.indexOf("#"));
             String[] numberOfChromosomes = resultJson.split("\n");
             //System.out.println("resultJson is" + resultJson);
-            aggregatedSlavesResult.append(resultJson);
+            String result = aggregatedSlavesResult.get(String.valueOf(islandNumber));
+            if(result == null){
+                result = "";
+            }
+            result = result.concat(resultJson);
+            aggregatedSlavesResult.put(String.valueOf(islandNumber),result);
             if(numberOfChromosomes.length>1){
                 if(isIntermediateResultComplete(islandNumber, idNumber)){
                     sendResultToStarter(islandNumber);
@@ -158,11 +168,11 @@ public class ResultController {
         logger.debug("number of slaves: " + numberOfSlaves + ", received results: " + receivedSlavesResults);
         if (receivedSlavesResults == numberOfSlaves) {
             receivedSlavesResultsCounter.set(0);
-            String[] chromosomes = aggregatedSlavesResult.toString().split("\n");
+            String[] chromosomes = aggregatedSlavesResult.get(String.valueOf(islandNumber)).split("\n");
             int numberOfChromosomes = chromosomes.length;
             header = "0" +" "+numberOfChromosomes+" "+"3"+"\n";
             //System.out.println("header is " + header);
-            header = header + aggregatedSlavesResult.toString();
+            header = header + aggregatedSlavesResult.get(String.valueOf(islandNumber));
             header = header.concat("#" + idNumber);
             return true;
         }
@@ -200,7 +210,7 @@ public class ResultController {
             //logger.info("sending back the result of one generation");
             ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
             logger.info("sending back the result of one generation");
-            aggregatedSlavesResult = new StringBuilder("");
+            aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
         }
         else
         {
@@ -208,7 +218,7 @@ public class ResultController {
             //amountOfGeneration.set(0);
             logger.info("sending back the result of last generation");
             ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
-            aggregatedSlavesResult = new StringBuilder("");
+            aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
             logger.info("one job is done");
             logger.info("******************************************");
             /*ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
