@@ -60,7 +60,7 @@ public class Calculation {
 
 
 
-    public void calculationPrice  (JsonArray jsonArray) throws FileNotFoundException, UnknownHostException {
+    public void calculationPrice  (JsonArray jsonArray, String idNumber) throws FileNotFoundException, UnknownHostException {
         startTime = System.currentTimeMillis();
 
         logger.info("the date to be scheduled is "+ date);
@@ -139,6 +139,7 @@ public class Calculation {
         endTime = System.currentTimeMillis();
         generationduration = TimeUnit.MILLISECONDS.toMinutes(endTime - startTime);
         caculateDuration(generationduration);
+        finalResult.append("#" + idNumber);
         intermediatePopulationPublisher.publishIntermediatePopulation(finalResult);
 
 

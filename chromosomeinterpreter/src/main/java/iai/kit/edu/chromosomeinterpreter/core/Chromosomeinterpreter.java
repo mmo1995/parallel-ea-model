@@ -52,11 +52,13 @@ public class Chromosomeinterpreter {
     private int numberOfGenerationOfOneJob;
     private int actualNumberOfGenerationOfOneJob = 0;
 
-    public void mainChromosomeInterpreter(String chromosmeList) throws IOException {
+    public void mainChromosomeInterpreter(String chromosmeListWithId) throws IOException {
+        String chromosomeList = chromosmeListWithId.substring(0, chromosmeListWithId.indexOf("#"));
+        String idNumber = chromosmeListWithId.substring(chromosmeListWithId.indexOf("#")+1);
 
         startTime = System.currentTimeMillis();
-        chromosmeListAnalysis(chromosmeList);
-        buildingAllocationMatrix(rest, numberOfChromosomes);
+        chromosmeListAnalysis(chromosomeList);
+        buildingAllocationMatrix(rest, numberOfChromosomes, idNumber);
         // readForcastinData ();
     }
 
@@ -73,7 +75,7 @@ public class Chromosomeinterpreter {
 
 
 
-    public void buildingAllocationMatrix(String rest, int numberOfChromosomes) throws IOException {
+    public void buildingAllocationMatrix(String rest, int numberOfChromosomes, String idNumber) throws IOException {
         List<String> listOfChromosoms = new ArrayList<String>();
 
         /********************** Start isolation of each chromosome in one list slot*/
@@ -123,6 +125,7 @@ public class Chromosomeinterpreter {
 
         gson = new Gson();
         String jsonInString = gson.toJson(listSchedulingPlan);
+        jsonInString = jsonInString.concat("#" + idNumber);
         calculationConfigPublisher.publishCalculationConfig(jsonInString);
         if  (listSchedulingPlan.size() == 1)
         {

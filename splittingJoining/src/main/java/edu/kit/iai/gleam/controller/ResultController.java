@@ -100,11 +100,13 @@ public class ResultController {
             receivedSlavesResultsCounter.incrementAndGet();
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             String resultJson = ops.get(ConstantStrings.resultPopulation + "." + islandNumber + "." + slaveNumber);
+            String idNumber = resultJson.substring(resultJson.indexOf("#")+1);
+            resultJson = resultJson.substring(0, resultJson.indexOf("#"));
             String[] numberOfChromosomes = resultJson.split("\n");
             //System.out.println("resultJson is" + resultJson);
             aggregatedSlavesResult.append(resultJson);
             if(numberOfChromosomes.length>1){
-                if(isIntermediateResultComplete(islandNumber)){
+                if(isIntermediateResultComplete(islandNumber, idNumber)){
                     sendResultToStarter(islandNumber);
                 }
             } else{
@@ -148,7 +150,7 @@ public class ResultController {
      * Check whether all slaves have sent their partial results
      * @return
      */
-    private boolean isIntermediateResultComplete(int islandNumber) {
+    private boolean isIntermediateResultComplete(int islandNumber, String idNumber) {
         RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
         ValueOperations<String, Integer> ops = this.intTemplate.opsForValue();
         int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
@@ -156,9 +158,12 @@ public class ResultController {
         logger.debug("number of slaves: " + numberOfSlaves + ", received results: " + receivedSlavesResults);
         if (receivedSlavesResults == numberOfSlaves) {
             receivedSlavesResultsCounter.set(0);
-            header = "0" +" "+isl.numberOfChromosomes+" "+"3"+"\n";
+            String[] chromosomes = aggregatedSlavesResult.toString().split("\n");
+            int numberOfChromosomes = chromosomes.length;
+            header = "0" +" "+numberOfChromosomes+" "+"3"+"\n";
             //System.out.println("header is " + header);
             header = header + aggregatedSlavesResult.toString();
+            header = header.concat("#" + idNumber);
             return true;
         }
         return false;

@@ -44,11 +44,13 @@ public class CalculationConfigSubscriber implements MessageListener {
 
         Gson gson = new Gson();
         String partPopulationJson=  gson.fromJson(message.toString(), String.class);
+        String idNumber = partPopulationJson.substring(partPopulationJson.indexOf("#")+1);
+        partPopulationJson = partPopulationJson.substring(0, partPopulationJson.indexOf("#"));
         JsonArray partPopulationJsonAsJsonArray = gson.fromJson(partPopulationJson, JsonArray.class);
         logger.info("received a sub population with  " + partPopulationJsonAsJsonArray.size()+ " chromosomes");
         // to execute calculation
         try {
-            calculation.calculationPrice(partPopulationJsonAsJsonArray);
+            calculation.calculationPrice(partPopulationJsonAsJsonArray, idNumber);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

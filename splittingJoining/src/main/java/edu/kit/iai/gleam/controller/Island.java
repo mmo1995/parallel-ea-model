@@ -146,20 +146,30 @@ public class Island {
     /**
      * receives population from starter/coordination service, divides it and notifies slaves
      * that population is available
-     * @param initialPopulation
+     * @param initialPopulationWithId
      */
 
     @RequestMapping(value = "/population/slaves", method = RequestMethod.POST)
-    public void splitPopulationForSlaves(@RequestBody String initialPopulation) {
+    public void splitPopulationForSlaves(@RequestBody String initialPopulationWithId) {
         synchronized (this){
             logger.info("received a population of one  generation");
+            String initialPopulation;
+            String idNumber;
+            if(initialPopulationWithId.contains("#"))
+            {
+                initialPopulation = initialPopulationWithId.substring(0, initialPopulationWithId.indexOf("#"));
+                idNumber = initialPopulationWithId.substring(initialPopulationWithId.indexOf("#") + 1);
+            } else{
+                initialPopulation = initialPopulationWithId;
+                idNumber = "1";
+            }
             ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
             RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
             int numberOfIslands = numberOfIslandsCounter.get();
             int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
             receivedResultsCounter.set(0);
-            buildDistribution(initialPopulation,numberOfSlaves);
+            buildDistribution(initialPopulation,numberOfSlaves, idNumber);
             if(currentIslandNumber == numberOfIslands){
                 currentIslandNumber = 1;
             }
@@ -173,7 +183,7 @@ public class Island {
 
 
 
-    private void buildDistribution(String chromosmeList, int containers) {
+    private void buildDistribution(String chromosmeList, int containers, String idNumber) {
         numberOfChromosomes = 0;
         rest = "";
         chromosmeList = chromosmeList.trim();
@@ -182,7 +192,7 @@ public class Island {
         if (numberOfChromosomes > 1)
         {
             rest = chromosmeList.substring(chromosmeList.indexOf("\n") + 1, chromosmeList.length());
-            build(rest, numberOfChromosomes, containers, head);
+            build(rest, numberOfChromosomes,idNumber, containers, head);
         }
         else
         {
@@ -199,6 +209,7 @@ public class Island {
             amountOfGeneration.set(1);
             resultController.actualNumberOfGenerationOfOneJob =0 ;
             //System.out.print("Following Chromosome List is sent to chromosome Interpreter" + partChrList);
+            chromosmeList = chromosmeList.concat("#" + idNumber);
             ops.set(ConstantStrings.slavePopulation + ".1.1" , chromosmeList);
             slavesPopulationPublisher.publish("Initial population available",1,1);
             logger.info("population is available to one slave");
@@ -206,7 +217,7 @@ public class Island {
 
     }
 
-    private void build(String rest, int numberOfChromosomes, int containers, String head) {
+    private void build(String rest, int numberOfChromosomes,String idNumber, int containers, String head) {
         int chromosomesPerSlave = numberOfChromosomes / containers;
         List<List<String>> dividedPopulation = new ArrayList<>();
         int populationCounter = 0;
@@ -262,6 +273,7 @@ public class Island {
                 partChrList = partChrList + dividedPopulation.get(numberOfChrinList).get(numberOfChrinListInsid) + "\n";
             }
             partChrList = partChrHead + "\n" + partChrList;
+            partChrList = partChrList.concat("#" + idNumber);
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             //System.out.print("Following Chromosome List is sent to chromosome Interpreter" + partChrList);
             int numberOfChannel = numberOfChrinList + 1;
