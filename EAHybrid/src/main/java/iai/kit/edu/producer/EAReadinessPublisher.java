@@ -1,5 +1,7 @@
 package iai.kit.edu.producer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
@@ -16,10 +18,10 @@ public class EAReadinessPublisher {
 	@Qualifier("eaReadyTopic")
 	private ChannelTopic topic;
 
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public void publish(){
-		System.out.println("Publishing EA ready:");
+		logger.info("publishing EA ready!");
 		redisTemplate.convertAndSend(topic.getTopic(), "EA ready");
 	}
 

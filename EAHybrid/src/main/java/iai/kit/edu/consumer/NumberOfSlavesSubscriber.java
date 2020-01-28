@@ -2,6 +2,8 @@ package iai.kit.edu.consumer;
 
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.SlavesConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.Message;
@@ -17,13 +19,13 @@ public class NumberOfSlavesSubscriber implements MessageListener {
 
     @Autowired
     SlavesConfig slavesConfig;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        System.out.println("I have got a message:"  + message.toString());
         ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
         int numberOfSlaves = ops.get(ConstantStrings.numberOfSlaves);
-        System.out.println(" Number of Slaves: " + numberOfSlaves);
+        logger.info("Number of Slaves: " + numberOfSlaves);
         slavesConfig.setNumberOfSlaves(numberOfSlaves);
     }
 }

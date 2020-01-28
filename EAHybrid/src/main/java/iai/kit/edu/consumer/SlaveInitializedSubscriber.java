@@ -2,6 +2,8 @@ package iai.kit.edu.consumer;
 
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.SlavesConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.Message;
@@ -21,13 +23,15 @@ public class SlaveInitializedSubscriber implements MessageListener {
 	@Autowired
 	SlavesConfig slavesConfig;
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Override
 	public void onMessage(Message message, byte[] pattern) {
-		System.out.println("I got a message: " + message.toString());
+		logger.info(message.toString());
 		RedisAtomicInteger slavesInitializedCounter = new RedisAtomicInteger(numberOfSlavesInitializedString,template.getConnectionFactory());
 		int numberOfSlavesInitialized = slavesInitializedCounter.incrementAndGet();
 		if(numberOfSlavesInitialized == slavesConfig.getNumberOfSlaves()){
-			System.out.println("All Slaves Initialized");
+			logger.info("All Slaves Initialized");
 			slavesConfig.setAllSlavesInitialized(true);
 		}
 

@@ -1,6 +1,8 @@
 package iai.kit.edu.consumer;
 
 import iai.kit.edu.controller.IslandReadinessController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +17,11 @@ public class EAReadinessSubscriber implements MessageListener {
 
 	@Autowired
 	IslandReadinessController islandReadinessController;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Override
 	public void onMessage(Message message, byte[] pattern) {
-		System.out.println("I got message: " + message.toString());
+		logger.info(message.toString());
 		islandReadinessController.sendReadinessStatus(ConstantStrings.slavesReady);
 		
 	}
