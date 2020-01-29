@@ -49,14 +49,8 @@ public class CalculationConfigSubscriber implements MessageListener {
         JsonArray partPopulationJsonAsJsonArray = gson.fromJson(partPopulationJson, JsonArray.class);
         logger.info("received a sub population with  " + partPopulationJsonAsJsonArray.size()+ " chromosomes");
         // to execute calculation
-        try {
-            calculation.calculationPrice(partPopulationJsonAsJsonArray, idNumber);
+        calculation.calculationPrice(partPopulationJsonAsJsonArray, idNumber);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
     }
 
 

@@ -31,7 +31,7 @@ public class Chromosomeinterpreter {
     private  List<SchedulingPlan> listSchedulingPlan;
     private JsonObject forecasting;
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String date = "2011-01-10";
+    private static String date = "2013-01-01";
     /*public static ResponseEntity<String> getGeneration;
     public static ResponseEntity<String> getConsumption;*/
     public static String getGeneration;
@@ -436,7 +436,7 @@ public class Chromosomeinterpreter {
         gson = new Gson();
         String jsonInString = gson.toJson(tempFinalScheduling);
         logger.info("sending the final plan");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/finalplan", jsonInString, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL +"/opt/finalplan", jsonInString, String.class);
     }
     public void caculateDuration(double durationPar)
     {

@@ -10,7 +10,7 @@ public class Test {
     public static void main(String[] args) {
      int[] numberOfIslands = new int[]{1};
      int[] numberOfSlaves = new int[] {1};
-     int[] populationSizes = new int[]{20};
+     int[] populationSizes = new int[]{10};
      int[] migrationRates = new int[]{1};
      int[] generationAmount = new int[]{1};
      int[] delays = new int[]{0};

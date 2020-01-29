@@ -36,7 +36,7 @@ public class Calculation {
     private float resourceCost;
     private JsonObject price;
     private JsonObject consumption;
-    private static String date = "2011-01-10";
+    private static String date = "2013-01-01";
     private float houseConsumption;
     private float sumOfRequestedPowerinEachPlan;
     private RestTemplate restTemplate = new RestTemplate();
