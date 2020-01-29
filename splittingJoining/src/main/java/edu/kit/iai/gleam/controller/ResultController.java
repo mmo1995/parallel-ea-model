@@ -170,7 +170,7 @@ public class ResultController {
             receivedSlavesResultsCounter.set(0);
             String[] chromosomes = aggregatedSlavesResult.get(String.valueOf(islandNumber)).split("\n");
             int numberOfChromosomes = chromosomes.length;
-            header = "0" +" "+numberOfChromosomes+" "+"3"+"\n";
+            header = "0" +" "+numberOfChromosomes+" "+"4"+"\n";
             //System.out.println("header is " + header);
             header = header + aggregatedSlavesResult.get(String.valueOf(islandNumber));
             header = header.concat("#" + idNumber);

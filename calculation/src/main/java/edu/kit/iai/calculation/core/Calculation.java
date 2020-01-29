@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.FileNotFoundException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -24,6 +26,7 @@ import static java.lang.Math.abs;
 public class Calculation {
     private int planIntID;
     private int childIntID;
+    private int NrOfGenes;
     private JsonArray resourceIntPlan;
     private int resourceIntID;
     private JsonArray resourceIntPlanPart;
@@ -33,7 +36,7 @@ public class Calculation {
     private float resourceCost;
     private JsonObject price;
     private JsonObject consumption;
-    private static String date = "2013-01-01";
+    private static String date = "2011-01-10";
     private float houseConsumption;
     private float sumOfRequestedPowerinEachPlan;
     private RestTemplate restTemplate = new RestTemplate();
@@ -57,28 +60,49 @@ public class Calculation {
     private int numberOfGenerationOfOneJob;
     private int actualNumberOfGenerationOfOneJob = 0;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    StringBuilder finalResult;
+    private  List<JsonObject> JsonObjectPriceList;
 
-
-
-    public void calculationPrice  (JsonArray jsonArray, String idNumber) throws FileNotFoundException, UnknownHostException {
+    public void calculationPrice  (JsonArray jsonArray, String idNumber)  {
         startTime = System.currentTimeMillis();
 
         logger.info("the date to be scheduled is "+ date);
         houseConsumption = calculationSumConsumption(date);
-        //  System.out.println("The ssssdddd JSON  file as chromosome list with relative values" + partOfPopulation + "\n");
-        //  String path = "/home/ws/na8117/Schreibtisch/Intermed_SchedulingOnline/calculation/Price.json";
-
+        finalResult = new StringBuilder("");
         gson = new Gson();
-        //  price = gson.fromJson(new FileReader(path), JsonObject.class);
-        // System.out.println("The hAASD ssssssssssss");
-
-        StringBuilder finalResult = new StringBuilder("");
-         // System.out.println("The JSON  file as chromosome list with relative values" + partOfPopulation);
-          //  JsonArray jsonArray = gson.fromJson(partOfPopulation, JsonArray.class);
-        // System.out.println("The jsonArray size " + jsonArray.size());
+        List<JsonObject> JsonObjectList = new ArrayList<JsonObject>();
 
         for (int i = 0; i < jsonArray.size(); i++)
-        { // for each plan in Json
+        {
+            JsonObject plan = jsonArray.get(i).getAsJsonObject();
+            JsonObjectList.add(plan);
+        }
+
+
+        JsonArray jsonArrayPrice = new Gson().fromJson(getPrice, JsonArray.class);// if you use API use the above line
+        JsonObjectPriceList = new ArrayList<JsonObject>();
+        for (int i = 0; i < jsonArrayPrice.size(); i++)
+        {
+            JsonObject planJson = jsonArrayPrice.get(i).getAsJsonObject();
+            JsonObjectPriceList.add(planJson);
+        }
+
+        JsonObjectList.stream().parallel().forEach(
+                plan ->  planCalculationParallel(plan)
+        );
+
+
+        // System.out.println("Here is inside the function (first)"+finalResult);
+        endTime = System.currentTimeMillis();
+        generationduration = TimeUnit.MILLISECONDS.toMinutes(endTime - startTime);
+        caculateDuration(generationduration);
+        finalResult.append("#" + idNumber);
+        intermediatePopulationPublisher.publishIntermediatePopulation(finalResult);
+    }
+
+
+    public void planCalculationParallel(JsonObject plan) {
+        synchronized(finalResult){
             planCost = 0;
             sumOfRequestedPowerinEachPlan = 0;
 
@@ -86,9 +110,11 @@ public class Calculation {
             for(int ii=0;ii<sumOfRequestedPowrinEachHour.length;ii++)
                 sumOfRequestedPowrinEachHour[ii] = 0;
 
-            JsonObject plan = jsonArray.get(i).getAsJsonObject();
             planIntID = plan.get("planID").getAsInt();
             childIntID = plan.get("childID").getAsInt();
+            NrOfGenes = plan.get("NrOfGenes").getAsInt();
+
+
             resourceIntPlan = gson.fromJson(plan.get("resourcePlan").getAsJsonArray(),JsonArray.class); //size is equal to the number of resources
             for (int j = 0; j< resourceIntPlan.size();j++) // for each resource in this plan
             {
@@ -107,13 +133,15 @@ public class Calculation {
                     else
                         composedDate = String.format("%s %d", date,k);
 
-                     //System.out.println("composedDate to send th forecasting "+ composedDate);
+                    //System.out.println("composedDate to send th forecasting "+ composedDate);
 
                     costResourceTempo[k]  = calculationPlancost(resourceIntPlanPart.get(k).getAsFloat(), composedDate, resourceIntID);
                     sumOfRequestedPowrinEachHour[k] += resourceIntPlanPart.get(k).getAsFloat();
+
                     //System.out.println("The sum Of Requested Power in Each Plan is "+resourceIntPlanPart.get(k).getAsFloat());
                     sumOfRequestedPowerinEachPlan += resourceIntPlanPart.get(k).getAsFloat();
                 }
+
                 for (int l = 0; l < costResourceTempo.length;l++)
                 {
                     resourceCost+=costResourceTempo[l];
@@ -122,62 +150,78 @@ public class Calculation {
 
             } // end of all resouces in this plan
             //form the reslut for this plan in for of planID childID res1 res2 res3 .....
+
             float numberOfDifferenceEachhour = calculationDifferenceEachhour(sumOfRequestedPowrinEachHour, date);
             finalResult.append(planIntID);
             finalResult.append(" "+childIntID);
             finalResult.append(" " +planCost);
             finalResult.append(" "+abs(houseConsumption-sumOfRequestedPowerinEachPlan));
-            finalResult.append(" "+ numberOfDifferenceEachhour+"\n");
-
-           // System.out.println("The cost of this plan is "+planCost);
-          //   System.out.println("**********************************************************");
-
-            //finalResult.append(" "+(Math.random() * (1200 - 0) + 100)+"\n");
+            finalResult.append(" "+ numberOfDifferenceEachhour);
+            finalResult.append(" " +NrOfGenes+"\n");
 
         }
-       //System.out.println("Here is inside the function (first)"+finalResult);
-        endTime = System.currentTimeMillis();
-        generationduration = TimeUnit.MILLISECONDS.toMinutes(endTime - startTime);
-        caculateDuration(generationduration);
-        finalResult.append("#" + idNumber);
-        intermediatePopulationPublisher.publishIntermediatePopulation(finalResult);
+        // System.out.println("The cost of this plan is "+planCost);
+        //   System.out.println("**********************************************************");
 
+        //finalResult.append(" "+(Math.random() * (1200 - 0) + 100)+"\n");
 
     }
 
 
-    public  float fetchDataMarket (String date1, int resourceID) throws UnknownHostException {
+    //* public  float fetchDataMarket (String date1, int resourceID)  {
 
         /*Document docs = collectionMarket.find(and(regex("localhour" , date), eq("dataid", resourceID))).first();
         String jsonMarket =docs.toJson();
         price = new Gson().fromJson(jsonMarket, JsonObject.class);
-        float priceInt = price.get("preis").getAsFloat();*/
-
+        float priceInt = price.get("preis").getAsFloat();///////////
         //JsonArray jsonArrayPeice = new Gson().fromJson(getPrice.getBody(), JsonArray.class);
+        String wrongValue = "99999999";
+        List<Float> priceToReturn = Collections.synchronizedList(new ArrayList<Float>());
         JsonArray jsonArrayPeice = new Gson().fromJson(getPrice, JsonArray.class);// if you use API use the above line
-        float priceInt1 = 0;
-        for (int i = 0; i < jsonArrayPeice.size(); i++) {
-            JsonObject priceJsonObjects = jsonArrayPeice.get(i).getAsJsonObject();
-            String dateInJsonObject = priceJsonObjects.get("localhour").getAsString();
-            int resourceIDInJsonObject =  priceJsonObjects.get("dataid").getAsInt();
-            if (dateInJsonObject.contains(date1) && resourceIDInJsonObject == resourceID)
-            {
-                priceInt1 = priceJsonObjects.get("preis").getAsFloat();
-                break;
-            }
+        List<JsonObject> JsonObjectPriceList = new ArrayList<JsonObject>();
+        for (int i = 0; i < jsonArrayPeice.size(); i++)
+        {
+            JsonObject plan = jsonArrayPeice.get(i).getAsJsonObject();
+            JsonObjectPriceList.add(plan);
         }
+        JsonObjectPriceList.stream().parallel().forEach(
+                priceJson -> {
+                    String dateInJsonObject = priceJson.get("localhour").getAsString();
+                    int resourceIDInJsonObject =  priceJson.get("dataid").getAsInt();
+                    if (dateInJsonObject.contains(date1) && resourceIDInJsonObject == resourceID)
+                    {
+                        float priceInt1 = priceJson.get("preis").getAsFloat();
+                        priceToReturn.add(priceInt1);
+                    }
+                    else
+                        priceToReturn.add(Float.parseFloat(wrongValue));
+                }
+        );
+        float retuernedprice = priceToReturn.get(0);
+        priceToReturn.remove(0);
+        System.out.println("retuernedprice" + retuernedprice);
+        return retuernedprice;
+    }*/
 
-         //System.out.println ("The Price for the date "+ date + " and the resource  "+resourceID + " is "+ priceInt1);
-         // System.out.println("the Doc price for this hour and this resource is :"+ docs.toJson());
-         //  System.out.println("the price for this hour and this resource is :"+ priceInt);
-        return priceInt1;
-    }
+    private float calculationPlancost (float absoulteValue, String composedDate, int resourceID)  {
 
-    private float calculationPlancost (float absoulteValue, String composedDate, int resourceID) throws FileNotFoundException, UnknownHostException {
+        // System.out.println("the absoulte value for this hour and this resource is  :"+ absoulteValue);
+        final float [] priceInThishour = {0};
 
-       // System.out.println("the absoulte value for this hour and this resource is  :"+ absoulteValue);
-        float result = absoulteValue*fetchDataMarket (composedDate, resourceID);
-       // System.out.println("the cost of this hour for this resource is  :"+ result);
+        JsonObjectPriceList.stream().parallel().forEach(
+                priceJson -> {
+                    String dateInJsonObject = priceJson.get("localhour").getAsString();
+                    int resourceIDInJsonObject =  priceJson.get("dataid").getAsInt();
+                    if (dateInJsonObject.contains(composedDate) && resourceIDInJsonObject == resourceID)
+                    {
+                        priceInThishour[0] = priceJson.get("preis").getAsFloat();
+                    }
+
+                }
+        );
+
+        float result = absoulteValue*priceInThishour[0] ;
+        // System.out.println("the cost of this hour for this resource is  :"+ result);
         return result;
 
     }
@@ -193,7 +237,7 @@ public class Calculation {
         return docsF;
     }*/
 
-    private float calculationSumConsumption (String date1) throws FileNotFoundException, UnknownHostException {
+    private float calculationSumConsumption (String date1)  {
         float result = 0;
         /*FindIterable<Document> docs = fetchDataConsumption(date);
         for (Document doc : docs)
@@ -220,11 +264,10 @@ public class Calculation {
             }
         }
 
-        //System.out.println("The consumption for this day is Final " + (result));
         return (result);
     }
 
-    private float calculationDifferenceEachhour (float [] sumOfRequestedPowrinEachHour, String date1) throws FileNotFoundException, UnknownHostException {
+    private float calculationDifferenceEachhour (float [] sumOfRequestedPowrinEachHour, String date1) {
 
        /* FindIterable<Document> docs = fetchDataConsumption(date);
         int index = 0;
@@ -241,6 +284,7 @@ public class Calculation {
             index++;
 
         }*/
+        /*TODO make instead of date  ComposeDate to contain Hour */
         float consumptionInt = 0;
         float numberOfHourWhereUseMoreThanRequestedPower = 0;
         int index = 0;
@@ -271,12 +315,11 @@ public class Calculation {
     public void caculateDuration(long durationPar)
     {
         actualNumberOfGenerationOfOneJob++;
-        logger.info("actualNumberOfGenerationOfOneJob is "+ actualNumberOfGenerationOfOneJob);
+
         jobDuration = jobDuration + durationPar;
 
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, intTemplate.getConnectionFactory());
         numberOfGenerationOfOneJob = amountOfGeneration.get();
-        logger.info("numberOfGenerationOfOneJob is "+ numberOfGenerationOfOneJob);
 
         if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
             logger.info("the time taken to calculate this sub population for one generation is " + durationPar + " Minutes");

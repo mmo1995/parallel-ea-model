@@ -5,6 +5,7 @@ import java.util.List;
 public class SchedulingPlan {
     public int planID; // ChromosomeID
     public int childID;
+    public int NrOfGenes;
 
     public List<ResourcePlan> resourcePlan;
 
@@ -27,6 +28,14 @@ public class SchedulingPlan {
 
     public void setChildID(int childID) {
         this.childID = childID;
+    }
+
+    public int getNrOfGenes() {
+        return NrOfGenes;
+    }
+
+    public void setNrOfGenes(int nrOfGenes) {
+        NrOfGenes = nrOfGenes;
     }
 
 }

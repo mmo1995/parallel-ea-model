@@ -31,11 +31,15 @@ public class Chromosomeinterpreter {
     private  List<SchedulingPlan> listSchedulingPlan;
     private JsonObject forecasting;
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String date = "2013-01-01";
+    private static String date = "2011-01-10";
     /*public static ResponseEntity<String> getGeneration;
     public static ResponseEntity<String> getConsumption;*/
     public static String getGeneration;
     public static String getConsumption;
+    private float genValueInObjectJson;
+    private String [] jsonObjectGen;
+    private  List<JsonObject> JsonObjectGenList;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     CalculationConfigPublisher calculationConfigPublisher;
@@ -57,6 +61,16 @@ public class Chromosomeinterpreter {
         String idNumber = chromosmeListWithId.substring(chromosmeListWithId.indexOf("#")+1);
 
         startTime = System.currentTimeMillis();
+
+        JsonArray jsonArrayConsumption = new Gson().fromJson(getGeneration, JsonArray.class); // if you use API use the above line
+        JsonObjectGenList = new ArrayList<JsonObject>();
+
+        for (int i = 0; i < jsonArrayConsumption.size(); i++)
+        {
+            JsonObject plan = jsonArrayConsumption.get(i).getAsJsonObject();
+            JsonObjectGenList.add(plan);
+        }
+
         chromosmeListAnalysis(chromosomeList);
         buildingAllocationMatrix(rest, numberOfChromosomes, idNumber);
         // readForcastinData ();
@@ -70,9 +84,9 @@ public class Chromosomeinterpreter {
         numberOfChromosomes = Integer.parseInt(chromosmeList.substring(0, head.indexOf(" ")));
         logger.info("received a sub population with  " + numberOfChromosomes+ " chromosomes");
         logger.info("the date to be scheduled is "+ date);
+        jsonObjectGen = getGeneration.split("},");
         rest = chromosmeList.substring(chromosmeList.indexOf("\n") + 1, chromosmeList.length());
     }
-
 
 
     public void buildingAllocationMatrix(String rest, int numberOfChromosomes, String idNumber) throws IOException {
@@ -109,7 +123,7 @@ public class Chromosomeinterpreter {
 
         }
         /********************** End of isolation each chromosome in one list slot*/
-        listSchedulingPlan = new ArrayList<>(listOfChromosoms.size());
+        listSchedulingPlan = Collections.synchronizedList(new ArrayList<>(listOfChromosoms.size()));
         long startTime3 = System.currentTimeMillis();
         listOfChromosoms.stream().parallel().forEach(chromosome -> {
             try {
@@ -127,6 +141,7 @@ public class Chromosomeinterpreter {
         String jsonInString = gson.toJson(listSchedulingPlan);
         jsonInString = jsonInString.concat("#" + idNumber);
         calculationConfigPublisher.publishCalculationConfig(jsonInString);
+
         if  (listSchedulingPlan.size() == 1)
         {
             buildingFinalPlan (listSchedulingPlan);
@@ -139,7 +154,7 @@ public class Chromosomeinterpreter {
         caculateDuration(generationduration);
     }
 
-    public void interpreterParallelChromosome (String chromosome) throws IOException {
+    public  void  interpreterParallelChromosome (String chromosome) throws IOException {
 
         List<SchedulingPlan> listSchedulingPlanTemp = new ArrayList<>();
         String[] genes;
@@ -170,6 +185,8 @@ public class Chromosomeinterpreter {
         childID = Integer.parseInt((genes[0].substring(indexOfFirstWhiteSpace, indexOfSecondWhiteSpace)).replaceAll("\\s+", ""));
         schedulingPlan.setplanID(chromosomeID);
         schedulingPlan.setChildID(childID);
+        schedulingPlan.setNrOfGenes(genes.length-1);
+
         for (int r = 1; r < genes.length; r++) //for each gene in the chromosome to find the unique of resources
         {
             indexOfFirstWhiteSpaceFirst = StringUtils.ordinalIndexOf(genes[r], " ", 1);
@@ -178,7 +195,7 @@ public class Chromosomeinterpreter {
                 resources.add(resourceID);
             }
         }
-
+        Collections.sort(resources);
         listResourcePlan = new ArrayList<>();
         for (int t = 0; t < resources.size(); t++) {
             resourcePlan = new ResourcePlan();
@@ -187,27 +204,42 @@ public class Chromosomeinterpreter {
             listResourcePlan.add(resourcePlan);
         }
 
-        for (int r = 1; r < genes.length; r++) {
-            indexOfFirstWhiteSpaceFirst = StringUtils.ordinalIndexOf(genes[r], " ", 1);
-            indexOfFirstWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 2);
-            indexOfSecondWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 3);
-            indexOfThirdWhiteSpace = StringUtils.ordinalIndexOf(genes[r], " ", 4);
-            indexOfEndPowerFraction = genes[r].length();
+        logger.info("the number of genes in this chromosome " + (genes.length-1));
 
-            resourceID = Integer.parseInt(genes[r].substring(indexOfResourceID, indexOfFirstWhiteSpaceFirst));
-            startHour = Integer.parseInt(genes[r].substring(indexOfFirstWhiteSpace + 1, indexOfSecondWhiteSpace));
-            duration = Integer.parseInt(genes[r].substring(indexOfSecondWhiteSpace + 1, indexOfThirdWhiteSpace));
-            powerFraction = Float.parseFloat(genes[r].substring(indexOfThirdWhiteSpace + 1, indexOfEndPowerFraction));
+        List<String> genesStream = new LinkedList<String>(Arrays.asList(genes));
+        genesStream.remove(0);
+        for (String gen : genesStream)
+        {
+            indexOfFirstWhiteSpaceFirst = StringUtils.ordinalIndexOf(gen, " ", 1);
+            indexOfFirstWhiteSpace = StringUtils.ordinalIndexOf(gen, " ", 2);
+            indexOfSecondWhiteSpace = StringUtils.ordinalIndexOf(gen, " ", 3);
+            indexOfThirdWhiteSpace = StringUtils.ordinalIndexOf(gen, " ", 4);
+            indexOfEndPowerFraction = gen.length();
+
+            resourceID = Integer.parseInt(gen.substring(indexOfResourceID, indexOfFirstWhiteSpaceFirst));
+            startHour = Integer.parseInt(gen.substring(indexOfFirstWhiteSpace + 1, indexOfSecondWhiteSpace));
+            duration = Integer.parseInt(gen.substring(indexOfSecondWhiteSpace + 1, indexOfThirdWhiteSpace));
+            powerFraction = Float.parseFloat(gen.substring(indexOfThirdWhiteSpace + 1, indexOfEndPowerFraction));
             endHour = startHour + duration;
+            // Usecase 1
             if (endHour > 24) {
                 endHour = 24;
                 //System.out.println("\n *******Start + endHour > 23**********" + "  " + endHour);
             }
+            //Usecase 2
+           /* if (resourceID > 7 && resourceID < 18 && endHour > 17) {
+                endHour = 17;
+            }
+            if (resourceID > 25 && resourceID < 51 && endHour > 24) {
+                endHour = 24;
+            }*/
+
 
             for (int ll = 0; ll < listResourcePlan.size(); ll++) {
                 if (resourceID == listResourcePlan.get(ll).getresourceID()) {
-
+                    genValueInObjectJson = 0;
                     listResourcePlan.get(ll).setPowerFraction(setPowerFractionInside(listResourcePlan.get(ll).getPowerFraction(), startHour, endHour, powerFraction, resourceID));
+                    break;
                 }
             }
 
@@ -276,6 +308,7 @@ public class Chromosomeinterpreter {
 
     }
 
+
     public  float [] setPowerFractionInside (float [] powerFr,int start, int end, float pf, int resID) throws IOException {
         // resID is the resource ID
 
@@ -288,24 +321,42 @@ public class Chromosomeinterpreter {
         else
         {
             for (int s = start; s < end; s++) {
+                final float [] GenInThishour = {0};
                 String composedDate;
                 if(s < 10){
                     composedDate = String.format("%s %d%d", date,0,s);
                 }
                 else
                     composedDate = String.format("%s %d", date,s);
-                powerFr[s] = pf*restEnergy(composedDate, resID);
+                JsonObjectGenList.stream().parallel().forEach(
+                        generationsonObjects -> {
+                            String dateInJsonObject = generationsonObjects.get("localhour").getAsString();
+                            int resourceIDInJsonObject =  generationsonObjects.get("dataid").getAsInt();
+                            String hour = composedDate.substring(composedDate.length() - 2);
+
+                            if (dateInJsonObject.contains(composedDate) && resourceIDInJsonObject == resID) {
+                                if (generationsonObjects.get("gen").getAsFloat() > 0.1 && (Integer.parseInt(hour)>7 && Integer.parseInt(hour)<18))
+                                    GenInThishour[0] = generationsonObjects.get("gen").getAsFloat();
+                                else
+                                    GenInThishour[0] = (float) 0.5;
+                            }
+
+                        }
+                );
+                powerFr[s] = pf*GenInThishour[0];
+
             }
             return powerFr;
         }
     }
 
-    public float restEnergy (String composedDate, int resID) throws IOException // calculate the rest for energy still by each house by sub gen-use
+    /*public float restEnergy (String composedDate, int resID) throws IOException // calculate the rest for energy still by each house by sub gen-use
     {
-        //JsonArray jsonArrayConsumption = new Gson().fromJson(getGeneration.getBody(), JsonArray.class);
+
         JsonArray jsonArrayConsumption = new Gson().fromJson(getGeneration, JsonArray.class); // if you use API use the above line
         String hour = "";
         float gen = 0;
+
         for (int i = 0; i < jsonArrayConsumption.size(); i++) {
             JsonObject generationsonObjects = jsonArrayConsumption.get(i).getAsJsonObject();
             String dateInJsonObject = generationsonObjects.get("localhour").getAsString();
@@ -317,10 +368,30 @@ public class Chromosomeinterpreter {
                     gen = generationsonObjects.get("gen").getAsFloat();
                 else
                     gen = (float) 0.5;
+                break;
             }
         }
         return gen;
     }
+    public void getGenParallel (String jsonObjGen, String composedDate1, int resID)
+    {
+        String hour = "";
+        float gen1 = 0;
+        JsonObject generationsonObjects = new Gson().fromJson(jsonObjGen, JsonObject.class);
+        String dateInJsonObject = generationsonObjects.get("localhour").getAsString();
+        int resourceIDInJsonObject =  generationsonObjects.get("dataid").getAsInt();
+        hour = composedDate1.substring(composedDate1.length() - 2);
+
+        if (dateInJsonObject.contains(composedDate1) && resourceIDInJsonObject == resID) {
+            if (generationsonObjects.get("gen").getAsFloat() > 0.1 && (Integer.parseInt(hour)>8 && Integer.parseInt(hour)<17))
+                gen1 = generationsonObjects.get("gen").getAsFloat();
+            else
+                gen1 = (float) 0.5;
+        }
+        genValueInObjectJson =   gen1;
+
+
+    }*/
 
     public void buildingFinalPlan (List<SchedulingPlan> finalPlan) throws IOException {
 
@@ -365,7 +436,7 @@ public class Chromosomeinterpreter {
         gson = new Gson();
         String jsonInString = gson.toJson(tempFinalScheduling);
         logger.info("sending the final plan");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL +"/opt/finalplan", jsonInString, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/finalplan", jsonInString, String.class);
     }
     public void caculateDuration(double durationPar)
     {
