@@ -1,0 +1,7 @@
+# -------------------------- Programmparameter Datei (TSK file) --------------------------
+GLEAM/AE  MathFkt 
+# erzeugt am Wed, 20.06.2018                                         File: mbf_rot_bsp.tsk
+# ----------------------------------------------------------------------------------------
+Drehwinkel in Grad                  = 30.0
+# --------------------------------- Default-Einstellungen: -------------------------------
+Maximale Laufzeit [sec]             =     90    # 1,5 min

@@ -1,0 +1,33 @@
+# -------------------------- Programmparameter Datei (TSK file) --------------------------
+GLEAM/AE  ExtSimuServ                           # this line must not be changed
+# erzeugt am 29.10.2019  wj
+# ----------------------------------------------------------------------------------------
+Mit Logging d.ExtSimu-Schnittstelle = 0         # Protokollierung der Simu-Schnittstelle. Verlangsamt!
+Maximale Zeit pro ExtSimu-Lauf[sec] = 100000     # TMO fuer die Bewertung einer Chromosomenliste
+Simulatormodell                     = unused  # relevant fuer externe Simu-Services
+Domainname der externen SimuDienste = localhost
+
+# ---------------------------- command line options ---------------------------- 
+Mit detaliertem Logging             =  1    # optional und irrelevant wenn Aufrufparameter
+Mit Init. d.Zufallszahlengenerators =  1    # optional
+Mit Ergebnis-Simulation             =  1    # optional, Vorsicht: Meldung kann ignoriert werden.
+Mit Rettung der ErgebnisChromosomen =  1    # optional
+# -----------------------------------------------------------------------------------------------
+Optimierungsverfahren               = GLEAM          # GLEAM, SMA, ASMA, AMMA, LSV  optional
+Populationsgroesse                  =  100           # optional
+Nachbarschaftsgroesse               =    8           # optional
+InitStrategie f.die Startpopulation =  neu           # neu, best, mix, bestNeu, lsvNeu, lsvBest
+InitStrategie-Parameter             =    0           # required for mix, bestNeu, lsvNeu, lsvBest
+Akzeptanzregel fuer Nachkommen      = localLeast-ES  # always, localLeast, betterParent
+Ranking-Parameter                   = 1.45           # optional
+Mindesthammingabstand f.XO/Reko [%] = 0.1            # Kein XO/Reko nur bei sehr aehnlichen Chr.! 
+# -----------------------------------------------------------------------------------------------
+Maximale Laufzeit [sec]             =   250000          # 1.5 Minuten, optional
+Maximale Generationsanzahl          =   500          # optional
+Max. Gen. ohne Akzeptanz im Deme    =    40          # GAk } Werte > Generationslimit   optional
+Max. Gen. ohne Deme-Verbesserung    =   200          # GDV } sind nicht sinnvoll.       optional
+Mindest-Zielfitness                 = 100000.0       # optional
+# -------------------------- Island-Einstellungen: -----------------------------------------
+Mit initialem textuellem Chr.File   = 1      # notwendig fuer PAR_POP_VERS (CLV)
+Mit Tests auf Jobabbruch            = 1      # notwendig fuer PAR_POP_VERS (CLV)
+Abbruch-Testrate [Paarungen]        =     50 # notwendig fuer PAR_POP_VERS (CLV)
