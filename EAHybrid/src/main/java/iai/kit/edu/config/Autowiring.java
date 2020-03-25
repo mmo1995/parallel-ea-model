@@ -3,6 +3,7 @@ package iai.kit.edu.config;
 import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.algorithm.GLEAMStarter;
 import iai.kit.edu.consumer.*;
+import iai.kit.edu.controller.SlavesReadinessController;
 import iai.kit.edu.producer.EAReadinessPublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,7 +85,7 @@ public class Autowiring {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        // jedisConFactory.setHostName("redis");
+       //jedisConFactory.setHostName("redis");
         jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
@@ -268,6 +269,15 @@ public class Autowiring {
     @Bean
     EAReadinessPublisher eaReadinessPublisher() {
     	return new EAReadinessPublisher();
+    }
+
+    /**
+     * new object of SlavesReadines Controller
+     * @return
+     */
+    @Bean
+    SlavesReadinessController slavesReadinessController() {
+        return new SlavesReadinessController();
     }
 
 }

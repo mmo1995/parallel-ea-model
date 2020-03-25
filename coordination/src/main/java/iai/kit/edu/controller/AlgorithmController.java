@@ -43,7 +43,6 @@ public class AlgorithmController {
     private JobConfig jobConfig;
 
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String splittingJoining = "localhost:8074";
 
     private List<String> resultsCollection;
 
@@ -120,7 +119,6 @@ public class AlgorithmController {
                             jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
                             jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
                             jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
-                            jobConfigTemp.setGlobalTerminationEpoch(globalTerminationGeneration_1);
                             jobConfigList.add(jobConfigTemp);
                             // speedupresults.setJobConfig(jobConfig);
                             // speedUpResultsList.add(speedupresults);
@@ -220,7 +218,18 @@ public class AlgorithmController {
     }
 
     private void sendFormattedChromosome(String formattedChromosome){
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", formattedChromosome,String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL+ "/sjs/population/1/slaves", formattedChromosome,String.class);
 
     }
+
+    @RequestMapping(value = "/plan/{id}", method = RequestMethod.GET)
+    public String getReq(@PathVariable int id) throws InterruptedException {
+        return resultsCollection.get(id);
+    }
+
+    @RequestMapping(value = "/plan/all", method = RequestMethod.GET)
+    public List<String> getReq() throws InterruptedException {
+        return resultsCollection;
+    }
+
 }

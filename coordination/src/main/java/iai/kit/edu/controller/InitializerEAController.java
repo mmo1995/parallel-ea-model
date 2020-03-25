@@ -3,8 +3,10 @@ package iai.kit.edu.controller;
 import com.google.gson.Gson;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.InitializerEAConfig;
+import iai.kit.edu.core.Overhead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -21,7 +24,8 @@ import java.util.List;
 public class InitializerEAController {
 
     RestTemplate restTemplate = new RestTemplate();
-
+    @Autowired
+    private Overhead overhead;
     private final Logger logger=LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -32,6 +36,7 @@ public class InitializerEAController {
      * @return initial population
      */
     public List<String> initialize(int populationSize, double amountFitness, String initialSelectionPolicy){
+        overhead.setStartPopulationCreation(System.currentTimeMillis());
         InitializerEAConfig initializerEAConfig = new InitializerEAConfig();
         initializerEAConfig.setPopulationSize(populationSize);
         initializerEAConfig.setAmountFitness(amountFitness);
@@ -47,6 +52,9 @@ public class InitializerEAController {
         logger.info("creating initial population");
         ResponseEntity<String> initialPopulationString = restTemplate.postForEntity(ConstantStrings.initializerEAURL +"/ine/population/initial", entity,String.class);
         List<String> initialPopulation = gson.fromJson(initialPopulationString.getBody(),List.class);
+        overhead.setEndPopulationCreation(System.currentTimeMillis());
+        logger.info("Population creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndPopulationCreation() - overhead.getStartPopulationCreation()));
+
         return initialPopulation;
     }
 

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: splitting-joining
+  name: splitting-joining-hybrid
   namespace: energylab
   labels:
     opt: generic-framework-service
@@ -11,25 +11,25 @@ spec:
     protocol: TCP
     targetPort: 8074
   selector:
-    k8s-app: splitting-joining
+    k8s-app: splitting-joining-hybrid
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: splitting-joining-deployment
+  name: splitting-joining-hybrid-deployment
 spec:
   selector:
     matchLabels:
-      k8s-app: splitting-joining
+      k8s-app: splitting-joining-hybrid
   replicas: 1
   template:
     metadata:
       labels:
-        k8s-app: splitting-joining
+        k8s-app: splitting-joining-hybrid
     spec:
       containers:
-      - name: splitting-joining
-        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/splitting-joining:latest
+      - name: splitting-joining-hybrid
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/splitting-joining-hybrid:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8074

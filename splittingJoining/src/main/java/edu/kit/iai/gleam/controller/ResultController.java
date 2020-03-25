@@ -68,7 +68,7 @@ public class ResultController {
      * @param islandNumber
      */
     @RequestMapping(value = "/sjs/population/result", method = RequestMethod.POST)
-    public void receiveResult(@RequestBody int islandNumber) {
+    public synchronized void receiveResult(@RequestBody int islandNumber) {
         logger.trace("received result from island " + islandNumber);
 
         synchronized (aggregatedResult) {
@@ -94,11 +94,11 @@ public class ResultController {
      * @param islandAndSlaveNumber
      */
     @RequestMapping(value = "/sjs/slavesPopulation/result", method = RequestMethod.POST)
-    public void receiveResultFromSlave(@RequestBody int[] islandAndSlaveNumber) {
+    public synchronized void  receiveResultFromSlave(@RequestBody int[] islandAndSlaveNumber) {
         int islandNumber = islandAndSlaveNumber[0];
         int slaveNumber = islandAndSlaveNumber[1];
         //
-        logger.info("received result from slave " + slaveNumber);
+        logger.info("received result from island " + islandNumber + " received result from slave " + slaveNumber);
 
         synchronized (aggregatedSlavesResult) {
             RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
@@ -157,7 +157,7 @@ public class ResultController {
     }
 
     /**
-     * Check whether all slaves have sent their partial results
+     * Check whether all slaves have sent their partial resultsnumberOfIslands
      * @return
      */
     private boolean isIntermediateResultComplete(int islandNumber, String idNumber) {
@@ -208,16 +208,17 @@ public class ResultController {
         numberOfGenerationOfOneJob = amountOfGeneration.get();
         if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
             //logger.info("sending back the result of one generation");
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
-            logger.info("sending back the result of one generation");
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
+            logger.info("sending back the result of one generation to island  " + islandNumber);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
         }
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
             //amountOfGeneration.set(0);
-            logger.info("sending back the result of last generation");
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+            logger.info("sending back the result of last generation to island " + islandNumber);
+            //ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
             logger.info("one job is done");
             logger.info("******************************************");

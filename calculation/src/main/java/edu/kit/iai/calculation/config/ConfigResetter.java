@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
@@ -40,7 +41,12 @@ public class ConfigResetter implements ApplicationRunner {
     CalculationConfigSubscriber calculationConfigSubscriber;
     @Autowired
     InitSubscriber initSubscriber;
-
+    @Autowired
+    @Qualifier("stringTemplate")
+    private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    @Qualifier("calculationInitializedTopic")
+    private ChannelTopic topic;
 
     @Autowired
     IslandConfig islandConfig;
@@ -52,16 +58,19 @@ public class ConfigResetter implements ApplicationRunner {
         container.addMessageListener(initSubscriber, initializeCalculationTopic); // need if the container is already existed
         container.addMessageListener(calculationConfigSubscriber, calculationConfigTopic);// read the sub population to be calculated
         container.addMessageListener(dateSubscriber, dateTopic);// get the date to be scheduled
-      //  container.addMessageListener(stopSubscribe,stopSubschribingTopic); // get the date to be scheduled
+        redisTemplate.convertAndSend(topic.getTopic(), "Calculation initialized");
+
+        //  container.addMessageListener(stopSubscribe,stopSubschribingTopic); // get the date to be scheduled
 
 
     }
 
     public void reset() {
         logger.info("resetting calculation");
+        container.removeMessageListener(initSubscriber, initializeCalculationTopic);
         container.removeMessageListener(calculationConfigSubscriber, calculationConfigTopic);
         container.removeMessageListener(dateSubscriber, dateTopic);
-        container.removeMessageListener(stopSubscribe,stopSubschribingTopic);
+       // container.removeMessageListener(stopSubscribe,stopSubschribingTopic);
 
     }
 

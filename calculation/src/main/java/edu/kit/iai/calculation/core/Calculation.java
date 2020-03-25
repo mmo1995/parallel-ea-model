@@ -3,6 +3,7 @@ package edu.kit.iai.calculation.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import edu.kit.iai.calculation.config.ConfigResetter;
 import edu.kit.iai.calculation.config.ConstantStrings;
 import edu.kit.iai.calculation.producer.IntermediatePopulationPublisher;
 import org.slf4j.Logger;
@@ -50,6 +51,8 @@ public class Calculation {
     @Autowired
     @Qualifier("integerTemplate")
     RedisTemplate<String, Integer> intTemplate;
+    @Autowired
+    ConfigResetter configResetter;
 
     private long startTime;
     private long endTime;
@@ -327,6 +330,7 @@ public class Calculation {
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
+            //configResetter.reset();
             logger.info("the time taken to calculate all parts of one job is " + jobDuration + " Minutes");
             jobDuration = 0;
         }

@@ -1,15 +1,11 @@
 package iai.kit.edu.config;
 public class ConstantStrings {
 
-    public static final String coordinationURL = "http://localhost:8071";
-    public static final String containerManagementURL = "http://localhost:8073";
+     public static final String coordinationURL = "http://localhost:8071";
     public static final String splittingJoiningURL = "http://localhost:8074";
+    /*public static final String coordinationURL = "http://coordination-hybrid:8071";
+    public static final String splittingJoiningURL = "http://splitting-joining-hybrid:8074";*/
 
-	/*
-	 * public static final String coordinationURL = "http://coordination:8071";
-	 * public static final String splittingJoiningURL =
-	 * "http://splitting-joining:8074";
-	 */
 
     public static final String islandPath = "./gleam/testfeld/island/";
     public static final String initializerPath = "./gleam/testfeld/initializer/";

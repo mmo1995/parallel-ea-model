@@ -60,6 +60,10 @@ public class IslandReadinessController {
             resultController.reset();
             logger.info("starting islands");
             startPublisher.publish("start evolution");
+            islandsWithPopulationCounter.set(0);
+            islandsWithSubscribedNeighborsCounter.set(0);
+            islandsWithReadySlavesCounter.set(0);
+
         }
     }
 }

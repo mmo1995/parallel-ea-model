@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.google.gson.*;
 
 
+import iai.kit.edu.chromosomeinterpreter.config.ConfigResetter;
 import iai.kit.edu.chromosomeinterpreter.config.ConstantStrings;
 import iai.kit.edu.chromosomeinterpreter.producer.CalculationConfigPublisher;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,8 @@ public class Chromosomeinterpreter {
     private float genValueInObjectJson;
     private String [] jsonObjectGen;
     private  List<JsonObject> JsonObjectGenList;
+    @Autowired
+    ConfigResetter configResetter;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -451,6 +454,7 @@ public class Chromosomeinterpreter {
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
+            //configResetter.reset();
             logger.info("the time taken to interpret all parts of one job is " + jobDuration + " Minutes");
             logger.info("**************************************************************************************");
             jobDuration = 0;

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
@@ -14,6 +16,8 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  */
 public class ConfigResetter {
 
+    @Value("${slave.number}")
+    private String slaveNumber;
     @Autowired
     RedisMessageListenerContainer container;
     @Autowired
@@ -26,11 +30,9 @@ public class ConfigResetter {
     @Autowired
     @Qualifier("slavePopulationTopic")
     ChannelTopic slavePopulationTopic;
-    
     @Autowired
     @Qualifier("calculationInitializedTopic")
     ChannelTopic calculationInitializedTopic;
-    
     @Autowired
     @Qualifier("dateTopic")
     ChannelTopic dateTopic;
@@ -44,7 +46,13 @@ public class ConfigResetter {
     
     @Autowired
     CalculationInitializedSubscriber calculationInitializedSubscriber;
+    @Autowired
+    @Qualifier("stringTemplate")
+    private RedisTemplate<String, String> redisTemplate;
 
+    @Autowired
+    @Qualifier("slaveInitializedTopic")
+    private ChannelTopic topic;
 
     @Autowired
     IslandConfig islandConfig;
@@ -57,11 +65,14 @@ public class ConfigResetter {
         container.addMessageListener(slavePopulationSubscriber, slavePopulationTopic); // read the sub population to be interpreted
         container.addMessageListener(dateSubscriber,dateTopic); // get the date to be scheduled
         container.addMessageListener(calculationInitializedSubscriber, calculationInitializedTopic);
+        redisTemplate.convertAndSend(topic.getTopic(), "Slave initialized " + slaveNumber);
+
         //container.addMessageListener(stopSubscribe,stopSubschribingTopic); // get the date to be scheduled
     }
 
     public void reset() {
         logger.info("resetting chromosomeinterpreter");
+        container.removeMessageListener(initSubscriber, initializeIslandsTopic);
         container.removeMessageListener(slavePopulationSubscriber, slavePopulationTopic);
         container.removeMessageListener(dateSubscriber, dateTopic);
         container.removeMessageListener(calculationInitializedSubscriber, calculationInitializedTopic);

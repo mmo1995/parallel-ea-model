@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: container-management
+  name: container-management-hybrid
   namespace: energylab
   labels:
     opt: generic-framework-service
@@ -11,27 +11,28 @@ spec:
     protocol: TCP
     targetPort: 8073
   selector:
-    k8s-app: container-management
+    k8s-app: container-management-hybrid
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: container-management-deployment
+  name: container-management-hybrid-deployment
   namespace: energylab
 spec:
   selector:
     matchLabels:
-      k8s-app: container-management
+      k8s-app: container-management-hybrid
   replicas: 1
   template:
     metadata:
       labels:
-        k8s-app: container-management
+        k8s-app: container-management-hybrid
     spec:
       containers:
-      - name: container-management
-        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-v1/container-management:latest
+      - name: container-management-hybrid
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/container-management-hybrid:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8073
+          protocol: TCP
       serviceAccountName: pods-creator

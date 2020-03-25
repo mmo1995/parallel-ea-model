@@ -3,6 +3,7 @@ package iai.kit.edu.config;
 import iai.kit.edu.consumer.IntermediatePopulationSubscriber;
 import iai.kit.edu.controller.InitializerEAController;
 import iai.kit.edu.core.AlgorithmManager;
+import iai.kit.edu.core.Overhead;
 import iai.kit.edu.producer.SlaveNumberPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -167,4 +168,12 @@ public class Autowiring {
         return new InitializerEAController();
     }
 
+    /**
+     * Creates Overhead
+     * @return
+     */
+    @Bean
+    Overhead Overhead() {
+        return new Overhead();
+    }
 }

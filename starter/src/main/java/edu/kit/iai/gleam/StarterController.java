@@ -37,10 +37,10 @@ public class StarterController {
     private static int taskID = 0;
     private static int WFID = 0;
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String splittingJoining = "localhost:8074";
-    private static String coordination = "localhost:8071";
-   // private static String splittingJoining = "splitting-joining:8070";
-  //  private static String coordination = "coordination:8071";
+    // private static String splittingJoining = "localhost:8074";
+    // private static String coordination = "localhost:8071";
+    private static String splittingJoining = "splitting-joining-hybrid:8074";
+    private static String coordination = "coordination-hybrid:8071";
     private Map<String, String> finalResultCol = new HashMap<>();
     private String finalplan;
     private int numberOfChromosomes;
@@ -131,7 +131,8 @@ public class StarterController {
     @RequestMapping(value = "/opt/{id}/{nameOfModel}/active", method = RequestMethod.GET)
     public String checkModel(@PathVariable String id,
                              @PathVariable String nameOfModel) {
-        return "yes";
+
+        synchronized (this){return "yes";}
 /*        if (!id.equals("0") && Integer.parseInt(id) == taskID)
 
             return "yes";
@@ -149,8 +150,8 @@ public class StarterController {
      **/
     @RequestMapping(value = "/opt/{id}/models", method = RequestMethod.GET)
     public String getModels(@PathVariable String id) {
-        String models = "OpalDemo\n" + "OpalDemo1\n" + "OpalDemo2\n";
-        return models;
+        synchronized (this){String models = "OpalDemo\n" + "OpalDemo1\n" + "OpalDemo2\n";
+        return models;}
 /*        if (!id.equals("0") && Integer.parseInt(id) == taskID) {
             String models = "OpalDemo\n" + "OpalDemo1\n" + "OpalDemo2\n";
             return models;
@@ -167,13 +168,14 @@ public class StarterController {
      **/
     @RequestMapping(value = "/opt/{id}/start", method = RequestMethod.POST)
     public String startTask(@PathVariable String id, @RequestBody String configuration) {
-        WFID = 1;
-        StringBuilder sb = new StringBuilder();
-        sb.append("");
-        sb.append(WFID);
-        String strI = sb.toString();
-        logger.info("one optimization job is started");
-        return strI;
+        synchronized (this) {
+            WFID = 1;
+            StringBuilder sb = new StringBuilder();
+            sb.append("");
+            sb.append(WFID);
+            String strI = sb.toString();
+            logger.info("one optimization job is started with  id " + id);
+            return strI;
 /*        if (!id.equals("0") && Integer.parseInt(id) == taskID) {
 //            System.out.println("Configurations are: \n" + configuration);
             *//** TODO processing the Configuration**//*
@@ -185,6 +187,7 @@ public class StarterController {
             return strI;
         } else
             return "-1";*/
+        }
     }
 
 /** End of the check if a specific model exists or not  function**/
@@ -196,13 +199,13 @@ public class StarterController {
      **/
     @RequestMapping(value = "/opt/{id}/stop", method = RequestMethod.GET)
     public String stopTask(@PathVariable String id) {
-
-        if (true) {
-            numberOfGeneration = 0;
-            finalResultCol.put(id, ".");
-            logger.info("one optimization job is finished");
-            logger.info("********************************");
-            return "1";
+        synchronized (this) {
+            if (true) {
+                numberOfGeneration = 0;
+                finalResultCol.put(id, ".");
+                logger.info("one optimization job is finishedwith id "+ id);
+                logger.info("********************************");
+                return "1";
 
 /*            if (!id.equals("0") && Integer.parseInt(id) == taskID)
             {
@@ -214,8 +217,9 @@ public class StarterController {
             }
             else
                 return "-1";*/
-        } else {
-            return "-2";
+            } else {
+                return "-2";
+            }
         }
     }
 
@@ -228,7 +232,7 @@ public class StarterController {
      **/
     @RequestMapping(value = "/opt/{id}/{wfid}/abort", method = RequestMethod.GET)
     public String abortTask(@PathVariable String id, @PathVariable String wfid) {
-        return "1";
+        synchronized (this){return "1";}
 /*        String status = "";
         if (true) {
             if (Integer.parseInt(id) == taskID && Integer.parseInt(wfid) == WFID) {
@@ -266,29 +270,30 @@ public class StarterController {
     public String postReq(@RequestBody String receivedChromosomesList,
                           @PathVariable String id,
                           @PathVariable String wfid) throws InterruptedException, IOException, JSONException {
+        synchronized (this) {
+            logger.info("received the population for task "+ id);
+            finalResultCol.put(id, ".");
+            finalplan = "";
+            numberOfGeneration++;
+            String idNumber = id;
+            receivedChromosomesList = receivedChromosomesList.concat("#" + id);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<String> entity = new HttpEntity<String>(receivedChromosomesList, headers);
+            String status = "1"; // Success
 
-        finalResultCol.put(id, ".");
-        finalplan = "";
-        numberOfGeneration++;
-        String idNumber = id;
-        receivedChromosomesList = receivedChromosomesList.concat("#" + id);
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<String>(receivedChromosomesList, headers);
-        String status = "1"; // Success
-
-        String ChromosomesListForNumberOfChr = receivedChromosomesList.trim();
-        String head = ChromosomesListForNumberOfChr.substring(0, ChromosomesListForNumberOfChr.indexOf("\n")).trim();
-        numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", entity,String.class);
-        if (numberOfChromosomes> 1)
-            logger.info("received the "+numberOfGeneration+ " generation with "+ numberOfChromosomes + " chromosomes");
-        else {
-            logger.info("#####");
-            logger.info("received the best chromosome from EA");
-        }
-        //System.out.println("Complete Sending to splitting and Joining Service");
+            String ChromosomesListForNumberOfChr = receivedChromosomesList.trim();
+            String head = ChromosomesListForNumberOfChr.substring(0, ChromosomesListForNumberOfChr.indexOf("\n")).trim();
+            numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
+            ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", entity, String.class);
+            if (numberOfChromosomes > 1)
+                logger.info("received the " + numberOfGeneration + " generation with " + numberOfChromosomes + " chromosomes");
+            else {
+                logger.info("#####");
+                logger.info("received the best chromosome from EA");
+            }
+            //System.out.println("Complete Sending to splitting and Joining Service");
 
             return status;
 
@@ -338,40 +343,41 @@ public class StarterController {
             //System.out.println("Complete Sending to splitting and Joining Service");
         }
             return status;*/
+        }
     }
-
 /** End of the send of the chromosome list related to the task function**/
 /*******************************************************************************************/
 
 @RequestMapping(value = "/opt/result", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
 public void receiveresult(@RequestBody String receivedResult) throws IOException {
-    if (numberOfChromosomes> 1) {
+    synchronized (this) {
+        String idNumber = receivedResult.substring(receivedResult.indexOf("#") + 1);
+        if (numberOfChromosomes > 1) {
 
         /*File file = new File("../../../store/result_"+JobID+".txt");
         file.createNewFile();
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(receivedResult);
         writer.close();*/
-        logger.info("received the results of the " + numberOfGeneration + " generation");
+            logger.info("received the results of the " + numberOfGeneration + " generation of the task " + idNumber);
+        } else {
+            String resultsOfBestSChedulingPlan = receivedResult.substring(receivedResult.indexOf("\n"), receivedResult.length());
+            resultsOfBestSChedulingPlan = resultsOfBestSChedulingPlan.replace("\n", "").replace("\r", "");
+            logger.info("received the results of the optimal scheduling plan #" + resultsOfBestSChedulingPlan + "#");
+            logger.info("#####");
+        }
+        receivedResult = receivedResult.substring(0, receivedResult.indexOf("#"));
+        finalResultCol.put(idNumber, receivedResult);
     }
-    else
-    {
-        String  resultsOfBestSChedulingPlan = receivedResult.substring(receivedResult.indexOf("\n"),receivedResult.length());
-        resultsOfBestSChedulingPlan =  resultsOfBestSChedulingPlan.replace("\n", "").replace("\r", "");
-        logger.info("received the results of the optimal scheduling plan #"+ resultsOfBestSChedulingPlan + "#");
-        logger.info("#####");
-    }
-    String idNumber = receivedResult.substring(receivedResult.indexOf("#")+1);
-    receivedResult = receivedResult.substring(0, receivedResult.indexOf("#"));
-    finalResultCol.put(idNumber, receivedResult);
 }
 /*********************************************************************************/
 @RequestMapping(value = "/opt/finalplan", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
 public void finalplan(@RequestBody String receivedFinalPlan) {
-    if (numberOfChromosomes == 1)
-    {
-        logger.info("received the optimal scheduling plan with real values");
-        saveFinalPlan(receivedFinalPlan);
+    synchronized (this) {
+        if (numberOfChromosomes == 1) {
+            logger.info("received the optimal scheduling plan with real values");
+            saveFinalPlan(receivedFinalPlan);
+        }
     }
 }
 public synchronized void saveFinalPlan (String saveFinalPlane)
@@ -384,11 +390,13 @@ public synchronized void saveFinalPlan (String saveFinalPlane)
             @PathVariable String id,
             @PathVariable String wfid
     ) throws InterruptedException {
-        if(finalResultCol.get(id).equals("."))
-            return ".";
-        else
-            return finalResultCol.get(id);
+        synchronized (this) {
+            if (finalResultCol.get(id).equals("."))
+                return ".";
+            else
+                return finalResultCol.get(id);
 
+        }
     }
 
 }

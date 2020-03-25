@@ -1,6 +1,5 @@
 package iai.kit.edu.consumer;
 
-import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.SlavesConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,10 @@ public class SlaveInitializedSubscriber implements MessageListener {
 		logger.info(message.toString());
 		RedisAtomicInteger slavesInitializedCounter = new RedisAtomicInteger(numberOfSlavesInitializedString,template.getConnectionFactory());
 		int numberOfSlavesInitialized = slavesInitializedCounter.incrementAndGet();
+		logger.info("Slaves number " +  numberOfSlavesInitialized + " intialized");
+		logger.info("Number of required Slaves " +  slavesConfig.getNumberOfSlaves());
 		if(numberOfSlavesInitialized == slavesConfig.getNumberOfSlaves()){
+			slavesInitializedCounter.set(0);
 			logger.info("All Slaves Initialized");
 			slavesConfig.setAllSlavesInitialized(true);
 		}

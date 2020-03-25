@@ -55,9 +55,6 @@ public class Island {
     private RedisAtomicInteger amountOfGeneration;
     private RedisAtomicInteger amountOfSlaves;
 
-    private int currentIslandNumber = 1;
-
-
     @Autowired
     ResultController resultController;
 
@@ -68,7 +65,7 @@ public class Island {
      */
     @RequestMapping(value = "/population/initial", method = RequestMethod.POST)
     public void splitPopulation(@RequestBody List<String> initialPopulation) {
-        logger.info("received initial population"+"\n"+initialPopulation);
+        logger.info("received initial population"+"\n"+initialPopulation.size());
         RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
         int numberOfIslands = numberOfIslandsCounter.get();
         int chromosomesPerIsland = initialPopulation.size() / numberOfIslands;
@@ -149,8 +146,8 @@ public class Island {
      * @param initialPopulationWithId
      */
 
-    @RequestMapping(value = "/population/slaves", method = RequestMethod.POST)
-    public void splitPopulationForSlaves(@RequestBody String initialPopulationWithId) {
+    @RequestMapping(value = "/population/{islandnumber}/slaves", method = RequestMethod.POST)
+    public void splitPopulationForSlaves(@PathVariable String islandnumber, @RequestBody String initialPopulationWithId) {
         synchronized (this){
             logger.info("received a population of one  generation");
             String initialPopulation;
@@ -169,13 +166,9 @@ public class Island {
             int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
             receivedResultsCounter.set(0);
-            buildDistribution(initialPopulation,numberOfSlaves, idNumber);
-            if(currentIslandNumber == numberOfIslands){
-                currentIslandNumber = 1;
-            }
-            else{
-                currentIslandNumber++;
-            }
+            int currentIslandNumber = Integer.parseInt(islandnumber);
+            buildDistribution(initialPopulation,numberOfSlaves, idNumber, currentIslandNumber);
+
         }
 
     }
@@ -183,7 +176,7 @@ public class Island {
 
 
 
-    private void buildDistribution(String chromosmeList, int containers, String idNumber) {
+    private void buildDistribution(String chromosmeList, int containers, String idNumber,  int currentIslandNumber) {
         numberOfChromosomes = 0;
         rest = "";
         chromosmeList = chromosmeList.trim();
@@ -192,7 +185,7 @@ public class Island {
         if (numberOfChromosomes > 1)
         {
             rest = chromosmeList.substring(chromosmeList.indexOf("\n") + 1, chromosmeList.length());
-            build(rest, numberOfChromosomes,idNumber, containers, head);
+            build(rest, numberOfChromosomes,idNumber, containers, head, currentIslandNumber);
         }
         else
         {
@@ -217,7 +210,7 @@ public class Island {
 
     }
 
-    private void build(String rest, int numberOfChromosomes,String idNumber, int containers, String head) {
+    private void build(String rest, int numberOfChromosomes,String idNumber, int containers, String head, int currentIslandNumber) {
         int chromosomesPerSlave = numberOfChromosomes / containers;
         List<List<String>> dividedPopulation = new ArrayList<>();
         int populationCounter = 0;

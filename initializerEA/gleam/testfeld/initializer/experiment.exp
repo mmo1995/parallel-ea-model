@@ -4,6 +4,6 @@ GLEAM/AE
 # ------------------------------- Liste der Standardfiles: -------------------------------
 Genmodell                           = sgs_59pv_v01.mod
 Bewertung                           = sgs_59pv_v09.bew
-Programmparameter                   = sgs_stnd_v02.tsk
+Programmparameter                   = sgs_stnd_v03.tsk
 Evolutionsparameter                 = lsk_stnd.evo
 Chromosomenspeicher                 = starter.mem

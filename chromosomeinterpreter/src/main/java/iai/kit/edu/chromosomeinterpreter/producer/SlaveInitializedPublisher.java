@@ -28,9 +28,7 @@ public class SlaveInitializedPublisher implements ApplicationRunner {
     private RestTemplate restTemplate = new RestTemplate();
     @Autowired
     IslandConfig islandConfig;
-    
-    @Value("${slave.number}")
-    private String slaveNumber;
+
     
     @Autowired
     RedisMessageListenerContainer redisMessageListenerContainer;
@@ -41,13 +39,7 @@ public class SlaveInitializedPublisher implements ApplicationRunner {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	@Qualifier("stringTemplate")
-	private RedisTemplate<String, String> redisTemplate;
-	
-	@Autowired
-	@Qualifier("slaveInitializedTopic")
-	private ChannelTopic topic;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -56,6 +48,5 @@ public class SlaveInitializedPublisher implements ApplicationRunner {
         chromosomeinterpreter.getGeneration = new String(Files.readAllBytes(Paths.get(pathGeneration)), "UTF-8");
         chromosomeinterpreter.getConsumption = new String(Files.readAllBytes(Paths.get(pathConsumtion)), "UTF-8");
         configResetter.initialize();
-        redisTemplate.convertAndSend(topic.getTopic(), "Slave initialized " + slaveNumber);
     }
 }

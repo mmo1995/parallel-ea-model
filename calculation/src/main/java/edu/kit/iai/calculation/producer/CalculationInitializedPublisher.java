@@ -1,4 +1,4 @@
-package edu.kit.iai.calculation.producer;
+/*package edu.kit.iai.calculation.producer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,4 +21,4 @@ public class CalculationInitializedPublisher implements ApplicationRunner{
 		redisTemplate.convertAndSend(topic.getTopic(), "Calculation initialized");
 	}
 
-}
+}*/

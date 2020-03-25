@@ -3,6 +3,7 @@ package iai.kit.edu.controller;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
+import iai.kit.edu.core.Overhead;
 import iai.kit.edu.producer.SlaveNumberPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Receives information about the initialization status of the islands, if all initialized then it sends the
@@ -29,7 +32,10 @@ public class IslandInitializedController {
     private SlaveNumberPublisher slaveNumberPublisher;
     @Autowired
     private JobConfig jobConfig;
-
+    @Autowired
+    private Overhead overhead;
+    @Autowired
+    private SlaveController slavecontroller;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/island_status/initialized", method = RequestMethod.POST)
@@ -42,7 +48,10 @@ public class IslandInitializedController {
             logger.info("islands initialized");
             algorithmManager.sendConfig();
             slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
+            slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
         }
+        overhead.setEndIslandCreation(System.currentTimeMillis());
+        logger.info("island creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation()));
     }
 
 }

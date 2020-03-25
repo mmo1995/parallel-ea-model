@@ -36,9 +36,6 @@ public class AlgorithmManager {
     public void initialize() {
         counterResetter.resetCounters();
         islandController.createIslands(jobConfig.getNumberOfIslands());
-		slaveController.createSlaves(jobConfig.getNumberOfSlaves());
-
-
     }
 
     public void sendConfig() {

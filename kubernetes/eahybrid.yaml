@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ea-hybrid
+spec:
+  selector:
+    matchLabels:
+      k8s-app: ea-hybrid
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: ea-hybrid
+    spec:
+      containers:
+      - name: ea-hybrid
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/ea-hybrid:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8055
+          protocol: TCP

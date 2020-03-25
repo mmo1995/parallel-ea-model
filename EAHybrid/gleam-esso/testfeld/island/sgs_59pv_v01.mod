@@ -1,5 +1,5 @@
 ======================= Genmodell fuer SmartGrid-Scheduling ====================
-GLEAM/AE  ExtSimuServ                                                 30.10.2019
+GLEAM/AE  ExtSimuServ                                                 12.03.2020
 2  3  2           gen_len_mode (1,2)  gen_akt_mode (1,2,3)  gen_segm_vert (1,2)
 120  240  8  6    min_ketten_len  max_ketten_len  min_abschn_len  abschn_delta
 50                Anzahl der Aktionen
