@@ -5,7 +5,7 @@ GLEAM/AE  ExtSimuServ                           # this line must not be changed
 Mit Logging d.ExtSimu-Schnittstelle = 0         # Protokollierung der Simu-Schnittstelle. Verlangsamt!
 Maximale Zeit pro ExtSimu-Lauf[sec] = 100000     # TMO fuer die Bewertung einer Chromosomenliste
 Simulatormodell                     = unused  # relevant fuer externe Simu-Services
-Domainname der externen SimuDienste = ea-master-hybrid
+Domainname der externen SimuDienste = localhost #ea-master-hybrid
 
 # ---------------------------- command line options ---------------------------- 
 Mit detaliertem Logging             =  1    # optional und irrelevant wenn Aufrufparameter
@@ -16,8 +16,8 @@ Mit Rettung der ErgebnisChromosomen =  1    # optional
 Optimierungsverfahren               = GLEAM          # GLEAM, SMA, ASMA, AMMA, LSV  optional
 Populationsgroesse                  =  100           # optional
 Nachbarschaftsgroesse               =    8           # optional
-InitStrategie f.die Startpopulation =  best           # neu, best, mix, bestNeu, lsvNeu, lsvBest
-InitStrategie-Parameter             =    5           # required for mix, bestNeu, lsvNeu, lsvBest
+InitStrategie f.die Startpopulation =  neu           # neu, best, mix, bestNeu, lsvNeu, lsvBest
+InitStrategie-Parameter             =    0           # required for mix, bestNeu, lsvNeu, lsvBest
 Akzeptanzregel fuer Nachkommen      = localLeast-ES  # always, localLeast, betterParent
 Ranking-Parameter                   = 1.45           # optional
 Mindesthammingabstand f.XO/Reko [%] = 0.1            # Kein XO/Reko nur bei sehr aehnlichen Chr.! 

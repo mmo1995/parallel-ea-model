@@ -24,7 +24,7 @@ public class Test {
         int epochTerminationGeneration = 1; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 10; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 100000;
         int globalTerminationGeneration = 1; // the max number of generation if we use Fitness as a termination criterium

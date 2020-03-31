@@ -209,7 +209,7 @@ public class AlgorithmController {
                 newLine = newLine.concat(currentLineArray[1] + "  ");
                 newLine = newLine.concat(currentLineArray[2] + " ");
                 newLine = newLine.concat(currentLineArray[3] + " ");
-                newLine = newLine.concat(String.valueOf(Double.parseDouble(currentLineArray[14])));
+                newLine = newLine.concat(String.valueOf(Double.parseDouble(currentLineArray[4])));
                 newLine = newLine.concat("\n");
                 formattedChromosome = formattedChromosome.concat(newLine);
             }
