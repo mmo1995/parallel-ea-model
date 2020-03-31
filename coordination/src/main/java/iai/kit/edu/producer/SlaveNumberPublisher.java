@@ -14,15 +14,19 @@ import org.springframework.data.redis.listener.ChannelTopic;
 public class SlaveNumberPublisher {
 
         @Autowired
-        @Qualifier("integerTemplate")
-        RedisTemplate<String, Integer> integerTemplate;
+        @Qualifier("stringTemplate")
+        RedisTemplate<String, String> redisTemplate;
             private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+        @Autowired
+        @Qualifier("slavesNumberTopic")
+        ChannelTopic slavesNumberTopic;
 
         public void publishNumberOfSlaves(int numberOfSlaves){
             logger.info("publish number Of slaves for EA Services");
 
-            ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
-            ops.set(ConstantStrings.numberOfSlavesTopic, numberOfSlaves);
-            integerTemplate.convertAndSend(ConstantStrings.numberOfSlavesTopic, "Number of Slaves sent");
+            ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
+            ops.set(slavesNumberTopic.toString(), String.valueOf(numberOfSlaves));
+            redisTemplate.convertAndSend(ConstantStrings.numberOfSlavesTopic, "Number of Slaves sent");
         }
 }

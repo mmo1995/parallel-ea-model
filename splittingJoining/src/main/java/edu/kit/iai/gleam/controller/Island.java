@@ -160,14 +160,14 @@ public class Island {
                 initialPopulation = initialPopulationWithId;
                 idNumber = "1";
             }
-            ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
+            ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
             int numberOfIslands = numberOfIslandsCounter.get();
-            int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
+            String numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
             receivedResultsCounter.set(0);
             int currentIslandNumber = Integer.parseInt(islandnumber);
-            buildDistribution(initialPopulation,numberOfSlaves, idNumber, currentIslandNumber);
+            buildDistribution(initialPopulation,Integer.valueOf(numberOfSlaves), idNumber, currentIslandNumber);
 
         }
 
@@ -190,7 +190,7 @@ public class Island {
         else
         {
             amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, integerTemplate.getConnectionFactory());
-            amountOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
+            amountOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfSlavesTopic, integerTemplate.getConnectionFactory());
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
            /* ops.set(ConstantStrings.stopSubscribing + ".1", "continue");
             for (int i =2;i<=amountOfIslands.get();i++) {

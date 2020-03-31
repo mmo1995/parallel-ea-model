@@ -121,6 +121,7 @@ public class ResultController {
                 }
             } else{
                 sendFinalResultToCoordination(resultJson);
+
             }
 
         }
@@ -163,10 +164,10 @@ public class ResultController {
     private boolean isIntermediateResultComplete(int islandNumber, String idNumber) {
         RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
         ValueOperations<String, Integer> ops = this.intTemplate.opsForValue();
-        int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
+        RedisAtomicInteger numberOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfSlavesTopic, intTemplate.getConnectionFactory());
         int receivedSlavesResults = receivedSlavesResultsCounter.get();
-        logger.debug("number of slaves: " + numberOfSlaves + ", received results: " + receivedSlavesResults);
-        if (receivedSlavesResults == numberOfSlaves) {
+        logger.debug("number of slaves: " + numberOfSlaves.get() + ", received results: " + receivedSlavesResults);
+        if (receivedSlavesResults == numberOfSlaves.get()) {
             receivedSlavesResultsCounter.set(0);
             String[] chromosomes = aggregatedSlavesResult.get(String.valueOf(islandNumber)).split("\n");
             int numberOfChromosomes = chromosomes.length;
@@ -191,6 +192,9 @@ public class ResultController {
 
     private void sendFinalResultToCoordination(String finalResultCol){
         logger.info("sending final result");
+        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + ".1", intTemplate.getConnectionFactory());
+        receivedSlavesResultsCounter.set(0);
+        amountOfGeneration.set(0);
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
 
     }
@@ -215,6 +219,7 @@ public class ResultController {
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
+            numberOfGenerationForOneIsland.set(0);
             //amountOfGeneration.set(0);
             logger.info("sending back the result of last generation to island " + islandNumber);
             ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber+ "/result", header, String.class);

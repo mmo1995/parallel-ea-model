@@ -14,8 +14,8 @@ import org.springframework.data.redis.core.ValueOperations;
 public class NumberOfSlavesSubscriber implements MessageListener {
 
     @Autowired
-    @Qualifier("integerTemplate")
-    RedisTemplate<String, Integer> integerTemplate;
+    @Qualifier("stringTemplate")
+    RedisTemplate<String, String> stringTemplate;
 
     @Autowired
     SlavesConfig slavesConfig;
@@ -23,9 +23,9 @@ public class NumberOfSlavesSubscriber implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
-        int numberOfSlaves = ops.get(ConstantStrings.numberOfSlaves);
+        ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
+        String numberOfSlaves = ops.get(ConstantStrings.numberOfSlaves);
         logger.info("Number of Slaves: " + numberOfSlaves);
-        slavesConfig.setNumberOfSlaves(numberOfSlaves);
+        slavesConfig.setNumberOfSlaves(Integer.valueOf(numberOfSlaves));
     }
 }
