@@ -5,18 +5,15 @@ import iai.kit.edu.controller.InitializerEAController;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
 import iai.kit.edu.producer.SlaveNumberPublisher;
-import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 
 /**
@@ -26,6 +23,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @ComponentScan("iai.kit.edu")
 public class Autowiring {
 
+   private JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
 
     /**
      * Establishes connection to Redis
@@ -33,11 +31,13 @@ public class Autowiring {
      */
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        //jedisConFactory.setHostName("redis");
-        jedisConFactory.setHostName("localhost");
+        jedisConFactory.setHostName("redis");
+        //jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
+    }
+    public JedisConnectionFactory returnJedisConnectionFactory() {
+           return jedisConFactory;
     }
 
     /**
@@ -60,6 +60,7 @@ public class Autowiring {
     public RedisTemplate<String, Integer> integerTemplate() {
         final RedisTemplate<String, Integer> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
+
         return template;
     }
 
@@ -72,7 +73,7 @@ public class Autowiring {
     public RedisTemplate<String, String> stringTemplate() {
         final RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
-        template.setDefaultSerializer(new StringRedisSerializer());
+
         return template;
     }
 
@@ -113,15 +114,6 @@ public class Autowiring {
     @Bean
     ChannelTopic intermediatePopulationTopic() {
         return new ChannelTopic(ConstantStrings.intermediatePopulation);
-    }
-
-    /**
-     * Creates slaves number topic
-     * @return
-     */
-    @Bean(name = "slavesNumberTopic")
-    ChannelTopic slavesNumberTopic() {
-        return new ChannelTopic(ConstantStrings.numberOfSlavesTopic);
     }
 
     /**

@@ -12,6 +12,13 @@ import iai.kit.edu.producer.StopPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.AsyncRestOperations;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.TimeUnit;
+
+import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.header;
 
 /**
  * Wraps the whole execution of the Coarse-Grained Model
@@ -38,6 +45,8 @@ public class AlgorithmWrapper {
     EAEpochConfig eaEpochConfig;
     @Autowired
     EAEpochPublisher eaEpochPublisher;
+    @Autowired
+    RestTemplate restTemplate;
 
     private String globalTerminationCriterion;
     private int globalTerminationEpoch;
@@ -94,6 +103,7 @@ public class AlgorithmWrapper {
             if (isGlobalTerminationCriterionReached() || islandConfig.isStopped()) {
                 resultController.sendResult();
                 configResetter.reset();
+
             } else {
 
                 eaEpochConfig.setPopulation((GLEAMPopulation) population);

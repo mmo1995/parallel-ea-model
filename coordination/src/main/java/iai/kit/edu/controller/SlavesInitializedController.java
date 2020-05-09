@@ -27,20 +27,16 @@ public class SlavesInitializedController {
     @Qualifier("integerTemplate")
     RedisTemplate<String, Integer> template;
     @Autowired
-    private AlgorithmManager algorithmManager;
-    @Autowired
-    private SlaveNumberPublisher slaveNumberPublisher;
-    @Autowired
-    private JobConfig jobConfig;
-    @Autowired
     private Overhead overhead;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/slaves/ready", method = RequestMethod.POST)
-    public void receiveIslandStatusInitialized(@RequestBody String numberOfReadySlaves) {
-        logger.info("The "+ numberOfReadySlaves +" required slaves are ready");
-        overhead.setEndSlaveCreation(System.currentTimeMillis());
-        logger.info("Slaves creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation()));
+    public void receiveIslandStatusInitialized(@RequestBody String message) {
+        logger.info("islands and slaves are ready");
+        overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setEndIslandCreation(System.currentTimeMillis());
+        logger.info("island creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation()));
+
     }
 
 }

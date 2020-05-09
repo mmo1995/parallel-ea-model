@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Receives signals from all islands if they have received the full configuration (migration, neighbor and algo config)
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sjs")
 public class IslandReadinessController {
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
     ResultController resultController;
@@ -58,8 +61,9 @@ public class IslandReadinessController {
         int numberOfIslands = numberOfIslandsCounter.get();
         if (islandsWithPopulationCounter.get() == numberOfIslands && islandsWithSubscribedNeighborsCounter.get() == numberOfIslands && islandsWithReadySlavesCounter.get() == numberOfIslands) {
             resultController.reset();
-            logger.info("starting islands");
+            //logger.info("starting islands");
             startPublisher.publish("start evolution");
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/slaves/ready/", "starting islands", String.class);
             islandsWithPopulationCounter.set(0);
             islandsWithSubscribedNeighborsCounter.set(0);
             islandsWithReadySlavesCounter.set(0);

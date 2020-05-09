@@ -6,10 +6,10 @@ public class ConstantStrings {
      * Stores application relevant Strings
      */
 
-    // public static final String coordinationURL = "http://coordination-hybrid:8071";
-    // public static String splittingJoining = "splitting-joining-hybrid:8074";
-     public static final String coordinationURL = "http://localhost:8071";
-     public static String splittingJoining = "localhost:8074";
+    public static final String coordinationURL = "http://coordination-hybrid:8071";
+    public static String splittingJoining = "splitting-joining-hybrid:8074";
+     /*public static final String coordinationURL = "http://localhost:8071";
+     public static String splittingJoining = "localhost:8074";*/
 
     public static final String islandPath = "./gleam-esso/testfeld/island/";
     public static final String initialPopulationCalculatedFileName = "initialChromosomeSet.aks";
@@ -44,6 +44,7 @@ public class ConstantStrings {
     public static final String gleamCLVTerminationTime = "-T";
     public static final String gleamDelay = "-x";
 
+    public static final String managementStop = "proof.management.stop";
     public static final String intermediatePopulation = "proof.population.intermediate";
     public static final String numberOfSlaves = "proof.slaves.amount";
     public static final String numberOfSlavesInitialized = "proof.slaves.initialized";
@@ -51,7 +52,9 @@ public class ConstantStrings {
     public static final String eaReady = "proof.ea.status.ready";
     public static final String slaveInitialized = "proof.slave.status.initialized";
     public static final String slaveReady = "proof.slave.status.ready";
-    
+    public static final String initializeEA = "proof.management.initialize.ea";
+
+
     public static final String chromosomeEnding = "10000";
 
     public static final String terminationEvaluation = "evaluation";

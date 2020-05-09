@@ -23,7 +23,8 @@ number_of_slaves_key = 'proof.slaves.amount' # number of interpreter and calcula
 
 initialize_interpreter_channel = 'proof.management.initialize.interpreter' # chromosomeinterpreter
 initialize_calculation_channel = 'proof.management.initialize.calculation' # calculation service
-initialize_islands_channel = 'proof.management.initialize.islands'
+initialize_islands_channel = 'proof.management.initialize.islands' # migration
+initialize_ea_channel = 'proof.management.initialize.ea' # EA Master
 
 JOB_NAME_EAHybrid = "ea-master-hybrid"
 JOB_NAME_migration = "migration-hybrid"
@@ -95,11 +96,10 @@ def create_pod_EA(api_instance, pod, EA_number):
             body=pod,
             namespace=NAMESPACE,
             include_uninitialized=include_uninitialized)
-        logging.info("Pod created. status='%s'" % str(api_response.status))
+        logging.info("EA-master Pod created")
     except ApiException as e:
         if e.reason == "Conflict":
-            logging.info("EA  Service already exists, sending initializing signal")
-            r.publish(initialize_islands_channel, EA_number)
+            logging.info("EA-master  pod already exists, sending initializing signal")
         else:
             logging.error(e)
     service = client.V1Service()
@@ -114,10 +114,11 @@ def create_pod_EA(api_instance, pod, EA_number):
         api_response1 = api_instance.create_namespaced_service(
             body=service,
             namespace=NAMESPACE)
-        logging.info("Service created. status='%s'" % str(api_response1.status))
+        logging.info("EA-master Service created")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("The Service of ea-master-hybrid Service already exists, sending initializing signal")
+            r.publish(initialize_ea_channel, EA_number)
         else:
             logging.error(e)
 #--------------------------------------#
@@ -129,10 +130,11 @@ def create_pod_migration(api_instance, pod, migration_number):
             body=pod,
             namespace=NAMESPACE,
             include_uninitialized=include_uninitialized)
-        logging.info("Pod created. status='%s'" % str(api_response.status))
+        logging.info("Migration Pod created")
     except ApiException as e:
         if e.reason == "Conflict":
-            logging.info("Migration Service already exists, sending initializing signal")
+            print("Migration Pod"+"{}".format(migration_number))
+            logging.info("Migration Pod already exists, sending initializing signal")
             r.publish(initialize_islands_channel, migration_number)
         else:
             logging.error(e)
@@ -203,7 +205,7 @@ def create_pod_calculation(api_instance, pod, calculation_number):
             body=pod,
             namespace=NAMESPACE,
             include_uninitialized=include_uninitialized)
-        logging.info("Pod created. status='%s'" % str(api_response.status))
+        logging.info("Calculation Pod created")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("Calculation Service already exists, sending initializing signal")
@@ -219,7 +221,7 @@ def create_pod_interpreter(api_instance, pod, interpreter_number):
             body=pod,
             namespace=NAMESPACE,
             include_uninitialized=include_uninitialized)
-        logging.info("Pod created. status='%s'" % str(api_response.status))
+        logging.info("Chromosomeinterpreter Pod created")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("Chromosomeinterpreter already exists, sending initializing signal")

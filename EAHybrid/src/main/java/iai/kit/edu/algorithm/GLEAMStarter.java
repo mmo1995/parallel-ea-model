@@ -39,6 +39,7 @@ public class GLEAMStarter implements AlgorithmStarter {
 
 
     private boolean firstEpoch = true;
+    private boolean isStopeped = false;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -89,7 +90,9 @@ public class GLEAMStarter implements AlgorithmStarter {
         } else {
             prepareNthEpoch();
         }
-        runGLEAM();
+        if(!isStopeped) {
+            runGLEAM();
+        }
     }
 
 
@@ -150,7 +153,7 @@ public class GLEAMStarter implements AlgorithmStarter {
     }
 
     public void reset() {
-        //this.firstEpoch = true;
+       // this.firstEpoch = true;
         this.deleteStopFile();
         this.terminationCriterion="";
     }
@@ -164,13 +167,22 @@ public class GLEAMStarter implements AlgorithmStarter {
     public void stop() {
         File file = new File(ConstantStrings.islandPath + ConstantStrings.stopFileName);
         if (file.exists()) {
-            logger.debug("island already stopped");
+            logger.info("island already stopped");
         } else {
             try {
                 file.createNewFile();
+                logger.info("island is stopped by file");
             } catch (IOException e) {
                 logger.error(e.getMessage());
             }
         }
+    }
+
+    public boolean isStopeped() {
+        return isStopeped;
+    }
+
+    public void setStopeped(boolean stopeped) {
+        isStopeped = stopeped;
     }
 }

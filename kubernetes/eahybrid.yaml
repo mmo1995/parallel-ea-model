@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ea-hybrid
-        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/ea-hybrid:latest
+        image: docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/ea-master-hybrid:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8055

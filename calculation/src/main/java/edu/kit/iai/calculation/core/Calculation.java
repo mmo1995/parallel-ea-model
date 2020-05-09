@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import static java.lang.Math.abs;
+import static java.lang.Math.pow;
 
 public class Calculation {
     private int planIntID;
@@ -31,13 +32,13 @@ public class Calculation {
     private JsonArray resourceIntPlan;
     private int resourceIntID;
     private JsonArray resourceIntPlanPart;
-    private float [] costResourceTempo;
+    private double [] costResourceTempo;
     private  Gson gson;
     private float planCost;
     private float resourceCost;
     private JsonObject price;
     private JsonObject consumption;
-    private static String date = "2013-01-01";
+    private static String date = "2011-01-10";
     private float houseConsumption;
     private float sumOfRequestedPowerinEachPlan;
     private RestTemplate restTemplate = new RestTemplate();
@@ -69,7 +70,7 @@ public class Calculation {
     public void calculationPrice  (JsonArray jsonArray, String idNumber)  {
         startTime = System.currentTimeMillis();
 
-        logger.info("the date to be scheduled is "+ date);
+        //logger.info("the date to be scheduled is "+ date);
         houseConsumption = calculationSumConsumption(date);
         finalResult = new StringBuilder("");
         gson = new Gson();
@@ -122,7 +123,7 @@ public class Calculation {
             for (int j = 0; j< resourceIntPlan.size();j++) // for each resource in this plan
             {
                 resourceCost = 0;
-                float [] costResourceTempo = new float[24];
+                double [] costResourceTempo = new double[24];
                 JsonObject ResPlan = resourceIntPlan.get(j).getAsJsonObject();
                 resourceIntID = ResPlan.get("resourceID").getAsInt();
                 resourceIntPlanPart = ResPlan.get("powerGeneration").getAsJsonArray();
@@ -206,7 +207,7 @@ public class Calculation {
         return retuernedprice;
     }*/
 
-    private float calculationPlancost (float absoulteValue, String composedDate, int resourceID)  {
+    private double calculationPlancost (float absoulteValue, String composedDate, int resourceID)  {
 
         // System.out.println("the absoulte value for this hour and this resource is  :"+ absoulteValue);
         final float [] priceInThishour = {0};
@@ -223,7 +224,9 @@ public class Calculation {
                 }
         );
 
-        float result = absoulteValue*priceInThishour[0] ;
+        //float result = absoulteValue*priceInThishour[0] ;
+       // double result =  priceInThishour[0] + (priceInThishour[0]+ (priceInThishour[0]*5/100)*absoulteValue + (priceInThishour[0]*3/100)*pow(absoulteValue,2));
+        double result = absoulteValue*priceInThishour[0];
         // System.out.println("the cost of this hour for this resource is  :"+ result);
         return result;
 
@@ -331,7 +334,7 @@ public class Calculation {
         {
             actualNumberOfGenerationOfOneJob = 0;
             //configResetter.reset();
-            logger.info("the time taken to calculate all parts of one job is " + jobDuration + " Minutes");
+            //logger.info("the time taken to calculate all parts of one job is " + jobDuration + " Minutes");
             jobDuration = 0;
         }
     }

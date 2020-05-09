@@ -50,8 +50,7 @@ public class IslandInitializedController {
             slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
             slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
         }
-        overhead.setEndIslandCreation(System.currentTimeMillis());
-        logger.info("island creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation()));
+
     }
 
 }

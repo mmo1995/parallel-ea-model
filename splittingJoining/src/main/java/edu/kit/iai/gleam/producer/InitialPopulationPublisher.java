@@ -23,7 +23,7 @@ public class InitialPopulationPublisher {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void publish(String message) {
-        logger.info("publishing population available");
+        //logger.info("publishing population available");
         template.convertAndSend(initialPopulationTopic.getTopic(), message);
     }
 }

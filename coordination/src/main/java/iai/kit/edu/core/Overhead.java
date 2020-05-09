@@ -7,6 +7,24 @@ public class Overhead {
     private static long endPopulationCreation= 0;
     private static long startSlaveCreation= 0;
     private static long endSlaveCreation= 0;
+    private static long startEvolution = 0 ;
+    private static long endEvolution = 0 ;
+
+    public static long getStartEvolution() {
+        return startEvolution;
+    }
+
+    public static void setStartEvolution(long startEvolution) {
+        Overhead.startEvolution = startEvolution;
+    }
+
+    public static long getEndEvolution() {
+        return endEvolution;
+    }
+
+    public static void setEndEvolution(long endEvolution) {
+        Overhead.endEvolution = endEvolution;
+    }
 
     public static long getStartSlaveCreation() {
         return startSlaveCreation;

@@ -32,7 +32,7 @@ public class Chromosomeinterpreter {
     private  List<SchedulingPlan> listSchedulingPlan;
     private JsonObject forecasting;
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String date = "2013-01-01";
+    private static String date = "2011-01-10";
     /*public static ResponseEntity<String> getGeneration;
     public static ResponseEntity<String> getConsumption;*/
     public static String getGeneration;
@@ -138,7 +138,7 @@ public class Chromosomeinterpreter {
 
         long endTime3 = System.currentTimeMillis();
         long generationduration1 = (endTime3 - startTime3);
-        logger.info("the time taken to interpretation all chromosomes  is " + generationduration1 + " Milli Second");
+        //logger.info("the time taken to interpretation all chromosomes  is " + generationduration1 + " Milli Second");
 
         gson = new Gson();
         String jsonInString = gson.toJson(listSchedulingPlan);
@@ -207,7 +207,7 @@ public class Chromosomeinterpreter {
             listResourcePlan.add(resourcePlan);
         }
 
-        logger.info("the number of genes in this chromosome " + (genes.length-1));
+        //logger.info("the number of genes in this chromosome " + (genes.length-1));
 
         List<String> genesStream = new LinkedList<String>(Arrays.asList(genes));
         genesStream.remove(0);

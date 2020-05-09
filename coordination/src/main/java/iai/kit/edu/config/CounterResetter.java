@@ -22,5 +22,11 @@ public class CounterResetter {
         counter = new RedisAtomicInteger(ConstantStrings.islandsWithPopulationCounter, template.getConnectionFactory(),0);
         counter = new RedisAtomicInteger(ConstantStrings.islandsWithSubscribedNeighborsCounter, template.getConnectionFactory(),0);
         counter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.numberOfSlavesTopic, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.numberOfGenerationForOneIsland, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter, template.getConnectionFactory(), 0);
+        counter = new RedisAtomicInteger(ConstantStrings.islandsWithReadySlavesCounter, template.getConnectionFactory(), 0);
     }
 }

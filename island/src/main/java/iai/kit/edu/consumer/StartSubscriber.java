@@ -17,10 +17,10 @@ public class StartSubscriber implements MessageListener {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.info("received start signal");
-
         algorithmWrapper.init();
         algorithmWrapper.startEpoch();
 

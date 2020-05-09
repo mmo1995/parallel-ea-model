@@ -4,6 +4,7 @@ import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.algorithm.GLEAMStarter;
 import iai.kit.edu.consumer.*;
 import iai.kit.edu.controller.SlavesReadinessController;
+import iai.kit.edu.core.ExecutionTime;
 import iai.kit.edu.producer.EAReadinessPublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,6 +70,7 @@ public class Autowiring {
     RedisMessageListenerContainer redisContainer() {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(jedisConnectionFactory());
+        container.addMessageListener(stopSubscriberListener(), stopTopic());
         container.addMessageListener(eaEpochListener(), eaEpochTopic());
         container.addMessageListener(eaConfigurationListener(), eaConfigTopic());
         container.addMessageListener(slaveInitializedListener(), slaveInitializedtopic());
@@ -85,8 +87,8 @@ public class Autowiring {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-       //jedisConFactory.setHostName("redis");
-        jedisConFactory.setHostName("localhost");
+       jedisConFactory.setHostName("redis");
+        //jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
     }
@@ -114,6 +116,16 @@ public class Autowiring {
 
         return template;
     }
+
+    /**
+     * Creates listener that listens to corresponding Stop Channel to stop the EA if Fitness is met
+     * @return
+     */
+    @Bean
+    MessageListenerAdapter stopSubscriberListener() {
+        return new MessageListenerAdapter(stopSubscriber());
+    }
+
 
     /**
      * Creates listener that listens to corresponding Migration & Synchronization Service to start epochs
@@ -159,7 +171,22 @@ public class Autowiring {
     MessageListenerAdapter numberOfSlavesListener() {
         return new MessageListenerAdapter(numberOfSlavesSubscriber());
     }
-    
+    /**
+     * Creates new stopSubscriber to stop EA if fitness by one islnad is met
+     * @return
+     */
+    @Bean
+    StopSubscriber stopSubscriber() {
+        return new StopSubscriber();
+    }
+
+    /**
+     * Creates new init subscriber
+     * @return
+     */
+    @Bean
+    InitSubscriber initSubscriber() { return new InitSubscriber(); }
+
     /**
      * Creates corresponding subscriber
      * @return
@@ -207,6 +234,18 @@ public class Autowiring {
     	return new ChannelTopic(ConstantStrings.slaveInitialized + "." + islandNumber);
     }
 
+    @Bean(name = "numberOfSlavesTopic")
+    ChannelTopic numberOfSlavesTopic() {
+        return new ChannelTopic(ConstantStrings.numberOfSlaves);
+    }
+
+
+    @Bean(name = "initializeEATopic")
+    ChannelTopic initializeEATopic() {
+        return new ChannelTopic(ConstantStrings.initializeEA);
+    }
+
+
     @Bean(name = "numberOfSlavesInitializedString")
     String numberOfSlavesInitializedString() {
         return ConstantStrings.numberOfSlavesInitialized + "." + islandNumber;
@@ -217,10 +256,7 @@ public class Autowiring {
         return ConstantStrings.numberOfSlavesReady + "." + islandNumber;
     }
 
-    @Bean(name = "numberOfSlavesTopic")
-    ChannelTopic numberOfSlavesTopic() {
-        return new ChannelTopic(ConstantStrings.numberOfSlaves);
-    }
+
 
     /**
      * Listens to configuration for one epoch
@@ -238,6 +274,11 @@ public class Autowiring {
     @Bean
     ChannelTopic eaConfigTopic() {
         return new ChannelTopic(ConstantStrings.EAConfig + "." + islandNumber);
+    }
+
+    @Bean(name = "stopTopic")
+    ChannelTopic stopTopic() {
+        return new ChannelTopic(ConstantStrings.managementStop);
     }
 
     /**
@@ -278,6 +319,18 @@ public class Autowiring {
     @Bean
     SlavesReadinessController slavesReadinessController() {
         return new SlavesReadinessController();
+    }
+    /**
+     * new object of ExecutionTime Class
+     * @return
+     */
+    @Bean
+    ExecutionTime executionTime() {
+        return new ExecutionTime();
+    }
+    @Bean
+    ConfigResetter consumerProducerHandler() {
+        return new ConfigResetter();
     }
 
 }

@@ -100,11 +100,11 @@ public class Island {
      */
     @RequestMapping(value = "/config/migration", method = RequestMethod.POST)
     public void sendMigrationConfig(@RequestBody String migrationConfig) {
-        logger.info("received migration configuration");
+        //logger.info("received migration configuration");
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
 
         ops.set(ConstantStrings.managementConfigMigration, migrationConfig);
-        logger.info("stored migration configuration");
+        //logger.info("stored migration configuration");
     }
 
     /**
@@ -114,11 +114,11 @@ public class Island {
      */
     @RequestMapping(value = "/config/algorithm", method = RequestMethod.POST)
     public void sendAlgorithmConfig(@RequestBody String algorithmConfig) {
-        logger.info("received algorithm configuration");
+        //logger.info("received algorithm configuration");
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
 
         ops.set(ConstantStrings.managementConfigAlgorithm, algorithmConfig);
-        logger.info("stored algorithm configuration");
+        //logger.info("stored algorithm configuration");
     }
 
     /**
@@ -128,13 +128,13 @@ public class Island {
      */
     @RequestMapping(value = "/config/neighbors", method = RequestMethod.POST)
     public void sendNeighborsConfig(@RequestBody String neighborsConfigJson) {
-        logger.info("received neighbors configuration");
+        //logger.info("received neighbors configuration");
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
         List<List<String>> neighborsConfig = gson.fromJson(neighborsConfigJson, List.class);
         for (int i = 0; i < neighborsConfig.size(); i++) {
             ops.set(ConstantStrings.managementConfigNeighbor + "." + (i + 1), gson.toJson(neighborsConfig.get(i)));
         }
-        logger.info("stored neighbors configuration");
+        //logger.info("stored neighbors configuration");
         configurationAvailablePublisher.publish("Configuration available");
     }
 
@@ -149,7 +149,7 @@ public class Island {
     @RequestMapping(value = "/population/{islandnumber}/slaves", method = RequestMethod.POST)
     public void splitPopulationForSlaves(@PathVariable String islandnumber, @RequestBody String initialPopulationWithId) {
         synchronized (this){
-            logger.info("received a population of one  generation");
+            //logger.info("received a population of one  generation");
             String initialPopulation;
             String idNumber;
             if(initialPopulationWithId.contains("#"))
@@ -160,14 +160,14 @@ public class Island {
                 initialPopulation = initialPopulationWithId;
                 idNumber = "1";
             }
-            ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
+            ValueOperations<String, Integer> ops = this.integerTemplate.opsForValue();
             RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
             int numberOfIslands = numberOfIslandsCounter.get();
-            String numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
+            int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
             receivedResultsCounter.set(0);
             int currentIslandNumber = Integer.parseInt(islandnumber);
-            buildDistribution(initialPopulation,Integer.valueOf(numberOfSlaves), idNumber, currentIslandNumber);
+            buildDistribution(initialPopulation,numberOfSlaves, idNumber, currentIslandNumber);
 
         }
 
@@ -190,7 +190,7 @@ public class Island {
         else
         {
             amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, integerTemplate.getConnectionFactory());
-            amountOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfSlavesTopic, integerTemplate.getConnectionFactory());
+            amountOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
            /* ops.set(ConstantStrings.stopSubscribing + ".1", "continue");
             for (int i =2;i<=amountOfIslands.get();i++) {
@@ -205,7 +205,7 @@ public class Island {
             chromosmeList = chromosmeList.concat("#" + idNumber);
             ops.set(ConstantStrings.slavePopulation + ".1.1" , chromosmeList);
             slavesPopulationPublisher.publish("Initial population available",1,1);
-            logger.info("population is available to one slave");
+            //logger.info("population is available to one slave");
         }
 
     }
@@ -272,7 +272,7 @@ public class Island {
             int numberOfChannel = numberOfChrinList + 1;
             ops.set(ConstantStrings.slavePopulation + "." + currentIslandNumber + "." + numberOfChannel, partChrList);
             slavesPopulationPublisher.publish("Initial population available", currentIslandNumber,numberOfChannel);
-            logger.info ("population is available to slave Nr. " + numberOfChannel);
+            //logger.info ("population is available to slave Nr. " + numberOfChannel);
 
 
         }

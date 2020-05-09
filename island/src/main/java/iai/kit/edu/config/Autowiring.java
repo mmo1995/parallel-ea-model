@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -30,8 +31,8 @@ public class Autowiring {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-       // jedisConFactory.setHostName("redis");
-        jedisConFactory.setHostName("localhost");
+       jedisConFactory.setHostName("redis");
+        // jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
     }
@@ -176,7 +177,7 @@ public class Autowiring {
      * Creates new population publisher
      * @return
      */
-    @Bean
+    @Bean(name = "migrationPublisher")
     MigrantPublisher populationPublisher() {
         return new MigrantPublisher();
     }
@@ -197,7 +198,7 @@ public class Autowiring {
         return new MigrationCompletedPublisher();
     }
 
-    @Bean(name = "configurationTopic")
+    @Bean
     ChannelTopic configurationTopic() {
         return new ChannelTopic(ConstantStrings.managementConfig);
     }
@@ -287,4 +288,12 @@ public class Autowiring {
     EAEpochPublisher eaEpochPublisher() {
         return new EAEpochPublisher();
     }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate;
+    }
+
+
 }

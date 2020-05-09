@@ -69,7 +69,7 @@ public class ResultController {
      */
     @RequestMapping(value = "/sjs/population/result", method = RequestMethod.POST)
     public synchronized void receiveResult(@RequestBody int islandNumber) {
-        logger.trace("received result from island " + islandNumber);
+        //logger.trace("received result from island " + islandNumber);
 
         synchronized (aggregatedResult) {
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, intTemplate.getConnectionFactory());
@@ -94,13 +94,14 @@ public class ResultController {
      * @param islandAndSlaveNumber
      */
     @RequestMapping(value = "/sjs/slavesPopulation/result", method = RequestMethod.POST)
-    public synchronized void  receiveResultFromSlave(@RequestBody int[] islandAndSlaveNumber) {
-        int islandNumber = islandAndSlaveNumber[0];
-        int slaveNumber = islandAndSlaveNumber[1];
-        //
-        logger.info("received result from island " + islandNumber + " received result from slave " + slaveNumber);
+    public void  receiveResultFromSlave(@RequestBody int[] islandAndSlaveNumber) {
+
 
         synchronized (aggregatedSlavesResult) {
+            int islandNumber = islandAndSlaveNumber[0];
+            int slaveNumber = islandAndSlaveNumber[1];
+            //
+            //logger.info("received result from island " + islandNumber + " received result from slave " + slaveNumber);
             RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
             receivedSlavesResultsCounter.incrementAndGet();
             ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
@@ -121,7 +122,6 @@ public class ResultController {
                 }
             } else{
                 sendFinalResultToCoordination(resultJson);
-
             }
 
         }
@@ -130,7 +130,7 @@ public class ResultController {
 
     @RequestMapping(value = "/opt/finalplan", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
     public void finalplan(@RequestBody String receivedFinalPlan) {
-            logger.info("received the optimal scheduling plan with real values");
+            //logger.info("received the optimal scheduling plan with real values");
             saveFinalPlan(receivedFinalPlan);
     }
 
@@ -149,7 +149,7 @@ public class ResultController {
         RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, intTemplate.getConnectionFactory());
         int numberOfIslands = amountOfIslands.get();
         int receivedResults = receivedResultsCounter.get();
-        logger.debug("number of islands: " + numberOfIslands + ", received results: " + receivedResults);
+        //logger.debug("number of islands: " + numberOfIslands + ", received results: " + receivedResults);
         if (receivedResults == numberOfIslands) {
             return true;
         }
@@ -164,10 +164,10 @@ public class ResultController {
     private boolean isIntermediateResultComplete(int islandNumber, String idNumber) {
         RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
         ValueOperations<String, Integer> ops = this.intTemplate.opsForValue();
-        RedisAtomicInteger numberOfSlaves = new RedisAtomicInteger(ConstantStrings.numberOfSlavesTopic, intTemplate.getConnectionFactory());
+        int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
         int receivedSlavesResults = receivedSlavesResultsCounter.get();
-        logger.debug("number of slaves: " + numberOfSlaves.get() + ", received results: " + receivedSlavesResults);
-        if (receivedSlavesResults == numberOfSlaves.get()) {
+        //logger.debug("number of slaves: " + numberOfSlaves + ", received results: " + receivedSlavesResults);
+        if (receivedSlavesResults == numberOfSlaves) {
             receivedSlavesResultsCounter.set(0);
             String[] chromosomes = aggregatedSlavesResult.get(String.valueOf(islandNumber)).split("\n");
             int numberOfChromosomes = chromosomes.length;
@@ -186,15 +186,12 @@ public class ResultController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         String aggregatedResultJson = this.gson.toJson(this.aggregatedResult);
         HttpEntity<String> entity = new HttpEntity<String>(aggregatedResultJson, headers);
-        logger.info("sending result");
+        //logger.info("sending result");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL + "/ojm/result", entity, String.class);
     }
 
     private void sendFinalResultToCoordination(String finalResultCol){
-        logger.info("sending final result");
-        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + ".1", intTemplate.getConnectionFactory());
-        receivedSlavesResultsCounter.set(0);
-        amountOfGeneration.set(0);
+        //logger.info("sending final result");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
 
     }
@@ -212,20 +209,22 @@ public class ResultController {
         numberOfGenerationOfOneJob = amountOfGeneration.get();
         if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
             //logger.info("sending back the result of one generation");
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber+ "/result", header, String.class);
-            logger.info("sending back the result of one generation to island  " + islandNumber);
+            //ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
+            //logger.info("sending back the result of one generation to island  " + islandNumber);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
         }
         else
         {
             actualNumberOfGenerationOfOneJob = 0;
-            numberOfGenerationForOneIsland.set(0);
             //amountOfGeneration.set(0);
-            logger.info("sending back the result of last generation to island " + islandNumber);
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber+ "/result", header, String.class);
+            //logger.info("sending back the result of last generation to island " + islandNumber);
+            //ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
-            logger.info("one job is done");
-            logger.info("******************************************");
+            //logger.info("one job is done");
+            //logger.info("******************************************");
             /*ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
             if (isl.numberOfChromosomes == 1)
             {
@@ -237,7 +236,7 @@ public class ResultController {
     }
 
     public void reset() {
-        logger.debug("reset result list");
+        //logger.debug("reset result list");
         aggregatedResult = new ArrayList<>();
     }
 

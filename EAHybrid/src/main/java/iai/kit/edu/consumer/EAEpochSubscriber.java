@@ -8,19 +8,12 @@ import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * Receives configuration for one epoch
@@ -47,6 +40,7 @@ public class EAEpochSubscriber implements MessageListener {
 	@Autowired
 	File populationIntialFile;
 
+
 	/**
 	 * After receiving the configuration for one epoch, the algorithmStarter is
 	 * configured and afterwards one epoch executed and the intermediate population
@@ -64,7 +58,7 @@ public class EAEpochSubscriber implements MessageListener {
 		algorithmStarter.setPopulationSize(eaEpochConfig.getPopulationSize());
 		algorithmStarter.setDelay(eaEpochConfig.getDelay());
 		setTerminationCriterion();
-		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationIntialFile);
+		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationFile);
 		algorithmStarter.start();
 		this.eaEpochConfig.getPopulation().read(populationFile);
 		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());

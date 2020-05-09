@@ -27,8 +27,9 @@ public class MigrantPublisher {
     @Autowired
     @Qualifier("stringTemplate")
     RedisTemplate<String, String> stringTemplate;
-
+    private int numberofMigration = 0 ; // used if the fitness is the termination criterium
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public void publish(List<Chromosome> migrants) {
         publishMigrants(migrants);
     }
@@ -40,7 +41,16 @@ public class MigrantPublisher {
         logger.info("starting migration");
         stringTemplate.convertAndSend(topic.getTopic(), migrantJson);
         logger.info(migrants.size() + " are migrated");
+        numberofMigration++;
 
+    }
+
+    public int getNumberofMigration() {
+        return numberofMigration;
+    }
+
+    public void setNumberofMigration(int numberofMigration) {
+        this.numberofMigration = numberofMigration;
     }
 }
 

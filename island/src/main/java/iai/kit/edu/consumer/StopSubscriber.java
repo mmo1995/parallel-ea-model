@@ -17,10 +17,12 @@ public class StopSubscriber implements MessageListener {
     IslandConfig islandConfig;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.info("received stop signal");
         islandConfig.setStopped(true);
+        // send
+
+
     }
 
 

@@ -21,16 +21,14 @@ public class InitSubscriber implements MessageListener {
     IslandConfig islandConfig;
     @Autowired
     ConfigResetter configResetter;
-    @Autowired
-    @Qualifier("integerTemplate")
-    RedisTemplate<String, Integer> integerTemplate;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.trace(message.toString());
         if (islandConfig.getIslandNumber() == Integer.parseInt(message.toString())) {
-            logger.trace("received init signal");
+            logger.info("received init signal");
             configResetter.initialize();
             islandInitializedController.sendInitializedStatus();
         }

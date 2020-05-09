@@ -13,8 +13,5 @@ public class EAHybridApplication {
         ctx = SpringApplication.run(EAHybridApplication.class, args);
     }
 
-    public static void stop() {
-        ctx.close();
-    }
 
 }

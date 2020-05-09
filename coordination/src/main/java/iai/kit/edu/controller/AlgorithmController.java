@@ -5,22 +5,27 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import iai.kit.edu.config.Autowiring;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.ExperimentConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
+import iai.kit.edu.core.Overhead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.jedis.JedisConnection;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controls start and receiving the result
@@ -38,7 +43,8 @@ public class AlgorithmController {
 
     @Autowired
     private InitializerEAController initializerEAController;
-
+    @Autowired
+    private Autowiring redisConnection;
     @Autowired
     private JobConfig jobConfig;
 
@@ -51,6 +57,13 @@ public class AlgorithmController {
     private boolean experiment;
 
     private RedisAtomicInteger amountOfGeneration;
+
+    private JedisConnectionFactory jedisConnectionFactory;
+    private RedisConnection jRedisconn;
+    private int numberOfMigrationsFitness = 0;
+    private Map<Integer, Double> executionTimeIslands = new HashMap<>();
+    @Autowired
+    private Overhead overhead;
 
     @Autowired
     @Qualifier("integerTemplate")
@@ -98,35 +111,42 @@ public class AlgorithmController {
 
         jobConfigList = new ArrayList<>();
         for (int i = 0; i < numberOfIslands.length; i++) {
-            for (int j = 0; j < populationSizes.length; j++) {
-                for (int k = 0; k < delays.length; k++) {
-                    for (int l = 0; l < migrationRates.length; l++) {
-                        for (int m = 0; m < topologies.length; m++) {
-                            JobConfig jobConfigTemp = new JobConfig();
-                            jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                            jobConfigTemp.setNumberOfSlaves(numberOfSlaves[i]);
-                            jobConfigTemp.setNumberOfGeneration(numberOfGeneration[i]);
-                            jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
-                            jobConfigTemp.setDelay(delays[k]);
-                            jobConfigTemp.setMigrationRate(migrationRates[l]);
-                            jobConfigTemp.setTopology(topologies[m]);
-                            jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
-                            jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
-                            jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
-                            jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
-                            jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
-                            jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
-                            jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
-                            jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
-                            jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
-                            jobConfigList.add(jobConfigTemp);
-                            // speedupresults.setJobConfig(jobConfig);
-                            // speedUpResultsList.add(speedupresults);
+            for (int ii = 0; ii < numberOfSlaves.length; ii++) {
+                for (int j = 0; j < populationSizes.length; j++) {
+                    for (int jj = 0; jj < numberOfGeneration.length; jj++) {
+                        for (int k = 0; k < delays.length; k++) {
+                            for (int l = 0; l < migrationRates.length; l++) {
+                                for (int m = 0; m < topologies.length; m++) {
+                                    JobConfig jobConfigTemp = new JobConfig();
+                                    jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
+                                    jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
+                                    jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
+                                    jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
+                                    jobConfigTemp.setDelay(delays[k]);
+                                    jobConfigTemp.setMigrationRate(migrationRates[l]);
+                                    jobConfigTemp.setTopology(topologies[m]);
+                                    jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
+                                    jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
+                                    jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
+                                    jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
+                                    jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
+                                    jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
+                                    jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
+                                    jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
+                                    jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
+                                    jobConfigList.add(jobConfigTemp);
+                                    // speedupresults.setJobConfig(jobConfig);
+                                    // speedUpResultsList.add(speedupresults);
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+        /*jedisConnectionFactory = redisConnection.returnJedisConnectionFactory();
+        jRedisconn= jedisConnectionFactory.getConnection();
+        jRedisconn.flushAll();*/
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
         amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
@@ -149,17 +169,46 @@ public class AlgorithmController {
         sendFormattedChromosome(formattedChromosome);
     }
 
+
+    @RequestMapping(value = "/{islandNumber}/{sumEAExecution}/executiontime", method = RequestMethod.POST)
+    public synchronized void  receiveExecutionTime(@PathVariable String islandNumber, @PathVariable String sumEAExecution, @RequestBody String numberOfMigrations) {
+        executionTimeIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(sumEAExecution));
+        numberOfMigrationsFitness = Integer.parseInt(numberOfMigrations);
+        logger.info(islandNumber + "/ "+ numberOfMigrations + " /" + numberOfMigrationsFitness + "//" + returnMaxExecutionTime());
+
+    }
+    public double returnMaxExecutionTime ()
+    {
+
+        return Collections.max(executionTimeIslands.values());
+    }
+    public double returnMinExecutionTime ()
+    {
+
+        return Collections.min(executionTimeIslands.values());
+
+    }
     /**
      * Receive final result
      * @param constraintsAndresultJson of final result
      */
     @RequestMapping(value = "/finalResult", method = RequestMethod.POST)
     public void receiveFinalResult(@RequestBody String constraintsAndresultJson) {
+
+        overhead.setEndEvolution(System.currentTimeMillis());
         logger.info("receiving final result");
+        logger.info("Evolution duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution()));
+        double duration= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
+        double durationContainerCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
+
+        double frameworkOverhead = duration - returnMaxExecutionTime();
+
+
         String  constraintResults = constraintsAndresultJson.substring(0, constraintsAndresultJson.indexOf("#"));
         String resultJson = constraintsAndresultJson.substring(constraintsAndresultJson.indexOf("#")+1, constraintsAndresultJson.length());
         String [] splitconstraintResults = constraintResults.split("\n");
         String [] constraintResultsValues = splitconstraintResults[0].split(" ");
+
         jobId ++;
         logger.info("received the results of the optimal scheduling plan #"+ splitconstraintResults[0] + "#");
         logger.info("#####");
@@ -169,30 +218,42 @@ public class AlgorithmController {
         Gson gson = new Gson();
         //String jsonInString = gson.toJson(resultJson);
         JsonObject finalSchPlan = new JsonParser().parse(resultJson).getAsJsonObject();
+
         dataToVisualizeArray.add(finalSchPlan);
         dataToVisualizeObject.addProperty("JobID", jobId);
         dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
         dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
         dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
-        dataToVisualizeObject.addProperty("Generation",jobConfig.getGlobalTerminationGeneration());
+        dataToVisualizeObject.addProperty("Generation",jobConfig.getEpochTerminationGeneration());
+        dataToVisualizeObject.addProperty("Container Creation",durationContainerCreation - 100);
+        dataToVisualizeObject.addProperty("Duration",duration );
+        dataToVisualizeObject.addProperty("DurationEAExecutionMax",returnMaxExecutionTime());
+        dataToVisualizeObject.addProperty("DurationEAExecutionMin",returnMinExecutionTime());
+        dataToVisualizeObject.addProperty("FrameworkOverhead",frameworkOverhead);
+        dataToVisualizeObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
         dataToVisualizeObject.addProperty("NumberOfHourlyDeviation", constraintResultsValues[4]);
-
         dataToVisualizeObject.add("data", dataToVisualizeArray);
+
         String jsonInString1 = gson.toJson(dataToVisualizeObject);
         String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
         resultsCollection.add(replacedJsonInString1);
 
         if (experiment && jobConfigList.size() != 0) {
+            //jRedisconn.flushAll();
+            executionTimeIslands =  new HashMap<>();
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
             logger.info("received job config: " + jobConfig.toString());
             algorithmManager.initialize();
         }
         else{
+            executionTimeIslands =  new HashMap<>();
             logger.info("All jobs are finished");
             jobId = 0;
         }
+
+
     }
 
     public String formatBestChromosome(String bestChromosome){
@@ -209,7 +270,7 @@ public class AlgorithmController {
                 newLine = newLine.concat(currentLineArray[1] + "  ");
                 newLine = newLine.concat(currentLineArray[2] + " ");
                 newLine = newLine.concat(currentLineArray[3] + " ");
-                newLine = newLine.concat(String.valueOf(Double.parseDouble(currentLineArray[4])));
+                newLine = newLine.concat(String.valueOf(Double.parseDouble(currentLineArray[14])));
                 newLine = newLine.concat("\n");
                 formattedChromosome = formattedChromosome.concat(newLine);
             }

@@ -16,4 +16,6 @@ public interface AlgorithmStarter {
     public void start();
     public void reset();
     public void stop();
+    public boolean isStopeped();
+    public void setStopeped(boolean stopeped);
 }

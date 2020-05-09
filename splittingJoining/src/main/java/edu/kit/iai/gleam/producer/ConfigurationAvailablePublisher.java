@@ -22,7 +22,7 @@ public class ConfigurationAvailablePublisher {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void publish(String message) {
-        logger.info("publishing configuration available");
+        //logger.info("publishing configuration available");
         template.convertAndSend(configurationAvailableTopic.getTopic(), message);
     }
 }
