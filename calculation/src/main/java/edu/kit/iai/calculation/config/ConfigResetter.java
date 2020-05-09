@@ -17,7 +17,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 /**
  * Resets the config between two succeeding optimization tasks
  */
-public class ConfigResetter implements ApplicationRunner {
+public class ConfigResetter {
 
     @Autowired
     RedisMessageListenerContainer container;
@@ -72,10 +72,5 @@ public class ConfigResetter implements ApplicationRunner {
         container.removeMessageListener(dateSubscriber, dateTopic);
        // container.removeMessageListener(stopSubscribe,stopSubschribingTopic);
 
-    }
-
-    @Override
-    public void run(ApplicationArguments applicationArguments) {
-        this.initialize();
     }
 }

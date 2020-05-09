@@ -5,6 +5,7 @@ import edu.kit.iai.calculation.consumer.DateSubscriber;
 import edu.kit.iai.calculation.consumer.InitSubscriber;
 import edu.kit.iai.calculation.consumer.StopSubscribe;
 import edu.kit.iai.calculation.core.Calculation;
+import edu.kit.iai.calculation.producer.CalculationInitializedPublisher;
 import edu.kit.iai.calculation.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -171,8 +172,16 @@ public class Autowiring {
     IntermediatePopulationPublisher intermediatePopulationPublisher(){
         return new IntermediatePopulationPublisher();
     }
-    
 
+
+    /**
+     * Publishes intermediate population to corresponding Migration & Synchronization Service
+     * @return
+     */
+    @Bean
+    CalculationInitializedPublisher calculationInitializedPublisher(){
+        return new CalculationInitializedPublisher();
+    }
     /**
      * Creates new calculation instance
      * @return
