@@ -16,10 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.AsyncRestOperations;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.TimeUnit;
-
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.header;
-
 /**
  * Wraps the whole execution of the Coarse-Grained Model
  */

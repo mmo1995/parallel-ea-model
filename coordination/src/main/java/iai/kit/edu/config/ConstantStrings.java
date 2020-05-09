@@ -7,14 +7,14 @@ public class ConstantStrings {
 
     public static final String initializerPath = "./gleam/testfeld/initializer/";
 
-     /*public static final String containerManagementURL = "http://localhost:8073";
+     public static final String containerManagementURL = "http://localhost:8073";
     public static final String splittingJoiningURL = "http://localhost:8074";
-    public static final String initializerEAURL = "http://localhost:8075";*/
+    public static final String initializerEAURL = "http://localhost:8075";
 
-     public static final String containerManagementURL = "http://container-management-hybrid:8073";
+    /* public static final String containerManagementURL = "http://container-management-hybrid:8073";
     public static final String splittingJoiningURL = "http://splitting-joining-hybrid:8074";
     public static final String initializerEAURL = "http://initializer-hybrid:8075";
-
+    */
 
     public static final String fileEndingAks = ".aks";
     public static final String fileEndingMem = ".mem";

@@ -38,7 +38,8 @@ public class ResultController {
     public void sendResult() {
 
         String islandNr = String.valueOf(islandConfig.getIslandNumber());
-        String URL = ConstantStrings.starterURL+ islandNr + ":8090/opt/executiontime/";
+        String URL = ConstantStrings.starterURL + "/opt/executiontime/";
+        // String URL = ConstantStrings.starterURL+ islandNr + ":8090/opt/executiontime/";
         logger.info("URL "+ URL);
         ResponseEntity<String> answer2 = restTemplate.postForEntity(URL, islandConfig.getIslandNumber(), String.class);
         logger.info("sending result");
