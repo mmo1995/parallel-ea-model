@@ -149,12 +149,12 @@ def create_slaves():
     for island_number in range(1, int(number_of_islands) + 1):
         for interpreter_number in range(1, int(number_of_slaves) + 1):
             pod_interpreter = create_pod_object_interpreter(interpreter_number, island_number)
-            create_pod_interpreter(core_v1_api, pod_interpreter, island_number, interpreter_number)
+            create_pod_interpreter(core_v1_api, pod_interpreter, interpreter_number)
     time.sleep(25)
     for island_number in range(1, int(number_of_islands) + 1):
         for calculation_number in range(1, int(number_of_slaves) + 1):
             pod_calculation=create_pod_object_calculation(calculation_number, island_number)
-            create_pod_calculation(core_v1_api, pod_calculation,island_number, calculation_number)
+            create_pod_calculation(core_v1_api, pod_calculation, calculation_number)
     time.sleep(25)
     return 'ok'
 #################################
@@ -196,7 +196,7 @@ def create_pod_object_calculation(calculation_number, island_number):
         spec=spec)
     return pod_calculation
 #################################
-def create_pod_calculation(api_instance, pod, island_number, calculation_number):
+def create_pod_calculation(api_instance, pod, calculation_number):
     # Create pod
     include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
     try:
@@ -212,7 +212,7 @@ def create_pod_calculation(api_instance, pod, island_number, calculation_number)
         else:
             logging.error(e)
 
-def create_pod_interpreter(api_instance, pod, island_number ,interpreter_number):
+def create_pod_interpreter(api_instance, pod, interpreter_number):
     # Create pod
     include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
     try:
