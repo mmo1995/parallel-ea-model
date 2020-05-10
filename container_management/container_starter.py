@@ -100,6 +100,7 @@ def create_pod_EA(api_instance, pod, EA_number):
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("EA-master  pod already exists, sending initializing signal")
+            r.publish(initialize_ea_channel, EA_number)
         else:
             logging.error(e)
     service = client.V1Service()
@@ -118,7 +119,6 @@ def create_pod_EA(api_instance, pod, EA_number):
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("The Service of ea-master-hybrid Service already exists, sending initializing signal")
-            r.publish(initialize_ea_channel, EA_number)
         else:
             logging.error(e)
 #--------------------------------------#
