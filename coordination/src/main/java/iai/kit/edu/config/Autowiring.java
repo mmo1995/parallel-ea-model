@@ -154,6 +154,15 @@ public class Autowiring {
     }
 
     /**
+     * Creates empty dynamic jobconfig
+     * @return job configuration
+     */
+    @Bean
+    DynamicJobConfig dynamicJobConfig() {
+        return new DynamicJobConfig();
+    }
+
+    /**
      * Creates new algorithm manager
      * @return algorithm manager
      */

@@ -5,10 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import iai.kit.edu.config.Autowiring;
-import iai.kit.edu.config.ConstantStrings;
-import iai.kit.edu.config.ExperimentConfig;
-import iai.kit.edu.config.JobConfig;
+import iai.kit.edu.config.*;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
 import org.slf4j.Logger;
@@ -47,6 +44,9 @@ public class AlgorithmController {
     private Autowiring redisConnection;
     @Autowired
     private JobConfig jobConfig;
+
+    @Autowired
+    private DynamicJobConfig dynamicJobConfig;
 
     private static RestTemplate restTemplate = new RestTemplate();
 
@@ -150,6 +150,41 @@ public class AlgorithmController {
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
         amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
+        algorithmManager.initialize();
+    }
+
+    /**
+     * Receive configuration for several optimization task
+     * @param json of configurations
+     */
+    @RequestMapping(value = "/start/job/dynamic", method = RequestMethod.POST)
+    public void receiveDynamicStartConfiguration(@RequestBody String json) {
+        experiment = false;
+        amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
+
+/*        dynamicJobConfig.setNumberOfIslands(jobConfig.getNumberOfIslands());
+        dynamicJobConfig.setNumberOfSlaves(jobConfig.getNumberOfSlaves());
+        dynamicJobConfig.setEpochTerminationCriterion(jobConfig.getEpochTerminationCriterion());
+        dynamicJobConfig.setAmountFitness(jobConfig.getAmountFitness());
+        dynamicJobConfig.setGlobalPopulationSize(jobConfig.getGlobalPopulationSize());
+        dynamicJobConfig.setDelay(jobConfig.getDelay());
+        dynamicJobConfig.setMigrationRate(jobConfig.getMigrationRate());
+        dynamicJobConfig.setTopology(jobConfig.getTopology());
+        dynamicJobConfig.setEpochTerminationGeneration(jobConfig.getEpochTerminationGeneration());
+        dynamicJobConfig.setEpochTerminationCriterion(jobConfig.getEpochTerminationCriterion());
+        dynamicJobConfig.setEpochTerminationEvaluation(jobConfig.getEpochTerminationEvaluation());
+        dynamicJobConfig.setEpochTerminationFitness(jobConfig.getEpochTerminationFitness());
+        dynamicJobConfig.setGlobalTerminationCriterion(jobConfig.getGlobalTerminationCriterion());
+        dynamicJobConfig.setGlobalTerminationEpoch(jobConfig.getGlobalTerminationEpoch());
+        dynamicJobConfig.setGlobalTerminationEvaluation(jobConfig.getGlobalTerminationEvaluation());
+        dynamicJobConfig.setGlobalTerminationFitness(jobConfig.getGlobalTerminationFitness());
+        dynamicJobConfig.setGlobalTerminationGeneration(jobConfig.getGlobalTerminationGeneration());
+        dynamicJobConfig.setNumberOfGeneration(jobConfig.getNumberOfGeneration());*/
+
+
+        dynamicJobConfig.readFromJson(json);
+        //amountOfGeneration.set(dynamicJobConfig.getEpochTerminationGeneration()+1);
+        logger.info("received dynamic job config: " + dynamicJobConfig.toString());
         algorithmManager.initialize();
     }
 
