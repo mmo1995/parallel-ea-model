@@ -64,7 +64,7 @@ public class Test {
         int[] generationAmount = new int[]{1,1};
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
-        String[] topologies = new String[]{"ring", "ring"};
+        String topology = "ring";
 
         String[] epochTerminationCriterion= new String[] {"generation", "generation"}; // evaluation ; fitness ;generation
         int[] epochTerminationEvaluation= new int[] {1000000,1000000};
