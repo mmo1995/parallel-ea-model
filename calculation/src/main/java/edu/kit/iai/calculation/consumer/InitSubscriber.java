@@ -32,7 +32,10 @@ public class InitSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.trace(message.toString());
-        if (islandConfig.getIslandNumber() == Integer.parseInt(message.toString())) {
+        String stringMessage = message.toString();
+        String numberOfIsland = stringMessage.substring(0, stringMessage.indexOf("."));
+        String numberOfSlave = stringMessage.substring(stringMessage.indexOf(".")+1);
+        if (islandConfig.getIslandNumber() == Integer.parseInt(numberOfIsland) && islandConfig.getSlaveNumber() == Integer.parseInt(numberOfSlave)) {
             logger.trace("received init signal");
             configResetter.initialize();
         }

@@ -43,8 +43,11 @@ public class InitSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.trace(message.toString());
+        String stringMessage = message.toString();
+        String numberOfIsland = stringMessage.substring(0, stringMessage.indexOf("."));
+        String numberOfSlave = stringMessage.substring(stringMessage.indexOf(".")+1);
 
-        if (Integer.parseInt(islandConfig.getIslandNumber()) == Integer.parseInt(message.toString())) {
+        if (Integer.parseInt(islandConfig.getIslandNumber()) == Integer.parseInt(numberOfIsland) && Integer.parseInt(islandConfig.getSlaveNumber()) == Integer.parseInt(numberOfSlave)) {
             logger.info("received init signal");
             configResetter.initialize();
             String pathGeneration = "./files/generation.txt";
