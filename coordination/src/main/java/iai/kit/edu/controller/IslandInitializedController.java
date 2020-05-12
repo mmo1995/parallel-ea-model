@@ -1,6 +1,7 @@
 package iai.kit.edu.controller;
 
 import iai.kit.edu.config.ConstantStrings;
+import iai.kit.edu.config.DynamicJobConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
@@ -33,6 +34,8 @@ public class IslandInitializedController {
     @Autowired
     private JobConfig jobConfig;
     @Autowired
+    private DynamicJobConfig dynamicJobConfig;
+    @Autowired
     private Overhead overhead;
     @Autowired
     private SlaveController slavecontroller;
@@ -44,11 +47,17 @@ public class IslandInitializedController {
         RedisAtomicInteger initializedIslandCounter = new RedisAtomicInteger(ConstantStrings.initializedIslandCounter, template.getConnectionFactory());
         int initializedIslands = initializedIslandCounter.incrementAndGet();
         logger.info("islands initialized: "+initializedIslands);
-        if (initializedIslands == jobConfig.getNumberOfIslands()) {
+        if (initializedIslands == jobConfig.getNumberOfIslands() || initializedIslands == dynamicJobConfig.getNumberOfIslands()) {
             logger.info("islands initialized");
-            algorithmManager.sendConfig();
-            slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
+            if(jobConfig.getNumberOfIslands() != 0){
+                algorithmManager.sendConfig(false);
+                slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
+            } else{
+                algorithmManager.sendConfig(true);
+                slaveNumberPublisher.publishNumberOfSlaves(dynamicJobConfig.getNumberOfSlaves());
+            }
             slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
+
         }
 
     }

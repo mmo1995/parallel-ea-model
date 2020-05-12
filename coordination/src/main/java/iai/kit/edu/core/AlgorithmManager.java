@@ -1,6 +1,7 @@
 package iai.kit.edu.core;
 
 import iai.kit.edu.config.CounterResetter;
+import iai.kit.edu.config.DynamicJobConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.controller.SlaveController;
 import iai.kit.edu.controller.ConfigController;
@@ -31,19 +32,37 @@ public class AlgorithmManager {
     @Autowired
     private JobConfig jobConfig;
 
+    @Autowired
+    private DynamicJobConfig dynamicJobConfig;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void initialize() {
+    public void initialize(boolean dynamic) {
         counterResetter.resetCounters();
-        islandController.createIslands(jobConfig.getNumberOfIslands());
+        if(dynamic){
+            islandController.createIslands(dynamicJobConfig.getNumberOfIslands());
+        }
+        else{
+            islandController.createIslands(jobConfig.getNumberOfIslands());
+        }
     }
 
-    public void sendConfig() {
-        try {
-            populationController.sendPopulation();
-            configController.sendConfig(jobConfig);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
+    public void sendConfig(boolean dynamic) {
+        if(dynamic){
+            try {
+                populationController.sendPopulation(true);
+                configController.sendDynamicConfig(dynamicJobConfig);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
+        }else{
+            try {
+                populationController.sendPopulation(false);
+                configController.sendConfig(jobConfig);
+
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
         }
     }
 }

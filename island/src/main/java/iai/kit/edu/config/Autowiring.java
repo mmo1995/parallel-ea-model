@@ -82,6 +82,15 @@ public class Autowiring {
     ConfigurationSubscriber configurationListener() {
         return new ConfigurationSubscriber();
     }
+
+    /**
+     * Creates new dynamic configuration subscriber
+     * @return
+     */
+    @Bean
+    DynamicConfigurationSubscriber dynamicConfigurationSubscriber() {
+        return new DynamicConfigurationSubscriber();
+    }
     
     /**
      * Creates new EA-Readiness subscriber
@@ -201,6 +210,10 @@ public class Autowiring {
     @Bean
     ChannelTopic configurationTopic() {
         return new ChannelTopic(ConstantStrings.managementConfig);
+    }
+    @Bean
+    ChannelTopic dynamicConfigurationTopic() {
+        return new ChannelTopic(ConstantStrings.managementDynamicConfig);
     }
     
     @Bean(name = "eaReadyTopic")

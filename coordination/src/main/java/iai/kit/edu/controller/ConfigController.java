@@ -39,6 +39,18 @@ public class ConfigController {
         sendToSplittingJoining(gson.toJson(neighbors), "neighbors");
         logger.info("completing config sending");
     }
+    public void sendDynamicConfig(DynamicJobConfig dynamicJobConfig) {
+        logger.info("sending config");
+        MigrationConfig[] migrationConfig = dynamicJobConfig.generateMigrationConfig(dynamicJobConfig.getNumberOfIslands());
+        AlgorithmConfig algorithmConfig=new GLEAMConfig(workspacePath,dynamicJobConfig.getDelay());
+        algorithmConfig.readFiles();
+        List<List<String>> neighbors = topologyConfig.getNeighbors(dynamicJobConfig.getNumberOfIslands(), dynamicJobConfig.getTopology());
+        Gson gson = new Gson();
+        sendToSplittingJoining(gson.toJson(migrationConfig), "migration");
+        sendToSplittingJoining(gson.toJson(algorithmConfig), "algorithm");
+        sendToSplittingJoining(gson.toJson(neighbors), "dynamic/neighbors");
+        logger.info("completing config sending");
+    }
 
     /**
      * Send each part of the configuration separately
@@ -51,8 +63,8 @@ public class ConfigController {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<String> entity = new HttpEntity<String>(json, headers);
+            logger.debug("sending dynamic config for " + path);
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL + "/sjs/config/" + path, entity, String.class);
 
-        logger.debug("sending config for " + path);
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL + "/sjs/config/" + path, entity, String.class);
     }
 }

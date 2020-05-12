@@ -58,7 +58,7 @@ public class Test {
 
     private static void runDynamic(){ //all dynamic arrays must have the same length as numberOfIslands
         int numberOfIslands = 2;
-        int[] numberOfSlaves = new int[] {1,3};
+        int numberOfSlaves = 1;
         int populationSize = 20;
         int[] migrationRates = new int[]{1,1};
         int[] generationAmount = new int[]{1,1};

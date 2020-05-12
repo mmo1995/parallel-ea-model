@@ -10,7 +10,7 @@ public class DynamicJobConfig {
 
     private int globalPopulationSize;
     private int numberOfIslands;
-    private int[] numberOfSlaves;
+    private int numberOfSlaves;
     private int[] numberOfGeneration;
     private int[] migrationRate;
     private String topology;
@@ -59,11 +59,11 @@ public class DynamicJobConfig {
     }
 
 
-    public int[] getNumberOfSlaves() {
+    public int getNumberOfSlaves() {
         return numberOfSlaves;
     }
 
-    public void setNumberOfSlaves(int[] numberOfSlaves) {
+    public void setNumberOfSlaves(int numberOfSlaves) {
         this.numberOfSlaves = numberOfSlaves;
     }
 

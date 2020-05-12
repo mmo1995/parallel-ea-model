@@ -1,10 +1,7 @@
 package edu.kit.iai.gleam.config;
 
 import edu.kit.iai.gleam.controller.Island;
-import edu.kit.iai.gleam.producer.ConfigurationAvailablePublisher;
-import edu.kit.iai.gleam.producer.InitialPopulationPublisher;
-import edu.kit.iai.gleam.producer.SlavesPopulationPublisher;
-import edu.kit.iai.gleam.producer.StartPublisher;
+import edu.kit.iai.gleam.producer.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -105,6 +102,14 @@ public class Autowiring {
     }
 
     /**
+     * Creates dynamic configuration publisher
+     */
+    @Bean
+    DynamicConfigurationAvailablePublisher dynamicConfigurationAvailablePublisher() {
+        return new DynamicConfigurationAvailablePublisher();
+    }
+
+    /**
      * Creates new Slaves Population Publisher
      * @return SlavesPopulationPublisher
      */
@@ -128,6 +133,10 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.managementConfig);
     }
 
+    @Bean(name = "dynamicConfigurationAvailableTopic")
+    ChannelTopic dynamicConfigurationAvailableTopic() {
+        return new ChannelTopic(ConstantStrings.managementDynamicConfig);
+    }
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();

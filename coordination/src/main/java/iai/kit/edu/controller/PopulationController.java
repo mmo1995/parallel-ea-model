@@ -2,6 +2,7 @@ package iai.kit.edu.controller;
 
 import com.google.gson.Gson;
 import iai.kit.edu.config.ConstantStrings;
+import iai.kit.edu.config.DynamicJobConfig;
 import iai.kit.edu.config.JobConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +32,21 @@ public class PopulationController {
     private InitializerEAController initializerEAController;
     @Autowired
     private JobConfig jobConfig;
+    @Autowired
+    private DynamicJobConfig dynamicJobConfig;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void sendPopulation() {
-        List<String> population = initializerEAController.initialize(jobConfig.getGlobalPopulationSize(),jobConfig.getAmountFitness(),jobConfig.getInitialSelectionPolicy());
-        Gson gson = new Gson();
+    public void sendPopulation(boolean dynamic) {
+        List<String> population;
+        if(dynamic){
+            population = initializerEAController.initialize(dynamicJobConfig.getGlobalPopulationSize(), dynamicJobConfig.getAmountFitness(), dynamicJobConfig.getInitialSelectionPolicy());
+
+        }else{
+            population = initializerEAController.initialize(jobConfig.getGlobalPopulationSize(), jobConfig.getAmountFitness(), jobConfig.getInitialSelectionPolicy());
+        }
         //logger.info("initial population: "+ population);
+        Gson gson = new Gson();
         sendToSplittingJoiningService(gson.toJson(population));
     }
 

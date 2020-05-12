@@ -78,7 +78,7 @@ public class AlgorithmController {
         experiment = false;
         jobConfig.readFromJson(json);
         logger.info("received job config: " + jobConfig.toString());
-        algorithmManager.initialize();
+        algorithmManager.initialize(false);
     }
 
     /**
@@ -150,7 +150,7 @@ public class AlgorithmController {
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
         amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
-        algorithmManager.initialize();
+        algorithmManager.initialize(false);
     }
 
     /**
@@ -188,7 +188,7 @@ public class AlgorithmController {
         dynamicJobConfig.readFromJson(json);
         //amountOfGeneration.set(dynamicJobConfig.getEpochTerminationGeneration()+1);
         logger.info("received dynamic job config: " + dynamicJobConfig.toString());
-        algorithmManager.initialize();
+        algorithmManager.initialize(true);
     }
 
 
@@ -283,12 +283,13 @@ public class AlgorithmController {
             executionTimeIslands =  new HashMap<>();
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
             logger.info("received job config: " + jobConfig.toString());
-            algorithmManager.initialize();
+            algorithmManager.initialize(false);
         }
         else{
             executionTimeIslands =  new HashMap<>();
             logger.info("All jobs are finished");
             jobId = 0;
+            jobConfig.setNumberOfIslands(0);
         }
 
 

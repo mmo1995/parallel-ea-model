@@ -20,6 +20,7 @@ public class ConstantStrings {
     public static final String numberOfGenerationForOneIsland = "proof.island.generation.amount";
     public static final String numberOfIslands = "proof.island.amount";
     public static final String managementConfig = "proof.management.config";
+    public static final String managementDynamicConfig = "proof.management.dynamic.config";
     public static final String managementStart = "proof.management.start";
     public static final String managementConfigMigration = "proof.management.config.migration";
     public static final String managementConfigAlgorithm = "proof.management.config.algorithm";
