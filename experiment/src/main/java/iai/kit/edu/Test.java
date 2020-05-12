@@ -20,10 +20,10 @@ public class Test {
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
-        int epochTerminationGeneration = 2; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int epochTerminationGeneration = 4; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 5; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -70,6 +70,10 @@ public class Test {
         int[] epochTerminationEvaluation= new int[] {1000000,1000000};
         double[] epochTerminationFitness= new double[] {100000, 100000};
         int[] epochTerminationGeneration = new int[] {1,1}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[] epochTerminationTime = new int[] {5,7};
+        int[] epochTerminationGDV = new int[] {500,600};
+        int[] epochTerminationGAK = new int[] {100,150};
+
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
         int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
@@ -83,7 +87,7 @@ public class Test {
         dynamicConfiguration.setGlobalPopulationSize(populationSize);
         dynamicConfiguration.setMigrationRate(migrationRates);
         dynamicConfiguration.setDelay(delay);
-        //dynamicConfiguration.setTopology(topology);
+        dynamicConfiguration.setTopology(topology);
         dynamicConfiguration.setNumberOfGeneration(generationAmount);
 
 
@@ -91,6 +95,9 @@ public class Test {
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
         dynamicConfiguration.setEpochTerminationFitness(epochTerminationFitness);
         dynamicConfiguration.setEpochTerminationGeneration(epochTerminationGeneration);
+        dynamicConfiguration.setEpochTerminationTime(epochTerminationTime);
+        dynamicConfiguration.setEpochTerminationGDV(epochTerminationGDV);
+        dynamicConfiguration.setEpochTerminationGAK(epochTerminationGAK);
 
         dynamicConfiguration.setGlobalTerminationCriterion(globalTerminationCriterion);
         dynamicConfiguration.setGlobalTerminationEpoch(globalTerminationEpoch);
@@ -106,7 +113,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     runExperiment();
-     //runDynamic();
+     //runExperiment();
+     runDynamic();
     }
 }

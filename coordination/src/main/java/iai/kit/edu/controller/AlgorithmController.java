@@ -162,24 +162,27 @@ public class AlgorithmController {
         experiment = false;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
 
-/*        dynamicJobConfig.setNumberOfIslands(jobConfig.getNumberOfIslands());
-        dynamicJobConfig.setNumberOfSlaves(jobConfig.getNumberOfSlaves());
-        dynamicJobConfig.setEpochTerminationCriterion(jobConfig.getEpochTerminationCriterion());
-        dynamicJobConfig.setAmountFitness(jobConfig.getAmountFitness());
-        dynamicJobConfig.setGlobalPopulationSize(jobConfig.getGlobalPopulationSize());
-        dynamicJobConfig.setDelay(jobConfig.getDelay());
-        dynamicJobConfig.setMigrationRate(jobConfig.getMigrationRate());
-        dynamicJobConfig.setTopology(jobConfig.getTopology());
-        dynamicJobConfig.setEpochTerminationGeneration(jobConfig.getEpochTerminationGeneration());
-        dynamicJobConfig.setEpochTerminationCriterion(jobConfig.getEpochTerminationCriterion());
-        dynamicJobConfig.setEpochTerminationEvaluation(jobConfig.getEpochTerminationEvaluation());
-        dynamicJobConfig.setEpochTerminationFitness(jobConfig.getEpochTerminationFitness());
-        dynamicJobConfig.setGlobalTerminationCriterion(jobConfig.getGlobalTerminationCriterion());
-        dynamicJobConfig.setGlobalTerminationEpoch(jobConfig.getGlobalTerminationEpoch());
-        dynamicJobConfig.setGlobalTerminationEvaluation(jobConfig.getGlobalTerminationEvaluation());
-        dynamicJobConfig.setGlobalTerminationFitness(jobConfig.getGlobalTerminationFitness());
-        dynamicJobConfig.setGlobalTerminationGeneration(jobConfig.getGlobalTerminationGeneration());
-        dynamicJobConfig.setNumberOfGeneration(jobConfig.getNumberOfGeneration());*/
+/*        dynamicJobConfig.setNumberOfIslands(dynamicJobConfig.getNumberOfIslands());
+        dynamicJobConfig.setNumberOfSlaves(dynamicJobConfig.getNumberOfSlaves());
+        dynamicJobConfig.setAmountFitness(dynamicJobConfig.getAmountFitness());
+        dynamicJobConfig.setGlobalPopulationSize(dynamicJobConfig.getGlobalPopulationSize());
+        dynamicJobConfig.setDelay(dynamicJobConfig.getDelay());
+        dynamicJobConfig.setMigrationRate(dynamicJobConfig.getMigrationRate());
+        dynamicJobConfig.setTopology(dynamicJobConfig.getTopology());
+        dynamicJobConfig.setEpochTerminationGeneration(dynamicJobConfig.getEpochTerminationGeneration());
+        dynamicJobConfig.setEpochTerminationCriterion(dynamicJobConfig.getEpochTerminationCriterion());
+        dynamicJobConfig.setEpochTerminationEvaluation(dynamicJobConfig.getEpochTerminationEvaluation());
+        dynamicJobConfig.setEpochTerminationFitness(dynamicJobConfig.getEpochTerminationFitness());
+        dynamicJobConfig.setEpochTerminationTime(dynamicJobConfig.getEpochTerminationTime());
+        dynamicJobConfig.setEpochTerminationGDV(dynamicJobConfig.getEpochTerminationGDV());
+        dynamicJobConfig.setEpochTerminationGAK(dynamicJobConfig.getEpochTerminationGAK());
+
+        dynamicJobConfig.setGlobalTerminationCriterion(dynamicJobConfig.getGlobalTerminationCriterion());
+        dynamicJobConfig.setGlobalTerminationEpoch(dynamicJobConfig.getGlobalTerminationEpoch());
+        dynamicJobConfig.setGlobalTerminationEvaluation(dynamicJobConfig.getGlobalTerminationEvaluation());
+        dynamicJobConfig.setGlobalTerminationFitness(dynamicJobConfig.getGlobalTerminationFitness());
+        dynamicJobConfig.setGlobalTerminationGeneration(dynamicJobConfig.getGlobalTerminationGeneration());
+        dynamicJobConfig.setNumberOfGeneration(dynamicJobConfig.getNumberOfGeneration());*/
 
 
         dynamicJobConfig.readFromJson(json);
