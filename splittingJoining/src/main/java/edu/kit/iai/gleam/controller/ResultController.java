@@ -121,7 +121,7 @@ public class ResultController {
                     sendResultToStarter(islandNumber);
                 }
             } else{
-                sendFinalResultToCoordination(resultJson);
+                sendFinalResultToCoordination(resultJson, islandNumber);
             }
 
         }
@@ -190,8 +190,10 @@ public class ResultController {
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL + "/ojm/result", entity, String.class);
     }
 
-    private void sendFinalResultToCoordination(String finalResultCol){
+    private void sendFinalResultToCoordination(String finalResultCol, int islandNumber){
         //logger.info("sending final result");
+        RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
+        receivedSlavesResultsCounter.set(0);
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
 
     }
