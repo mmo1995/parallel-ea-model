@@ -37,6 +37,15 @@ public class GLEAMStarter implements AlgorithmStarter {
     private List<String> commands;
 
 
+    @Override
+    public boolean isFirstEpoch() {
+        return firstEpoch;
+    }
+
+    @Override
+    public void setFirstEpoch(boolean firstEpoch) {
+        this.firstEpoch = firstEpoch;
+    }
 
     private boolean firstEpoch = true;
     private boolean isStopeped = false;

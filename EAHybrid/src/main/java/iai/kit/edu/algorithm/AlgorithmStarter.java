@@ -18,4 +18,6 @@ public interface AlgorithmStarter {
     public void stop();
     public boolean isStopeped();
     public void setStopeped(boolean stopeped);
+    public boolean isFirstEpoch();
+    public void setFirstEpoch(boolean firstEpoch);
 }

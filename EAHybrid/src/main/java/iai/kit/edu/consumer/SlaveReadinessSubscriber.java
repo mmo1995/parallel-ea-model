@@ -1,5 +1,6 @@
 package iai.kit.edu.consumer;
 
+import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.config.SlavesConfig;
 import iai.kit.edu.controller.SlavesReadinessController;
 import iai.kit.edu.producer.EAReadinessPublisher;
@@ -26,6 +27,9 @@ public class SlaveReadinessSubscriber implements MessageListener {
     EAReadinessPublisher eaReadinessPublisher;
 
     @Autowired
+    AlgorithmStarter algorithmStarter;
+
+    @Autowired
     SlavesConfig slavesConfig;
 
     @Autowired
@@ -47,7 +51,8 @@ public class SlaveReadinessSubscriber implements MessageListener {
         }
 
         if(slavesConfig.isAllSlavesInitialized() && slavesConfig.isAllSlavesReady()){
-        eaReadinessPublisher.publish();
+            algorithmStarter.setFirstEpoch(true);
+            eaReadinessPublisher.publish();
         }
     }
 
