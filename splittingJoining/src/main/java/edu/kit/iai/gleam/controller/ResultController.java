@@ -194,6 +194,9 @@ public class ResultController {
         //logger.info("sending final result");
         RedisAtomicInteger receivedSlavesResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedSlavesResultsCounter + "." + islandNumber, intTemplate.getConnectionFactory());
         receivedSlavesResultsCounter.set(0);
+        RedisAtomicInteger numberOfGenerationForOneIsland = new RedisAtomicInteger(ConstantStrings.numberOfGenerationForOneIsland + "." + islandNumber, intTemplate.getConnectionFactory());
+        numberOfGenerationForOneIsland.set(0);
+        aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
 
     }
