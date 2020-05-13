@@ -43,6 +43,7 @@ public class ConstantStrings {
     public static final String gleamCLVTerminationGeneration = "-G";
     public static final String gleamCLVTerminationTime = "-T";
     public static final String gleamDelay = "-x";
+    public static final String gleamDemeSize = "-D";
 
     public static final String managementStop = "proof.management.stop";
     public static final String intermediatePopulation = "proof.population.intermediate";

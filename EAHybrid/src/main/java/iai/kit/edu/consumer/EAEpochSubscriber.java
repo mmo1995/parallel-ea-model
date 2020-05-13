@@ -57,6 +57,7 @@ public class EAEpochSubscriber implements MessageListener {
 		this.eaEpochConfig = gson.fromJson(message.toString(), EAEpochConfig.class);
 		algorithmStarter.setPopulationSize(eaEpochConfig.getPopulationSize());
 		algorithmStarter.setDelay(eaEpochConfig.getDelay());
+		algorithmStarter.setDemeSize(eaEpochConfig.getDemeSize());
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationFile);
 		algorithmStarter.start();

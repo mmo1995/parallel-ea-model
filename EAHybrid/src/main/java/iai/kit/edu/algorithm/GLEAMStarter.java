@@ -33,6 +33,7 @@ public class GLEAMStarter implements AlgorithmStarter {
     private String terminationCriterion = "";
     private double amountFitness; //contains initialization parameter, casted to int, if amount is needed
     private String delay;
+    private String demeSize;
 
     private List<String> commands;
 
@@ -89,6 +90,9 @@ public class GLEAMStarter implements AlgorithmStarter {
     public void setDelay(int delay) {
         this.delay = ConstantStrings.gleamDelay + delay;
     }
+    public void setDemeSize(int demeSize){
+        this.demeSize = ConstantStrings.gleamDemeSize + demeSize;
+    }
 
 
 
@@ -130,6 +134,7 @@ public class GLEAMStarter implements AlgorithmStarter {
         commands.add(logging);
         commands.add(terminationCriterion);
         commands.add(delay);
+        commands.add(demeSize);
     }
 
 

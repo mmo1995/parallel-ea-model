@@ -3,6 +3,9 @@ package iai.kit.edu.config;
 public abstract class AlgorithmConfig {
     private int delay;
 
+
+    private int deamSize;
+
     public abstract void readFiles();
 
     public abstract void writeFiles();
@@ -13,5 +16,14 @@ public abstract class AlgorithmConfig {
 
     public int getDelay() {
         return delay;
+    }
+
+
+    public int getDeamSize() {
+        return deamSize;
+    }
+
+    public void setDeamSize(int deamSize) {
+        this.deamSize = deamSize;
     }
 }

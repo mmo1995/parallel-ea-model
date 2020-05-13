@@ -13,6 +13,7 @@ public interface AlgorithmStarter {
     public void setTerminationGeneration(int terminationGeneration);
     public void setTerminationTime(int terminationTime);
     public void setDelay(int delay);
+    public void setDemeSize(int DemeSize);
     public void start();
     public void reset();
     public void stop();

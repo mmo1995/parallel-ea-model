@@ -24,10 +24,9 @@ public class GLEAMConfig extends AlgorithmConfig {
 
     private Logger logger;
 
-    public GLEAMConfig(String workspacePath, int delay, int demeSize) {
+    public GLEAMConfig(String workspacePath, int delay) {
         this.workspacePath = workspacePath;
         this.setDelay(delay);
-        this.setDemeSize(demeSize);
     }
 
     public void setWorkspacePath(String workspacePath) {
