@@ -16,8 +16,8 @@ public class DynamicJobConfig {
     private String topology;
     private String initialSelectionPolicy = "new";
     private double amountFitness = 0;
-    private String selectionPolicy = "best";
-    private String replacementPolicy = "worst";
+    private String[] selectionPolicy;
+    private String[] replacementPolicy;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -112,19 +112,19 @@ public class DynamicJobConfig {
         this.delay = delay;
     }
 
-    public String getSelectionPolicy() {
+    public String[] getSelectionPolicy() {
         return selectionPolicy;
     }
 
-    public void setSelectionPolicy(String selectionPolicy) {
+    public void setSelectionPolicy(String[] selectionPolicy) {
         this.selectionPolicy = selectionPolicy;
     }
 
-    public String getReplacementPolicy() {
+    public String[] getReplacementPolicy() {
         return replacementPolicy;
     }
 
-    public void setReplacementPolicy(String replacementPolicy) {
+    public void setReplacementPolicy(String[] replacementPolicy) {
         this.replacementPolicy = replacementPolicy;
     }
 
@@ -252,7 +252,7 @@ public class DynamicJobConfig {
         MigrationConfig[] migrationConfigs = new MigrationConfig[numberOfIslands];
         for(int island = 0; island<numberOfIslands; island++){
             MigrationConfig migrationConfig = new MigrationConfig(this.numberOfIslands, this.globalPopulationSize,
-                    this.selectionPolicy, this.replacementPolicy, this.migrationRate[island], this.epochTerminationCriterion[island], this.epochTerminationEvaluation[island],
+                    this.selectionPolicy[island], this.replacementPolicy[island], this.migrationRate[island], this.epochTerminationCriterion[island], this.epochTerminationEvaluation[island],
                     this.epochTerminationFitness[island], this.epochTerminationGeneration[island], this.epochTerminationTime[island],
                     this.epochTerminationGDV[island], this.epochTerminationGAK[island], this.globalTerminationCriterion, this.globalTerminationEpoch, this.globalTerminationEvaluation,
                     this.globalTerminationFitness, this.globalTerminationGeneration, this.globalTerminationTime,

@@ -44,7 +44,8 @@ public class DynamicConfigurationSubscriber implements MessageListener {
         String algorithmConfigJson = ops.get(ConstantStrings.managementConfigAlgorithm);
         String neighborsConfigJson = ops.get(ConstantStrings.managementConfigNeighbor + "." + islandConfig.getIslandNumber());
         Gson gson = new Gson();
-        MigrationConfig migrationConfig = gson.fromJson(migrationConfigJson, MigrationConfig.class);
+        MigrationConfig[] migrationConfigs = gson.fromJson(migrationConfigJson, MigrationConfig[].class);
+        MigrationConfig migrationConfig = migrationConfigs[islandConfig.getIslandNumber()-1];
         this.islandConfig.setMigrationConfig(migrationConfig);
         configurationPublisher.publishAlgorithmConfig(algorithmConfigJson);
         GLEAMConfig gleamConfig = gson.fromJson(algorithmConfigJson, GLEAMConfig.class);

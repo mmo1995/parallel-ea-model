@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{1};
+        int[] numberOfIslands = new int[]{2};
         int[] numberOfSlaves = new int[] {1};
         int[] populationSizes = new int[]{10}; //240 for each island
         int[] migrationRates = new int[]{1};
@@ -60,16 +60,19 @@ public class Test {
         int numberOfIslands = 2;
         int numberOfSlaves = 1;
         int populationSize = 20;
-        int[] migrationRates = new int[]{1,1};
-        int[] generationAmount = new int[]{1,1};
+        int[] migrationRates = new int[]{1,2};
+        int[] generationAmount = new int[]{1,2};
+        String[] selectionPolicy= {"best", "random"};
+        String[] replacementPolicy= {"worst", "random"};
+
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String topology = "ring";
 
-        String[] epochTerminationCriterion= new String[] {"generation", "generation"}; // evaluation ; fitness ;generation
-        int[] epochTerminationEvaluation= new int[] {1000000,1000000};
-        double[] epochTerminationFitness= new double[] {100000, 100000};
-        int[] epochTerminationGeneration = new int[] {1,1}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        String[] epochTerminationCriterion= new String[] {"generation", "fitness"}; // evaluation ; fitness ;generation
+        int[] epochTerminationEvaluation= new int[] {1000000,2000000};
+        double[] epochTerminationFitness= new double[] {100000, 200000};
+        int[] epochTerminationGeneration = new int[] {1,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[] epochTerminationTime = new int[] {5,7};
         int[] epochTerminationGDV = new int[] {500,600};
         int[] epochTerminationGAK = new int[] {100,150};
@@ -87,6 +90,8 @@ public class Test {
         dynamicConfiguration.setGlobalPopulationSize(populationSize);
         dynamicConfiguration.setMigrationRate(migrationRates);
         dynamicConfiguration.setDelay(delay);
+        dynamicConfiguration.setSelectionPolicy(selectionPolicy);
+        dynamicConfiguration.setReplacementPolicy(replacementPolicy);
         dynamicConfiguration.setTopology(topology);
         dynamicConfiguration.setNumberOfGeneration(generationAmount);
 

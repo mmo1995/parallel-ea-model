@@ -25,6 +25,8 @@ public class ConfigResetter {
     @Autowired
     ConfigurationSubscriber configurationSubscriber;
     @Autowired
+    DynamicConfigurationSubscriber dynamicConfigurationSubscriber;
+    @Autowired
     StopSubscriber stopSubscriber;
     @Autowired
     StartSubscriber startSubscriber;
@@ -38,6 +40,9 @@ public class ConfigResetter {
     @Autowired
     @Qualifier("configurationTopic")
     ChannelTopic configurationTopic;
+    @Autowired
+    @Qualifier("dynamicConfigurationTopic")
+    ChannelTopic dynamicConfigurationTopic;
     @Autowired
     @Qualifier("stopTopic")
     ChannelTopic stopTopic;
@@ -73,6 +78,7 @@ public class ConfigResetter {
     public void initialize() {
         container.addMessageListener(initSubscriber, initializeIslandsTopic);
         container.addMessageListener(configurationSubscriber, configurationTopic);
+        container.addMessageListener(dynamicConfigurationSubscriber, dynamicConfigurationTopic);
         container.addMessageListener(stopSubscriber, stopTopic);
         container.addMessageListener(startSubscriber, startTopic);
         container.addMessageListener(eaReadinessSubscriber, eaReadyTopic);
@@ -84,6 +90,7 @@ public class ConfigResetter {
     public void reset() {
         logger.info("resetting island");
         container.removeMessageListener(configurationSubscriber, configurationTopic);
+        container.removeMessageListener(dynamicConfigurationSubscriber, dynamicConfigurationTopic);
         container.removeMessageListener(stopSubscriber, stopTopic);
         container.removeMessageListener(startSubscriber, startTopic);
         container.removeMessageListener(eaReadinessSubscriber, eaReadyTopic);

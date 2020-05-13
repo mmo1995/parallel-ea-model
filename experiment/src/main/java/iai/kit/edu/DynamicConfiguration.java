@@ -13,8 +13,8 @@ public class DynamicConfiguration {
     private String topology;
     private String initialSelectionPolicy = "new";
     private double amountFitness = 0;
-    private String selectionPolicy = "best";
-    private String replacementPolicy = "worst";
+    private String[] selectionPolicy;
+    private String[] replacementPolicy;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -109,19 +109,19 @@ public class DynamicConfiguration {
         this.delay = delay;
     }
 
-    public String getSelectionPolicy() {
+    public String[] getSelectionPolicy() {
         return selectionPolicy;
     }
 
-    public void setSelectionPolicy(String selectionPolicy) {
+    public void setSelectionPolicy(String[] selectionPolicy) {
         this.selectionPolicy = selectionPolicy;
     }
 
-    public String getReplacementPolicy() {
+    public String[] getReplacementPolicy() {
         return replacementPolicy;
     }
 
-    public void setReplacementPolicy(String replacementPolicy) {
+    public void setReplacementPolicy(String[] replacementPolicy) {
         this.replacementPolicy = replacementPolicy;
     }
 
