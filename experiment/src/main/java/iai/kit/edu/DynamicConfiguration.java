@@ -15,6 +15,7 @@ public class DynamicConfiguration {
     private double amountFitness = 0;
     private String[] selectionPolicy;
     private String[] replacementPolicy;
+    private int[] demeSize;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -123,6 +124,14 @@ public class DynamicConfiguration {
 
     public void setReplacementPolicy(String[] replacementPolicy) {
         this.replacementPolicy = replacementPolicy;
+    }
+
+    public int[] getDemeSize() {
+        return demeSize;
+    }
+
+    public void setDemeSize(int[] demeSize) {
+        this.demeSize = demeSize;
     }
 
     public String[] getEpochTerminationCriterion() {

@@ -71,15 +71,17 @@ public class Test {
 
         String[] epochTerminationCriterion= new String[] {"generation", "fitness"}; // evaluation ; fitness ;generation
         int[] epochTerminationEvaluation= new int[] {1000000,2000000};
-        double[] epochTerminationFitness= new double[] {100000, 200000};
-        int[] epochTerminationGeneration = new int[] {1,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        double[] epochTerminationFitness= new double[] {30000, 35000};
+        int[] epochTerminationGeneration = new int[] {4,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[] epochTerminationTime = new int[] {5,7};
         int[] epochTerminationGDV = new int[] {500,600};
         int[] epochTerminationGAK = new int[] {100,150};
 
+        int[] demeSize = new int[] {8,9};
+
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -94,7 +96,7 @@ public class Test {
         dynamicConfiguration.setReplacementPolicy(replacementPolicy);
         dynamicConfiguration.setTopology(topology);
         dynamicConfiguration.setNumberOfGeneration(generationAmount);
-
+        dynamicConfiguration.setDemeSize(demeSize);
 
         dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);

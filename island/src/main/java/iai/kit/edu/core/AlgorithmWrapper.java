@@ -55,6 +55,7 @@ public class AlgorithmWrapper {
         eaEpochConfig.setPopulationSize(this.getIslandPopulationSize());
         eaEpochConfig.setDelay(islandConfig.getAlgorithmConfig().getDelay());
         setTerminationCriterion();
+        eaEpochConfig.setDemeSize(islandConfig.getAlgorithmConfig().getDemeSize());
     }
 
     /*

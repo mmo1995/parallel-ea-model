@@ -7,6 +7,7 @@ import iai.kit.edu.config.IslandConfig;
 import iai.kit.edu.config.MigrationConfig;
 import iai.kit.edu.controller.IslandReadinessController;
 import iai.kit.edu.producer.ConfigurationPublisher;
+import iai.kit.edu.producer.DynamicConfigurationPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class DynamicConfigurationSubscriber implements MessageListener {
     String workspacePath;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    ConfigurationPublisher configurationPublisher;
+    DynamicConfigurationPublisher dynamicConfigurationPublisher;
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
@@ -47,8 +48,9 @@ public class DynamicConfigurationSubscriber implements MessageListener {
         MigrationConfig[] migrationConfigs = gson.fromJson(migrationConfigJson, MigrationConfig[].class);
         MigrationConfig migrationConfig = migrationConfigs[islandConfig.getIslandNumber()-1];
         this.islandConfig.setMigrationConfig(migrationConfig);
-        configurationPublisher.publishAlgorithmConfig(algorithmConfigJson);
-        GLEAMConfig gleamConfig = gson.fromJson(algorithmConfigJson, GLEAMConfig.class);
+        dynamicConfigurationPublisher.publishAlgorithmConfig(algorithmConfigJson);
+        GLEAMConfig[] gleamConfigs = gson.fromJson(algorithmConfigJson, GLEAMConfig[].class);
+        GLEAMConfig gleamConfig = gleamConfigs[islandConfig.getIslandNumber()-1];
         gleamConfig.setWorkspacePath(workspacePath);
         this.islandConfig.setAlgorithmConfig(gleamConfig);
         List<String> neighborsConfig = gson.fromJson(neighborsConfigJson, List.class); // Json only has one data type for numbers -> cast double to integer

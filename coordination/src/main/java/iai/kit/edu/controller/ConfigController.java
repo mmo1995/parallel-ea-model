@@ -41,13 +41,19 @@ public class ConfigController {
     }
     public void sendDynamicConfig(DynamicJobConfig dynamicJobConfig) {
         logger.info("sending config");
-        MigrationConfig[] migrationConfig = dynamicJobConfig.generateMigrationConfig(dynamicJobConfig.getNumberOfIslands());
-        AlgorithmConfig algorithmConfig=new GLEAMConfig(workspacePath,dynamicJobConfig.getDelay());
-        algorithmConfig.readFiles();
+        MigrationConfig[] migrationConfigs = dynamicJobConfig.generateMigrationConfig(dynamicJobConfig.getNumberOfIslands());
+        AlgorithmConfig[] algorithmConfigs = new GLEAMConfig[dynamicJobConfig.getDemeSize().length];
+        for(int i = 0; i< dynamicJobConfig.getDemeSize().length; i++){
+            AlgorithmConfig algorithmConfig = new GLEAMConfig(workspacePath, dynamicJobConfig.getDelay());
+            algorithmConfig.setDemeSize(dynamicJobConfig.getDemeSize()[i]);
+            algorithmConfig.readFiles();
+            algorithmConfigs[i] = algorithmConfig;
+        }
+
         List<List<String>> neighbors = topologyConfig.getNeighbors(dynamicJobConfig.getNumberOfIslands(), dynamicJobConfig.getTopology());
         Gson gson = new Gson();
-        sendToSplittingJoining(gson.toJson(migrationConfig), "migration");
-        sendToSplittingJoining(gson.toJson(algorithmConfig), "algorithm");
+        sendToSplittingJoining(gson.toJson(migrationConfigs), "migration");
+        sendToSplittingJoining(gson.toJson(algorithmConfigs), "dynamic/algorithm");
         sendToSplittingJoining(gson.toJson(neighbors), "dynamic/neighbors");
         logger.info("completing config sending");
     }

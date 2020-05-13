@@ -125,6 +125,20 @@ public class Island {
     }
 
     /**
+     * Receives algorithmConfig from Coordination Service, stores it in Temporary DB, notifies islands about
+     * availability.
+     * @param algorithmConfig
+     */
+    @RequestMapping(value = "/config/dynamic/algorithm", method = RequestMethod.POST)
+    public void sendDynamicAlgorithmConfig(@RequestBody String algorithmConfig) {
+        //logger.info("received algorithm configuration");
+        ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
+
+        ops.set(ConstantStrings.managementConfigAlgorithm, algorithmConfig);
+        //logger.info("stored algorithm configuration");
+    }
+
+    /**
      * Receives topology information from Coordination Service, stores it in Temporary DB, notifies islands about
      * availability.
      * @param neighborsConfigJson

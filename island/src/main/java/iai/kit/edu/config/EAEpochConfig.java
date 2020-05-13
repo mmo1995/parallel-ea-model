@@ -13,6 +13,7 @@ public class EAEpochConfig {
     private int epochTerminationTime;
     private int populationSize;
     private int delay;
+    private int demeSize;
     private GLEAMPopulation population;
 
     public GLEAMPopulation getPopulation() {
@@ -82,5 +83,15 @@ public class EAEpochConfig {
     public void setDelay(int delay) {
         this.delay = delay;
     }
+
+
+    public int getDemeSize() {
+        return demeSize;
+    }
+
+    public void setDemeSize(int demeSize) {
+        this.demeSize = demeSize;
+    }
+
 
 }

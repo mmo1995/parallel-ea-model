@@ -162,29 +162,6 @@ public class AlgorithmController {
         experiment = false;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
 
-/*        dynamicJobConfig.setNumberOfIslands(dynamicJobConfig.getNumberOfIslands());
-        dynamicJobConfig.setNumberOfSlaves(dynamicJobConfig.getNumberOfSlaves());
-        dynamicJobConfig.setAmountFitness(dynamicJobConfig.getAmountFitness());
-        dynamicJobConfig.setGlobalPopulationSize(dynamicJobConfig.getGlobalPopulationSize());
-        dynamicJobConfig.setDelay(dynamicJobConfig.getDelay());
-        dynamicJobConfig.setMigrationRate(dynamicJobConfig.getMigrationRate());
-        dynamicJobConfig.setTopology(dynamicJobConfig.getTopology());
-        dynamicJobConfig.setEpochTerminationGeneration(dynamicJobConfig.getEpochTerminationGeneration());
-        dynamicJobConfig.setEpochTerminationCriterion(dynamicJobConfig.getEpochTerminationCriterion());
-        dynamicJobConfig.setEpochTerminationEvaluation(dynamicJobConfig.getEpochTerminationEvaluation());
-        dynamicJobConfig.setEpochTerminationFitness(dynamicJobConfig.getEpochTerminationFitness());
-        dynamicJobConfig.setEpochTerminationTime(dynamicJobConfig.getEpochTerminationTime());
-        dynamicJobConfig.setEpochTerminationGDV(dynamicJobConfig.getEpochTerminationGDV());
-        dynamicJobConfig.setEpochTerminationGAK(dynamicJobConfig.getEpochTerminationGAK());
-
-        dynamicJobConfig.setGlobalTerminationCriterion(dynamicJobConfig.getGlobalTerminationCriterion());
-        dynamicJobConfig.setGlobalTerminationEpoch(dynamicJobConfig.getGlobalTerminationEpoch());
-        dynamicJobConfig.setGlobalTerminationEvaluation(dynamicJobConfig.getGlobalTerminationEvaluation());
-        dynamicJobConfig.setGlobalTerminationFitness(dynamicJobConfig.getGlobalTerminationFitness());
-        dynamicJobConfig.setGlobalTerminationGeneration(dynamicJobConfig.getGlobalTerminationGeneration());
-        dynamicJobConfig.setNumberOfGeneration(dynamicJobConfig.getNumberOfGeneration());*/
-
-
         dynamicJobConfig.readFromJson(json);
         //amountOfGeneration.set(dynamicJobConfig.getEpochTerminationGeneration()+1);
         logger.info("received dynamic job config: " + dynamicJobConfig.toString());

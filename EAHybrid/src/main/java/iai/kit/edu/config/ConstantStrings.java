@@ -66,4 +66,6 @@ public class ConstantStrings {
     
 
     public static final String EAConfig = "algorith.EA.config";
+    public static final String EADynamicConfig = "algorith.EA.dynamic.config";
+
 }

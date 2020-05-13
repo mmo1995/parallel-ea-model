@@ -293,6 +293,11 @@ public class Autowiring {
     }
 
     @Bean
+    DynamicConfigurationPublisher dynamicConfigurationPublisher() {
+        return new DynamicConfigurationPublisher();
+    }
+
+    @Bean
     EAEpochConfig eaEpochConfig() {
         return new EAEpochConfig();
     }
