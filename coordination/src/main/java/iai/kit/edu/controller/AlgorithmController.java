@@ -161,7 +161,7 @@ public class AlgorithmController {
     public void receiveDynamicStartConfiguration(@RequestBody String json) {
         experiment = false;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
-
+        resultsCollection = new ArrayList<>();
         dynamicJobConfig.readFromJson(json);
         //amountOfGeneration.set(dynamicJobConfig.getEpochTerminationGeneration()+1);
         logger.info("received dynamic job config: " + dynamicJobConfig.toString());
