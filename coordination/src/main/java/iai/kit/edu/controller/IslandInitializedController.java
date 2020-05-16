@@ -52,11 +52,13 @@ public class IslandInitializedController {
             if(jobConfig.getNumberOfIslands() != 0){
                 algorithmManager.sendConfig(false);
                 slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());
+                slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
             } else{
                 algorithmManager.sendConfig(true);
                 slaveNumberPublisher.publishNumberOfSlaves(dynamicJobConfig.getNumberOfSlaves());
+                slavecontroller.createSlaves(dynamicJobConfig.getNumberOfSlaves());
             }
-            slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
+
 
         }
 
