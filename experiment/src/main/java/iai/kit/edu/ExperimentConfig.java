@@ -11,6 +11,10 @@ public class ExperimentConfig {
     private String [] topology;
     private  String date;
 
+
+
+    private int[] demeSize;
+
     public String epochTerminationCriterion;
     public int epochTerminationEvaluation;
     public double epochTerminationFitness;
@@ -157,6 +161,14 @@ public class ExperimentConfig {
 
     public void setDelay(int[] delay) {
         this.delay = delay;
+    }
+
+    public int[] getDemeSize() {
+        return demeSize;
+    }
+
+    public void setDemeSize(int[] demeSize) {
+        this.demeSize = demeSize;
     }
 
 }

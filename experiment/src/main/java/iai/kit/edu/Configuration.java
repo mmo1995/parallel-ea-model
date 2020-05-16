@@ -27,4 +27,5 @@ public class Configuration {
       public int globalTerminationGDV= 500;
       public int globalTerminationGAK= 100;
       public int delay=0;
+      public int demeSize=8;
 }

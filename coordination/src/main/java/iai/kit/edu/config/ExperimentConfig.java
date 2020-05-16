@@ -13,6 +13,7 @@ public class ExperimentConfig {
     private int [] numberOfGeneration;
     private int[] migrationRate;
     private int[] delay;
+    private int[] demeSize;
     private String [] topology;
 
     private String epochTerminationCriterion;
@@ -153,5 +154,14 @@ public class ExperimentConfig {
 
     public void setDelay(int[] delay) {
         this.delay = delay;
+    }
+
+
+    public int[] getDemeSize() {
+        return demeSize;
+    }
+
+    public void setDemeSize(int[] demeSize) {
+        this.demeSize = demeSize;
     }
 }

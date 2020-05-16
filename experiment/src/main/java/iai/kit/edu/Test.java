@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{2};
+        int[] numberOfIslands = new int[]{1};
         int[] numberOfSlaves = new int[] {1};
         int[] populationSizes = new int[]{10}; //240 for each island
         int[] migrationRates = new int[]{1};
@@ -17,13 +17,15 @@ public class Test {
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String[] topologies = new String[]{"ring"};
 
+        int[] demeSize = new int[]{8};
+
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
-        int epochTerminationGeneration = 4; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int epochTerminationGeneration = 2; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 5; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -34,6 +36,7 @@ public class Test {
         experimentConfig.setPopulationSize(populationSizes);
         experimentConfig.setMigrationRate(migrationRates);
         experimentConfig.setDelay(delays);
+        experimentConfig.setDemeSize(demeSize);
         experimentConfig.setTopology(topologies);
         experimentConfig.setNumberOfGeneration(generationAmount);
 
@@ -120,7 +123,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     //runExperiment();
-     runDynamic();
+     runExperiment();
+     //runDynamic();
     }
 }

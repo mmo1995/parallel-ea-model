@@ -31,6 +31,7 @@ public class ConfigController {
         logger.info("sending config");
         MigrationConfig migrationConfig = jobConfig.generateMigrationConfig();
         AlgorithmConfig algorithmConfig=new GLEAMConfig(workspacePath,jobConfig.getDelay());
+        algorithmConfig.setDemeSize(jobConfig.getDemeSize());
         algorithmConfig.readFiles();
         List<List<String>> neighbors = topologyConfig.getNeighbors(jobConfig.getNumberOfIslands(), jobConfig.getTopology());
         Gson gson = new Gson();

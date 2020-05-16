@@ -36,9 +36,18 @@ public class JobConfig {
     private int globalTerminationGAK = 100;
 
     private int delay = 0;
+    private int demeSize;
 
     public int getDelay() {
         return delay;
+    }
+
+    public int getDemeSize() {
+        return demeSize;
+    }
+
+    public void setDemeSize(int demeSize) {
+        this.demeSize = demeSize;
     }
 
     public int getGlobalPopulationSize() {
