@@ -29,6 +29,9 @@ public class MigrantReplacer {
     private MigrationCompletedPublisher migrationCompletedPublisher;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private AlgorithmWrapper algorithmWrapper;
+
     RedisAtomicInteger islandsWithCompleteMigrantsCounter;
     List<Chromosome> cachedMigrants = new ArrayList<>();
 
@@ -45,10 +48,13 @@ public class MigrantReplacer {
                 logger.debug("islands with complete migrants = " + islandsWithCompleteMigrants);
 
                 // check whether the migrants from all neighbours have been received
-                if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
+/*                if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
                     islandsWithCompleteMigrantsCounter.set(0);
                     migrationCompletedPublisher.publish();
-                }
+                }*/
+                this.replace();
+                algorithmWrapper.startEpoch();
+
             }
         }
     }
