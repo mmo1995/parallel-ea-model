@@ -88,8 +88,8 @@ public class Test {
         String initialSelectionPolicyInitializer = "best";
         int amountFitnessInitializer = 0;
 
-        String[] initialSelectionPolicy= {"best", "best"};
-        int[] amountFitness= {0,0};
+        String[] initialSelectionPolicy= {"new", "mix"};
+        int[] amountFitness= {2,1};
 
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
@@ -156,7 +156,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     runExperiment();
-     //runDynamic();
+     //runExperiment();
+     runDynamic();
     }
 }

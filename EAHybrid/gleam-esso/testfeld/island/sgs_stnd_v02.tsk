@@ -19,7 +19,7 @@ InitStrategie f.die Startpopulation =  neu           # neu, best, mix, bestNeu, 
 InitStrategie-Parameter             =    0           # required for mix, bestNeu, lsvNeu, lsvBest
 Akzeptanzregel fuer Nachkommen      = localLeast-ES  # always, localLeast, betterParent
 Ranking-Parameter                   = 1.45           # optional
-Mindesthammingabstand f.XO/Reko [%] = 0.2   # Kein XO/Reko nur bei sehr aehnlichen Chr.! 
+Mindesthammingabstand f.XO/Reko [%] = 0.3   # Kein XO/Reko nur bei sehr aehnlichen Chr.! 
 # -----------------------------------------------------------------------------------------------
 Maximale Laufzeit [sec]             =   250000          # 1.5 Minuten, optional
 Maximale Generationsanzahl          =   500          # optional
