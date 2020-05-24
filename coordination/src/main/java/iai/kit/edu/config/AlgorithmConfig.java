@@ -12,7 +12,7 @@ public abstract class AlgorithmConfig {
 
     private double rankingParameter;
 
-    public abstract void readFiles();
+    public abstract void readFiles(double minimalHammingDistance);
 
     public abstract void writeFiles();
 

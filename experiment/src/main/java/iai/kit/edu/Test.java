@@ -21,6 +21,8 @@ public class Test {
         String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
         double[] rankingParameter = {1.45};
 
+        double[] minimalHammingDistance = {0.2};
+
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
@@ -43,6 +45,7 @@ public class Test {
         experimentConfig.setNumberOfGeneration(generationAmount);
         experimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
         experimentConfig.setRankingParameter(rankingParameter);
+        experimentConfig.setMinimalHammingDistance(minimalHammingDistance);
 
         experimentConfig.setEpochTerminationCriterion(epochTerminationCriterion);
         experimentConfig.setEpochTerminationEvaluation(epochTerminationEvaluation);
@@ -63,29 +66,30 @@ public class Test {
     }
 
     private static void runDynamic(){ //all dynamic arrays must have the same length as numberOfIslands
-        int numberOfIslands = 3;
+        int numberOfIslands = 2;
         int numberOfSlaves = 1;
-        int populationSize = 200;
-        int[] migrationRates = new int[]{4,5,6};
-        int[] generationAmount = new int[]{3,3,3};
-        String[] selectionPolicy= {"best", "best","best"};
-        String[] replacementPolicy= {"worst", "worst", "worst"};
+        int populationSize = 10;
+        int[] migrationRates = new int[]{1,1};
+        int[] generationAmount = new int[]{3,3};
+        String[] selectionPolicy= {"best","best"};
+        String[] replacementPolicy= {"worst","worst"};
 
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String topology = "ring";
 
-        String[] epochTerminationCriterion= new String[] {"generation", "generation", "generation"}; // evaluation ; fitness ;generation
-        int[] epochTerminationEvaluation= new int[] {1000000,1000000,1000000};
-        double[] epochTerminationFitness= new double[] {30000, 35000, 30000};
-        int[] epochTerminationGeneration = new int[] {3,3,10}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
-        int[] epochTerminationTime = new int[] {5,7,8};
-        int[] epochTerminationGDV = new int[] {500,600,700};
-        int[] epochTerminationGAK = new int[] {100,150,160};
+        String[] epochTerminationCriterion= new String[] {"generation","generation"}; // evaluation ; fitness ;generation
+        int[] epochTerminationEvaluation= new int[] {1000000,1000000};
+        double[] epochTerminationFitness= new double[] {30000,30000};
+        int[] epochTerminationGeneration = new int[] {2,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[] epochTerminationTime = new int[] {5,3};
+        int[] epochTerminationGDV = new int[] {500,500};
+        int[] epochTerminationGAK = new int[] {100,100};
 
-        int[] demeSize = new int[] {8,8,8};
-        String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
-        double[] rankingParameter = {1.45};
+        int[] demeSize = new int[] {8,8};
+        String[] acceptRuleForOffspring = {"always","localLeast"}; //localLeast-ES, always, localLeast, betterParent
+        double[] rankingParameter = {1.46, 1,50};
+        double[] minimalHammingDistance = {0.3,0.2};
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
@@ -107,6 +111,7 @@ public class Test {
         dynamicConfiguration.setDemeSize(demeSize);
         dynamicConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
         dynamicConfiguration.setRankingParameter(rankingParameter);
+        dynamicConfiguration.setMinimalHammingDistance(minimalHammingDistance);
 
         dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
@@ -124,13 +129,13 @@ public class Test {
 
         String configurationJson = gson.toJson(dynamicConfiguration);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/job/dynamic", configurationJson, String.class);
-        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/dynamic", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/job/dynamic", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/dynamic", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/job/dynamic", configurationJson, String.class);
     }
 
     public static void main(String[] args) {
-     runExperiment();
-     //runDynamic();
+     //runExperiment();
+     runDynamic();
     }
 }

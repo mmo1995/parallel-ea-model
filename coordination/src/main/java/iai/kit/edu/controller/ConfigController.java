@@ -34,7 +34,7 @@ public class ConfigController {
         algorithmConfig.setDemeSize(jobConfig.getDemeSize());
         algorithmConfig.setAcceptanceRuleForOffspring(jobConfig.getAcceptRuleForOffspring());
         algorithmConfig.setRankingParameter(jobConfig.getRankingParameter());
-        algorithmConfig.readFiles();
+        algorithmConfig.readFiles(jobConfig.getMinimalHammingDistance());
         List<List<String>> neighbors = topologyConfig.getNeighbors(jobConfig.getNumberOfIslands(), jobConfig.getTopology());
         Gson gson = new Gson();
         sendToSplittingJoining(gson.toJson(migrationConfig), "migration");
@@ -51,7 +51,7 @@ public class ConfigController {
             algorithmConfig.setDemeSize(dynamicJobConfig.getDemeSize()[i]);
             algorithmConfig.setAcceptanceRuleForOffspring(dynamicJobConfig.getAcceptRuleForOffspring()[i]);
             algorithmConfig.setRankingParameter(dynamicJobConfig.getRankingParameter()[i]);
-            algorithmConfig.readFiles();
+            algorithmConfig.readFiles(dynamicJobConfig.getMinimalHammingDistance()[i]);
             algorithmConfigs[i] = algorithmConfig;
         }
 

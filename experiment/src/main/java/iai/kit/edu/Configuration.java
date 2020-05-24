@@ -30,4 +30,5 @@ public class Configuration {
       public int demeSize=8;
       public String acceptRuleForOffspring = "localLeast-ES";
       double rankingParameter = 1.45;
+      double minimalHammingDistance = 0.1;
 }

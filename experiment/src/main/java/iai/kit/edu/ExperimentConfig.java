@@ -18,6 +18,8 @@ public class ExperimentConfig {
 
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
+    double[] minimalHammingDistance = {0.1};
+
 
     public String epochTerminationCriterion;
     public int epochTerminationEvaluation;
@@ -192,4 +194,11 @@ public class ExperimentConfig {
         this.rankingParameter = rankingParameter;
     }
 
+    public double[] getMinimalHammingDistance() {
+        return minimalHammingDistance;
+    }
+
+    public void setMinimalHammingDistance(double[] minimalHammingDistance) {
+        this.minimalHammingDistance = minimalHammingDistance;
+    }
 }

@@ -41,6 +41,7 @@ public class DynamicJobConfig {
     private int delay = 0;
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
+    double[] minimalHammingDistance;
 
     public int getDelay() {
         return delay;
@@ -154,6 +155,14 @@ public class DynamicJobConfig {
 
     public void setRankingParameter(double[] rankingParameter) {
         this.rankingParameter = rankingParameter;
+    }
+
+    public double[] getMinimalHammingDistance() {
+        return minimalHammingDistance;
+    }
+
+    public void setMinimalHammingDistance(double[] minimalHammingDistance) {
+        this.minimalHammingDistance = minimalHammingDistance;
     }
 
     public String[] getEpochTerminationCriterion() {

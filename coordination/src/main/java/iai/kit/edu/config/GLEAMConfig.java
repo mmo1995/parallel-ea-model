@@ -2,8 +2,6 @@ package iai.kit.edu.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -48,7 +46,7 @@ public class GLEAMConfig extends AlgorithmConfig {
         }
     }
 
-    public void readFiles() {
+    public void readFiles(double minimalHammingDistance) {
         File gleamWorkspace = new File(workspacePath);
         File[] fileArray = gleamWorkspace.listFiles(new GleamFileFilter());
         this.storeFileNames(fileArray);
@@ -60,6 +58,9 @@ public class GLEAMConfig extends AlgorithmConfig {
             } catch (IOException e) {
                 logger = LoggerFactory.getLogger(this.getClass());
                 logger.error(e.getMessage());
+            }
+            if(fileName.contains(".tsk")){
+                contentBuilder.replace(contentBuilder.toString().indexOf("Mindesthammingabstand"), contentBuilder.toString().indexOf("# Kein XO"), "Mindesthammingabstand f.XO/Reko [%] = "+ minimalHammingDistance+ "   ");
             }
             files.add(contentBuilder.toString());
         }

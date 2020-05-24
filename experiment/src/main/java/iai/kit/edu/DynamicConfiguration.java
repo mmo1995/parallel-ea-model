@@ -19,6 +19,7 @@ public class DynamicConfiguration {
 
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
+    double[] minimalHammingDistance;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -151,6 +152,14 @@ public class DynamicConfiguration {
 
     public void setRankingParameter(double[] rankingParameter) {
         this.rankingParameter = rankingParameter;
+    }
+
+    public double[] getMinimalHammingDistance() {
+        return minimalHammingDistance;
+    }
+
+    public void setMinimalHammingDistance(double[] minimalHammingDistance) {
+        this.minimalHammingDistance = minimalHammingDistance;
     }
 
     public String[] getEpochTerminationCriterion() {

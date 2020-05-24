@@ -42,6 +42,10 @@ public class JobConfig {
     private String acceptRuleForOffspring = "localLeast-ES";
     private double rankingParameter = 1.45;
 
+
+
+    private double minimalHammingDistance = 0.1;
+
     public int getDelay() {
         return delay;
     }
@@ -275,6 +279,14 @@ public class JobConfig {
 
     public void setRankingParameter(double rankingParameter) {
         this.rankingParameter = rankingParameter;
+    }
+
+    public double getMinimalHammingDistance() {
+        return minimalHammingDistance;
+    }
+
+    public void setMinimalHammingDistance(double minimalHammingDistance) {
+        this.minimalHammingDistance = minimalHammingDistance;
     }
 
     public MigrationConfig generateMigrationConfig() {
