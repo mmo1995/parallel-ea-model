@@ -23,6 +23,7 @@ public class DynamicJobConfig {
     private String initialSelectionPolicyInitializer;
     private int amountFitnessInitializer;
 
+    private boolean asyncMigration;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -302,6 +303,14 @@ public class DynamicJobConfig {
 
     public void setAmountFitnessInitializer(int amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public boolean isAsyncMigration() {
+        return asyncMigration;
+    }
+
+    public void setAsyncMigration(boolean asyncMigration) {
+        this.asyncMigration = asyncMigration;
     }
 
     public MigrationConfig[] generateMigrationConfig(int numberOfIslands) {

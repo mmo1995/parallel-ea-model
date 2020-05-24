@@ -18,6 +18,8 @@ public class JobConfig {
     private String selectionPolicy = "best";
     private String replacementPolicy = "worst";
 
+    boolean asyncMigration = false;
+
     public String initialSelectionPolicyInitializer = "new";
     public int amountFitnessInitializer = 0;
 
@@ -306,6 +308,14 @@ public class JobConfig {
 
     public void setAmountFitnessInitializer(int amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public boolean isAsyncMigration() {
+        return asyncMigration;
+    }
+
+    public void setAsyncMigration(boolean asyncMigration) {
+        this.asyncMigration = asyncMigration;
     }
 
     public MigrationConfig generateMigrationConfig() {

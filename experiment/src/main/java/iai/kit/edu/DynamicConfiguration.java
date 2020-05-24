@@ -19,6 +19,8 @@ public class DynamicConfiguration {
     private String[] replacementPolicy;
     private int[] demeSize;
 
+    private boolean asyncMigration;
+
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
     double[] minimalHammingDistance;
@@ -298,5 +300,13 @@ public class DynamicConfiguration {
 
     public void setAmountFitnessInitializer(int amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public boolean isAsyncMigration() {
+        return asyncMigration;
+    }
+
+    public void setAsyncMigration(boolean asyncMigration) {
+        this.asyncMigration = asyncMigration;
     }
 }

@@ -21,6 +21,8 @@ public class ExperimentConfig {
     double[] rankingParameter = {1.45};
     double[] minimalHammingDistance = {0.1};
 
+    private boolean[] asyncMigration;
+
 
     int[] amountFitness;
     private String[] initialSelectionPolicy;
@@ -234,5 +236,13 @@ public class ExperimentConfig {
 
     public void setAmountFitnessInitializer(int[] amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public boolean[] getAsyncMigration() {
+        return asyncMigration;
+    }
+
+    public void setAsyncMigration(boolean[] asyncMigration) {
+        this.asyncMigration = asyncMigration;
     }
 }

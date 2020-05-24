@@ -33,4 +33,6 @@ public class Configuration {
       public String acceptRuleForOffspring = "localLeast-ES";
       double rankingParameter = 1.45;
       double minimalHammingDistance = 0.1;
+
+      boolean asyncMigration = false;
 }

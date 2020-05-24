@@ -21,6 +21,8 @@ public class ExperimentConfig {
     private String[] initialSelectionPolicyInitializer;
     private int[] amountFitnessInitializer;
 
+    private boolean[] asyncMigration;
+
 
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
@@ -239,5 +241,14 @@ public class ExperimentConfig {
 
     public void setAmountFitnessInitializer(int[] amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+
+    public boolean[] getAsyncMigration() {
+        return asyncMigration;
+    }
+
+    public void setAsyncMigration(boolean[] asyncMigration) {
+        this.asyncMigration = asyncMigration;
     }
 }

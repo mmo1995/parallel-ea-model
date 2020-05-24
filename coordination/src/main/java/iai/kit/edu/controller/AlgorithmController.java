@@ -102,6 +102,8 @@ public class AlgorithmController {
         String[] initialSelectionPolicy = experimentConfig.getInitialSelectionPolicy();
         int[] amountOfFitness = experimentConfig.getAmountOfFitness();
 
+        boolean[] asyncMigration = experimentConfig.getAsyncMigration();
+
         String[] initialSelectionPolicyInitializer = experimentConfig.getInitialSelectionPolicyInitializer();
         int[] amountOfFitnessInitializer = experimentConfig.getAmountFitnessInitializer();
 
@@ -135,34 +137,37 @@ public class AlgorithmController {
                                                         for(int s = 0; s<amountOfFitness.length; s++){
                                                             for(int t = 0; t<initialSelectionPolicyInitializer.length; t++){
                                                                 for(int u = 0; u< amountOfFitnessInitializer.length; u++){
-                                                                    JobConfig jobConfigTemp = new JobConfig();
-                                                                    jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                                                                    jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
-                                                                    jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
-                                                                    jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
-                                                                    jobConfigTemp.setDelay(delays[k]);
-                                                                    jobConfigTemp.setMigrationRate(migrationRates[l]);
-                                                                    jobConfigTemp.setTopology(topologies[m]);
-                                                                    jobConfigTemp.setDemeSize(demeSizes[n]);
-                                                                    jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
-                                                                    jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
-                                                                    jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
-                                                                    jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
-                                                                    jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
-                                                                    jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
-                                                                    jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
-                                                                    jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
-                                                                    jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
-                                                                    jobConfigTemp.setAcceptRuleForOffspring(acceptanceRulesForOffspring[o]);
-                                                                    jobConfigTemp.setRankingParameter(rankingParameters[p]);
-                                                                    jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[q]);
-                                                                    jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[r]);
-                                                                    jobConfigTemp.setAmountFitness(amountOfFitness[s]);
-                                                                    jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[t]);
-                                                                    jobConfigTemp.setAmountFitnessInitializer(amountOfFitnessInitializer[u]);
-                                                                    jobConfigList.add(jobConfigTemp);
-                                                                    // speedupresults.setJobConfig(jobConfig);
-                                                                    // speedUpResultsList.add(speedupresults);
+                                                                    for(int v = 0; v<asyncMigration.length; v++){
+                                                                        JobConfig jobConfigTemp = new JobConfig();
+                                                                        jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
+                                                                        jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
+                                                                        jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
+                                                                        jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
+                                                                        jobConfigTemp.setDelay(delays[k]);
+                                                                        jobConfigTemp.setMigrationRate(migrationRates[l]);
+                                                                        jobConfigTemp.setTopology(topologies[m]);
+                                                                        jobConfigTemp.setDemeSize(demeSizes[n]);
+                                                                        jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
+                                                                        jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
+                                                                        jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
+                                                                        jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
+                                                                        jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
+                                                                        jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
+                                                                        jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
+                                                                        jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
+                                                                        jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
+                                                                        jobConfigTemp.setAcceptRuleForOffspring(acceptanceRulesForOffspring[o]);
+                                                                        jobConfigTemp.setRankingParameter(rankingParameters[p]);
+                                                                        jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[q]);
+                                                                        jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[r]);
+                                                                        jobConfigTemp.setAmountFitness(amountOfFitness[s]);
+                                                                        jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[t]);
+                                                                        jobConfigTemp.setAmountFitnessInitializer(amountOfFitnessInitializer[u]);
+                                                                        jobConfigTemp.setAsyncMigration(asyncMigration[v]);
+                                                                        jobConfigList.add(jobConfigTemp);
+                                                                        // speedupresults.setJobConfig(jobConfig);
+                                                                        // speedUpResultsList.add(speedupresults);
+                                                                    }
                                                                 }
                                                             }
                                                         }

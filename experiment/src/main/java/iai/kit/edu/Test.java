@@ -27,6 +27,7 @@ public class Test {
         String[] initialSelectionPolicy= {"bestNew"};
         int[] amountFitness = {1};
 
+        boolean[] asyncMigration = {false};
 
         double[] minimalHammingDistance = {0.2};
 
@@ -69,6 +70,8 @@ public class Test {
         experimentConfig.setGlobalTerminationFitness(globalTerminationFitness);
         experimentConfig.setGlobalTerminationGeneration(globalTerminationGeneration);
 
+        experimentConfig.setAsyncMigration(asyncMigration);
+
         String configurationJson = gson.toJson(experimentConfig);
         RestTemplate restTemplate = new RestTemplate();
         //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs", configurationJson, String.class);
@@ -94,6 +97,8 @@ public class Test {
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String topology = "ring";
+
+        boolean asyncMigration = false;
 
         String[] epochTerminationCriterion= new String[] {"generation","generation"}; // evaluation ; fitness ;generation
         int[] epochTerminationEvaluation= new int[] {1000000,1000000};
@@ -133,6 +138,7 @@ public class Test {
         dynamicConfiguration.setAmountFitness(amountFitness);
         dynamicConfiguration.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
         dynamicConfiguration.setAmountFitnessInitializer(amountFitnessInitializer);
+        dynamicConfiguration.setAsyncMigration(asyncMigration);
 
         dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
