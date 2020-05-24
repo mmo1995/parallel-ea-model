@@ -31,7 +31,7 @@ public class GLEAMStarter implements AlgorithmStarter {
     private String logging;
     private List<String> initStrategy;
     private String terminationCriterion = "";
-    private double amountFitness; //contains initialization parameter, casted to int, if amount is needed
+    private int amountFitness;
     private String delay;
     private String demeSize;
     private String acceptanceRuleForOffspring;
@@ -69,8 +69,23 @@ public class GLEAMStarter implements AlgorithmStarter {
         this.populationSize = ConstantStrings.gleamCLVPopulationSize + populationSize;
     }
 
-    public void setAmountFitness(double amountFitness) {
-        this.amountFitness = amountFitness;
+
+    public void setInitStrategy(String initStrategyString) {
+        this.initStrategy = new ArrayList<>();
+        if (initStrategyString.equals(ConstantStrings.initStrategyBest)) {
+            this.initStrategy.add(ConstantStrings.gleamCLVInitStrategyBest);
+        } else if (initStrategyString.equals(ConstantStrings.initStrategyMix)) {
+            this.initStrategy.add(ConstantStrings.gleamCLVInitStrategyMix);
+            this.initStrategy.add(ConstantStrings.gleamCLVInitializationParameter + amountFitness);
+        } else if (initStrategyString.equals(ConstantStrings.initStrategyBestNew)) {
+            this.initStrategy.add(ConstantStrings.gleamCLVInitStrategyBestNew);
+            this.initStrategy.add(ConstantStrings.gleamCLVInitializationParameter + amountFitness);
+        } else {
+            this.initStrategy.add(ConstantStrings.gleamCLVInitStrategyNew);
+        }
+    }
+    public void setAmountFitness(int amountFitness) {
+    this.amountFitness = amountFitness;
     }
 
     public void setTerminationEvaluation(int terminationEvaluation) {
@@ -106,6 +121,8 @@ public class GLEAMStarter implements AlgorithmStarter {
     }
 
 
+
+
     public void start() {
         if (firstEpoch) {
             prepareFirstEpoch();
@@ -121,8 +138,6 @@ public class GLEAMStarter implements AlgorithmStarter {
 
     private void prepareFirstEpoch() {
         logging = ConstantStrings.gleamCLVLoggingPlus;
-        this.initStrategy = new ArrayList<>();
-        this.initStrategy.add(ConstantStrings.gleamCLVInitStrategyBest);
         addCommandsForEpochRun();
     }
 

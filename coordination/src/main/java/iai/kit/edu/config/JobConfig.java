@@ -14,9 +14,12 @@ public class JobConfig {
     private int migrationRate;
     private String topology = "ring";
     private String initialSelectionPolicy = "new";
-    private double amountFitness = 0;
+    private int amountFitness = 0;
     private String selectionPolicy = "best";
     private String replacementPolicy = "worst";
+
+    public String initialSelectionPolicyInitializer = "new";
+    public int amountFitnessInitializer = 0;
 
     private String epochTerminationCriterion = "generation";
     private int epochTerminationEvaluation = 1000000;
@@ -116,11 +119,11 @@ public class JobConfig {
         this.initialSelectionPolicy = initialSelectionPolicy;
     }
 
-    public double getAmountFitness() {
+    public int getAmountFitness() {
         return amountFitness;
     }
 
-    public void setAmountFitness(double amountFitness) {
+    public void setAmountFitness(int amountFitness) {
         this.amountFitness = amountFitness;
     }
 
@@ -287,6 +290,22 @@ public class JobConfig {
 
     public void setMinimalHammingDistance(double minimalHammingDistance) {
         this.minimalHammingDistance = minimalHammingDistance;
+    }
+
+    public String getInitialSelectionPolicyInitializer() {
+        return initialSelectionPolicyInitializer;
+    }
+
+    public void setInitialSelectionPolicyInitializer(String initialSelectionPolicyInitializer) {
+        this.initialSelectionPolicyInitializer = initialSelectionPolicyInitializer;
+    }
+
+    public int getAmountFitnessInitializer() {
+        return amountFitnessInitializer;
+    }
+
+    public void setAmountFitnessInitializer(int amountFitnessInitializer) {
+        this.amountFitnessInitializer = amountFitnessInitializer;
     }
 
     public MigrationConfig generateMigrationConfig() {

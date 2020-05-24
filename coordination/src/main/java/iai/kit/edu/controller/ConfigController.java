@@ -34,6 +34,8 @@ public class ConfigController {
         algorithmConfig.setDemeSize(jobConfig.getDemeSize());
         algorithmConfig.setAcceptanceRuleForOffspring(jobConfig.getAcceptRuleForOffspring());
         algorithmConfig.setRankingParameter(jobConfig.getRankingParameter());
+        algorithmConfig.setInitStrategy(jobConfig.getInitialSelectionPolicy());
+        algorithmConfig.setAmountFitness(jobConfig.getAmountFitness());
         algorithmConfig.readFiles(jobConfig.getMinimalHammingDistance());
         List<List<String>> neighbors = topologyConfig.getNeighbors(jobConfig.getNumberOfIslands(), jobConfig.getTopology());
         Gson gson = new Gson();
@@ -51,6 +53,8 @@ public class ConfigController {
             algorithmConfig.setDemeSize(dynamicJobConfig.getDemeSize()[i]);
             algorithmConfig.setAcceptanceRuleForOffspring(dynamicJobConfig.getAcceptRuleForOffspring()[i]);
             algorithmConfig.setRankingParameter(dynamicJobConfig.getRankingParameter()[i]);
+            algorithmConfig.setInitStrategy(dynamicJobConfig.getInitialSelectionPolicy()[i]);
+            algorithmConfig.setAmountFitness(dynamicJobConfig.getAmountFitness()[i]);
             algorithmConfig.readFiles(dynamicJobConfig.getMinimalHammingDistance()[i]);
             algorithmConfigs[i] = algorithmConfig;
         }

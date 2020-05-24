@@ -71,4 +71,9 @@ public class ConstantStrings {
     public static final String EAConfig = "algorith.EA.config";
     public static final String EADynamicConfig = "algorith.EA.dynamic.config";
 
+    public static final String initStrategyBest = "best";
+    public static final String initStrategyNew = "new";
+    public static final String initStrategyBestNew = "bestNew";
+    public static final String initStrategyMix = "mix";
+
 }

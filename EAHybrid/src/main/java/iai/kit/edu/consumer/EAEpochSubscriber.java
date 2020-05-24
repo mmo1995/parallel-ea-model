@@ -60,6 +60,8 @@ public class EAEpochSubscriber implements MessageListener {
 		algorithmStarter.setDemeSize(eaEpochConfig.getDemeSize());
 		algorithmStarter.setAcceptanceRuleForOffspring(eaEpochConfig.getAcceptanceRuleForOffspring());
 		algorithmStarter.setRankingParameter(eaEpochConfig.getRankingParameter());
+		algorithmStarter.setInitStrategy(eaEpochConfig.getInitStrategy());
+		algorithmStarter.setAmountFitness(eaEpochConfig.getAmountFitness());
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationFile);
 		algorithmStarter.start();

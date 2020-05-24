@@ -21,6 +21,14 @@ public class ExperimentConfig {
     double[] rankingParameter = {1.45};
     double[] minimalHammingDistance = {0.1};
 
+
+    int[] amountFitness;
+    private String[] initialSelectionPolicy;
+
+    private String[] initialSelectionPolicyInitializer;
+    private int[] amountFitnessInitializer;
+
+
     private String epochTerminationCriterion;
     private int epochTerminationEvaluation;
     private double epochTerminationFitness;
@@ -193,5 +201,38 @@ public class ExperimentConfig {
 
     public void setMinimalHammingDistance(double[] minimalHammingDistance) {
         this.minimalHammingDistance = minimalHammingDistance;
+    }
+
+    public String[] getInitialSelectionPolicy() {
+        return initialSelectionPolicy;
+    }
+
+    public void setInitialSelectionPolicy(String[] initialSelectionPolicy) {
+        this.initialSelectionPolicy = initialSelectionPolicy;
+    }
+
+
+    public int[] getAmountOfFitness() {
+        return amountFitness;
+    }
+
+    public void setAmountOfFitness(int[] amountOfFitness) {
+        this.amountFitness = amountOfFitness;
+    }
+
+    public String[] getInitialSelectionPolicyInitializer() {
+        return initialSelectionPolicyInitializer;
+    }
+
+    public void setInitialSelectionPolicyInitializer(String[] initialSelectionPolicyInitializer) {
+        this.initialSelectionPolicyInitializer = initialSelectionPolicyInitializer;
+    }
+
+    public int[] getAmountFitnessInitializer() {
+        return amountFitnessInitializer;
+    }
+
+    public void setAmountFitnessInitializer(int[] amountFitnessInitializer) {
+        this.amountFitnessInitializer = amountFitnessInitializer;
     }
 }

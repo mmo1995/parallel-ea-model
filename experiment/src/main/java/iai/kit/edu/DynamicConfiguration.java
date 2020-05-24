@@ -11,8 +11,10 @@ public class DynamicConfiguration {
     private int[] numberOfGeneration;
     private int[] migrationRate;
     private String topology;
-    private String initialSelectionPolicy = "new";
-    private double amountFitness = 0;
+    private String[] initialSelectionPolicy;
+    private int[] amountFitness;
+    private String initialSelectionPolicyInitializer;
+    private int amountFitnessInitializer;
     private String[] selectionPolicy;
     private String[] replacementPolicy;
     private int[] demeSize;
@@ -94,19 +96,19 @@ public class DynamicConfiguration {
         this.topology = topology;
     }
 
-    public String getInitialSelectionPolicy() {
+    public String[] getInitialSelectionPolicy() {
         return initialSelectionPolicy;
     }
 
-    public void setInitialSelectionPolicy(String initialSelectionPolicy) {
+    public void setInitialSelectionPolicy(String[] initialSelectionPolicy) {
         this.initialSelectionPolicy = initialSelectionPolicy;
     }
 
-    public double getAmountFitness() {
+    public int[] getAmountFitness() {
         return amountFitness;
     }
 
-    public void setAmountFitness(double amountFitness) {
+    public void setAmountFitness(int[] amountFitness) {
         this.amountFitness = amountFitness;
     }
 
@@ -282,4 +284,19 @@ public class DynamicConfiguration {
         this.globalTerminationGAK = globalTerminationGAK;
     }
 
+    public String getInitialSelectionPolicyInitializer() {
+        return initialSelectionPolicyInitializer;
+    }
+
+    public void setInitialSelectionPolicyInitializer(String initialSelectionPolicyInitializer) {
+        this.initialSelectionPolicyInitializer = initialSelectionPolicyInitializer;
+    }
+
+    public int getAmountFitnessInitializer() {
+        return amountFitnessInitializer;
+    }
+
+    public void setAmountFitnessInitializer(int amountFitnessInitializer) {
+        this.amountFitnessInitializer = amountFitnessInitializer;
+    }
 }

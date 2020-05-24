@@ -7,8 +7,10 @@ public class Configuration {
       public int migrationRate= 3;
       public String topology= "ring";
       public String initialSelectionPolicy= "new";
+      public String initialSelectionPolicyInitializer = "new";
       public String experimentFileName= "fox.exp";
       public int amountFitness = 0;
+      public int amountFitnessInitializer = 0;
       public String selectionPolicy= "best";
       public String replacementPolicy= "worst";
       public String epochTerminationCriterion= "generation";

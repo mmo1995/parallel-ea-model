@@ -40,10 +40,10 @@ public class PopulationController {
     public void sendPopulation(boolean dynamic) {
         List<String> population;
         if(dynamic){
-            population = initializerEAController.initialize(dynamicJobConfig.getGlobalPopulationSize(), dynamicJobConfig.getAmountFitness(), dynamicJobConfig.getInitialSelectionPolicy());
+            population = initializerEAController.initialize(dynamicJobConfig.getGlobalPopulationSize(), dynamicJobConfig.getAmountFitnessInitializer(), dynamicJobConfig.getInitialSelectionPolicyInitializer());
 
         }else{
-            population = initializerEAController.initialize(jobConfig.getGlobalPopulationSize(), jobConfig.getAmountFitness(), jobConfig.getInitialSelectionPolicy());
+            population = initializerEAController.initialize(jobConfig.getGlobalPopulationSize(), jobConfig.getAmountFitnessInitializer(), jobConfig.getInitialSelectionPolicyInitializer());
         }
         //logger.info("initial population: "+ population);
         Gson gson = new Gson();

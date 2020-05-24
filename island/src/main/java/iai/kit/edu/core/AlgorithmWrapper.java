@@ -58,6 +58,8 @@ public class AlgorithmWrapper {
         eaEpochConfig.setDemeSize(islandConfig.getAlgorithmConfig().getDemeSize());
         eaEpochConfig.setAcceptanceRuleForOffspring(islandConfig.getAlgorithmConfig().getAcceptanceRuleForOffspring());
         eaEpochConfig.setRankingParameter(islandConfig.getAlgorithmConfig().getRankingParameter());
+        eaEpochConfig.setInitStrategy(islandConfig.getAlgorithmConfig().getInitStrategy());
+        eaEpochConfig.setAmountFitness(islandConfig.getAlgorithmConfig().getAmountFitness());
     }
 
     /*

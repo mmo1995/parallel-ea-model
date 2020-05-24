@@ -15,6 +15,12 @@ public class ExperimentConfig {
 
     private int[] demeSize;
 
+    private String[] initialSelectionPolicy;
+    private int[] amountFitness;
+
+    private String[] initialSelectionPolicyInitializer;
+    private int[] amountFitnessInitializer;
+
 
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
@@ -200,5 +206,38 @@ public class ExperimentConfig {
 
     public void setMinimalHammingDistance(double[] minimalHammingDistance) {
         this.minimalHammingDistance = minimalHammingDistance;
+    }
+
+    public String[] getInitialSelectionPolicy() {
+        return initialSelectionPolicy;
+    }
+
+    public void setInitialSelectionPolicy(String[] initialSelectionPolicy) {
+        this.initialSelectionPolicy = initialSelectionPolicy;
+    }
+
+    public int[] getAmountFitness() {
+        return amountFitness;
+    }
+
+    public void setAmountFitness(int[] amountFitness) {
+        this.amountFitness = amountFitness;
+    }
+
+
+    public String[] getInitialSelectionPolicyInitializer() {
+        return initialSelectionPolicyInitializer;
+    }
+
+    public void setInitialSelectionPolicyInitializer(String[] initialSelectionPolicyInitializer) {
+        this.initialSelectionPolicyInitializer = initialSelectionPolicyInitializer;
+    }
+
+    public int[] getAmountFitnessInitializer() {
+        return amountFitnessInitializer;
+    }
+
+    public void setAmountFitnessInitializer(int[] amountFitnessInitializer) {
+        this.amountFitnessInitializer = amountFitnessInitializer;
     }
 }

@@ -21,6 +21,13 @@ public class Test {
         String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
         double[] rankingParameter = {1.45};
 
+        String[] initialSelectionPolicyInitializer= {"new"};
+        int[] amountFitnessInitializer = {0};
+
+        String[] initialSelectionPolicy= {"bestNew"};
+        int[] amountFitness = {1};
+
+
         double[] minimalHammingDistance = {0.2};
 
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
@@ -46,6 +53,10 @@ public class Test {
         experimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
         experimentConfig.setRankingParameter(rankingParameter);
         experimentConfig.setMinimalHammingDistance(minimalHammingDistance);
+        experimentConfig.setInitialSelectionPolicy(initialSelectionPolicy);
+        experimentConfig.setAmountFitness(amountFitness);
+        experimentConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
+        experimentConfig.setAmountFitnessInitializer(amountFitnessInitializer);
 
         experimentConfig.setEpochTerminationCriterion(epochTerminationCriterion);
         experimentConfig.setEpochTerminationEvaluation(epochTerminationEvaluation);
@@ -73,6 +84,12 @@ public class Test {
         int[] generationAmount = new int[]{3,3};
         String[] selectionPolicy= {"best","best"};
         String[] replacementPolicy= {"worst","worst"};
+
+        String initialSelectionPolicyInitializer = "best";
+        int amountFitnessInitializer = 0;
+
+        String[] initialSelectionPolicy= {"best", "best"};
+        int[] amountFitness= {0,0};
 
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
@@ -112,6 +129,10 @@ public class Test {
         dynamicConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
         dynamicConfiguration.setRankingParameter(rankingParameter);
         dynamicConfiguration.setMinimalHammingDistance(minimalHammingDistance);
+        dynamicConfiguration.setInitialSelectionPolicy(initialSelectionPolicy);
+        dynamicConfiguration.setAmountFitness(amountFitness);
+        dynamicConfiguration.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
+        dynamicConfiguration.setAmountFitnessInitializer(amountFitnessInitializer);
 
         dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
@@ -135,7 +156,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     //runExperiment();
-     runDynamic();
+     runExperiment();
+     //runDynamic();
     }
 }
