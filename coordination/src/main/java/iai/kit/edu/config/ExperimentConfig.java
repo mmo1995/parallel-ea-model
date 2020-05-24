@@ -16,6 +16,10 @@ public class ExperimentConfig {
     private int[] demeSize;
     private String [] topology;
 
+
+    String[] acceptRuleForOffspring = {"localLeast-ES"};
+    double[] rankingParameter = {1.45};
+
     private String epochTerminationCriterion;
     private int epochTerminationEvaluation;
     private double epochTerminationFitness;
@@ -163,5 +167,22 @@ public class ExperimentConfig {
 
     public void setDemeSize(int[] demeSize) {
         this.demeSize = demeSize;
+    }
+
+
+    public String[] getAcceptRuleForOffspring() {
+        return acceptRuleForOffspring;
+    }
+
+    public void setAcceptRuleForOffspring(String[] acceptRuleForOffspring) {
+        this.acceptRuleForOffspring = acceptRuleForOffspring;
+    }
+
+    public double[] getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double[] rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 }

@@ -34,6 +34,8 @@ public class GLEAMStarter implements AlgorithmStarter {
     private double amountFitness; //contains initialization parameter, casted to int, if amount is needed
     private String delay;
     private String demeSize;
+    private String acceptanceRuleForOffspring;
+    private String rankingParameter;
 
     private List<String> commands;
 
@@ -94,6 +96,14 @@ public class GLEAMStarter implements AlgorithmStarter {
         this.demeSize = ConstantStrings.gleamDemeSize + demeSize;
     }
 
+    public void setAcceptanceRuleForOffspring(String acceptanceRuleForOffspring) {
+        this.acceptanceRuleForOffspring = ConstantStrings.acceptanceRuleForOffspring + acceptanceRuleForOffspring;
+
+    }
+
+    public void setRankingParameter(double rankingParameter) {
+        this.rankingParameter = ConstantStrings.rankingParameter + rankingParameter;
+    }
 
 
     public void start() {
@@ -135,6 +145,8 @@ public class GLEAMStarter implements AlgorithmStarter {
         commands.add(terminationCriterion);
         commands.add(delay);
         commands.add(demeSize);
+        commands.add(acceptanceRuleForOffspring);
+        commands.add(rankingParameter);
     }
 
 

@@ -8,24 +8,26 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{3};
+        int[] numberOfIslands = new int[]{1};
         int[] numberOfSlaves = new int[] {1};
-        int[] populationSizes = new int[]{200}; //240 for each island
+        int[] populationSizes = new int[]{10}; //240 for each island
         int[] migrationRates = new int[]{1};
         int[] generationAmount = new int[]{3};
         int[] delays = new int[]{0};
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String[] topologies = new String[]{"ring"};
 
-        int[] demeSize = new int[]{8};
+        int[] demeSize = new int[]{6};
+        String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
+        double[] rankingParameter = {1.45};
 
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
-        int epochTerminationGeneration = 4; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int epochTerminationGeneration = 3; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 2; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -39,7 +41,8 @@ public class Test {
         experimentConfig.setDemeSize(demeSize);
         experimentConfig.setTopology(topologies);
         experimentConfig.setNumberOfGeneration(generationAmount);
-
+        experimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
+        experimentConfig.setRankingParameter(rankingParameter);
 
         experimentConfig.setEpochTerminationCriterion(epochTerminationCriterion);
         experimentConfig.setEpochTerminationEvaluation(epochTerminationEvaluation);
@@ -54,8 +57,8 @@ public class Test {
 
         String configurationJson = gson.toJson(experimentConfig);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs", configurationJson, String.class);
-        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671//ojm/start/jobs", configurationJson, String.class);
     }
 
@@ -81,6 +84,8 @@ public class Test {
         int[] epochTerminationGAK = new int[] {100,150,160};
 
         int[] demeSize = new int[] {8,8,8};
+        String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
+        double[] rankingParameter = {1.45};
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
@@ -100,6 +105,8 @@ public class Test {
         dynamicConfiguration.setTopology(topology);
         dynamicConfiguration.setNumberOfGeneration(generationAmount);
         dynamicConfiguration.setDemeSize(demeSize);
+        dynamicConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
+        dynamicConfiguration.setRankingParameter(rankingParameter);
 
         dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
         dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);

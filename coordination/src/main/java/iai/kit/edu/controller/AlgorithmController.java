@@ -97,6 +97,8 @@ public class AlgorithmController {
         int[] populationSizes = experimentConfig.getPopulationSize();
         int[] delays = experimentConfig.getDelay();
         int[] demeSizes = experimentConfig.getDemeSize();
+        String[] acceptanceRulesForOffspring = experimentConfig.getAcceptRuleForOffspring();
+        double[] rankingParameters = experimentConfig.getRankingParameter();
         int[] migrationRates = experimentConfig.getMigrationRate();
         String[] topologies = experimentConfig.getTopology();
         int epochTerminationGeneration_1 = experimentConfig.getEpochTerminationGeneration();
@@ -119,27 +121,34 @@ public class AlgorithmController {
                             for (int l = 0; l < migrationRates.length; l++) {
                                 for (int m = 0; m < topologies.length; m++) {
                                     for(int n = 0; n< demeSizes.length; n++){
-                                        JobConfig jobConfigTemp = new JobConfig();
-                                        jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                                        jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
-                                        jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
-                                        jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
-                                        jobConfigTemp.setDelay(delays[k]);
-                                        jobConfigTemp.setMigrationRate(migrationRates[l]);
-                                        jobConfigTemp.setTopology(topologies[m]);
-                                        jobConfigTemp.setDemeSize(demeSizes[n]);
-                                        jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
-                                        jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
-                                        jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
-                                        jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
-                                        jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
-                                        jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
-                                        jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
-                                        jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
-                                        jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
-                                        jobConfigList.add(jobConfigTemp);
-                                        // speedupresults.setJobConfig(jobConfig);
-                                        // speedUpResultsList.add(speedupresults);
+                                        for(int o = 0; o< acceptanceRulesForOffspring.length; o++){
+                                            for(int p = 0; p<rankingParameters.length; p++){
+                                                JobConfig jobConfigTemp = new JobConfig();
+                                                jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
+                                                jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
+                                                jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
+                                                jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
+                                                jobConfigTemp.setDelay(delays[k]);
+                                                jobConfigTemp.setMigrationRate(migrationRates[l]);
+                                                jobConfigTemp.setTopology(topologies[m]);
+                                                jobConfigTemp.setDemeSize(demeSizes[n]);
+                                                jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
+                                                jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
+                                                jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
+                                                jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
+                                                jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
+                                                jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
+                                                jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
+                                                jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
+                                                jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
+                                                jobConfigTemp.setAcceptRuleForOffspring(acceptanceRulesForOffspring[o]);
+                                                jobConfigTemp.setRankingParameter(rankingParameters[p]);
+                                                jobConfigList.add(jobConfigTemp);
+                                                // speedupresults.setJobConfig(jobConfig);
+                                                // speedUpResultsList.add(speedupresults);
+                                            }
+                                        }
+
                                     }
                                 }
                             }

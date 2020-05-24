@@ -38,6 +38,10 @@ public class JobConfig {
     private int delay = 0;
     private int demeSize;
 
+
+    private String acceptRuleForOffspring = "localLeast-ES";
+    private double rankingParameter = 1.45;
+
     public int getDelay() {
         return delay;
     }
@@ -254,6 +258,23 @@ public class JobConfig {
 
     public void setGlobalTerminationGAK(int globalTerminationGAK) {
         this.globalTerminationGAK = globalTerminationGAK;
+    }
+
+
+    public String getAcceptRuleForOffspring() {
+        return acceptRuleForOffspring;
+    }
+
+    public void setAcceptRuleForOffspring(String acceptRuleForOffspring) {
+        this.acceptRuleForOffspring = acceptRuleForOffspring;
+    }
+
+    public double getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 
     public MigrationConfig generateMigrationConfig() {

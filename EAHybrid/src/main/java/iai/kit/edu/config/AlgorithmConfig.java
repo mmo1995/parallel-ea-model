@@ -6,6 +6,10 @@ public abstract class AlgorithmConfig {
 
     private int deamSize;
 
+    private String acceptanceRuleForOffspring;
+
+    private double rankingParameter;
+
     public abstract void readFiles();
 
     public abstract void writeFiles();
@@ -25,5 +29,21 @@ public abstract class AlgorithmConfig {
 
     public void setDeamSize(int deamSize) {
         this.deamSize = deamSize;
+    }
+
+    public String getAcceptanceRuleForOffspring() {
+        return acceptanceRuleForOffspring;
+    }
+
+    public void setAcceptanceRuleForOffspring(String acceptanceRuleForOffspring) {
+        this.acceptanceRuleForOffspring = acceptanceRuleForOffspring;
+    }
+
+    public double getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 }

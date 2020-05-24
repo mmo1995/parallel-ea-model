@@ -28,4 +28,6 @@ public class Configuration {
       public int globalTerminationGAK= 100;
       public int delay=0;
       public int demeSize=8;
+      public String acceptRuleForOffspring = "localLeast-ES";
+      double rankingParameter = 1.45;
 }

@@ -14,6 +14,8 @@ public interface AlgorithmStarter {
     public void setTerminationTime(int terminationTime);
     public void setDelay(int delay);
     public void setDemeSize(int DemeSize);
+    public void setAcceptanceRuleForOffspring(String acceptanceRuleForOffspring);
+    public void setRankingParameter(double rankingParameter);
     public void start();
     public void reset();
     public void stop();

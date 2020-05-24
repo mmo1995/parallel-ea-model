@@ -14,6 +14,8 @@ public class EAEpochConfig {
     private int populationSize;
     private int delay;
     private int demeSize;
+    private String acceptanceRuleForOffspring;
+    private double rankingParameter;
     private GLEAMPopulation population;
 
     public GLEAMPopulation getPopulation() {
@@ -93,5 +95,19 @@ public class EAEpochConfig {
         this.demeSize = demeSize;
     }
 
+    public String getAcceptanceRuleForOffspring() {
+        return acceptanceRuleForOffspring;
+    }
 
+    public void setAcceptanceRuleForOffspring(String acceptanceRuleForOffspring) {
+        this.acceptanceRuleForOffspring = acceptanceRuleForOffspring;
+    }
+
+    public double getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double rankingParameter) {
+        this.rankingParameter = rankingParameter;
+    }
 }

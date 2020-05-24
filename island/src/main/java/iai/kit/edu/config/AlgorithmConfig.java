@@ -8,6 +8,10 @@ public abstract class AlgorithmConfig {
 
     private int demeSize;
 
+    private String acceptanceRuleForOffspring;
+
+    private double rankingParameter;
+
     public abstract void readFiles();
 
     public abstract void writeFiles();
@@ -26,5 +30,21 @@ public abstract class AlgorithmConfig {
 
     public void setDemeSize(int demeSize) {
         this.demeSize = demeSize;
+    }
+
+    public String getAcceptanceRuleForOffspring() {
+        return acceptanceRuleForOffspring;
+    }
+
+    public void setAcceptanceRuleForOffspring(String acceptanceRuleForOffspring) {
+        this.acceptanceRuleForOffspring = acceptanceRuleForOffspring;
+    }
+
+    public double getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 }

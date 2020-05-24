@@ -17,6 +17,9 @@ public class DynamicConfiguration {
     private String[] replacementPolicy;
     private int[] demeSize;
 
+    String[] acceptRuleForOffspring;
+    double[] rankingParameter;
+
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
     private double[] epochTerminationFitness;
@@ -132,6 +135,22 @@ public class DynamicConfiguration {
 
     public void setDemeSize(int[] demeSize) {
         this.demeSize = demeSize;
+    }
+
+    public String[] getAcceptRuleForOffspring() {
+        return acceptRuleForOffspring;
+    }
+
+    public void setAcceptRuleForOffspring(String[] acceptRuleForOffspring) {
+        this.acceptRuleForOffspring = acceptRuleForOffspring;
+    }
+
+    public double[] getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double[] rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 
     public String[] getEpochTerminationCriterion() {

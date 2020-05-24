@@ -15,6 +15,10 @@ public class ExperimentConfig {
 
     private int[] demeSize;
 
+
+    String[] acceptRuleForOffspring;
+    double[] rankingParameter;
+
     public String epochTerminationCriterion;
     public int epochTerminationEvaluation;
     public double epochTerminationFitness;
@@ -169,6 +173,23 @@ public class ExperimentConfig {
 
     public void setDemeSize(int[] demeSize) {
         this.demeSize = demeSize;
+    }
+
+
+    public String[] getAcceptRuleForOffspring() {
+        return acceptRuleForOffspring;
+    }
+
+    public void setAcceptRuleForOffspring(String[] acceptRuleForOffspring) {
+        this.acceptRuleForOffspring = acceptRuleForOffspring;
+    }
+
+    public double[] getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double[] rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 
 }

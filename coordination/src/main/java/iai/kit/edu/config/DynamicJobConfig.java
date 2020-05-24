@@ -39,6 +39,8 @@ public class DynamicJobConfig {
     private int globalTerminationGAK = 100;
 
     private int delay = 0;
+    String[] acceptRuleForOffspring;
+    double[] rankingParameter;
 
     public int getDelay() {
         return delay;
@@ -136,6 +138,22 @@ public class DynamicJobConfig {
 
     public void setDemeSize(int[] demeSize) {
         this.demeSize = demeSize;
+    }
+
+    public String[] getAcceptRuleForOffspring() {
+        return acceptRuleForOffspring;
+    }
+
+    public void setAcceptRuleForOffspring(String[] acceptRuleForOffspring) {
+        this.acceptRuleForOffspring = acceptRuleForOffspring;
+    }
+
+    public double[] getRankingParameter() {
+        return rankingParameter;
+    }
+
+    public void setRankingParameter(double[] rankingParameter) {
+        this.rankingParameter = rankingParameter;
     }
 
     public String[] getEpochTerminationCriterion() {

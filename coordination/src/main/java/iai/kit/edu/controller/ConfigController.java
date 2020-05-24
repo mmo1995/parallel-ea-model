@@ -32,6 +32,8 @@ public class ConfigController {
         MigrationConfig migrationConfig = jobConfig.generateMigrationConfig();
         AlgorithmConfig algorithmConfig=new GLEAMConfig(workspacePath,jobConfig.getDelay());
         algorithmConfig.setDemeSize(jobConfig.getDemeSize());
+        algorithmConfig.setAcceptanceRuleForOffspring(jobConfig.getAcceptRuleForOffspring());
+        algorithmConfig.setRankingParameter(jobConfig.getRankingParameter());
         algorithmConfig.readFiles();
         List<List<String>> neighbors = topologyConfig.getNeighbors(jobConfig.getNumberOfIslands(), jobConfig.getTopology());
         Gson gson = new Gson();
@@ -47,6 +49,8 @@ public class ConfigController {
         for(int i = 0; i< dynamicJobConfig.getDemeSize().length; i++){
             AlgorithmConfig algorithmConfig = new GLEAMConfig(workspacePath, dynamicJobConfig.getDelay());
             algorithmConfig.setDemeSize(dynamicJobConfig.getDemeSize()[i]);
+            algorithmConfig.setAcceptanceRuleForOffspring(dynamicJobConfig.getAcceptRuleForOffspring()[i]);
+            algorithmConfig.setRankingParameter(dynamicJobConfig.getRankingParameter()[i]);
             algorithmConfig.readFiles();
             algorithmConfigs[i] = algorithmConfig;
         }
