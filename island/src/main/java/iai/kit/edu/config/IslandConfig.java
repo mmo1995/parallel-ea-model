@@ -19,6 +19,9 @@ public class IslandConfig {
     @Value("${island.number}")
     private int islandNumber;
 
+    private boolean receivedMigrantsCompleted;
+    private boolean receivedIntermediatePopulation;
+
     private AlgorithmConfig algorithmConfig;
 
     private MigrationConfig migrationConfig;
@@ -77,5 +80,23 @@ public class IslandConfig {
 
     public void reset(){
         this.stopped=false;
+        this.receivedIntermediatePopulation=false;
+        this.receivedMigrantsCompleted=false;
+    }
+
+    public boolean isReceivedMigrantsCompleted() {
+        return receivedMigrantsCompleted;
+    }
+
+    public void setReceivedMigrantsCompleted(boolean receivedMigrantsCompleted) {
+        this.receivedMigrantsCompleted = receivedMigrantsCompleted;
+    }
+
+    public boolean isReceivedIntermediatePopulation() {
+        return receivedIntermediatePopulation;
+    }
+
+    public void setReceivedIntermediatePopulation(boolean receivedIntermediatePopulation) {
+        this.receivedIntermediatePopulation = receivedIntermediatePopulation;
     }
 }

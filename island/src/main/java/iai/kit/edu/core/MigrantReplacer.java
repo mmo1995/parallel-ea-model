@@ -27,6 +27,8 @@ public class MigrantReplacer {
     private RedisTemplate<String, Integer> template;
     @Autowired
     private MigrationCompletedPublisher migrationCompletedPublisher;
+    @Autowired
+    private AlgorithmWrapper algorithmWrapper;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
@@ -45,13 +47,32 @@ public class MigrantReplacer {
                 int islandsWithCompleteMigrants = islandsWithCompleteMigrantsCounter.incrementAndGet();
                 logger.debug("islands with complete migrants = " + islandsWithCompleteMigrants);
 
-                // check whether the migrants from all neighbours have been received
-                if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
-                    islandsWithCompleteMigrantsCounter.set(0);
-                    migrationCompletedPublisher.publish();
+
+                if(islandConfig.getMigrationConfig().isAsyncMigration()){
+                    islandConfig.setReceivedMigrantsCompleted(true);
+                    this.checkAsyncMigration();
+
+                }else{
+                    // check whether the migrants from all neighbours have been received
+                    if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
+                        islandsWithCompleteMigrantsCounter.set(0);
+                        migrationCompletedPublisher.publish();
+                    }
                 }
 
+
             }
+        }
+    }
+
+    public void checkAsyncMigration() {
+        if(islandConfig.isReceivedMigrantsCompleted() && islandConfig.isReceivedIntermediatePopulation()){
+            islandConfig.setReceivedMigrantsCompleted(false);
+            islandConfig.setReceivedIntermediatePopulation(false);
+            logger.info("completing migration");
+            logger.info("received start signal");
+            this.replace();
+            algorithmWrapper.startEpoch();
         }
     }
 

@@ -162,7 +162,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     //runExperiment();
-     runDynamic();
+     runExperiment();
+     //runDynamic();
     }
 }

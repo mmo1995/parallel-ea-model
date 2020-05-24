@@ -1,5 +1,6 @@
 package iai.kit.edu.consumer;
 
+import iai.kit.edu.config.IslandConfig;
 import iai.kit.edu.core.*;
 import iai.kit.edu.producer.MigrantPublisher;
 import org.slf4j.Logger;
@@ -21,6 +22,10 @@ public class IntermediatePopulationSubscriber implements MessageListener {
     private MigrantPublisher migrantPublisher;
     @Autowired
     private Population population;
+    @Autowired
+    IslandConfig islandConfig;
+    @Autowired
+    MigrantReplacer migrantReplacer;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -30,5 +35,10 @@ public class IntermediatePopulationSubscriber implements MessageListener {
         population.readFromJSON(message.toString());
         List<Chromosome> migrants = migrantSelector.selectMigrants();
         migrantPublisher.publish(migrants);
+        if(islandConfig.getMigrationConfig().isAsyncMigration()){
+            islandConfig.setReceivedIntermediatePopulation(true);
+            migrantReplacer.checkAsyncMigration();
+        }
+
     }
 }
