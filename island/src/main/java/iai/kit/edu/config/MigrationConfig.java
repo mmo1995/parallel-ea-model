@@ -25,7 +25,8 @@ public class MigrationConfig {
     private int globalTerminationTime;
     private int globalTerminationGDV;
     private int globalTerminationGAK;
-    public MigrationConfig(int numberOfIslands, int globalPopulationSize, String selectionPolicy, String replacementPolicy, int migrationRate, String epochTerminationCriterion, int epochTerminationEvaluation, double epochTerminationFitness, int epochTerminationGeneration, int epochTerminationTime, int epochTerminationGDV, int epochTerminationGAK, String globalTerminationCriterion, int globalTerminationEpoch, int globalTerminationEvaluation, double globalTerminationFitness, int globalTerminationGeneration, int globalTerminationTime, int globalTerminationGDV, int globalTerminationGAK) {
+    private boolean asyncMigration;
+    public MigrationConfig(int numberOfIslands, int globalPopulationSize, String selectionPolicy, String replacementPolicy, int migrationRate, String epochTerminationCriterion, int epochTerminationEvaluation, double epochTerminationFitness, int epochTerminationGeneration, int epochTerminationTime, int epochTerminationGDV, int epochTerminationGAK, String globalTerminationCriterion, int globalTerminationEpoch, int globalTerminationEvaluation, double globalTerminationFitness, int globalTerminationGeneration, int globalTerminationTime, int globalTerminationGDV, int globalTerminationGAK, boolean asyncMigration) {
         this.numberOfIslands = numberOfIslands;
         this.globalPopulationSize=globalPopulationSize;
         this.selectionPolicy = selectionPolicy;
@@ -46,6 +47,7 @@ public class MigrationConfig {
         this.globalTerminationTime = globalTerminationTime;
         this.globalTerminationGDV = globalTerminationGDV;
         this.globalTerminationGAK = globalTerminationGAK;
+        this.asyncMigration = asyncMigration;
     }
 
     public int getNumberOfIslands() {
@@ -124,6 +126,10 @@ public class MigrationConfig {
 
     public String getGlobalTerminationCriterion() {
         return globalTerminationCriterion;
+    }
+
+    public boolean isAsyncMigration() {
+        return asyncMigration;
     }
 }
 

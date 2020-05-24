@@ -321,7 +321,7 @@ public class DynamicJobConfig {
                     this.epochTerminationFitness[island], this.epochTerminationGeneration[island], this.epochTerminationTime[island],
                     this.epochTerminationGDV[island], this.epochTerminationGAK[island], this.globalTerminationCriterion, this.globalTerminationEpoch, this.globalTerminationEvaluation,
                     this.globalTerminationFitness, this.globalTerminationGeneration, this.globalTerminationTime,
-                    this.globalTerminationGDV, this.globalTerminationGAK);
+                    this.globalTerminationGDV, this.globalTerminationGAK, this.asyncMigration);
             migrationConfigs[island] = migrationConfig;
         }
         return migrationConfigs;

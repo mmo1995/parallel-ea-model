@@ -98,7 +98,7 @@ public class Test {
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String topology = "ring";
 
-        boolean asyncMigration = false;
+        boolean asyncMigration = true;
 
         String[] epochTerminationCriterion= new String[] {"generation","generation"}; // evaluation ; fitness ;generation
         int[] epochTerminationEvaluation= new int[] {1000000,1000000};

@@ -324,7 +324,7 @@ public class JobConfig {
                 this.epochTerminationFitness, this.epochTerminationGeneration, this.epochTerminationTime,
                 this.epochTerminationGDV, this.epochTerminationGAK, this.globalTerminationCriterion, this.globalTerminationEpoch, this.globalTerminationEvaluation,
                 this.globalTerminationFitness, this.globalTerminationGeneration, this.globalTerminationTime,
-                this.globalTerminationGDV, this.globalTerminationGAK);
+                this.globalTerminationGDV, this.globalTerminationGAK, this.asyncMigration);
         return migrationConfig;
     }
 
