@@ -27,17 +27,17 @@ public class Test {
         String[] initialSelectionPolicy= {"bestNew"};
         int[] amountFitness = {1};
 
-        boolean[] asyncMigration = {false};
+        boolean[] asyncMigration = {true};
 
         double[] minimalHammingDistance = {0.2};
 
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
-        int epochTerminationGeneration = 3; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int epochTerminationGeneration = 1; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 2; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -80,7 +80,7 @@ public class Test {
     }
 
     private static void runDynamic(){ //all dynamic arrays must have the same length as numberOfIslands
-        int numberOfIslands = 2;
+        int numberOfIslands = 3;
         int numberOfSlaves = 1;
         int populationSize = 10;
         int[] migrationRates = new int[]{1,1};

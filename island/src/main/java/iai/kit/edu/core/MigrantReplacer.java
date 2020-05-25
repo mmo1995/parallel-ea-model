@@ -3,6 +3,8 @@ package iai.kit.edu.core;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.IslandConfig;
 import iai.kit.edu.producer.MigrationCompletedPublisher;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Caches all received migrants and replaces them in the population as soon as the migration is completed.
@@ -34,6 +35,7 @@ public class MigrantReplacer {
 
     RedisAtomicInteger islandsWithCompleteMigrantsCounter;
     List<Chromosome> cachedMigrants = new ArrayList<>();
+    List<List<Pair<String, List<GLEAMChromosome>>>> generations = new ArrayList<>();
 
     int migrantsFromNeighborReceived = 0;
 
@@ -47,32 +49,62 @@ public class MigrantReplacer {
                 int islandsWithCompleteMigrants = islandsWithCompleteMigrantsCounter.incrementAndGet();
                 logger.debug("islands with complete migrants = " + islandsWithCompleteMigrants);
 
-
-                if(islandConfig.getMigrationConfig().isAsyncMigration()){
-                    islandConfig.setReceivedMigrantsCompleted(true);
-                    this.checkAsyncMigration();
-
-                }else{
-                    // check whether the migrants from all neighbours have been received
-                    if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
-                        islandsWithCompleteMigrantsCounter.set(0);
-                        migrationCompletedPublisher.publish();
+                // check whether the migrants from all neighbours have been received
+                if (islandsWithCompleteMigrants == islandConfig.getMigrationConfig().getNumberOfIslands()) {
+                    islandsWithCompleteMigrantsCounter.set(0);
+                    migrationCompletedPublisher.publish();
+                }
+            }
+        }
+    }
+    public void asyncCacheMigrants(List<GLEAMChromosome> migrants, String neighborNumber){
+        synchronized (population) {
+            boolean found;
+            ImmutablePair<String, List<GLEAMChromosome>> mappedMigrants = new ImmutablePair<>(neighborNumber,migrants);
+            if(generations.isEmpty()){
+                List<Pair<String, List<GLEAMChromosome>>> firstGeneration = new ArrayList<>();
+                firstGeneration.add(mappedMigrants);
+                generations.add(firstGeneration);
+            } else{
+                for(int i = 0; i<generations.size(); i++){
+                    found = false;
+                    for(int j = 0; j<generations.get(i).size(); j++){
+                        if(mappedMigrants.getKey().equals(generations.get(i).get(j).getKey())){
+                            j = generations.get(i).size();
+                            found = true;
+                        }
+                    }
+                    if(!found){
+                        generations.get(i).add(mappedMigrants);
+                        i = generations.size();
+                    }
+                    if(found && i == generations.size() -1){
+                        List<Pair<String, List<GLEAMChromosome>>> newGeneration = new ArrayList<>();
+                        newGeneration.add(mappedMigrants);
+                        generations.add(newGeneration);
                     }
                 }
-
-
             }
+            this.checkAsyncMigration();
         }
     }
 
     public void checkAsyncMigration() {
-        if(islandConfig.isReceivedMigrantsCompleted() && islandConfig.isReceivedIntermediatePopulation()){
-            islandConfig.setReceivedMigrantsCompleted(false);
-            islandConfig.setReceivedIntermediatePopulation(false);
-            logger.info("completing migration");
-            logger.info("received start signal");
-            this.replace();
-            algorithmWrapper.startEpoch();
+        if(!generations.isEmpty()){
+            if(generations.get(0).size() == islandConfig.getNeighbors().size() && islandConfig.isReceivedIntermediatePopulation()){
+                islandConfig.setReceivedIntermediatePopulation(false);
+                logger.info("completing migration");
+                logger.info("received start signal");
+                this.prepareAsyncMigrants();
+                this.replace();
+                generations.remove(0);
+                algorithmWrapper.startEpoch();
+            }
+        }
+    }
+    private  void prepareAsyncMigrants(){
+        for(int i = 0; i< generations.get(0).size(); i++){
+            cachedMigrants.addAll(generations.get(0).get(i).getValue());
         }
     }
 

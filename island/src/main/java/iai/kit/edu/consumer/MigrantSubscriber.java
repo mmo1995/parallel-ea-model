@@ -37,9 +37,15 @@ public class MigrantSubscriber implements MessageListener {
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<GLEAMChromosome>>() {
         }.getType();
-        List<GLEAMChromosome> migrants = gson.fromJson(message.toString(), listType);
+        String neighborNumber = message.toString().substring(message.toString().indexOf("#")+1);
+        String migrantsString = message.toString().substring(0, message.toString().indexOf("#"));
+        List<GLEAMChromosome> migrants = gson.fromJson(migrantsString, listType);
         logger.debug("Received " + migrants.size() + " migrants");
-        migrantReplacer.cacheMigrants(migrants);
+        if(islandConfig.getMigrationConfig().isAsyncMigration()){
+            migrantReplacer.asyncCacheMigrants(migrants, neighborNumber);
+        }else{
+            migrantReplacer.cacheMigrants(migrants);
+        }
     }
 
     public void subscribe() {

@@ -38,11 +38,11 @@ public class MigrantPublisher {
         ChannelTopic topic = new ChannelTopic(ConstantStrings.neighborPopulation + "." + islandConfig.getIslandNumber());
         Gson gson = new Gson();
         String migrantJson = gson.toJson(migrants);
+        migrantJson = migrantJson.concat("#" + islandConfig.getIslandNumber());
         logger.info("starting migration");
         stringTemplate.convertAndSend(topic.getTopic(), migrantJson);
         logger.info(migrants.size() + " are migrated");
         numberofMigration++;
-
     }
 
     public int getNumberofMigration() {
