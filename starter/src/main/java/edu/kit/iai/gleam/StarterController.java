@@ -59,7 +59,6 @@ public class StarterController {
     @RequestMapping(value = "/opt/{islandNumber}/taskID", method = RequestMethod.GET)
     public String getIDforTask(@PathVariable int islandNumber){
         synchronized (this){
-            System.out.println(islandNumber);
             String returnedTaskID = String.valueOf(taskID);
             taskID++;
             return  returnedTaskID;
@@ -111,7 +110,7 @@ public class StarterController {
 
 
     @RequestMapping(value = "/opt/{islandNumber}/resetTaskID", method = RequestMethod.GET)
-    public int resttaskID(@PathVariable int islandNumber) throws IOException {
+    public synchronized int resttaskID(@PathVariable int islandNumber) throws IOException {
 
 
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
@@ -205,7 +204,7 @@ public class StarterController {
             if (true) {
                 numberOfGeneration = 0;
                 finalResultCol.put(id, ".");
-                logger.info("one optimization job is finishedwith id "+ id);
+                logger.info("one optimization job is finished with id "+ id);
                 logger.info("********************************");
                 return "1";
 
@@ -275,10 +274,11 @@ public class StarterController {
                           @PathVariable int islandNumber) throws InterruptedException, IOException, JSONException {
         synchronized (this) {
             logger.info("received the population for task "+ id);
-            finalResultCol.put(id, ".");
+
             finalplan = "";
             numberOfGeneration++;
             String island = String.valueOf(islandNumber);
+            finalResultCol.put(island, ".");
             receivedChromosomesList = receivedChromosomesList.concat("#" + island);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
