@@ -34,8 +34,8 @@ public class EAExecutionTimeController {
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL+"/ojm/"+islandNumberString+"/"+sumEAExecutionString+"/executiontime", numberOfMigrationsString, String.class);
         logger.info("sending  numberOfMigrations "+ numberOfMigrations + "/islandNumberString " + islandNumberString);
         //TODO
-        StarterController starter = new StarterController();
-        starter.resttaskID();
+        //StarterController starter = new StarterController();
+        //starter.resttaskID();
         eaExecutionTime.resetExecutionTimeIslands();
 
     }

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,10 @@ import org.springframework.web.client.RestTemplate;
 
 
 public class ChromosomeinterpreterOrginal {
+
+    @Value("${island.number}")
+    private String islandNumber;
+
     @Autowired
     private Gson gson;
     private String rest;
@@ -296,7 +301,7 @@ public class ChromosomeinterpreterOrginal {
         gson = new Gson();
         String jsonInString = gson.toJson(tempFinalScheduling);
         logger.info("sending the final plan");
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/finalplan", jsonInString, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starter +"/opt/" + islandNumber +  "/finalplan", jsonInString, String.class);
     }
     public void caculateDuration(long durationPar)
     {

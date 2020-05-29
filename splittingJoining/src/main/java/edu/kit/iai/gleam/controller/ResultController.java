@@ -214,9 +214,7 @@ public class ResultController {
         numberOfGenerationOfOneJob = amountOfGeneration.get();
         if (actualNumberOfGenerationOfOneJob != numberOfGenerationOfOneJob) {
             //logger.info("sending back the result of one generation");
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
-
-            //ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber+ "/result", header, String.class);
             //logger.info("sending back the result of one generation to island  " + islandNumber);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
         }
@@ -225,8 +223,7 @@ public class ResultController {
             actualNumberOfGenerationOfOneJob = 0;
             //amountOfGeneration.set(0);
             //logger.info("sending back the result of last generation to island " + islandNumber);
-            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/result", header, String.class);
-            //ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL+ islandNumber + ":8090/opt/result", header, String.class);
+            ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber+ "/result", header, String.class);
             aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
             //logger.info("one job is done");
             //logger.info("******************************************");
