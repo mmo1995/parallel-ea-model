@@ -59,6 +59,7 @@ public class StarterController {
     @RequestMapping(value = "/opt/{islandNumber}/taskID", method = RequestMethod.GET)
     public String getIDforTask(@PathVariable int islandNumber){
         synchronized (this){
+            numberOfGeneration.put(String.valueOf(islandNumber),0);
             String returnedTaskID = String.valueOf(taskID);
             taskID++;
             return  returnedTaskID;
@@ -291,7 +292,7 @@ public class StarterController {
             numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
             ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/" + islandNumber + "/slaves", entity, String.class);
             if (numberOfChromosomes > 1)
-                logger.info("received the " + numberOfGeneration.get(String.valueOf(islandNumber)) + " generation with " + numberOfChromosomes + " chromosomes");
+                logger.info("received the " + numberOfGeneration.get(String.valueOf(islandNumber)) + " generation of island " + islandNumber + " with " + numberOfChromosomes + " chromosomes");
             else {
                 logger.info("#####");
                 logger.info("received the best chromosome from EA");
@@ -338,7 +339,7 @@ public class StarterController {
             numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
             ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", entity,String.class);
             if (numberOfChromosomes> 1)
-                logger.info("received the "+numberOfGeneration.get(String.valueOf(islandNumber))+ " generation with "+ numberOfChromosomes + " chromosomes");
+                logger.info("received the "+numberOfGeneration.get(String.valueOf(islandNumber))+ " generation of island " + islandNumber + " with "+ numberOfChromosomes + " chromosomes");
             else {
                 logger.info("#####");
                 logger.info("received the best chromosome from EA");
