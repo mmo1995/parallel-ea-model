@@ -6,8 +6,7 @@ import iai.kit.edu.config.GLEAMConfig;
 import iai.kit.edu.config.IslandConfig;
 import iai.kit.edu.config.MigrationConfig;
 import iai.kit.edu.controller.IslandReadinessController;
-import iai.kit.edu.producer.ConfigurationPublisher;
-import iai.kit.edu.producer.DynamicConfigurationPublisher;
+import iai.kit.edu.producer.HeteroConfigurationPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.util.List;
 /**
  * Receives the configuration and distributes the relevant parts to the EA Service
  */
-public class DynamicConfigurationSubscriber implements MessageListener {
+public class HeteroConfigurationSubscriber implements MessageListener {
     @Autowired
     @Qualifier("stringTemplate")
     RedisTemplate<String, String> stringTemplate;
@@ -36,7 +35,7 @@ public class DynamicConfigurationSubscriber implements MessageListener {
     String workspacePath;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    DynamicConfigurationPublisher dynamicConfigurationPublisher;
+    HeteroConfigurationPublisher heteroConfigurationPublisher;
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
@@ -48,7 +47,7 @@ public class DynamicConfigurationSubscriber implements MessageListener {
         MigrationConfig[] migrationConfigs = gson.fromJson(migrationConfigJson, MigrationConfig[].class);
         MigrationConfig migrationConfig = migrationConfigs[islandConfig.getIslandNumber()-1];
         this.islandConfig.setMigrationConfig(migrationConfig);
-        dynamicConfigurationPublisher.publishAlgorithmConfig(algorithmConfigJson);
+        heteroConfigurationPublisher.publishAlgorithmConfig(algorithmConfigJson);
         GLEAMConfig[] gleamConfigs = gson.fromJson(algorithmConfigJson, GLEAMConfig[].class);
         GLEAMConfig gleamConfig = gleamConfigs[islandConfig.getIslandNumber()-1];
         gleamConfig.setWorkspacePath(workspacePath);

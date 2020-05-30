@@ -44,26 +44,26 @@ public class ConfigController {
         sendToSplittingJoining(gson.toJson(neighbors), "neighbors");
         logger.info("completing config sending");
     }
-    public void sendDynamicConfig(DynamicJobConfig dynamicJobConfig) {
+    public void sendHeteroConfig(HeteroJobConfig heteroJobConfig) {
         logger.info("sending config");
-        MigrationConfig[] migrationConfigs = dynamicJobConfig.generateMigrationConfig(dynamicJobConfig.getNumberOfIslands());
-        AlgorithmConfig[] algorithmConfigs = new GLEAMConfig[dynamicJobConfig.getDemeSize().length];
-        for(int i = 0; i< dynamicJobConfig.getDemeSize().length; i++){
-            AlgorithmConfig algorithmConfig = new GLEAMConfig(workspacePath, dynamicJobConfig.getDelay());
-            algorithmConfig.setDemeSize(dynamicJobConfig.getDemeSize()[i]);
-            algorithmConfig.setAcceptanceRuleForOffspring(dynamicJobConfig.getAcceptRuleForOffspring()[i]);
-            algorithmConfig.setRankingParameter(dynamicJobConfig.getRankingParameter()[i]);
-            algorithmConfig.setInitStrategy(dynamicJobConfig.getInitialSelectionPolicy()[i]);
-            algorithmConfig.setAmountFitness(dynamicJobConfig.getAmountFitness()[i]);
-            algorithmConfig.readFiles(dynamicJobConfig.getMinimalHammingDistance()[i]);
+        MigrationConfig[] migrationConfigs = heteroJobConfig.generateMigrationConfig(heteroJobConfig.getNumberOfIslands());
+        AlgorithmConfig[] algorithmConfigs = new GLEAMConfig[heteroJobConfig.getDemeSize().length];
+        for(int i = 0; i< heteroJobConfig.getDemeSize().length; i++){
+            AlgorithmConfig algorithmConfig = new GLEAMConfig(workspacePath, heteroJobConfig.getDelay());
+            algorithmConfig.setDemeSize(heteroJobConfig.getDemeSize()[i]);
+            algorithmConfig.setAcceptanceRuleForOffspring(heteroJobConfig.getAcceptRuleForOffspring()[i]);
+            algorithmConfig.setRankingParameter(heteroJobConfig.getRankingParameter()[i]);
+            algorithmConfig.setInitStrategy(heteroJobConfig.getInitialSelectionPolicy()[i]);
+            algorithmConfig.setAmountFitness(heteroJobConfig.getAmountFitness()[i]);
+            algorithmConfig.readFiles(heteroJobConfig.getMinimalHammingDistance()[i]);
             algorithmConfigs[i] = algorithmConfig;
         }
 
-        List<List<String>> neighbors = topologyConfig.getNeighbors(dynamicJobConfig.getNumberOfIslands(), dynamicJobConfig.getTopology());
+        List<List<String>> neighbors = topologyConfig.getNeighbors(heteroJobConfig.getNumberOfIslands(), heteroJobConfig.getTopology());
         Gson gson = new Gson();
         sendToSplittingJoining(gson.toJson(migrationConfigs), "migration");
-        sendToSplittingJoining(gson.toJson(algorithmConfigs), "dynamic/algorithm");
-        sendToSplittingJoining(gson.toJson(neighbors), "dynamic/neighbors");
+        sendToSplittingJoining(gson.toJson(algorithmConfigs), "hetero/algorithm");
+        sendToSplittingJoining(gson.toJson(neighbors), "hetero/neighbors");
         logger.info("completing config sending");
     }
 
@@ -78,7 +78,7 @@ public class ConfigController {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<String> entity = new HttpEntity<String>(json, headers);
-            logger.debug("sending dynamic config for " + path);
+            logger.debug("sending hetero config for " + path);
             ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL + "/sjs/config/" + path, entity, String.class);
 
     }

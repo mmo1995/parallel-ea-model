@@ -84,12 +84,12 @@ public class Autowiring {
     }
 
     /**
-     * Creates new dynamic configuration subscriber
+     * Creates new heterogeneous configuration subscriber
      * @return
      */
     @Bean
-    DynamicConfigurationSubscriber dynamicConfigurationSubscriber() {
-        return new DynamicConfigurationSubscriber();
+    HeteroConfigurationSubscriber heteroConfigurationSubscriber() {
+        return new HeteroConfigurationSubscriber();
     }
     
     /**
@@ -212,8 +212,8 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.managementConfig);
     }
     @Bean
-    ChannelTopic dynamicConfigurationTopic() {
-        return new ChannelTopic(ConstantStrings.managementDynamicConfig);
+    ChannelTopic heteroConfigurationTopic() {
+        return new ChannelTopic(ConstantStrings.managementHeteroConfig);
     }
     
     @Bean(name = "eaReadyTopic")
@@ -293,8 +293,8 @@ public class Autowiring {
     }
 
     @Bean
-    DynamicConfigurationPublisher dynamicConfigurationPublisher() {
-        return new DynamicConfigurationPublisher();
+    HeteroConfigurationPublisher heteroConfigurationPublisher() {
+        return new HeteroConfigurationPublisher();
     }
 
     @Bean

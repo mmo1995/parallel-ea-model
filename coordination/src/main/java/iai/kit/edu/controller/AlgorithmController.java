@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
@@ -46,7 +45,7 @@ public class AlgorithmController {
     private JobConfig jobConfig;
 
     @Autowired
-    private DynamicJobConfig dynamicJobConfig;
+    private HeteroJobConfig heteroJobConfig;
 
     private static RestTemplate restTemplate = new RestTemplate();
 
@@ -193,17 +192,17 @@ public class AlgorithmController {
     }
 
     /**
-     * Receive configuration for several optimization task
+     * Receive configuration for one heterogeneous job
      * @param json of configurations
      */
-    @RequestMapping(value = "/start/job/dynamic", method = RequestMethod.POST)
-    public void receiveDynamicStartConfiguration(@RequestBody String json) {
+    @RequestMapping(value = "/start/job/hetero", method = RequestMethod.POST)
+    public void receiveHeteroStartConfiguration(@RequestBody String json) {
         experiment = false;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         resultsCollection = new ArrayList<>();
-        dynamicJobConfig.readFromJson(json);
-        //amountOfGeneration.set(dynamicJobConfig.getEpochTerminationGeneration()+1);
-        logger.info("received dynamic job config: " + dynamicJobConfig.toString());
+        heteroJobConfig.readFromJson(json);
+        //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+        logger.info("received heterogeneous job config: " + heteroJobConfig.toString());
         algorithmManager.initialize(true);
     }
 

@@ -1,12 +1,9 @@
-package iai.kit.edu.config;
-
-import com.google.gson.Gson;
-import org.springframework.beans.BeanUtils;
+package iai.kit.edu;
 
 /**
- * stores configuration for one dynamic job
+ * stores configuration for one heterogeneous job
  */
-public class DynamicJobConfig {
+public class HeteroConfiguration {
 
     private int globalPopulationSize;
     private int numberOfIslands;
@@ -16,14 +13,17 @@ public class DynamicJobConfig {
     private String topology;
     private String[] initialSelectionPolicy;
     private int[] amountFitness;
+    private String initialSelectionPolicyInitializer;
+    private int amountFitnessInitializer;
     private String[] selectionPolicy;
     private String[] replacementPolicy;
     private int[] demeSize;
 
-    private String initialSelectionPolicyInitializer;
-    private int amountFitnessInitializer;
-
     private boolean asyncMigration;
+
+    String[] acceptRuleForOffspring;
+    double[] rankingParameter;
+    double[] minimalHammingDistance;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -43,9 +43,6 @@ public class DynamicJobConfig {
     private int globalTerminationGAK = 100;
 
     private int delay = 0;
-    String[] acceptRuleForOffspring;
-    double[] rankingParameter;
-    double[] minimalHammingDistance;
 
     public int getDelay() {
         return delay;
@@ -311,38 +308,5 @@ public class DynamicJobConfig {
 
     public void setAsyncMigration(boolean asyncMigration) {
         this.asyncMigration = asyncMigration;
-    }
-
-    public MigrationConfig[] generateMigrationConfig(int numberOfIslands) {
-        MigrationConfig[] migrationConfigs = new MigrationConfig[numberOfIslands];
-        for(int island = 0; island<numberOfIslands; island++){
-            MigrationConfig migrationConfig = new MigrationConfig(this.numberOfIslands, this.globalPopulationSize,
-                    this.selectionPolicy[island], this.replacementPolicy[island], this.migrationRate[island], this.epochTerminationCriterion[island], this.epochTerminationEvaluation[island],
-                    this.epochTerminationFitness[island], this.epochTerminationGeneration[island], this.epochTerminationTime[island],
-                    this.epochTerminationGDV[island], this.epochTerminationGAK[island], this.globalTerminationCriterion, this.globalTerminationEpoch, this.globalTerminationEvaluation,
-                    this.globalTerminationFitness, this.globalTerminationGeneration, this.globalTerminationTime,
-                    this.globalTerminationGDV, this.globalTerminationGAK, this.asyncMigration);
-            migrationConfigs[island] = migrationConfig;
-        }
-        return migrationConfigs;
-    }
-
-    public void readFromJson(String json) {
-        Gson gson = new Gson();
-        DynamicJobConfig jobConfig = gson.fromJson(json, DynamicJobConfig.class);
-        BeanUtils.copyProperties(jobConfig, this);
-        return;
-    }
-
-    @Override
-    public String toString() {
-        String jobConfigStr = "";
-        jobConfigStr = jobConfigStr + "NumberOfIslands: " + numberOfIslands + ", ";
-        jobConfigStr = jobConfigStr + "PopulationSize: " + globalPopulationSize + ", ";
-        jobConfigStr = jobConfigStr + "Delay: " + delay + ", ";
-        jobConfigStr = jobConfigStr + "MigrationRate: " + migrationRate +", ";
-        jobConfigStr = jobConfigStr + "GlobalTerminationEpoch: "+globalTerminationEpoch+", ";
-        jobConfigStr = jobConfigStr + "Topology: "+topology;
-        return jobConfigStr;
     }
 }

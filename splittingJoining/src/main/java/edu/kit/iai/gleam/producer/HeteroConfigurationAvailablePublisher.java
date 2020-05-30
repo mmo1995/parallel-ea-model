@@ -8,12 +8,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 
 /**
- * Publishes information to all islands when dynamic configuration is available
+ * Publishes information to all islands when heterogeneous configuration is available
  */
-public class DynamicConfigurationAvailablePublisher {
+public class HeteroConfigurationAvailablePublisher {
     @Autowired
-    @Qualifier("dynamicConfigurationAvailableTopic")
-    ChannelTopic dynamicConfigurationAvailableTopic;
+    @Qualifier("heteroConfigurationAvailableTopic")
+    ChannelTopic heteroConfigurationAvailableTopic;
 
     @Autowired
     @Qualifier("stringTemplate")
@@ -22,7 +22,7 @@ public class DynamicConfigurationAvailablePublisher {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void publish(String message) {
-        //logger.info("publishing dynamic configuration available");
-        template.convertAndSend(dynamicConfigurationAvailableTopic.getTopic(), message);
+        //logger.info("publishing heterogeneous configuration available");
+        template.convertAndSend(heteroConfigurationAvailableTopic.getTopic(), message);
     }
 }

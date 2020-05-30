@@ -13,7 +13,7 @@ import org.springframework.data.redis.connection.MessageListener;
 /**
  * Subscribes to algorithm specific configurations sent from Migration & Synchronization Service
  */
-public class DynamicConfigurationSubscriber implements MessageListener {
+public class HeteroConfigurationSubscriber implements MessageListener {
     @Autowired
     AlgorithmStarter algorithmStarter;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

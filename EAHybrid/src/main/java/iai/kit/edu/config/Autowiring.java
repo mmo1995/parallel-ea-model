@@ -73,7 +73,7 @@ public class Autowiring {
         container.addMessageListener(stopSubscriberListener(), stopTopic());
         container.addMessageListener(eaEpochListener(), eaEpochTopic());
         container.addMessageListener(eaConfigurationListener(), eaConfigTopic());
-        container.addMessageListener(dynamicConfigurationSubscriber(), eaDynamicConfigTopic() );
+        container.addMessageListener(heteroConfigurationSubscriber(), eaHeteroConfigTopic() );
         container.addMessageListener(slaveInitializedListener(), slaveInitializedtopic());
         container.addMessageListener(slaveReadinessListener(), slaveReadyTopic());
         container.addMessageListener(numberOfSlavesListener(), numberOfSlavesTopic());
@@ -272,8 +272,8 @@ public class Autowiring {
         return new ConfigurationSubscriber();
     }
     @Bean
-    DynamicConfigurationSubscriber dynamicConfigurationSubscriber() {
-        return new DynamicConfigurationSubscriber();
+    HeteroConfigurationSubscriber heteroConfigurationSubscriber() {
+        return new HeteroConfigurationSubscriber();
     }
 
     @Bean
@@ -281,8 +281,8 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.EAConfig + "." + islandNumber);
     }
     @Bean
-    ChannelTopic eaDynamicConfigTopic() {
-        return new ChannelTopic(ConstantStrings.EADynamicConfig + "." + islandNumber);
+    ChannelTopic eaHeteroConfigTopic() {
+        return new ChannelTopic(ConstantStrings.EAHeteroConfig + "." + islandNumber);
     }
 
     @Bean(name = "stopTopic")

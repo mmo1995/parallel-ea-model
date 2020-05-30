@@ -1,7 +1,7 @@
 package iai.kit.edu.core;
 
 import iai.kit.edu.config.CounterResetter;
-import iai.kit.edu.config.DynamicJobConfig;
+import iai.kit.edu.config.HeteroJobConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.controller.SlaveController;
 import iai.kit.edu.controller.ConfigController;
@@ -33,25 +33,25 @@ public class AlgorithmManager {
     private JobConfig jobConfig;
 
     @Autowired
-    private DynamicJobConfig dynamicJobConfig;
+    private HeteroJobConfig heteroJobConfig;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void initialize(boolean dynamic) {
+    public void initialize(boolean hetero) {
         counterResetter.resetCounters();
-        if(dynamic){
-            islandController.createIslands(dynamicJobConfig.getNumberOfIslands());
+        if(hetero){
+            islandController.createIslands(heteroJobConfig.getNumberOfIslands());
         }
         else{
             islandController.createIslands(jobConfig.getNumberOfIslands());
         }
     }
 
-    public void sendConfig(boolean dynamic) {
-        if(dynamic){
+    public void sendConfig(boolean hetero) {
+        if(hetero){
             try {
                 populationController.sendPopulation(true);
-                configController.sendDynamicConfig(dynamicJobConfig);
+                configController.sendHeteroConfig(heteroJobConfig);
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }

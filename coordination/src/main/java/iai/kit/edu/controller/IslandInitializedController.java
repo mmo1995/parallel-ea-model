@@ -1,7 +1,7 @@
 package iai.kit.edu.controller;
 
 import iai.kit.edu.config.ConstantStrings;
-import iai.kit.edu.config.DynamicJobConfig;
+import iai.kit.edu.config.HeteroJobConfig;
 import iai.kit.edu.config.JobConfig;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Receives information about the initialization status of the islands, if all initialized then it sends the
@@ -34,7 +32,7 @@ public class IslandInitializedController {
     @Autowired
     private JobConfig jobConfig;
     @Autowired
-    private DynamicJobConfig dynamicJobConfig;
+    private HeteroJobConfig heteroJobConfig;
     @Autowired
     private Overhead overhead;
     @Autowired
@@ -47,7 +45,7 @@ public class IslandInitializedController {
         RedisAtomicInteger initializedIslandCounter = new RedisAtomicInteger(ConstantStrings.initializedIslandCounter, template.getConnectionFactory());
         int initializedIslands = initializedIslandCounter.incrementAndGet();
         logger.info("islands initialized: "+initializedIslands);
-        if (initializedIslands == jobConfig.getNumberOfIslands() || initializedIslands == dynamicJobConfig.getNumberOfIslands()) {
+        if (initializedIslands == jobConfig.getNumberOfIslands() || initializedIslands == heteroJobConfig.getNumberOfIslands()) {
             logger.info("islands initialized");
             if(jobConfig.getNumberOfIslands() != 0){
                 algorithmManager.sendConfig(false);
@@ -55,8 +53,8 @@ public class IslandInitializedController {
                 slavecontroller.createSlaves(jobConfig.getNumberOfSlaves());
             } else{
                 algorithmManager.sendConfig(true);
-                slaveNumberPublisher.publishNumberOfSlaves(dynamicJobConfig.getNumberOfSlaves());
-                slavecontroller.createSlaves(dynamicJobConfig.getNumberOfSlaves());
+                slaveNumberPublisher.publishNumberOfSlaves(heteroJobConfig.getNumberOfSlaves());
+                slavecontroller.createSlaves(heteroJobConfig.getNumberOfSlaves());
             }
 
 

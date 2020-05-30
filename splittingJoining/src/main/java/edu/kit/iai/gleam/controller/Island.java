@@ -3,7 +3,7 @@ package edu.kit.iai.gleam.controller;
 import com.google.gson.Gson;
 import edu.kit.iai.gleam.config.ConstantStrings;
 import edu.kit.iai.gleam.producer.ConfigurationAvailablePublisher;
-import edu.kit.iai.gleam.producer.DynamicConfigurationAvailablePublisher;
+import edu.kit.iai.gleam.producer.HeteroConfigurationAvailablePublisher;
 import edu.kit.iai.gleam.producer.InitialPopulationPublisher;
 import edu.kit.iai.gleam.producer.SlavesPopulationPublisher;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +48,7 @@ public class Island {
     ConfigurationAvailablePublisher configurationAvailablePublisher;
 
     @Autowired
-    DynamicConfigurationAvailablePublisher dynamicConfigurationAvailablePublisher;
+    HeteroConfigurationAvailablePublisher heteroConfigurationAvailablePublisher;
 
 
 
@@ -129,8 +129,8 @@ public class Island {
      * availability.
      * @param algorithmConfig
      */
-    @RequestMapping(value = "/config/dynamic/algorithm", method = RequestMethod.POST)
-    public void sendDynamicAlgorithmConfig(@RequestBody String algorithmConfig) {
+    @RequestMapping(value = "/config/hetero/algorithm", method = RequestMethod.POST)
+    public void sendHeteroAlgorithmConfig(@RequestBody String algorithmConfig) {
         //logger.info("received algorithm configuration");
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
 
@@ -160,8 +160,8 @@ public class Island {
      * availability.
      * @param neighborsConfigJson
      */
-    @RequestMapping(value = "/config/dynamic/neighbors", method = RequestMethod.POST)
-    public void sendNeighborsConfigDynamic(@RequestBody String neighborsConfigJson) {
+    @RequestMapping(value = "/config/hetero/neighbors", method = RequestMethod.POST)
+    public void sendNeighborsConfigHetero(@RequestBody String neighborsConfigJson) {
         //logger.info("received neighbors configuration");
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
         List<List<String>> neighborsConfig = gson.fromJson(neighborsConfigJson, List.class);
@@ -169,7 +169,7 @@ public class Island {
             ops.set(ConstantStrings.managementConfigNeighbor + "." + (i + 1), gson.toJson(neighborsConfig.get(i)));
         }
         //logger.info("stored neighbors configuration");
-        dynamicConfigurationAvailablePublisher.publish("Configuration available");
+        heteroConfigurationAvailablePublisher.publish("Configuration available");
     }
 
 

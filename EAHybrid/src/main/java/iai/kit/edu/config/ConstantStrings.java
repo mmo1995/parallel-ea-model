@@ -68,8 +68,9 @@ public class ConstantStrings {
     public static final String epochTopic = "algorithm.EA.epoch";
     
 
+
     public static final String EAConfig = "algorith.EA.config";
-    public static final String EADynamicConfig = "algorith.EA.dynamic.config";
+    public static final String EAHeteroConfig = "algorith.EA.hetero.config";
 
     public static final String initStrategyBest = "best";
     public static final String initStrategyNew = "new";

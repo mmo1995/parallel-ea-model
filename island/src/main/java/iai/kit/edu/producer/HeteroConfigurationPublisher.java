@@ -10,9 +10,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 
 /**
- * Publishes the dynamic configuration to EA Service
+ * Publishes the heterogeneous configuration to EA Service
  */
-public class DynamicConfigurationPublisher {
+public class HeteroConfigurationPublisher {
     @Autowired
     IslandConfig islandConfig;
 
@@ -23,7 +23,7 @@ public class DynamicConfigurationPublisher {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void publishAlgorithmConfig(String algorithmConfig) {
-        ChannelTopic topic = new ChannelTopic(ConstantStrings.EADynamicConfig + "." + islandConfig.getIslandNumber());
+        ChannelTopic topic = new ChannelTopic(ConstantStrings.EAHeteroConfig + "." + islandConfig.getIslandNumber());
         logger.info("publishing config");
         stringTemplate.convertAndSend(topic.getTopic(), algorithmConfig);
     }

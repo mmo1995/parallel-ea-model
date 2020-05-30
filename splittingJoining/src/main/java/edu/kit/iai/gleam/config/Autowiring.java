@@ -102,11 +102,11 @@ public class Autowiring {
     }
 
     /**
-     * Creates dynamic configuration publisher
+     * Creates heterogeneous configuration publisher
      */
     @Bean
-    DynamicConfigurationAvailablePublisher dynamicConfigurationAvailablePublisher() {
-        return new DynamicConfigurationAvailablePublisher();
+    HeteroConfigurationAvailablePublisher heteroConfigurationAvailablePublisher() {
+        return new HeteroConfigurationAvailablePublisher();
     }
 
     /**
@@ -133,9 +133,9 @@ public class Autowiring {
         return new ChannelTopic(ConstantStrings.managementConfig);
     }
 
-    @Bean(name = "dynamicConfigurationAvailableTopic")
-    ChannelTopic dynamicConfigurationAvailableTopic() {
-        return new ChannelTopic(ConstantStrings.managementDynamicConfig);
+    @Bean(name = "heteroConfigurationAvailableTopic")
+    ChannelTopic heteroConfigurationAvailableTopic() {
+        return new ChannelTopic(ConstantStrings.managementHeteroConfig);
     }
     @Bean
     public RestTemplate restTemplate() {

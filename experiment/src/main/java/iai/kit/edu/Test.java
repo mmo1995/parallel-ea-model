@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{1};
+        int[] numberOfIslands = new int[]{2};
         int[] numberOfSlaves = new int[] {1};
-        int[] populationSizes = new int[]{10}; //240 for each island
+        int[] populationSizes = new int[]{20}; //240 for each island
         int[] migrationRates = new int[]{1};
         int[] generationAmount = new int[]{3};
         int[] delays = new int[]{0};
@@ -79,20 +79,20 @@ public class Test {
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671//ojm/start/jobs", configurationJson, String.class);
     }
 
-    private static void runDynamic(){ //all dynamic arrays must have the same length as numberOfIslands
+    private static void runHetero(){ //all heterogeneous arrays must have the same length as numberOfIslands
         int numberOfIslands = 3;
         int numberOfSlaves = 1;
-        int populationSize = 10;
-        int[] migrationRates = new int[]{1,1};
-        int[] generationAmount = new int[]{3,3};
-        String[] selectionPolicy= {"best","best"};
-        String[] replacementPolicy= {"worst","worst"};
+        int populationSize = 30;
+        int[] migrationRates = new int[]{4,5,6};
+        int[] generationAmount = new int[]{3,3,3};
+        String[] selectionPolicy= {"best","best","best"};
+        String[] replacementPolicy= {"worst","worst","worst"};
 
         String initialSelectionPolicyInitializer = "best";
         int amountFitnessInitializer = 0;
 
-        String[] initialSelectionPolicy= {"new", "mix"};
-        int[] amountFitness= {2,1};
+        String[] initialSelectionPolicy= {"new", "mix","new"};
+        int[] amountFitness= {2,1,2};
 
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
@@ -100,18 +100,18 @@ public class Test {
 
         boolean asyncMigration = true;
 
-        String[] epochTerminationCriterion= new String[] {"generation","generation"}; // evaluation ; fitness ;generation
-        int[] epochTerminationEvaluation= new int[] {1000000,1000000};
-        double[] epochTerminationFitness= new double[] {30000,30000};
-        int[] epochTerminationGeneration = new int[] {2,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
-        int[] epochTerminationTime = new int[] {5,3};
-        int[] epochTerminationGDV = new int[] {500,500};
-        int[] epochTerminationGAK = new int[] {100,100};
+        String[] epochTerminationCriterion= new String[] {"generation","generation","generation"}; // evaluation ; fitness ;generation
+        int[] epochTerminationEvaluation= new int[] {1000000,1000000,1000000};
+        double[] epochTerminationFitness= new double[] {30000,30000,30000};
+        int[] epochTerminationGeneration = new int[] {2,2,7}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[] epochTerminationTime = new int[] {5,3,5};
+        int[] epochTerminationGDV = new int[] {500,500,500};
+        int[] epochTerminationGAK = new int[] {100,100,100};
 
-        int[] demeSize = new int[] {8,8};
-        String[] acceptRuleForOffspring = {"always","localLeast"}; //localLeast-ES, always, localLeast, betterParent
-        double[] rankingParameter = {1.46, 1,50};
-        double[] minimalHammingDistance = {0.3,0.2};
+        int[] demeSize = new int[] {8,8,8};
+        String[] acceptRuleForOffspring = {"always","localLeast","always"}; //localLeast-ES, always, localLeast, betterParent
+        double[] rankingParameter = {1.46, 1.50,1.45};
+        double[] minimalHammingDistance = {0.3,0.2,0.1};
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
@@ -120,49 +120,49 @@ public class Test {
         double globalTerminationFitness = 85000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
         Gson gson = new Gson();
-        DynamicConfiguration dynamicConfiguration = new DynamicConfiguration();
-        dynamicConfiguration.setNumberOfIslands(numberOfIslands);
-        dynamicConfiguration.setNumberOfSlaves(numberOfSlaves);
-        dynamicConfiguration.setGlobalPopulationSize(populationSize);
-        dynamicConfiguration.setMigrationRate(migrationRates);
-        dynamicConfiguration.setDelay(delay);
-        dynamicConfiguration.setSelectionPolicy(selectionPolicy);
-        dynamicConfiguration.setReplacementPolicy(replacementPolicy);
-        dynamicConfiguration.setTopology(topology);
-        dynamicConfiguration.setNumberOfGeneration(generationAmount);
-        dynamicConfiguration.setDemeSize(demeSize);
-        dynamicConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
-        dynamicConfiguration.setRankingParameter(rankingParameter);
-        dynamicConfiguration.setMinimalHammingDistance(minimalHammingDistance);
-        dynamicConfiguration.setInitialSelectionPolicy(initialSelectionPolicy);
-        dynamicConfiguration.setAmountFitness(amountFitness);
-        dynamicConfiguration.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
-        dynamicConfiguration.setAmountFitnessInitializer(amountFitnessInitializer);
-        dynamicConfiguration.setAsyncMigration(asyncMigration);
+        HeteroConfiguration heteroConfiguration = new HeteroConfiguration();
+        heteroConfiguration.setNumberOfIslands(numberOfIslands);
+        heteroConfiguration.setNumberOfSlaves(numberOfSlaves);
+        heteroConfiguration.setGlobalPopulationSize(populationSize);
+        heteroConfiguration.setMigrationRate(migrationRates);
+        heteroConfiguration.setDelay(delay);
+        heteroConfiguration.setSelectionPolicy(selectionPolicy);
+        heteroConfiguration.setReplacementPolicy(replacementPolicy);
+        heteroConfiguration.setTopology(topology);
+        heteroConfiguration.setNumberOfGeneration(generationAmount);
+        heteroConfiguration.setDemeSize(demeSize);
+        heteroConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
+        heteroConfiguration.setRankingParameter(rankingParameter);
+        heteroConfiguration.setMinimalHammingDistance(minimalHammingDistance);
+        heteroConfiguration.setInitialSelectionPolicy(initialSelectionPolicy);
+        heteroConfiguration.setAmountFitness(amountFitness);
+        heteroConfiguration.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
+        heteroConfiguration.setAmountFitnessInitializer(amountFitnessInitializer);
+        heteroConfiguration.setAsyncMigration(asyncMigration);
 
-        dynamicConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
-        dynamicConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
-        dynamicConfiguration.setEpochTerminationFitness(epochTerminationFitness);
-        dynamicConfiguration.setEpochTerminationGeneration(epochTerminationGeneration);
-        dynamicConfiguration.setEpochTerminationTime(epochTerminationTime);
-        dynamicConfiguration.setEpochTerminationGDV(epochTerminationGDV);
-        dynamicConfiguration.setEpochTerminationGAK(epochTerminationGAK);
+        heteroConfiguration.setEpochTerminationCriterion(epochTerminationCriterion);
+        heteroConfiguration.setEpochTerminationEvaluation(epochTerminationEvaluation);
+        heteroConfiguration.setEpochTerminationFitness(epochTerminationFitness);
+        heteroConfiguration.setEpochTerminationGeneration(epochTerminationGeneration);
+        heteroConfiguration.setEpochTerminationTime(epochTerminationTime);
+        heteroConfiguration.setEpochTerminationGDV(epochTerminationGDV);
+        heteroConfiguration.setEpochTerminationGAK(epochTerminationGAK);
 
-        dynamicConfiguration.setGlobalTerminationCriterion(globalTerminationCriterion);
-        dynamicConfiguration.setGlobalTerminationEpoch(globalTerminationEpoch);
-        dynamicConfiguration.setGlobalTerminationEvaluation(globalTerminationEvaluation);
-        dynamicConfiguration.setGlobalTerminationFitness(globalTerminationFitness);
-        dynamicConfiguration.setGlobalTerminationGeneration(globalTerminationGeneration);
+        heteroConfiguration.setGlobalTerminationCriterion(globalTerminationCriterion);
+        heteroConfiguration.setGlobalTerminationEpoch(globalTerminationEpoch);
+        heteroConfiguration.setGlobalTerminationEvaluation(globalTerminationEvaluation);
+        heteroConfiguration.setGlobalTerminationFitness(globalTerminationFitness);
+        heteroConfiguration.setGlobalTerminationGeneration(globalTerminationGeneration);
 
-        String configurationJson = gson.toJson(dynamicConfiguration);
+        String configurationJson = gson.toJson(heteroConfiguration);
         RestTemplate restTemplate = new RestTemplate();
-        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/job/dynamic", configurationJson, String.class);
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/dynamic", configurationJson, String.class);
-        // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/job/dynamic", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/job/hetero", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/hetero", configurationJson, String.class);
+        // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/job/hetero", configurationJson, String.class);
     }
 
     public static void main(String[] args) {
-     runExperiment();
-     //runDynamic();
+     //runExperiment();
+     runHetero();
     }
 }

@@ -2,7 +2,7 @@ package iai.kit.edu.controller;
 
 import com.google.gson.Gson;
 import iai.kit.edu.config.ConstantStrings;
-import iai.kit.edu.config.DynamicJobConfig;
+import iai.kit.edu.config.HeteroJobConfig;
 import iai.kit.edu.config.JobConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,14 +28,14 @@ public class PopulationController {
     @Autowired
     private JobConfig jobConfig;
     @Autowired
-    private DynamicJobConfig dynamicJobConfig;
+    private HeteroJobConfig heteroJobConfig;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void sendPopulation(boolean dynamic) {
+    public void sendPopulation(boolean hetero) {
         List<String> population;
-        if(dynamic){
-            population = initializerEAController.initialize(dynamicJobConfig.getGlobalPopulationSize(), dynamicJobConfig.getAmountFitnessInitializer(), dynamicJobConfig.getInitialSelectionPolicyInitializer());
+        if(hetero){
+            population = initializerEAController.initialize(heteroJobConfig.getGlobalPopulationSize(), heteroJobConfig.getAmountFitnessInitializer(), heteroJobConfig.getInitialSelectionPolicyInitializer());
 
         }else{
             population = initializerEAController.initialize(jobConfig.getGlobalPopulationSize(), jobConfig.getAmountFitnessInitializer(), jobConfig.getInitialSelectionPolicyInitializer());

@@ -154,12 +154,12 @@ public class Autowiring {
     }
 
     /**
-     * Creates empty dynamic jobconfig
-     * @return job configuration
+     * Creates empty heterogeneous jobconfig
+     * @return heterogeneous job configuration
      */
     @Bean
-    DynamicJobConfig dynamicJobConfig() {
-        return new DynamicJobConfig();
+    HeteroJobConfig heteroJobConfig() {
+        return new HeteroJobConfig();
     }
 
     /**
