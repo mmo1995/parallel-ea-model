@@ -44,7 +44,7 @@ public class StarterController {
     private Map<String, String> finalResultCol = new HashMap<>();
     private String finalplan;
     private int numberOfChromosomes;
-    private int numberOfGeneration = 0;
+    private Map<String, Integer> numberOfGeneration = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //  @Value("${containers}")
@@ -202,7 +202,7 @@ public class StarterController {
     public String stopTask(@PathVariable String id, @PathVariable int islandNumber) {
         synchronized (this) {
             if (true) {
-                numberOfGeneration = 0;
+                numberOfGeneration.put(String.valueOf(islandNumber),0);
                 finalResultCol.put(id, ".");
                 logger.info("one optimization job is finished with id "+ id);
                 logger.info("********************************");
@@ -211,7 +211,7 @@ public class StarterController {
 /*            if (!id.equals("0") && Integer.parseInt(id) == taskID)
             {
                 //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + coordination +"/ojm/result", finalResultCol+"#"+finalplan, String.class);
-                numberOfGeneration = 0;
+                numberOfGeneration.put(String.valueOf(islandNumber),0);
                 logger.info("one optimization job is finished");
                 logger.info("********************************");
                 return "1";
@@ -276,7 +276,7 @@ public class StarterController {
             logger.info("received the population for task "+ id);
 
             finalplan = "";
-            numberOfGeneration++;
+            numberOfGeneration.put(String.valueOf(islandNumber),numberOfGeneration.get(String.valueOf(islandNumber))+1);
             String island = String.valueOf(islandNumber);
             finalResultCol.put(island, ".");
             receivedChromosomesList = receivedChromosomesList.concat("#" + island);
@@ -291,7 +291,7 @@ public class StarterController {
             numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
             ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/" + islandNumber + "/slaves", entity, String.class);
             if (numberOfChromosomes > 1)
-                logger.info("received the " + numberOfGeneration + " generation with " + numberOfChromosomes + " chromosomes");
+                logger.info("received the " + numberOfGeneration.get(String.valueOf(islandNumber)) + " generation with " + numberOfChromosomes + " chromosomes");
             else {
                 logger.info("#####");
                 logger.info("received the best chromosome from EA");
@@ -338,7 +338,7 @@ public class StarterController {
             numberOfChromosomes = Integer.parseInt(ChromosomesListForNumberOfChr.substring(0, head.indexOf(" ")));
             ResponseEntity<String> answer1 = restTemplate.postForEntity("http://" + splittingJoining + "/sjs/population/slaves", entity,String.class);
             if (numberOfChromosomes> 1)
-                logger.info("received the "+numberOfGeneration+ " generation with "+ numberOfChromosomes + " chromosomes");
+                logger.info("received the "+numberOfGeneration.get(String.valueOf(islandNumber))+ " generation with "+ numberOfChromosomes + " chromosomes");
             else {
                 logger.info("#####");
                 logger.info("received the best chromosome from EA");
@@ -362,7 +362,7 @@ public class StarterController {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(receivedResult);
         writer.close();*/
-                logger.info("received the results of the " + numberOfGeneration + " generation of the island " + island);
+                logger.info("received the results of the " + numberOfGeneration.get(String.valueOf(islandNumber)) + " generation of the island " + island);
             } else {
                 String resultsOfBestSChedulingPlan = receivedResult.substring(receivedResult.indexOf("\n"), receivedResult.length());
                 resultsOfBestSChedulingPlan = resultsOfBestSChedulingPlan.replace("\n", "").replace("\r", "");
