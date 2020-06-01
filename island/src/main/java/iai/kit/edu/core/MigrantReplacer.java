@@ -35,7 +35,7 @@ public class MigrantReplacer {
 
     RedisAtomicInteger islandsWithCompleteMigrantsCounter;
     List<Chromosome> cachedMigrants = new ArrayList<>();
-    List<List<Pair<String, List<GLEAMChromosome>>>> generations = new ArrayList<>();
+    List<List<Pair<String, List<GLEAMChromosome>>>> generations = new ArrayList<>(50);
 
     int migrantsFromNeighborReceived = 0;
 
@@ -62,7 +62,7 @@ public class MigrantReplacer {
             boolean found;
             ImmutablePair<String, List<GLEAMChromosome>> mappedMigrants = new ImmutablePair<>(neighborNumber,migrants);
             if(generations.isEmpty()){
-                List<Pair<String, List<GLEAMChromosome>>> firstGeneration = new ArrayList<>();
+                List<Pair<String, List<GLEAMChromosome>>> firstGeneration = new ArrayList<>(islandConfig.getNeighbors().size());
                 firstGeneration.add(mappedMigrants);
                 generations.add(firstGeneration);
             } else{
@@ -79,7 +79,7 @@ public class MigrantReplacer {
                         i = generations.size();
                     }
                     if(found && i == generations.size() -1){
-                        List<Pair<String, List<GLEAMChromosome>>> newGeneration = new ArrayList<>();
+                        List<Pair<String, List<GLEAMChromosome>>> newGeneration = new ArrayList<>(islandConfig.getNeighbors().size());
                         newGeneration.add(mappedMigrants);
                         generations.add(newGeneration);
                     }
