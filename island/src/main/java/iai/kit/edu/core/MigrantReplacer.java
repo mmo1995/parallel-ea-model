@@ -82,6 +82,7 @@ public class MigrantReplacer {
                         List<Pair<String, List<GLEAMChromosome>>> newGeneration = new ArrayList<>(islandConfig.getNeighbors().size());
                         newGeneration.add(mappedMigrants);
                         generations.add(newGeneration);
+                        i = generations.size();
                     }
                 }
             }
