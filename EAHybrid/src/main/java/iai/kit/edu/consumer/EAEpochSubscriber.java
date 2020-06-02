@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.EAEpochConfig;
+import iai.kit.edu.producer.EAExecutiontimePublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,9 @@ import java.io.File;
 public class EAEpochSubscriber implements MessageListener {
 	@Autowired
 	AlgorithmStarter algorithmStarter;
+
+	@Autowired
+	EAExecutiontimePublisher eaExecutiontimePublisher;
 
 	@Value("${island.number}")
 	private int islandNumber;
@@ -65,6 +69,7 @@ public class EAEpochSubscriber implements MessageListener {
 		setTerminationCriterion();
 		this.eaEpochConfig.getPopulation().writeInitialPopulation(populationFile);
 		algorithmStarter.start();
+		eaExecutiontimePublisher.publishEAExecutiontime();
 		this.eaEpochConfig.getPopulation().read(populationFile);
 		intermediatePopulationPublisher.publishIntermediatePopulation(this.eaEpochConfig.getPopulation());
 	}

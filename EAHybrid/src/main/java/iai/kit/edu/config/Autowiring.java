@@ -4,7 +4,7 @@ import iai.kit.edu.algorithm.AlgorithmStarter;
 import iai.kit.edu.algorithm.GLEAMStarter;
 import iai.kit.edu.consumer.*;
 import iai.kit.edu.controller.SlavesReadinessController;
-import iai.kit.edu.core.ExecutionTime;
+import iai.kit.edu.producer.EAExecutiontimePublisher;
 import iai.kit.edu.producer.EAReadinessPublisher;
 import iai.kit.edu.producer.IntermediatePopulationPublisher;
 import org.springframework.beans.factory.annotation.Value;
@@ -329,13 +329,14 @@ public class Autowiring {
     SlavesReadinessController slavesReadinessController() {
         return new SlavesReadinessController();
     }
+
     /**
-     * new object of ExecutionTime Class
+     * Creates new ea Executiontime Publisher
      * @return
      */
     @Bean
-    ExecutionTime executionTime() {
-        return new ExecutionTime();
+    EAExecutiontimePublisher eaExecutiontimePublisher() {
+        return new EAExecutiontimePublisher();
     }
     @Bean
     ConfigResetter consumerProducerHandler() {

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
@@ -53,6 +54,9 @@ public class ConfigResetter {
     @Qualifier("eaReadyTopic")
     ChannelTopic eaReadyTopic;
     @Autowired
+    @Qualifier("eaExecutiontimeTopic")
+    ChannelTopic eaExecutiontimeTopic;
+    @Autowired
     @Qualifier("initialPopulationTopic")
     ChannelTopic initialPopulationTopic;
     @Autowired
@@ -72,6 +76,8 @@ public class ConfigResetter {
     @Autowired
     IntermediatePopulationSubscriber intermediatePopulationSubscriber;
     @Autowired
+    EAExecutiontimeSubscriber eaExecutiontimeSubscriber;
+    @Autowired
     Population population;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -85,6 +91,7 @@ public class ConfigResetter {
         container.addMessageListener(initialPopulationSubscriber, initialPopulationTopic);
         container.addMessageListener(migrationCompletedSubscriber, migrationCompletedTopic);
         container.addMessageListener(intermediatePopulationSubscriber, intermediatePopulationTopic);
+        container.addMessageListener(eaExecutiontimeSubscriber, eaExecutiontimeTopic);
     }
 
     public void reset() {
@@ -97,6 +104,8 @@ public class ConfigResetter {
         container.removeMessageListener(initialPopulationSubscriber, initialPopulationTopic);
         container.removeMessageListener(migrationCompletedSubscriber, migrationCompletedTopic);
         container.removeMessageListener(intermediatePopulationSubscriber, intermediatePopulationTopic);
+        container.removeMessageListener(eaExecutiontimeSubscriber, eaExecutiontimeTopic);
+
         islandConfig.reset();
         algorithmWrapper.reset();
         migrantSubscriber.unsubscribe();

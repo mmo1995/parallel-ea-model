@@ -34,7 +34,7 @@ public class SlavesInitializedController {
     public void receiveIslandStatusInitialized(@RequestBody String message) {
         logger.info("islands and slaves are ready");
         overhead.setStartEvolution(System.currentTimeMillis());
-        overhead.setEndIslandCreation(System.currentTimeMillis());
+        overhead.setEndSlaveCreation(System.currentTimeMillis());
         logger.info("island creation duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation()));
 
     }

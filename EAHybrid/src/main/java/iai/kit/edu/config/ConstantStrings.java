@@ -57,6 +57,8 @@ public class ConstantStrings {
     public static final String slaveReady = "proof.slave.status.ready";
     public static final String initializeEA = "proof.management.initialize.ea";
 
+    public static final String eaExecutiontime = "proof.execution.ea";
+
 
     public static final String chromosomeEnding = "10000";
 

@@ -1,5 +1,6 @@
 package iai.kit.edu.consumer;
 
+import iai.kit.edu.controller.MigrationOverheadController;
 import iai.kit.edu.core.AlgorithmWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +16,15 @@ public class StartSubscriber implements MessageListener {
     @Autowired
     private AlgorithmWrapper algorithmWrapper;
 
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
+        migrationOverheadController.setStartIslandExecution(System.currentTimeMillis());
         logger.info("received start signal");
         algorithmWrapper.init();
         algorithmWrapper.startEpoch();

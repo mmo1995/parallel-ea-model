@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{2};
+        int[] numberOfIslands = new int[]{1};
         int[] numberOfSlaves = new int[] {1};
-        int[] populationSizes = new int[]{20}; //240 for each island
+        int[] populationSizes = new int[]{10}; //240 for each island
         int[] migrationRates = new int[]{1};
         int[] generationAmount = new int[]{3};
         int[] delays = new int[]{0};
@@ -80,19 +80,19 @@ public class Test {
     }
 
     private static void runHetero(){ //all heterogeneous arrays must have the same length as numberOfIslands
-        int numberOfIslands = 3;
+        int numberOfIslands = 2;
         int numberOfSlaves = 1;
-        int populationSize = 30;
-        int[] migrationRates = new int[]{4,5,6};
-        int[] generationAmount = new int[]{3,3,3};
-        String[] selectionPolicy= {"best","best","best"};
-        String[] replacementPolicy= {"worst","worst","worst"};
+        int populationSize = 20;
+        int[] migrationRates = new int[]{4,5};
+        int[] generationAmount = new int[]{3,3};
+        String[] selectionPolicy= {"best","best"};
+        String[] replacementPolicy= {"worst","worst"};
 
         String initialSelectionPolicyInitializer = "best";
         int amountFitnessInitializer = 0;
 
-        String[] initialSelectionPolicy= {"new", "mix","new"};
-        int[] amountFitness= {2,1,2};
+        String[] initialSelectionPolicy= {"new", "mix"};
+        int[] amountFitness= {2,1};
 
         int delay = 0;
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
@@ -100,24 +100,24 @@ public class Test {
 
         boolean asyncMigration = true;
 
-        String[] epochTerminationCriterion= new String[] {"generation","generation","generation"}; // evaluation ; fitness ;generation
-        int[] epochTerminationEvaluation= new int[] {1000000,1000000,1000000};
-        double[] epochTerminationFitness= new double[] {30000,30000,30000};
-        int[] epochTerminationGeneration = new int[] {2,2,7}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
-        int[] epochTerminationTime = new int[] {5,3,5};
-        int[] epochTerminationGDV = new int[] {500,500,500};
-        int[] epochTerminationGAK = new int[] {100,100,100};
+        String[] epochTerminationCriterion= new String[] {"generation","generation"}; // evaluation ; fitness ;generation
+        int[] epochTerminationEvaluation= new int[] {1000000,1000000};
+        double[] epochTerminationFitness= new double[] {30000,30000};
+        int[] epochTerminationGeneration = new int[] {2,2}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[] epochTerminationTime = new int[] {5,3};
+        int[] epochTerminationGDV = new int[] {500,500};
+        int[] epochTerminationGAK = new int[] {100,100};
 
-        int[] demeSize = new int[] {8,8,8};
-        String[] acceptRuleForOffspring = {"always","localLeast","always"}; //localLeast-ES, always, localLeast, betterParent
-        double[] rankingParameter = {1.46, 1.50,1.45};
-        double[] minimalHammingDistance = {0.3,0.2,0.1};
+        int[] demeSize = new int[] {8,8};
+        String[] acceptRuleForOffspring = {"always","localLeast"}; //localLeast-ES, always, localLeast, betterParent
+        double[] rankingParameter = {1.46, 1.50};
+        double[] minimalHammingDistance = {0.3,0.2};
 
 
-        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
+        String globalTerminationCriterion = "fitness"; // evaluation ; fitness ; generation
         int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
-        double globalTerminationFitness = 85000;
+        double globalTerminationFitness = 60000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
         Gson gson = new Gson();
         HeteroConfiguration heteroConfiguration = new HeteroConfiguration();
@@ -162,7 +162,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     //runExperiment();
-     runHetero();
+     runExperiment();
+     //runHetero();
     }
 }

@@ -252,8 +252,8 @@ public class AlgorithmController {
         logger.info("receiving final result");
         logger.info("Evolution duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution()));
         double duration= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
-        double durationContainerCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
-
+        double durationIslandsCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
+        double durationSlavesCreation = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation());
         double frameworkOverhead = duration - returnMaxExecutionTime();
 
 
@@ -278,7 +278,7 @@ public class AlgorithmController {
         dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
         dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
         dataToVisualizeObject.addProperty("Generation",jobConfig.getEpochTerminationGeneration());
-        dataToVisualizeObject.addProperty("Container Creation",durationContainerCreation - 100);
+        dataToVisualizeObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
         dataToVisualizeObject.addProperty("Duration",duration );
         dataToVisualizeObject.addProperty("DurationEAExecutionMax",returnMaxExecutionTime());
         dataToVisualizeObject.addProperty("DurationEAExecutionMin",returnMinExecutionTime());

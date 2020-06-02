@@ -1,5 +1,6 @@
 package iai.kit.edu.algorithm;
 
+import iai.kit.edu.producer.EAExecutiontimePublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class GLEAMStarter implements AlgorithmStarter {
     @Autowired
     @Qualifier("populationFile")
     File populationFile;
+
+    @Autowired
+    EAExecutiontimePublisher eaExecutiontimePublisher;
 
     String gleamWorkspaceString;
 
@@ -124,6 +128,7 @@ public class GLEAMStarter implements AlgorithmStarter {
 
 
     public void start() {
+
         if (firstEpoch) {
             prepareFirstEpoch();
             firstEpoch = false;
@@ -183,8 +188,10 @@ public class GLEAMStarter implements AlgorithmStarter {
         try {
             logger.trace("command for GLEAM: " + commands);
             logger.info("starting GLEAM");
+            eaExecutiontimePublisher.setStartEAExecution(System.currentTimeMillis());
             process = pb.start();
             process.waitFor();
+            eaExecutiontimePublisher.setEndEAExecution(System.currentTimeMillis());
             logger.info("completing GLEAM");
         } catch (IOException e) {
             logger.error(e.getMessage());

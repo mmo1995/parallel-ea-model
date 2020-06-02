@@ -5,6 +5,7 @@ import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.EAEpochConfig;
 import iai.kit.edu.config.IslandConfig;
 import iai.kit.edu.consumer.MigrantSubscriber;
+import iai.kit.edu.controller.MigrationOverheadController;
 import iai.kit.edu.controller.ResultController;
 import iai.kit.edu.producer.EAEpochPublisher;
 import iai.kit.edu.producer.MigrantPublisher;
@@ -23,6 +24,8 @@ public class AlgorithmWrapper {
 
     @Autowired
     MigrantSelector migrantSelector;
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
     @Autowired
     IslandConfig islandConfig;
     @Autowired
@@ -101,7 +104,10 @@ public class AlgorithmWrapper {
      */
     public void startEpoch() {
         synchronized (population) {
+
             if (isGlobalTerminationCriterionReached() || islandConfig.isStopped()) {
+                migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
+                migrationOverheadController.sendExecutiontimeToCoordination();
                 resultController.sendResult();
                 configResetter.reset();
 

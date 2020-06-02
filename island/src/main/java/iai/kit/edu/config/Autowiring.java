@@ -3,6 +3,7 @@ package iai.kit.edu.config;
 import iai.kit.edu.consumer.*;
 import iai.kit.edu.controller.IslandInitializedController;
 import iai.kit.edu.controller.IslandReadinessController;
+import iai.kit.edu.controller.MigrationOverheadController;
 import iai.kit.edu.controller.ResultController;
 import iai.kit.edu.core.*;
 import iai.kit.edu.producer.*;
@@ -165,6 +166,15 @@ public class Autowiring {
     }
 
     /**
+     * Creates new ea executiontime Subscriber
+     * @return
+     */
+    @Bean
+    EAExecutiontimeSubscriber eaExecutiontimeSubscriber() {
+        return new EAExecutiontimeSubscriber();
+    }
+
+    /**
      * Creates island initialized publisher
      * @return
      */
@@ -197,6 +207,15 @@ public class Autowiring {
         return new ResultController();
     }
 
+    /**
+     * Creates new Migration Overhead Controller
+     * @return
+     */
+    @Bean
+    MigrationOverheadController migrationOverheadController() {
+        return new MigrationOverheadController();
+    }
+
     @Bean
     StopPublisher stopPublisher() {
         return new StopPublisher();
@@ -219,6 +238,11 @@ public class Autowiring {
     @Bean(name = "eaReadyTopic")
     ChannelTopic eaReadyTopic() {
         return new ChannelTopic(ConstantStrings.eaReady + "." + islandConfig().getIslandNumber());
+    }
+
+    @Bean(name = "eaExecutiontimeTopic")
+    ChannelTopic eaExecutiontimeTopic() {
+        return new ChannelTopic(ConstantStrings.eaExecutiontime + "." + islandConfig().getIslandNumber());
     }
 
     @Bean(name = "startTopic")
