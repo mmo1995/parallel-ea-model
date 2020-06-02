@@ -29,5 +29,6 @@ public class EAExecutiontimeSubscriber implements MessageListener{
         public void onMessage(Message message, byte[] pattern) {
             logger.debug("received EA Execution time");
             logger.info("EA execution time: " + message.toString() + " seconds");
+            migrationOverheadController.addEAExecutiontime(message.toString());
         }
 }
