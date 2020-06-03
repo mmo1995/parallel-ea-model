@@ -9,6 +9,8 @@ public class Overhead {
     private static long endSlaveCreation= 0;
     private static long startEvolution = 0 ;
     private static long endEvolution = 0 ;
+    private static long startInitializationOverhead = 0;
+    private static long endInitializationOverhead = 0;
 
     public static long getStartEvolution() {
         return startEvolution;

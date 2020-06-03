@@ -78,6 +78,7 @@ public class AlgorithmController {
         experiment = false;
         jobConfig.readFromJson(json);
         logger.info("received job config: " + jobConfig.toString());
+        overhead.setStartEvolution(System.currentTimeMillis());
         algorithmManager.initialize(false);
     }
 
@@ -189,6 +190,7 @@ public class AlgorithmController {
         jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
         logger.info("received job config: " + jobConfig.toString());
         amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
+        overhead.setStartEvolution(System.currentTimeMillis());
         algorithmManager.initialize(false);
     }
 
@@ -204,6 +206,7 @@ public class AlgorithmController {
         heteroJobConfig.readFromJson(json);
         //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
         logger.info("received heterogeneous job config: " + heteroJobConfig.toString());
+        overhead.setStartEvolution(System.currentTimeMillis());
         algorithmManager.initialize(true);
     }
 
@@ -279,10 +282,10 @@ public class AlgorithmController {
         overhead.setEndEvolution(System.currentTimeMillis());
         logger.info("receiving final result");
         logger.info("Evolution duration " + TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution()));
-        double duration= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
+        double overallExecutiontime= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
         double durationIslandsCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
         double durationSlavesCreation = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation());
-        double frameworkOverhead = duration - returnMaxEAExecutionTime();
+        double frameworkOverhead = overallExecutiontime - returnMaxEAExecutionTime();
 
 
         String  constraintResults = constraintsAndresultJson.substring(0, constraintsAndresultJson.indexOf("#"));
@@ -296,6 +299,7 @@ public class AlgorithmController {
 
         JsonObject dataToVisualizeObject = new JsonObject();
         JsonArray dataToVisualizeArray = new JsonArray();
+        JsonObject durationDataObject = new JsonObject();
         Gson gson = new Gson();
         //String jsonInString = gson.toJson(resultJson);
         JsonObject finalSchPlan = new JsonParser().parse(resultJson).getAsJsonObject();
@@ -305,21 +309,30 @@ public class AlgorithmController {
         dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
         dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
         dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
-        dataToVisualizeObject.addProperty("Generation",jobConfig.getEpochTerminationGeneration());
-        dataToVisualizeObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
-        dataToVisualizeObject.addProperty("Duration",duration );
-        dataToVisualizeObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
-        dataToVisualizeObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
-        dataToVisualizeObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());
-        dataToVisualizeObject.addProperty("MigrationOverheadMax", returnMigrationOverheadMax());
-        dataToVisualizeObject.addProperty("MigrationOverheadMin", returnMigrationOverheadMin());
-        dataToVisualizeObject.addProperty("MigrationOverheadAverage", returnMigrationOverheadAverage());
-        dataToVisualizeObject.addProperty("FrameworkOverhead",frameworkOverhead);
-        dataToVisualizeObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
+        dataToVisualizeObject.addProperty("Generation number",jobConfig.getEpochTerminationGeneration());
+        dataToVisualizeObject.addProperty("Topology",jobConfig.getTopology());
+        dataToVisualizeObject.addProperty("Migration Rate",jobConfig.getMigrationRate());
+        dataToVisualizeObject.addProperty("Delay",jobConfig.getDelay());
+        dataToVisualizeObject.addProperty("Deme Size",jobConfig.getDemeSize());
+        dataToVisualizeObject.addProperty("Acceptance Rule for Offspring",jobConfig.getAcceptRuleForOffspring());
+        dataToVisualizeObject.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
+        dataToVisualizeObject.addProperty("Async Migration",jobConfig.isAsyncMigration());
+        dataToVisualizeObject.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+        durationDataObject.addProperty("Overall Execution time",overallExecutiontime );
+        durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
+        durationDataObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
+        durationDataObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());
+        durationDataObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
+        durationDataObject.addProperty("MigrationOverheadMax", returnMigrationOverheadMax());
+        durationDataObject.addProperty("MigrationOverheadMin", returnMigrationOverheadMin());
+        durationDataObject.addProperty("MigrationOverheadAverage", returnMigrationOverheadAverage());
+        durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
+        durationDataObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
         dataToVisualizeObject.addProperty("NumberOfHourlyDeviation", constraintResultsValues[4]);
         dataToVisualizeObject.add("data", dataToVisualizeArray);
+        dataToVisualizeObject.add("Duration data", durationDataObject);
 
         String jsonInString1 = gson.toJson(dataToVisualizeObject);
         String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
