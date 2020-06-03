@@ -79,6 +79,7 @@ public class AlgorithmController {
         jobConfig.readFromJson(json);
         logger.info("received job config: " + jobConfig.toString());
         overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setStartInitializationOverhead(System.currentTimeMillis());
         algorithmManager.initialize(false);
     }
 
@@ -191,6 +192,7 @@ public class AlgorithmController {
         logger.info("received job config: " + jobConfig.toString());
         amountOfGeneration.set(jobConfig.getEpochTerminationGeneration()+1);
         overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setStartInitializationOverhead(System.currentTimeMillis());
         algorithmManager.initialize(false);
     }
 
@@ -207,6 +209,7 @@ public class AlgorithmController {
         //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
         logger.info("received heterogeneous job config: " + heteroJobConfig.toString());
         overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setStartInitializationOverhead(System.currentTimeMillis());
         algorithmManager.initialize(true);
     }
 
@@ -286,6 +289,7 @@ public class AlgorithmController {
         double durationIslandsCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
         double durationSlavesCreation = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation());
         double frameworkOverhead = overallExecutiontime - returnMaxEAExecutionTime();
+        double initializationOverhead = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndInitializationOverhead() - overhead.getStartInitializationOverhead());
 
 
         String  constraintResults = constraintsAndresultJson.substring(0, constraintsAndresultJson.indexOf("#"));
@@ -322,11 +326,13 @@ public class AlgorithmController {
         durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
         durationDataObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
         durationDataObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());
+        durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
+        durationDataObject.addProperty("initialization Overhead", initializationOverhead);
         durationDataObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
         durationDataObject.addProperty("MigrationOverheadMax", returnMigrationOverheadMax());
         durationDataObject.addProperty("MigrationOverheadMin", returnMigrationOverheadMin());
         durationDataObject.addProperty("MigrationOverheadAverage", returnMigrationOverheadAverage());
-        durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
+        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - returnMigrationOverheadMax());
         durationDataObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);

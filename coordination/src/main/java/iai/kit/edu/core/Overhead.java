@@ -75,4 +75,20 @@ public class Overhead {
     public void setEndPopulationCreation(long endPopulationCreation) {
         this.endPopulationCreation = endPopulationCreation;
     }
+
+    public static long getStartInitializationOverhead() {
+        return startInitializationOverhead;
+    }
+
+    public static void setStartInitializationOverhead(long startInitializationOverhead) {
+        Overhead.startInitializationOverhead = startInitializationOverhead;
+    }
+
+    public static long getEndInitializationOverhead() {
+        return endInitializationOverhead;
+    }
+
+    public static void setEndInitializationOverhead(long endInitializationOverhead) {
+        Overhead.endInitializationOverhead = endInitializationOverhead;
+    }
 }
