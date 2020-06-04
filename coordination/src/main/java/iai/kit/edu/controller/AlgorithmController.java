@@ -316,40 +316,45 @@ public class AlgorithmController {
         dataToVisualizeArray.add(finalSchPlan);
         dataToVisualizeObject.addProperty("JobID", jobId);
         if(!hetero){
-            dataToVisualizeObject.addProperty("Hetero", false);
-            dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
-            dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
-            dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
-            dataToVisualizeObject.addProperty("Generation number",jobConfig.getEpochTerminationGeneration());
-            dataToVisualizeObject.addProperty("Topology",jobConfig.getTopology());
-            dataToVisualizeObject.addProperty("Migration Rate",jobConfig.getMigrationRate());
-            dataToVisualizeObject.addProperty("Delay",jobConfig.getDelay());
-            dataToVisualizeObject.addProperty("Deme Size",jobConfig.getDemeSize());
-            dataToVisualizeObject.addProperty("Acceptance Rule for Offspring",jobConfig.getAcceptRuleForOffspring());
-            dataToVisualizeObject.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
-            dataToVisualizeObject.addProperty("Async Migration",jobConfig.isAsyncMigration());
-            dataToVisualizeObject.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+            JsonObject configuration = new JsonObject();
+            configuration.addProperty("Hetero", false);
+            configuration.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
+            configuration.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
+            configuration.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
+            configuration.addProperty("Generation number",jobConfig.getEpochTerminationGeneration());
+            configuration.addProperty("Topology",jobConfig.getTopology());
+            configuration.addProperty("Migration Rate",jobConfig.getMigrationRate());
+            configuration.addProperty("Delay",jobConfig.getDelay());
+            configuration.addProperty("Deme Size",jobConfig.getDemeSize());
+            configuration.addProperty("Acceptance Rule for Offspring",jobConfig.getAcceptRuleForOffspring());
+            configuration.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
+            configuration.addProperty("Async Migration",jobConfig.isAsyncMigration());
+            configuration.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+            dataToVisualizeObject.add("Job Configuration", configuration);
         } else {
-            dataToVisualizeObject.addProperty("Hetero", true);
+
             JsonArray configuration = new JsonArray();
+            JsonObject generalConfiguration = new JsonObject();
+            generalConfiguration.addProperty("Hetero", true);
+            generalConfiguration.addProperty("NumberOfIslands",heteroJobConfig.getNumberOfIslands());
+            generalConfiguration.addProperty("NumberOfSlaves",heteroJobConfig.getNumberOfSlaves());
+            generalConfiguration.addProperty("PopulationSize",heteroJobConfig.getGlobalPopulationSize());
+            generalConfiguration.addProperty("Topology",heteroJobConfig.getTopology());
+            generalConfiguration.addProperty("Delay",heteroJobConfig.getDelay());
+            generalConfiguration.addProperty("Async Migration",heteroJobConfig.isAsyncMigration());
+            configuration.add(generalConfiguration);
             for(int i = 0; i< heteroJobConfig.getNumberOfIslands(); i++){
                 JsonObject islandObject = new JsonObject();
                 islandObject.addProperty("Island number", i+1);
-                islandObject.addProperty("NumberOfIslands",heteroJobConfig.getNumberOfIslands());
-                islandObject.addProperty("NumberOfSlaves",heteroJobConfig.getNumberOfSlaves());
-                islandObject.addProperty("PopulationSize",heteroJobConfig.getGlobalPopulationSize());
                 islandObject.addProperty("Generation number",heteroJobConfig.getEpochTerminationGeneration()[i]);
-                islandObject.addProperty("Topology",heteroJobConfig.getTopology());
                 islandObject.addProperty("Migration Rate",heteroJobConfig.getMigrationRate()[i]);
-                islandObject.addProperty("Delay",heteroJobConfig.getDelay());
                 islandObject.addProperty("Deme Size",heteroJobConfig.getDemeSize()[i]);
                 islandObject.addProperty("Acceptance Rule for Offspring",heteroJobConfig.getAcceptRuleForOffspring()[i]);
                 islandObject.addProperty("Ranking Parameter",heteroJobConfig.getRankingParameter()[i]);
-                islandObject.addProperty("Async Migration",heteroJobConfig.isAsyncMigration());
                 islandObject.addProperty("Minimal Hamming Distance",heteroJobConfig.getMinimalHammingDistance()[i]);
                 configuration.add(islandObject);
             }
-            dataToVisualizeObject.add("Configuration",configuration);
+            dataToVisualizeObject.add("Job Configuration",configuration);
         }
         durationDataObject.addProperty("Overall Execution time",overallExecutiontime );
         durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
@@ -366,8 +371,8 @@ public class AlgorithmController {
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
         dataToVisualizeObject.addProperty("NumberOfHourlyDeviation", constraintResultsValues[4]);
-        dataToVisualizeObject.add("data", dataToVisualizeArray);
         dataToVisualizeObject.add("Duration data", durationDataObject);
+        dataToVisualizeObject.add("data", dataToVisualizeArray);
 
         String jsonInString1 = gson.toJson(dataToVisualizeObject);
         String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
