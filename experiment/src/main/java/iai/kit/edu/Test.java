@@ -114,7 +114,7 @@ public class Test {
         double[] minimalHammingDistance = {0.3,0.2};
 
 
-        String globalTerminationCriterion = "fitness"; // evaluation ; fitness ; generation
+        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
         int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 60000;
@@ -162,7 +162,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     runExperiment();
-     //runHetero();
+     //runExperiment();
+     runHetero();
     }
 }

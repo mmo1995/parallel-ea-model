@@ -55,6 +55,8 @@ public class AlgorithmController {
 
     private boolean experiment;
 
+    private boolean hetero;
+
     private RedisAtomicInteger amountOfGeneration;
 
     private JedisConnectionFactory jedisConnectionFactory;
@@ -76,6 +78,7 @@ public class AlgorithmController {
     @RequestMapping(value = "/start", method = RequestMethod.POST)
     public void receiveStartConfiguration(@RequestBody String json) {
         experiment = false;
+        hetero = false;
         jobConfig.readFromJson(json);
         logger.info("received job config: " + jobConfig.toString());
         overhead.setStartEvolution(System.currentTimeMillis());
@@ -91,6 +94,7 @@ public class AlgorithmController {
     public void receiveStartConfigurations(@RequestBody String json) {
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
+        hetero = false;
         Gson gson = new Gson();
         resultsCollection = new ArrayList<>();
         ExperimentConfig experimentConfig = gson.fromJson(json, ExperimentConfig.class);
@@ -203,6 +207,7 @@ public class AlgorithmController {
     @RequestMapping(value = "/start/job/hetero", method = RequestMethod.POST)
     public void receiveHeteroStartConfiguration(@RequestBody String json) {
         experiment = false;
+        hetero = true;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         resultsCollection = new ArrayList<>();
         heteroJobConfig.readFromJson(json);
@@ -310,18 +315,42 @@ public class AlgorithmController {
 
         dataToVisualizeArray.add(finalSchPlan);
         dataToVisualizeObject.addProperty("JobID", jobId);
-        dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
-        dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
-        dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
-        dataToVisualizeObject.addProperty("Generation number",jobConfig.getEpochTerminationGeneration());
-        dataToVisualizeObject.addProperty("Topology",jobConfig.getTopology());
-        dataToVisualizeObject.addProperty("Migration Rate",jobConfig.getMigrationRate());
-        dataToVisualizeObject.addProperty("Delay",jobConfig.getDelay());
-        dataToVisualizeObject.addProperty("Deme Size",jobConfig.getDemeSize());
-        dataToVisualizeObject.addProperty("Acceptance Rule for Offspring",jobConfig.getAcceptRuleForOffspring());
-        dataToVisualizeObject.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
-        dataToVisualizeObject.addProperty("Async Migration",jobConfig.isAsyncMigration());
-        dataToVisualizeObject.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+        if(!hetero){
+            dataToVisualizeObject.addProperty("Hetero", false);
+            dataToVisualizeObject.addProperty("NumberOfIslands",jobConfig.getNumberOfIslands());
+            dataToVisualizeObject.addProperty("NumberOfSlaves",jobConfig.getNumberOfSlaves());
+            dataToVisualizeObject.addProperty("PopulationSize",jobConfig.getGlobalPopulationSize());
+            dataToVisualizeObject.addProperty("Generation number",jobConfig.getEpochTerminationGeneration());
+            dataToVisualizeObject.addProperty("Topology",jobConfig.getTopology());
+            dataToVisualizeObject.addProperty("Migration Rate",jobConfig.getMigrationRate());
+            dataToVisualizeObject.addProperty("Delay",jobConfig.getDelay());
+            dataToVisualizeObject.addProperty("Deme Size",jobConfig.getDemeSize());
+            dataToVisualizeObject.addProperty("Acceptance Rule for Offspring",jobConfig.getAcceptRuleForOffspring());
+            dataToVisualizeObject.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
+            dataToVisualizeObject.addProperty("Async Migration",jobConfig.isAsyncMigration());
+            dataToVisualizeObject.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+        } else {
+            dataToVisualizeObject.addProperty("Hetero", true);
+            JsonArray configuration = new JsonArray();
+            for(int i = 0; i< heteroJobConfig.getNumberOfIslands(); i++){
+                JsonObject islandObject = new JsonObject();
+                islandObject.addProperty("Island number", i+1);
+                islandObject.addProperty("NumberOfIslands",heteroJobConfig.getNumberOfIslands());
+                islandObject.addProperty("NumberOfSlaves",heteroJobConfig.getNumberOfSlaves());
+                islandObject.addProperty("PopulationSize",heteroJobConfig.getGlobalPopulationSize());
+                islandObject.addProperty("Generation number",heteroJobConfig.getEpochTerminationGeneration()[i]);
+                islandObject.addProperty("Topology",heteroJobConfig.getTopology());
+                islandObject.addProperty("Migration Rate",heteroJobConfig.getMigrationRate()[i]);
+                islandObject.addProperty("Delay",heteroJobConfig.getDelay());
+                islandObject.addProperty("Deme Size",heteroJobConfig.getDemeSize()[i]);
+                islandObject.addProperty("Acceptance Rule for Offspring",heteroJobConfig.getAcceptRuleForOffspring()[i]);
+                islandObject.addProperty("Ranking Parameter",heteroJobConfig.getRankingParameter()[i]);
+                islandObject.addProperty("Async Migration",heteroJobConfig.isAsyncMigration());
+                islandObject.addProperty("Minimal Hamming Distance",heteroJobConfig.getMinimalHammingDistance()[i]);
+                configuration.add(islandObject);
+            }
+            dataToVisualizeObject.add("Configuration",configuration);
+        }
         durationDataObject.addProperty("Overall Execution time",overallExecutiontime );
         durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
         durationDataObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
