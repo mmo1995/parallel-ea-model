@@ -161,8 +161,91 @@ public class Test {
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/job/hetero", configurationJson, String.class);
     }
 
+    private static void runHeteroExperiment(){
+        int[] numberOfIslands = {2};
+        int[] numberOfSlaves = {1};
+        int[] populationSize = {20};
+        int[][] migrationRates = new int[][]{{4,5}};
+        int[][] generationAmount = new int[][]{{3,3}};
+        String[][] selectionPolicy= {{"best","best"}};
+        String[][] replacementPolicy= {{"worst","worst"}};
+
+        String[] initialSelectionPolicyInitializer = {"best"};
+        int[] amountFitnessInitializer = {0};
+
+        String[][] initialSelectionPolicy= {{"new", "mix"}};
+        int[][] amountFitness= {{2,1}};
+
+        int[] delay = {0};
+        //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
+        String[] topology = {"ring"};
+
+        boolean[] asyncMigration = {true};
+
+        String[][] epochTerminationCriterion= new String[][] {{"generation","generation"}}; // evaluation ; fitness ;generation
+        int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000}};
+        double[][] epochTerminationFitness= new double[][] {{30000,30000}};
+        int[][] epochTerminationGeneration = new int[][] {{2,2}}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[][] epochTerminationTime = new int[][] {{5,3}};
+        int[][] epochTerminationGDV = new int[][] {{500,500}};
+        int[][] epochTerminationGAK = new int[][] {{100,100}};
+
+        int[][] demeSize = new int[][] {{8,8}};
+        String[][] acceptRuleForOffspring = {{"always","localLeast"}}; //localLeast-ES, always, localLeast, betterParent
+        double[][] rankingParameter = {{1.46, 1.50}};
+        double[][] minimalHammingDistance = {{0.3,0.2}};
+
+
+        String[] globalTerminationCriterion = {"generation"}; // evaluation ; fitness ; generation
+        int[] globalTerminationEpoch = {3}; // number of epochs i.e. set to 100
+        int[] globalTerminationEvaluation = {1000000};
+        double[] globalTerminationFitness = {60000};
+        int[] globalTerminationGeneration = {1000}; // the max number of generation if we use Fitness as a termination criterium
+        Gson gson = new Gson();
+        HeteroExperimentConfig heteroExperimentConfig = new HeteroExperimentConfig();
+        heteroExperimentConfig.setNumberOfIslands(numberOfIslands);
+        heteroExperimentConfig.setNumberOfSlaves(numberOfSlaves);
+        heteroExperimentConfig.setGlobalPopulationSize(populationSize);
+        heteroExperimentConfig.setMigrationRate(migrationRates);
+        heteroExperimentConfig.setDelay(delay);
+        heteroExperimentConfig.setSelectionPolicy(selectionPolicy);
+        heteroExperimentConfig.setReplacementPolicy(replacementPolicy);
+        heteroExperimentConfig.setTopology(topology);
+        heteroExperimentConfig.setNumberOfGeneration(generationAmount);
+        heteroExperimentConfig.setDemeSize(demeSize);
+        heteroExperimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
+        heteroExperimentConfig.setRankingParameter(rankingParameter);
+        heteroExperimentConfig.setMinimalHammingDistance(minimalHammingDistance);
+        heteroExperimentConfig.setInitialSelectionPolicy(initialSelectionPolicy);
+        heteroExperimentConfig.setAmountFitness(amountFitness);
+        heteroExperimentConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
+        heteroExperimentConfig.setAmountFitnessInitializer(amountFitnessInitializer);
+        heteroExperimentConfig.setAsyncMigration(asyncMigration);
+
+        heteroExperimentConfig.setEpochTerminationCriterion(epochTerminationCriterion);
+        heteroExperimentConfig.setEpochTerminationEvaluation(epochTerminationEvaluation);
+        heteroExperimentConfig.setEpochTerminationFitness(epochTerminationFitness);
+        heteroExperimentConfig.setEpochTerminationGeneration(epochTerminationGeneration);
+        heteroExperimentConfig.setEpochTerminationTime(epochTerminationTime);
+        heteroExperimentConfig.setEpochTerminationGDV(epochTerminationGDV);
+        heteroExperimentConfig.setEpochTerminationGAK(epochTerminationGAK);
+
+        heteroExperimentConfig.setGlobalTerminationCriterion(globalTerminationCriterion);
+        heteroExperimentConfig.setGlobalTerminationEpoch(globalTerminationEpoch);
+        heteroExperimentConfig.setGlobalTerminationEvaluation(globalTerminationEvaluation);
+        heteroExperimentConfig.setGlobalTerminationFitness(globalTerminationFitness);
+        heteroExperimentConfig.setGlobalTerminationGeneration(globalTerminationGeneration);
+
+        String configurationJson = gson.toJson(heteroExperimentConfig);
+        RestTemplate restTemplate = new RestTemplate();
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs/hetero", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs/hetero", configurationJson, String.class);
+        // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/jobs/hetero", configurationJson, String.class);
+    }
+
     public static void main(String[] args) {
      //runExperiment();
-     runHetero();
+     //runHetero();
+        runHeteroExperiment();
     }
 }

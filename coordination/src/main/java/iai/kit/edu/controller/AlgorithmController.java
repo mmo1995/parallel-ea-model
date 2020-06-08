@@ -218,6 +218,24 @@ public class AlgorithmController {
         algorithmManager.initialize(true);
     }
 
+    /**
+     * Receive configuration for several heterogeneous jobs
+     * @param json of configurations
+     */
+    @RequestMapping(value = "/start/jobs/hetero", method = RequestMethod.POST)
+    public void receiveHeteroStartConfigurations(@RequestBody String json) {
+        experiment = true;
+        hetero = true;
+        amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
+        resultsCollection = new ArrayList<>();
+        heteroJobConfig.readFromJson(json);
+        //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+        logger.info("received heterogeneous job config: " + heteroJobConfig.toString());
+        overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setStartInitializationOverhead(System.currentTimeMillis());
+        algorithmManager.initialize(true);
+    }
+
 
     /**
      * Receive result
