@@ -196,11 +196,11 @@ public class Test {
         double[][] minimalHammingDistance = {{0.3,0.2}};
 
 
-        String[] globalTerminationCriterion = {"generation"}; // evaluation ; fitness ; generation
-        int[] globalTerminationEpoch = {3}; // number of epochs i.e. set to 100
-        int[] globalTerminationEvaluation = {1000000};
-        double[] globalTerminationFitness = {60000};
-        int[] globalTerminationGeneration = {1000}; // the max number of generation if we use Fitness as a termination criterium
+        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
+        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
+        int globalTerminationEvaluation = 1000000;
+        double globalTerminationFitness = 60000;
+        int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
         Gson gson = new Gson();
         HeteroExperimentConfig heteroExperimentConfig = new HeteroExperimentConfig();
         heteroExperimentConfig.setNumberOfIslands(numberOfIslands);

@@ -30,14 +30,14 @@ public class HeteroExperimentConfig {
     private int[][] epochTerminationGDV;
     private int[][] epochTerminationGAK;
 
-    private String[] globalTerminationCriterion;
-    private int[] globalTerminationEpoch;
-    private int[] globalTerminationEvaluation;
-    private double[] globalTerminationFitness;
-    private int[] globalTerminationGeneration;
-    private int[] globalTerminationTime;
-    private int[] globalTerminationGDV;
-    private int[] globalTerminationGAK;
+    private String globalTerminationCriterion;
+    private int globalTerminationEpoch;
+    private int globalTerminationEvaluation;
+    private double globalTerminationFitness;
+    private int globalTerminationGeneration;
+    private int globalTerminationTime;
+    private int globalTerminationGDV;
+    private int globalTerminationGAK;
 
     private int[] delay;
 
@@ -233,67 +233,67 @@ public class HeteroExperimentConfig {
         this.epochTerminationGAK = epochTerminationGAK;
     }
 
-    public String[] getGlobalTerminationCriterion() {
+    public String getGlobalTerminationCriterion() {
         return globalTerminationCriterion;
     }
 
-    public void setGlobalTerminationCriterion(String[] globalTerminationCriterion) {
+    public void setGlobalTerminationCriterion(String globalTerminationCriterion) {
         this.globalTerminationCriterion = globalTerminationCriterion;
     }
 
-    public int[] getGlobalTerminationEpoch() {
+    public int getGlobalTerminationEpoch() {
         return globalTerminationEpoch;
     }
 
-    public void setGlobalTerminationEpoch(int[] globalTerminationEpoch) {
+    public void setGlobalTerminationEpoch(int globalTerminationEpoch) {
         this.globalTerminationEpoch = globalTerminationEpoch;
     }
 
-    public int[] getGlobalTerminationEvaluation() {
+    public int getGlobalTerminationEvaluation() {
         return globalTerminationEvaluation;
     }
 
-    public void setGlobalTerminationEvaluation(int[] globalTerminationEvaluation) {
+    public void setGlobalTerminationEvaluation(int globalTerminationEvaluation) {
         this.globalTerminationEvaluation = globalTerminationEvaluation;
     }
 
-    public double[] getGlobalTerminationFitness() {
+    public double getGlobalTerminationFitness() {
         return globalTerminationFitness;
     }
 
-    public void setGlobalTerminationFitness(double[] globalTerminationFitness) {
+    public void setGlobalTerminationFitness(double globalTerminationFitness) {
         this.globalTerminationFitness = globalTerminationFitness;
     }
 
-    public int[] getGlobalTerminationGeneration() {
+    public int getGlobalTerminationGeneration() {
         return globalTerminationGeneration;
     }
 
-    public void setGlobalTerminationGeneration(int[] globalTerminationGeneration) {
+    public void setGlobalTerminationGeneration(int globalTerminationGeneration) {
         this.globalTerminationGeneration = globalTerminationGeneration;
     }
 
-    public int[] getGlobalTerminationTime() {
+    public int getGlobalTerminationTime() {
         return globalTerminationTime;
     }
 
-    public void setGlobalTerminationTime(int[] globalTerminationTime) {
+    public void setGlobalTerminationTime(int globalTerminationTime) {
         this.globalTerminationTime = globalTerminationTime;
     }
 
-    public int[] getGlobalTerminationGDV() {
+    public int getGlobalTerminationGDV() {
         return globalTerminationGDV;
     }
 
-    public void setGlobalTerminationGDV(int[] globalTerminationGDV) {
+    public void setGlobalTerminationGDV(int globalTerminationGDV) {
         this.globalTerminationGDV = globalTerminationGDV;
     }
 
-    public int[] getGlobalTerminationGAK() {
+    public int getGlobalTerminationGAK() {
         return globalTerminationGAK;
     }
 
-    public void setGlobalTerminationGAK(int[] globalTerminationGAK) {
+    public void setGlobalTerminationGAK(int globalTerminationGAK) {
         this.globalTerminationGAK = globalTerminationGAK;
     }
 

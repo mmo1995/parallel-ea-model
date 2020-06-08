@@ -333,6 +333,10 @@ public class HeteroJobConfig {
         BeanUtils.copyProperties(jobConfig, this);
         return;
     }
+    public void readFromExistingJobConfig(HeteroJobConfig heteroJobConfig) {
+        BeanUtils.copyProperties(heteroJobConfig, this);
+        return;
+    }
 
     @Override
     public String toString() {
