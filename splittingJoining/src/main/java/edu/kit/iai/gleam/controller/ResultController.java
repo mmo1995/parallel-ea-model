@@ -197,8 +197,11 @@ public class ResultController {
         RedisAtomicInteger numberOfGenerationForOneIsland = new RedisAtomicInteger(ConstantStrings.numberOfGenerationForOneIsland + "." + islandNumber, intTemplate.getConnectionFactory());
         numberOfGenerationForOneIsland.set(0);
         aggregatedSlavesResult.put(String.valueOf(islandNumber), "");
+        while(finalplan == null){
+            //Wait for final plan to be received
+        }
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
-
+        finalplan = null;
     }
 
 

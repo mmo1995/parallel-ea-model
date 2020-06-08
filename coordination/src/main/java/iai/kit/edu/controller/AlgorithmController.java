@@ -528,6 +528,8 @@ public class AlgorithmController {
             migrationsOverheads = new HashMap<>();
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
             logger.info("received job config: " + jobConfig.toString());
+            overhead.setStartEvolution(System.currentTimeMillis());
+            overhead.setStartInitializationOverhead(System.currentTimeMillis());
             algorithmManager.initialize(false);
         }
         else if (experiment && hetero && heteroJobConfigList.size() != 0){
@@ -535,6 +537,8 @@ public class AlgorithmController {
             migrationsOverheads = new HashMap<>();
             heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
             logger.info("received job config: " + heteroJobConfig.toString());
+            overhead.setStartEvolution(System.currentTimeMillis());
+            overhead.setStartInitializationOverhead(System.currentTimeMillis());
             algorithmManager.initialize(true);
         }
         else {

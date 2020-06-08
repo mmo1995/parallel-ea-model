@@ -164,7 +164,7 @@ public class Test {
     private static void runHeteroExperiment(){
         int[] numberOfIslands = {2};
         int[] numberOfSlaves = {1};
-        int[] populationSize = {20};
+        int[] populationSize = {20,23};
         int[][] migrationRates = new int[][]{{4,5}};
         int[][] generationAmount = new int[][]{{3,3}};
         String[][] selectionPolicy= {{"best","best"}};
