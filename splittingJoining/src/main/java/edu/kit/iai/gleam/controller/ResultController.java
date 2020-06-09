@@ -201,6 +201,7 @@ public class ResultController {
             //Wait for final plan to be received
         }
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL +"/ojm/finalResult", finalResultCol+"#"+finalplan, String.class);
+        ResponseEntity<String> answer2 = restTemplate.getForEntity(ConstantStrings.starterURL + "/opt/" + islandNumber + "/resetTaskID", String.class);
         finalplan = null;
     }
 

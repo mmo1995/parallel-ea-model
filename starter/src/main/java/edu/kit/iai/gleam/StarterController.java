@@ -111,15 +111,16 @@ public class StarterController {
 
 
     @RequestMapping(value = "/opt/{islandNumber}/resetTaskID", method = RequestMethod.GET)
-    public synchronized int resttaskID(@PathVariable int islandNumber) throws IOException {
+    public synchronized void resttaskID(@PathVariable int islandNumber) throws IOException {
 
 
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+/*        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("taskID.txt"), "utf-8"))) {
             writer.write(taskID + "\n");
         }
 
-        return taskID;
+        return taskID;*/
+        taskID=0;
     }
 
 /** End of the reset the ID of the task  function**/
