@@ -5,7 +5,7 @@ GLEAM/AE  ExtSimuServ                           # this line must not be changed
 Mit Logging d.ExtSimu-Schnittstelle = 0         # Protokollierung der Simu-Schnittstelle. Verlangsamt!
 Maximale Zeit pro ExtSimu-Lauf[sec] = 100000     # TMO fuer die Bewertung einer Chromosomenliste
 Simulatormodell                     = unused  # relevant fuer externe Simu-Services
-Domainname der externen SimuDienste = localhost #ea-master-hybrid1
+Domainname der externen SimuDienste = localhost #starter-hybrid
 # ---------------------------- command line options ---------------------------- 
 Mit detaliertem Logging             =  1    # optional und irrelevant wenn Aufrufparameter
 Mit Init. d.Zufallszahlengenerators =  1    # optional
