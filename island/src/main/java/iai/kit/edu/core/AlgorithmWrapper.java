@@ -35,8 +35,6 @@ public class AlgorithmWrapper {
     @Autowired
     ResultController resultController;
     @Autowired
-    StopPublisher stopPublisher;
-    @Autowired
     Population population;
     @Autowired
     ConfigResetter configResetter;
@@ -122,12 +120,11 @@ public class AlgorithmWrapper {
 
     }
 
-    private boolean isGlobalTerminationCriterionReached() {
+    public boolean isGlobalTerminationCriterionReached() {
         if (this.globalTerminationCriterion.equals(ConstantStrings.terminationFitness)) {
             double fitnessLimit = this.islandConfig.getMigrationConfig().getGlobalTerminationFitness();
             boolean fitnessLimitReached = population.isFitnessLimitReached(fitnessLimit);
             if (fitnessLimitReached) {
-                stopPublisher.publish();
                 return true;
             }
             return false;

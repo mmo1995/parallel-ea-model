@@ -1,8 +1,13 @@
 package iai.kit.edu.consumer;
 
+import iai.kit.edu.config.ConfigResetter;
+import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.IslandConfig;
+import iai.kit.edu.controller.MigrationOverheadController;
+import iai.kit.edu.controller.ResultController;
 import iai.kit.edu.core.*;
 import iai.kit.edu.producer.MigrantPublisher;
+import iai.kit.edu.producer.StopPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +22,19 @@ import java.util.List;
 public class IntermediatePopulationSubscriber implements MessageListener {
 
     @Autowired
+    AlgorithmWrapper algorithmWrapper;
+    @Autowired
     private MigrantSelector migrantSelector;
     @Autowired
     private MigrantPublisher migrantPublisher;
+    @Autowired
+    private StopPublisher stopPublisher;
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
+    @Autowired
+    ResultController resultController;
+    @Autowired
+    ConfigResetter configResetter;
     @Autowired
     private Population population;
     @Autowired
@@ -35,7 +50,13 @@ public class IntermediatePopulationSubscriber implements MessageListener {
         population.readFromJSON(message.toString());
         List<Chromosome> migrants = migrantSelector.selectMigrants();
         migrantPublisher.publish(migrants);
-        if(islandConfig.getMigrationConfig().isAsyncMigration()){
+        if(algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.isStopped() && islandConfig.getMigrationConfig().getGlobalTerminationCriterion().equals(ConstantStrings.terminationFitness)){
+            stopPublisher.publish();
+            migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
+            migrationOverheadController.sendExecutiontimeToCoordination();
+            resultController.sendResult();
+            configResetter.reset();
+        } else if(islandConfig.getMigrationConfig().isAsyncMigration()){
             islandConfig.setReceivedIntermediatePopulation(true);
             migrantReplacer.checkAsyncMigration();
         }
