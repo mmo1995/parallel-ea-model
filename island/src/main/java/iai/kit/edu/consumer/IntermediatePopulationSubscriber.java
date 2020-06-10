@@ -56,6 +56,12 @@ public class IntermediatePopulationSubscriber implements MessageListener {
             migrationOverheadController.sendExecutiontimeToCoordination();
             resultController.sendResult();
             configResetter.reset();
+        } else if(islandConfig.isStopped()){
+            migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
+            migrationOverheadController.sendExecutiontimeToCoordination();
+            resultController.sendResult();
+            configResetter.reset();
+
         } else if(islandConfig.getMigrationConfig().isAsyncMigration()){
             islandConfig.setReceivedIntermediatePopulation(true);
             migrantReplacer.checkAsyncMigration();
