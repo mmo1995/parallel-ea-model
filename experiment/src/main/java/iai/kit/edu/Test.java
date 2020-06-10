@@ -162,19 +162,30 @@ public class Test {
     }
 
     private static void runHeteroExperiment(){
-        int[] numberOfIslands = {2};
+        int[] numberOfIslands = {10};
         int[] numberOfSlaves = {1};
-        int[] populationSize = {20,23};
-        int[][] migrationRates = new int[][]{{4,5}};
-        int[][] generationAmount = new int[][]{{3,3}};
-        String[][] selectionPolicy= {{"best","best"}};
-        String[][] replacementPolicy= {{"worst","worst"}};
+        int[] populationSize = {500};
+        int[][] migrationRates = new int[][]{
+                {1,1,1,1,1,1,1,1,1,1},
+                {2,2,2,2,2,2,2,2,2,2},
+                {4,4,4,4,4,4,4,4,4,4},
+                {8,8,8,8,8,8,8,8,8,8},
+                {16,16,16,16,16,16,16,16,16,16},
+                {32,32,32,32,32,32,32,32,32,32},
+                {64,64,64,64,64,64,64,64,64,64},
+                {128,128,128,128,128,128,128,128,128,128},
+                {256,256,256,256,256,256,256,256,256,256},
+                {512,512,512,512,512,512,512,512,512,512},
+        };
+        int[][] generationAmount = new int[][]{{3,3,3,3,3,3,3,3,3,3}};
+        String[][] selectionPolicy= {{"best","best","best","best","best","best","best","best","best","best"}};
+        String[][] replacementPolicy= {{"worst","worst","worst","worst","worst","worst","worst","worst","worst","worst"}};
 
         String[] initialSelectionPolicyInitializer = {"best"};
         int[] amountFitnessInitializer = {0};
 
-        String[][] initialSelectionPolicy= {{"new", "mix"}};
-        int[][] amountFitness= {{2,1}};
+        String[][] initialSelectionPolicy= {{"new", "new", "new", "new", "new", "new", "new", "new", "new", "new"}};
+        int[][] amountFitness= {{2,2,2,2,2,2,2,2,2,2}};
 
         int[] delay = {0};
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
@@ -182,22 +193,22 @@ public class Test {
 
         boolean[] asyncMigration = {true};
 
-        String[][] epochTerminationCriterion= new String[][] {{"generation","generation"}}; // evaluation ; fitness ;generation
-        int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000}};
-        double[][] epochTerminationFitness= new double[][] {{30000,30000}};
-        int[][] epochTerminationGeneration = new int[][] {{2,2}}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
-        int[][] epochTerminationTime = new int[][] {{5,3}};
-        int[][] epochTerminationGDV = new int[][] {{500,500}};
-        int[][] epochTerminationGAK = new int[][] {{100,100}};
+        String[][] epochTerminationCriterion= new String[][] {{"generation","generation","generation","generation","generation","generation","generation","generation","generation","generation"}}; // evaluation ; fitness ;generation
+        int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000}};
+        double[][] epochTerminationFitness= new double[][] {{30000,30000,30000,30000,30000,30000,30000,30000,30000,30000}};
+        int[][] epochTerminationGeneration = new int[][] {{5,5,5,5,5,5,5,5,5,5}}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[][] epochTerminationTime = new int[][] {{5,5,5,5,5,5,5,5,5,5}};
+        int[][] epochTerminationGDV = new int[][] {{500,500,500,500,500,500,500,500,500,500}};
+        int[][] epochTerminationGAK = new int[][] {{100,100,100,100,100,100,100,100,100,100}};
 
-        int[][] demeSize = new int[][] {{8,8}};
-        String[][] acceptRuleForOffspring = {{"always","localLeast"}}; //localLeast-ES, always, localLeast, betterParent
-        double[][] rankingParameter = {{1.46, 1.50}};
-        double[][] minimalHammingDistance = {{0.3,0.2}};
+        int[][] demeSize = new int[][] {{8,8,8,8,8,8,8,8,8,8}};
+        String[][] acceptRuleForOffspring = {{"always","localLeast","always","localLeast","always","localLeast","always","localLeast","always","localLeast"}}; //localLeast-ES, always, localLeast, betterParent
+        double[][] rankingParameter = {{1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50}};
+        double[][] minimalHammingDistance = {{0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}};
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 10; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 60000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
@@ -238,8 +249,8 @@ public class Test {
 
         String configurationJson = gson.toJson(heteroExperimentConfig);
         RestTemplate restTemplate = new RestTemplate();
-        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs/hetero", configurationJson, String.class);
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs/hetero", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs/hetero", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs/hetero", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/jobs/hetero", configurationJson, String.class);
     }
 
