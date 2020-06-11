@@ -53,6 +53,7 @@ public class AlgorithmWrapper {
 
     public void init() {
         logger.debug("initializing algorithm");
+        islandConfig.setStopped(false);
         eaEpochConfig.setPopulationSize(this.getIslandPopulationSize());
         eaEpochConfig.setDelay(islandConfig.getAlgorithmConfig().getDelay());
         setTerminationCriterion();
