@@ -75,9 +75,8 @@ public class MigrationOverheadController {
         logger.info("Migration overhead: " + (Integer.parseInt(executiontime) - eaExecutiontime) + " seconds");
         String islandNumberString = String.valueOf(islandConfig.getIslandNumber());
         String sumEAExecutionString = String.valueOf(eaExecutiontime);
-        String MigrationoverheadString = String.valueOf((Integer.parseInt(executiontime) - eaExecutiontime));
-        MigrationoverheadString = MigrationoverheadString.concat("#").concat(String.valueOf(numberOfMigrations));
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL+"/ojm/"+islandNumberString+"/"+sumEAExecutionString+"/executiontime", MigrationoverheadString, String.class);
+        executiontime = executiontime.concat("#").concat(String.valueOf(numberOfMigrations));
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL+"/ojm/"+islandNumberString+"/"+sumEAExecutionString+"/executiontime", executiontime, String.class);
         setStartIslandExecution(0);
         setEndIslandExecution(0);
         setNumberOfMigrations(0);
