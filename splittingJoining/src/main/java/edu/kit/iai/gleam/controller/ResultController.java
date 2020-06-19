@@ -71,6 +71,7 @@ public class ResultController {
     public void receiveResult(@RequestBody int islandNumber) {
 
         synchronized (aggregatedResult) {
+            logger.info("Received Result from island " + islandNumber);
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, intTemplate.getConnectionFactory());
             receivedResultsCounter.incrementAndGet();
 
@@ -181,6 +182,8 @@ public class ResultController {
     }
 
     private void sendResultToCoordination() {
+        RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, intTemplate.getConnectionFactory());
+        receivedResultsCounter.set(0);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String aggregatedResultJson = this.gson.toJson(this.aggregatedResult);

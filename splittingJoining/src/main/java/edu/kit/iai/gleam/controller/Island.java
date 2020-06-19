@@ -198,8 +198,6 @@ public class Island {
             RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
             int numberOfIslands = numberOfIslandsCounter.get();
             int numberOfSlaves = ops.get(ConstantStrings.numberOfSlavesTopic);
-            RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, integerTemplate.getConnectionFactory());
-            receivedResultsCounter.set(0);
             int currentIslandNumber = Integer.parseInt(islandnumber);
             buildDistribution(initialPopulation,numberOfSlaves, idNumber, currentIslandNumber);
 
