@@ -68,8 +68,7 @@ public class ResultController {
      * @param islandNumber
      */
     @RequestMapping(value = "/sjs/population/result", method = RequestMethod.POST)
-    public synchronized void receiveResult(@RequestBody int islandNumber) {
-        //logger.trace("received result from island " + islandNumber);
+    public void receiveResult(@RequestBody int islandNumber) {
 
         synchronized (aggregatedResult) {
             RedisAtomicInteger receivedResultsCounter = new RedisAtomicInteger(ConstantStrings.receivedResultsCounter, intTemplate.getConnectionFactory());
