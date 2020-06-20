@@ -69,7 +69,7 @@ public class Island {
      */
     @RequestMapping(value = "/population/initial", method = RequestMethod.POST)
     public void splitPopulation(@RequestBody List<String> initialPopulation) {
-        logger.info("received initial population"+"\n"+initialPopulation.size());
+        logger.info("received initial population with size: " + initialPopulation.size());
         RedisAtomicInteger numberOfIslandsCounter = new RedisAtomicInteger(ConstantStrings.numberOfIslands, integerTemplate.getConnectionFactory());
         int numberOfIslands = numberOfIslandsCounter.get();
         int chromosomesPerIsland = initialPopulation.size() / numberOfIslands;
