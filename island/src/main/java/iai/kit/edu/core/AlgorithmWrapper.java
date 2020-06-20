@@ -103,7 +103,6 @@ public class AlgorithmWrapper {
      */
     public void startEpoch() {
         synchronized (population) {
-
             if (isGlobalTerminationCriterionReached() || islandConfig.isStopped()) {
                 migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
                 migrationOverheadController.sendExecutiontimeToCoordination();

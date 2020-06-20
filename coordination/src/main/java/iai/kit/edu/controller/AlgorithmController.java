@@ -64,7 +64,7 @@ public class AlgorithmController {
     private RedisConnection jRedisconn;
     private int numberOfMigrationsFitness = 0;
     private Map<Integer, Double> executionTimeEAs = new HashMap<>();
-    private Map<Integer, Double> migrationsOverheads = new HashMap<>();
+    private Map<Integer, Double> executionTimeIslands = new HashMap<>();
     @Autowired
     private Overhead overhead;
 
@@ -381,11 +381,11 @@ public class AlgorithmController {
 
     @RequestMapping(value = "/{islandNumber}/{sumEAExecution}/executiontime", method = RequestMethod.POST)
     public synchronized void  receiveExecutionTime(@PathVariable String islandNumber, @PathVariable String sumEAExecution, @RequestBody String migrationOverhead) {
-        String migrationsOverhead = migrationOverhead.substring(0,migrationOverhead.indexOf("#"));
+        String islandExecutiontime = migrationOverhead.substring(0,migrationOverhead.indexOf("#"));
         String numberOfMigrations = migrationOverhead.substring(migrationOverhead.indexOf("#")+1);
 
         executionTimeEAs.put(Integer.parseInt(islandNumber), Double.parseDouble(sumEAExecution));
-        migrationsOverheads.put(Integer.parseInt(islandNumber), Double.parseDouble(migrationsOverhead));
+        executionTimeIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(islandExecutiontime));
         numberOfMigrationsFitness = Integer.parseInt(numberOfMigrations);
 
     }
@@ -410,19 +410,19 @@ public class AlgorithmController {
     }
     public double returnMigrationOverheadMax()
     {
-        return Collections.max(migrationsOverheads.values());
+        return Collections.max(executionTimeIslands.values());
     }
     public double returnMigrationOverheadMin()
     {
-        return Collections.min(migrationsOverheads.values());
+        return Collections.min(executionTimeIslands.values());
     }
     public double returnMigrationOverheadAverage()
     {
         double sum = 0.0;
-        for(double d: migrationsOverheads.values()){
+        for(double d: executionTimeIslands.values()){
             sum += d;
         }
-        return sum / (double) migrationsOverheads.size();
+        return sum / (double) executionTimeIslands.size();
     }
     /**
      * Receive final result
@@ -507,10 +507,10 @@ public class AlgorithmController {
         durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
         durationDataObject.addProperty("initialization Overhead", initializationOverhead);
         durationDataObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
-        durationDataObject.addProperty("MigrationOverheadMax", returnMigrationOverheadMax());
-        durationDataObject.addProperty("MigrationOverheadMin", returnMigrationOverheadMin());
-        durationDataObject.addProperty("MigrationOverheadAverage", returnMigrationOverheadAverage());
-        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - returnMigrationOverheadMax());
+        durationDataObject.addProperty("IslandExecutionTime Max", returnMigrationOverheadMax());
+        durationDataObject.addProperty("IslandExecutionTime Min", returnMigrationOverheadMin());
+        durationDataObject.addProperty("IslandExecutionTime Average", returnMigrationOverheadAverage());
+        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - (returnMigrationOverheadMax() - returnMaxEAExecutionTime()));
         durationDataObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
@@ -525,7 +525,7 @@ public class AlgorithmController {
         if (experiment && !hetero && jobConfigList.size() != 0) {
             //jRedisconn.flushAll();
             executionTimeEAs =  new HashMap<>();
-            migrationsOverheads = new HashMap<>();
+            executionTimeIslands = new HashMap<>();
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
             logger.info("received job config: " + jobConfig.toString());
             overhead.setStartEvolution(System.currentTimeMillis());
@@ -534,7 +534,7 @@ public class AlgorithmController {
         }
         else if (experiment && hetero && heteroJobConfigList.size() != 0){
             executionTimeEAs =  new HashMap<>();
-            migrationsOverheads = new HashMap<>();
+            executionTimeIslands = new HashMap<>();
             heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
             logger.info("received job config: " + heteroJobConfig.toString());
             overhead.setStartEvolution(System.currentTimeMillis());
@@ -543,7 +543,7 @@ public class AlgorithmController {
         }
         else {
             executionTimeEAs =  new HashMap<>();
-            migrationsOverheads = new HashMap<>();
+            executionTimeIslands = new HashMap<>();
             logger.info("All jobs are finished");
             jobId = 0;
             if(hetero){
