@@ -162,26 +162,17 @@ public class Test {
     }
 
     private static void runHeteroExperiment(){
-        int[] numberOfIslands = {10};
+        int[] numberOfIslands = {5};
         int[] numberOfSlaves = {1};
-        int[] populationSize = {500};
+        int[] populationSize = {300};
         int[][] migrationRates = new int[][]{
-                {1,1,1,1,1,1,1,1,1,1},
-                {2,2,2,2,2,2,2,2,2,2},
-                {4,4,4,4,4,4,4,4,4,4},
-                {8,8,8,8,8,8,8,8,8,8},
-                {16,16,16,16,16,16,16,16,16,16},
-                {32,32,32,32,32,32,32,32,32,32},
-                {64,64,64,64,64,64,64,64,64,64},
-                {128,128,128,128,128,128,128,128,128,128},
-                {256,256,256,256,256,256,256,256,256,256},
-                {512,512,512,512,512,512,512,512,512,512},
+                {1,1,1,1,1,1,1,1,1,1}
         };
         int[][] generationAmount = new int[][]{{3,3,3,3,3,3,3,3,3,3}};
         String[][] selectionPolicy= {{"best","best","best","best","best","best","best","best","best","best"}};
         String[][] replacementPolicy= {{"worst","worst","worst","worst","worst","worst","worst","worst","worst","worst"}};
 
-        String[] initialSelectionPolicyInitializer = {"best"};
+        String[] initialSelectionPolicyInitializer = {"new"};
         int[] amountFitnessInitializer = {0};
 
         String[][] initialSelectionPolicy= {{"new", "new", "new", "new", "new", "new", "new", "new", "new", "new"}};
@@ -207,7 +198,7 @@ public class Test {
         double[][] minimalHammingDistance = {{0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}};
 
 
-        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
+        String globalTerminationCriterion = "fitness"; // evaluation ; fitness ; generation
         int globalTerminationEpoch = 10; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 60000;
