@@ -187,7 +187,14 @@ public class Test {
         String[][] epochTerminationCriterion= new String[][] {{"generation","generation","generation","generation","generation","generation","generation","generation","generation","generation"}}; // evaluation ; fitness ;generation
         int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000}};
         double[][] epochTerminationFitness= new double[][] {{30000,30000,30000,30000,30000,30000,30000,30000,30000,30000}};
-        int[][] epochTerminationGeneration = new int[][] {{5,5,5,5,5,5,5,5,5,5}}; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int[][] epochTerminationGeneration = new int[][] {
+                {1,1,1,1,1,1,1,1,1,1},
+                {2,2,2,2,2,2,2,2,2,2},
+                {4,4,4,4,4,4,4,4,4,4},
+                {8,8,8,8,8,8,8,8,8,8},
+                {12,12,12,12,12,12,12,12,12,12},
+                {16,16,16,16,16,16,16,16,16,16},
+        }; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[][] epochTerminationTime = new int[][] {{5,5,5,5,5,5,5,5,5,5}};
         int[][] epochTerminationGDV = new int[][] {{500,500,500,500,500,500,500,500,500,500}};
         int[][] epochTerminationGAK = new int[][] {{100,100,100,100,100,100,100,100,100,100}};
