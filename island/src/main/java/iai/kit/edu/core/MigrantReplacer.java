@@ -95,7 +95,6 @@ public class MigrantReplacer {
             if(generations.get(0).size() == islandConfig.getNeighbors().size() && islandConfig.isReceivedIntermediatePopulation()){
                 islandConfig.setReceivedIntermediatePopulation(false);
                 logger.info("completing migration");
-                logger.info("received start signal");
                 this.prepareAsyncMigrants();
                 this.replace();
                 generations.remove(0);
@@ -143,6 +142,12 @@ public class MigrantReplacer {
             population.sort();
         }
 
+    }
+    /*
+    * This method is called to clear migrants after a job finishes
+    * */
+    public void clearMigrants() {
+        this.generations.clear();
     }
 
 }

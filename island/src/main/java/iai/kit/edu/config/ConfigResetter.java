@@ -3,6 +3,7 @@ package iai.kit.edu.config;
 import iai.kit.edu.consumer.*;
 import iai.kit.edu.controller.IslandInitializedController;
 import iai.kit.edu.core.AlgorithmWrapper;
+import iai.kit.edu.core.MigrantReplacer;
 import iai.kit.edu.core.Population;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,8 @@ public class ConfigResetter {
     @Autowired
     MigrantSubscriber migrantSubscriber;
     @Autowired
+    MigrantReplacer migrantReplacer;
+    @Autowired
     IntermediatePopulationSubscriber intermediatePopulationSubscriber;
     @Autowired
     EAExecutiontimeSubscriber eaExecutiontimeSubscriber;
@@ -110,5 +113,6 @@ public class ConfigResetter {
         algorithmWrapper.reset();
         migrantSubscriber.unsubscribe();
         population.clear();
+        migrantReplacer.clearMigrants();
     }
 }
