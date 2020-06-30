@@ -200,7 +200,7 @@ public class Test {
         int[][] epochTerminationGAK = new int[][] {{100,100,100,100,100,100,100,100,100,100}};
 
         int[][] demeSize = new int[][] {{8,8,8,8,8,8,8,8,8,8}};
-        String[][] acceptRuleForOffspring = {{"always","localLeast","always","localLeast","always","localLeast","always","localLeast","always","localLeast"}}; //localLeast-ES, always, localLeast, betterParent
+        String[][] acceptRuleForOffspring = {{"always","always","always","always","always","always","always","always","always","always"}}; //localLeast-ES, always, localLeast, betterParent
         double[][] rankingParameter = {{1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50}};
         double[][] minimalHammingDistance = {{0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}};
 
