@@ -1,7 +1,7 @@
 kubectl delete deployment coordination-hybrid-deployment --grace-period=0 --force
 kubectl delete deployment splitting-joining-hybrid-deployment --grace-period=0 --force
 kubectl delete deployment initializer-hybrid-deployment --grace-period=0 --force
-#kubectl delete deployment starter-deployment-hybrid --grace-period=0 --force
+kubectl delete deployment starter-deployment-hybrid --grace-period=0 --force
 for island in {1..10}
 do
   kubectl delete pod migration-hybrid$island --grace-period=0 --force
