@@ -15,6 +15,15 @@ var experiment = {"globalPopulationSize": [],
             "acceptRuleForOffspring": [],
             "rankingParameter": [],
             "minimalHammingDistance": [],
+            "delay":[],
+            "globalTerminationCriterion": [],
+            "globalTerminationEpoch": [],
+            "globalTerminationEvaluation": [],
+            "globalTerminationFitness": [],
+            "globalTerminationGeneration": [],
+            "globalTerminationTime": [],
+            "globalTerminationGDV": [],
+            "globalTerminationGAK": [],
             }
 var globalPopulationSizeArray = [];
 var numberOfIslandsArray = [];
@@ -33,6 +42,15 @@ var asyncMigrationArray = [];
 var acceptRuleForOffspringArray = [];
 var rankingParameterArray = [];
 var minimalHammingDistanceArray = [];
+var delayArray = [];
+var globalTerminationCriterionArray = [];
+var globalTerminationEpochArray = [];
+var globalTerminationFitnessArray = [];
+var globalTerminationEvaluationArray = [];
+var globalTerminationGenerationArray = [];
+var globalTerminationTimeArray = [];
+var globalTerminationGDVArray = [];
+var globalTerminationGAKArray = [];
 $(document).ready(function(){
     $("#submit").click(function(){
         globalPopulationSizeArray.push(parseInt($("#population").val()));
@@ -77,6 +95,32 @@ $(document).ready(function(){
           acceptRuleForOffspringArray.push($("#accept-offspring").val());
           rankingParameterArray.push(parseFloat($("#ranking-parameter").val()));
           minimalHammingDistanceArray.push(parseFloat($("#min-hamming").val()));
+          delayArray.push(0);
+          globalTerminationCriterionArray.push($("#global-criterion").val());
+          globalTerminationGenerationArray.push(1000);
+          globalTerminationGAKArray.push(0);
+          globalTerminationGDVArray.push(0);
+          globalTerminationTimeArray.push(0);
+          switch($("#global-criterion").val()){
+            case "fitness":
+              globalTerminationEpochArray.push(0);
+              globalTerminationFitnessArray.push(parseInt($("#global-criterion-limit").val()));
+              globalTerminationEvaluationArray.push(0);
+              break;
+            case "evaluation":
+              globalTerminationEpochArray.push(0);
+              globalTerminationFitnessArray.push(0);
+              globalTerminationEvaluationArray.push(parseInt($("#global-criterion-limit").val()));
+              break;
+            case "generation":
+              globalTerminationEpochArray.push(parseInt($("#global-criterion-limit").val()));
+              globalTerminationFitnessArray.push(0);
+              globalTerminationEvaluationArray.push(0);
+              break;
+            default:
+              break;
+          }
+
     });
   });
 
@@ -99,6 +143,14 @@ $(document).ready(function(){
         experiment.acceptRuleForOffspring = acceptRuleForOffspringArray;
         experiment.rankingParameter = rankingParameterArray;
         experiment.minimalHammingDistance = minimalHammingDistanceArray;
+        experiment.globalTerminationCriterion = globalTerminationCriterionArray;
+        experiment.globalTerminationEpoch = globalTerminationEpochArray;
+        experiment.globalTerminationFitness = globalTerminationFitnessArray;
+        experiment.globalTerminationEvaluation = globalTerminationEvaluationArray;
+        experiment.globalTerminationGeneration = globalTerminationGenerationArray;
+        experiment.globalTerminationTime = globalTerminationTimeArray;
+        experiment.globalTerminationGDV = globalTerminationGDVArray;
+        experiment.globalTerminationGAK = globalTerminationGAKArray;
 
         experimentJson = JSON.stringify(experiment);
         var jsonObject = JSON.parse(experimentJson);

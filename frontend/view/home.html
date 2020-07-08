@@ -180,6 +180,25 @@
                       </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-3">
+                    <form>
+                        <label for="global-criterion">Global Termination Criterion</label>
+                        <select name="global-criterion" class="custom-select" id="global-criterion">
+                          <option selected>Global Termination Criterion</option>
+                          <option value="fitness">fitness</option>
+                          <option value="evaluation">evaluation</option>
+                          <option value="generation">generation</option>
+                        </select>
+                      </form>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="global-criterion-limit">Global Criterion Limit</label>
+                        <input type="number" class="form-control" placeholder="Enter Deme Size" id="global-criterion-limit">
+                      </div>
+                </div>
+              </div>
         </div>
 
         <div class="container p-3 my-3" id="buttons" style="display: none;">
