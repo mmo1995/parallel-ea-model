@@ -9,7 +9,12 @@ var experiment = {"globalPopulationSize": [],
             "initialSelectionPolicyInitializer": [],
             "amountFitnessInitializer": [],
             "selectionPolicy": [],
-            "replacementPolicy": []
+            "replacementPolicy": [],
+            "demeSize": [],
+            "asyncMigration": [],
+            "acceptRuleForOffspring": [],
+            "rankingParameter": [],
+            "minimalHammingDistance": [],
             }
 var globalPopulationSizeArray = [];
 var numberOfIslandsArray = [];
@@ -19,20 +24,59 @@ var migrationRatesArray = [];
 var topologyArray = [];
 var initialSelectionPolicyArray = [];
 var amountFitnessArray = [];
+var initialSelectionPolicyInitializerArray = [];
+var amountFitnessInitializerArray = [];
 var selectionPolicyArray = [];
 var replacementPolicyArray = [];
+var demeSizeArray = [];
+var asyncMigrationArray = [];
+var acceptRuleForOffspringArray = [];
+var rankingParameterArray = [];
+var minimalHammingDistanceArray = [];
 $(document).ready(function(){
-    $("#submit-master").click(function(){
-        globalPopulationSizeArray.push($("#population").val());
-        numberOfIslandsArray.push(1);
-        numberOfSlavesArray.push($("#slaves-number").val());
+    $("#submit").click(function(){
+        globalPopulationSizeArray.push(parseInt($("#population").val()));
+        if($("select#models").val()=="master-slave"){
+          numberOfIslandsArray.push(1);
+        } else {
+          numberOfIslandsArray.push(parseInt($("#islands-number").val()));
+        }
+        if($("select#models").val()=="island"){
+          numberOfSlavesArray.push(1);
+        }else{
+          numberOfSlavesArray.push(parseInt($("#slaves-number").val()));
+        }
         numberOfGenerationsArray.push(3);
-        migrationRatesArray.push(1);
-        topologyArray.push(1);
+        if($("select#models").val()=="master-slave"){
+          migrationRatesArray.push(1);
+        } else{
+          migrationRatesArray.push(parseInt($("#migration-rate").val()));
+        }
+        if($("select#models").val()=="master-slave"){
+          topologyArray.push("ring");
+        } else{
+          topologyArray.push(($("#topology").val()));
+        }
         initialSelectionPolicyArray.push($("#initial-selection-policy").val());
-        amountFitnessArray.push($("#strategy-parameter").val());
-        selectionPolicyArray.push("best");
-        replacementPolicyArray.push("worst");
+        amountFitnessArray.push(parseInt($("#strategy-parameter").val()));
+        initialSelectionPolicyInitializerArray.push($("#initial-selection-policy-initializer").val());
+        amountFitnessInitializerArray.push(parseInt($("#strategy-parameter-initializer").val()));
+        if($("select#models").val()=="master-slave"){
+          selectionPolicyArray.push("best");
+        } else{
+          selectionPolicyArray.push(($("#selection-policy").val()));
+        }
+        if($("select#models").val()=="master-slave"){
+          replacementPolicyArray.push("worst");
+          asyncMigrationArray.push("false");
+        } else{
+          replacementPolicyArray.push($("#replacement-policy").val());
+          asyncMigrationArray.push($("#async-migration").val());
+        }
+          demeSizeArray.push(parseInt($("#deme-size").val()));
+          acceptRuleForOffspringArray.push($("#accept-offspring").val());
+          rankingParameterArray.push(parseFloat($("#ranking-parameter").val()));
+          minimalHammingDistanceArray.push(parseFloat($("#min-hamming").val()));
     });
   });
 
@@ -48,6 +92,13 @@ $(document).ready(function(){
         experiment.amountFitness = amountFitnessArray;
         experiment.selectionPolicy = selectionPolicyArray;
         experiment.replacementPolicy = replacementPolicyArray;
+        experiment.initialSelectionPolicyInitializer = initialSelectionPolicyInitializerArray;
+        experiment.amountFitnessInitializer = amountFitnessInitializerArray;
+        experiment.demeSize = demeSizeArray;
+        experiment.asyncMigration = asyncMigrationArray;
+        experiment.acceptRuleForOffspring = acceptRuleForOffspringArray;
+        experiment.rankingParameter = rankingParameterArray;
+        experiment.minimalHammingDistance = minimalHammingDistanceArray;
 
         experimentJson = JSON.stringify(experiment);
         var jsonObject = JSON.parse(experimentJson);

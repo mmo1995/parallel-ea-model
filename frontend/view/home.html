@@ -34,11 +34,20 @@
                   </select>
             </form> 
 
-        <!-- Master Slave Configuration -->
-        <div class="container p-3 my-3 border" id="master-config" style="display: none;">
-            <h5>Master-Slave Model Configuration</h5>
+        <!-- Configuration -->
+        <div class="container p-3 my-3 border" id="config" style="display: none;">
+            <h5 id="master-h5">Master-Slave Model Configuration</h5>
+            <h5 id="island-h5">Island Model Configuration</h5>
+            <h5 id="hybrid-h5">Hybrid Model Configuration</h5>
+            
             <div class="row">
-                <div class="col-sm-3">
+                <div id="island-number-div" class="col-sm-3">
+                    <div class="form-group">
+                        <label for="islands-number">Islands number</label>
+                        <input type="number" min="1" max="5" class="form-control" placeholder="Enter Islands Number" id="islands-number">
+                      </div>
+                </div>
+                <div id="slave-number-div" class="col-sm-3">
                     <div class="form-group">
                         <label for="slaves-number">Slaves number</label>
                         <input type="number" min="1" max="5" class="form-control" placeholder="Enter Slaves number" id="slaves-number">
@@ -50,6 +59,14 @@
                         <input type="number" min="50" max="500" class="form-control" placeholder="Enter Population Size" id="population">
                       </div>
                 </div>
+                <div id="migration-rate-div" class="col-sm-3">
+                    <div class="form-group">
+                        <label for="migration-rate">Migration Rate</label>
+                        <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate">
+                      </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-3">
                     <form>
                         <label for="initial-selection-policy">Initial Selection Policy</label>
@@ -68,24 +85,107 @@
                         <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter">
                       </div>
                 </div>
+                <div class="col-sm-3">
+                    <form>
+                        <label for="initial-selection-policy-initializer">Selection Policy Initializer</label>
+                        <select name="initialSelectionPolicyInitializer" class="custom-select" id="initial-selection-policy-initializer">
+                          <option selected>Select Initial Selection Policy for Initializer</option>
+                          <option value="new">new</option>
+                          <option value="best">best</option>
+                          <option value="mix">mix</option>
+                          <option value="bestNew">bestNew</option>
+                        </select>
+                      </form>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="strategy-parameter">Initial Parameter Initializer</label>
+                        <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter for Initializer" id="strategy-parameter-initializer">
+                      </div>
+                </div>
               </div>
-
-        </div>
-
-        <!-- Island Configuration -->
-        <div class="container p-3 my-3 border" id="island-config" style="display: none;">
-            <h5>Island Model Configuration</h5>
-        </div>
-
-        <!-- Hybrid Configuration -->
-        <div class="container p-3 my-3 border" id="hybrid-config" style="display: none;">
-            <h5>Island- Master-Slave Hybrid Model Configuration</h5>
+              <div class="row">
+                <div id="topology-div" class="col-sm-3">
+                    <form>
+                        <label for="topology">Topology</label>
+                        <select name="topology" class="custom-select" id="topology">
+                          <option selected>Select Topology</option>
+                          <option value="ring">ring</option>
+                          <option value="biRing">bi-ring</option>
+                          <option value="ladder">ladder</option>
+                          <option value="complete">complete</option>
+                        </select>
+                      </form>
+                </div>
+                <div id="selection-policy-div" class="col-sm-3">
+                    <form>
+                        <label for="selection-policy">Migration Selection Policy</label>
+                        <select name="selection-policy" class="custom-select" id="selection-policy">
+                          <option selected>Select Selection Policy</option>
+                          <option value="best">best</option>
+                          <option value="random">random</option>
+                        </select>
+                      </form>
+                </div>
+                <div id="replacement-policy-div" class="col-sm-3">
+                    <form>
+                        <label for="replacement-policy">Migration Replacement Policy</label>
+                        <select name="replacement-policy" class="custom-select" id="replacement-policy">
+                          <option selected>Select Replacement Policy</option>
+                          <option value="worst">worst</option>
+                          <option value="random">random</option>
+                        </select>
+                      </form>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="deme-size">Deme Size</label>
+                        <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size">
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div id="async-migration-div" class="col-sm-3">
+                    <form>
+                        <label for="async-migration">Migration Synchronisity</label>
+                        <select name="async-migration" class="custom-select" id="async-migration">
+                          <option selected>Select Migration Synchronisity</option>
+                          <option value="false">synchronized</option>
+                          <option value="true">asynchronized</option>
+                        </select>
+                      </form>
+                  </div>
+                  <div class="col-sm-3">
+                    <form>
+                        <label for="accept-offspring">Offspring Acception Rule</label>
+                        <select name="accept-offspring" class="custom-select" id="accept-offspring">
+                          <option selected>Select Offspring Acception Rule</option>
+                          <option value="always">always</option>
+                          <option value="localLeast">localLeast</option>
+                          <option value="localLeast-ES">localLeast-ES</option>
+                          <option value="betterParent">betterParent</option>
+                        </select>
+                      </form>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="ranking-parameter">Ranking Parameter</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter">
+                      </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="min-hamming">Min. Hamming Distance</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming">
+                      </div>
+                </div>
+              </div>
         </div>
 
         <div class="container p-3 my-3" id="buttons" style="display: none;">
             <div class="row">
                 <div class="col-sm-3">
-                    <button id="submit-master"type="button" class="btn btn-primary btn-block">Submit Job!</button>
+                    <button id="submit"type="button" class="btn btn-primary btn-block">Submit Job!</button>
                 </div>
                 <div class="col-sm-3">
                     <button id="send-experiment"type="button" class="btn btn-success btn-block">Send Experiment!</button>
