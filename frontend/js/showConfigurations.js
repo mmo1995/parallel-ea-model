@@ -10,6 +10,8 @@ $(document).ready(function(){
             $("#replacement-policy-div").hide();
             $("#topology-div").hide();
             $("#async-migration-div").hide();
+            $("#epoch-criterion-div").hide();
+            $("#epoch-criterion-limit-div").hide();
             $("#buttons").show();
             $("#master-h5").show();
             $("#island-h5").hide();
@@ -24,6 +26,8 @@ $(document).ready(function(){
             $("#replacement-policy-div").show();
             $("#topology-div").show();
             $("#async-migration-div").show();
+            $("#epoch-criterion-div").show();
+            $("#epoch-criterion-limit-div").show();
             $("#buttons").show();
             $("#master-h5").hide();
             $("#island-h5").show();
@@ -38,6 +42,8 @@ $(document).ready(function(){
             $("#replacement-policy-div").show();
             $("#topology-div").show();
             $("#async-migration-div").show();
+            $("#epoch-criterion-div").show();
+            $("#epoch-criterion-limit-div").show();
             $("#buttons").show();
             $("#master-h5").hide();
             $("#island-h5").hide();

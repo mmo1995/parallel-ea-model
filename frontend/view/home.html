@@ -195,7 +195,24 @@
                   <div class="col-sm-3">
                     <div class="form-group">
                         <label for="global-criterion-limit">Global Criterion Limit</label>
-                        <input type="number" class="form-control" placeholder="Enter Deme Size" id="global-criterion-limit">
+                        <input type="number" class="form-control" placeholder="Enter Global Limit" id="global-criterion-limit">
+                      </div>
+                </div>
+                <div id="epoch-criterion-div" class="col-sm-3">
+                    <form>
+                        <label for="epoch-criterion">Epoch Termination Criterion</label>
+                        <select name="epoch-criterion" class="custom-select" id="epoch-criterion">
+                          <option selected>Epoch Termination Criterion</option>
+                          <option value="fitness">fitness</option>
+                          <option value="evaluation">evaluation</option>
+                          <option value="generation">generation</option>
+                        </select>
+                      </form>
+                  </div>
+                  <div id="epoch-criterion-limit-div" class="col-sm-3">
+                    <div class="form-group">
+                        <label for="epoch-criterion-limit">Epoch Criterion Limit</label>
+                        <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit">
                       </div>
                 </div>
               </div>

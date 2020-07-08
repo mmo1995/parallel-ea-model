@@ -24,6 +24,13 @@ var experiment = {"globalPopulationSize": [],
             "globalTerminationTime": [],
             "globalTerminationGDV": [],
             "globalTerminationGAK": [],
+            "epochTerminationCriterion": [],
+            "epochTerminationEvaluation": [],
+            "epochTerminationFitness": [],
+            "epochTerminationGeneration": [],
+            "epochTerminationTime": [],
+            "epochTerminationGDV": [],
+            "epochTerminationGAK": []
             }
 var globalPopulationSizeArray = [];
 var numberOfIslandsArray = [];
@@ -51,6 +58,13 @@ var globalTerminationGenerationArray = [];
 var globalTerminationTimeArray = [];
 var globalTerminationGDVArray = [];
 var globalTerminationGAKArray = [];
+var epochTerminationCriterionArray = [];
+var epochTerminationEvaluationArray = [];
+var epochTerminationFitnessArray = [];
+var epochTerminationGenerationArray = [];
+var epochTerminationTimeArray = [];
+var epochTerminationGDVArray = [];
+var epochTerminationGAKArray = [];
 $(document).ready(function(){
     $("#submit").click(function(){
         globalPopulationSizeArray.push(parseInt($("#population").val()));
@@ -101,6 +115,9 @@ $(document).ready(function(){
           globalTerminationGAKArray.push(0);
           globalTerminationGDVArray.push(0);
           globalTerminationTimeArray.push(0);
+          epochTerminationGAKArray.push(0);
+          epochTerminationGDVArray.push(0);
+          epochTerminationTimeArray.push(0);
           switch($("#global-criterion").val()){
             case "fitness":
               globalTerminationEpochArray.push(0);
@@ -120,7 +137,33 @@ $(document).ready(function(){
             default:
               break;
           }
-
+          if($("select#models").val()=="master-slave"){
+            epochTerminationCriterionArray.push(globalTerminationCriterionArray[globalTerminationCriterionArray.length]);
+            epochTerminationEvaluationArray.push(globalTerminationEvaluationArray[globalTerminationEvaluationArray.length]);
+            epochTerminationFitnessArray.push(globalTerminationFitnessArray[globalTerminationFitnessArray.length]);
+            epochTerminationGenerationArray.push(globalTerminationEpochArray[globalTerminationEpochArray.length]);
+          } else{
+            switch($("#epoch-criterion").val()){
+              case "fitness":
+                epochTerminationGenerationArray.push(0);
+                epochTerminationFitnessArray.push(parseInt($("#epoch-criterion-limit").val()));
+                epochTerminationEvaluationArray.push(0);
+                break;
+              case "evaluation":
+                epochTerminationGenerationArray.push(0);
+                epochTerminationFitnessArray.push(0);
+                epochTerminationEvaluationArray.push(parseInt($("#epoch-criterion-limit").val()));
+                break;
+              case "generation":
+                epochTerminationGenerationArray.push(parseInt($("#epoch-criterion-limit").val()));
+                epochTerminationFitnessArray.push(0);
+                epochTerminationEvaluationArray.push(0);
+                break;
+              default:
+                break;
+            }
+          }
+          clearFields();
     });
   });
 
@@ -151,9 +194,21 @@ $(document).ready(function(){
         experiment.globalTerminationTime = globalTerminationTimeArray;
         experiment.globalTerminationGDV = globalTerminationGDVArray;
         experiment.globalTerminationGAK = globalTerminationGAKArray;
-
+        experiment.epochTerminationCriterion = epochTerminationCriterionArray;
+        experiment.epochTerminationEvaluation = epochTerminationEvaluationArray;
+        experiment.epochTerminationFitness = epochTerminationFitnessArray;
+        experiment.epochTerminationGeneration = epochTerminationGenerationArray;
+        experiment.epochTerminationTime = epochTerminationTimeArray;
+        experiment.epochTerminationGDV = epochTerminationGDVArray;
+        experiment.epochTerminationGAK = epochTerminationGAKArray;
         experimentJson = JSON.stringify(experiment);
         var jsonObject = JSON.parse(experimentJson);
         console.log(jsonObject);
     });
   });
+
+function clearFields(){
+  $('#islands-number').val('');
+  $('#slaves-number').val('');
+  
+  }
