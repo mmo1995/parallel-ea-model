@@ -37,10 +37,10 @@ public class StarterController {
     private static int taskID = 0;
     private static int WFID = 0;
     private static RestTemplate restTemplate = new RestTemplate();
-    private static String splittingJoining = "localhost:8074";
-    private static String coordination = "localhost:8071";
-    // private static String splittingJoining = "splitting-joining-hybrid:8074";
-    // private static String coordination = "coordination-hybrid:8071";
+/*    private static String splittingJoining = "localhost:8074";
+    private static String coordination = "localhost:8071";*/
+     private static String splittingJoining = "splitting-joining-hybrid:8074";
+     private static String coordination = "coordination-hybrid:8071";
     private Map<String, String> finalResultCol = new HashMap<>();
     private String finalplan;
     private int numberOfChromosomes;

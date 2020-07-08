@@ -5,11 +5,11 @@ package edu.kit.iai.gleam.config;
  */
 public class ConstantStrings {
 
-    public static final String coordinationURL = "http://localhost:8071";
-      public static final String starterURL = "http://localhost:8090";
+/*    public static final String coordinationURL = "http://localhost:8071";
+      public static final String starterURL = "http://localhost:8090";*/
 
-     /*public static final String coordinationURL = "http://coordination-hybrid:8071";
-     public static final String starterURL = "http://starter-hybrid:8090";*/
+     public static final String coordinationURL = "http://coordination-hybrid:8071";
+     public static final String starterURL = "http://starter-hybrid:8090";
 
 
     public static final String islandsWithPopulationCounter = "proof.islands.population.initialized";

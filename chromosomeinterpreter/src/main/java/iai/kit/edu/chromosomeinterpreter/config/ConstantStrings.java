@@ -1,13 +1,12 @@
 package iai.kit.edu.chromosomeinterpreter.config;
 public class ConstantStrings {
 
-    public static final String coordinationURL = "http://localhost:8071";
+/*    public static final String coordinationURL = "http://localhost:8071";
   public static final String splittingJoiningURL = "http://localhost:8074";
-   public static final String starter = "http://localhost:8090";
-  /*public static final String coordinationURL = "http://coordination-hybrid:8071";
+   public static final String starter = "http://localhost:8090";*/
+  public static final String coordinationURL = "http://coordination-hybrid:8071";
   public static final String splittingJoiningURL = "http://splitting-joining-hybrid:8074";
   public static final String starter = "http://starter-hybrid:8090";
-  */
     public static final String managementConfig = "proof.management.config";
     public static final String statusMigrationCompleted = "proof.island.status.migration.completed";
     public static final String initializeIslands = "proof.management.initialize.interpreter";

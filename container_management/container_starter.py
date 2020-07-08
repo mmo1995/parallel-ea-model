@@ -53,8 +53,8 @@ def create_islands():
 def create_pod_object_EA (EA_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "125m"},
-        limits={"cpu": "125m"}
+        requests={"cpu": "250m"},
+        limits={"cpu": "250m"}
     )
     # Configurate Pod container
     container = client.V1Container(
@@ -78,8 +78,8 @@ def create_pod_object_EA (EA_number):
 def create_pod_object_migration(migration_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "125m"},
-        limits={"cpu": "125m"}
+        requests={"cpu": "250m"},
+        limits={"cpu": "250m"}
     )
 
     # Configurate Pod container
@@ -168,8 +168,8 @@ def create_slaves():
 def create_pod_object_interpreter(interpreter_number, island_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "125m"},
-        limits={"cpu": "125m"}
+        requests={"cpu": "250m"},
+        limits={"cpu": "250m"}
     )
 
     # Configurate Pod container
@@ -194,8 +194,8 @@ def create_pod_object_interpreter(interpreter_number, island_number):
 def create_pod_object_calculation(calculation_number, island_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "125m"},
-        limits={"cpu": "125m"}
+        requests={"cpu": "250m"},
+        limits={"cpu": "250m"}
     )
 
     # Configurate Pod container
