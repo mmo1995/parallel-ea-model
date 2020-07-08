@@ -5,21 +5,25 @@ $(document).ready(function(){
             $("#master-config").show();
             $("#island-config").hide();
             $("#hybrid-config").hide();
+            $("#buttons").show();
             break;
         case 'island':
             $("#master-config").hide();
             $("#island-config").show();
             $("#hybrid-config").hide();
+            $("#buttons").show();
             break;
         case 'hybrid':
             $("#master-config").hide();
             $("#island-config").hide();
-            $("#hybrid-config").show();
+            $("#hybrid-config").show();            
+            $("#buttons").show();
             break;
         default:
             $("#master-config").hide();
             $("#island-config").hide();
             $("#hybrid-config").hide();
+            $("#buttons").hide();
             break;
             
     }
