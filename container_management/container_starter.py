@@ -51,11 +51,17 @@ def create_islands():
     return 'ok'
 #################################
 def create_pod_object_EA (EA_number):
+    # Configure Resources
+    resources = client.V1ResourceRequirements(
+        requests={"cpu": "250m"},
+        limits={"cpu": "500m"}
+    )
     # Configurate Pod container
     container = client.V1Container(
         name="ea-master-hybrid",
         image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/ea-master-hybrid:latest",
         image_pull_policy="Always",
+        resources=resources,
         args=["--island.number="+str(EA_number)])
     # Create the specification of pod
     #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
@@ -70,11 +76,17 @@ def create_pod_object_EA (EA_number):
     return pod_EA
 
 def create_pod_object_migration(migration_number):
+    # Configure Resources
+    resources = client.V1ResourceRequirements(
+        requests={"cpu": "250m"},
+        limits={"cpu": "500m"}
+    )
     # Configurate Pod container
     container = client.V1Container(
         name="migration-hybrid",
         image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/migration-hybrid:latest",
         image_pull_policy="Always",
+        resources=resources,
         args=["--island.number="+str(migration_number)])
     # Create the specification of pod
     #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
@@ -159,11 +171,17 @@ def create_slaves():
     return 'ok'
 #################################
 def create_pod_object_interpreter(interpreter_number, island_number):
+    # Configure Resources
+    resources = client.V1ResourceRequirements(
+        requests={"cpu": "250m"},
+        limits={"cpu": "500m"}
+    )
     # Configurate Pod container
     container = client.V1Container(
         name="chromosomeinterpreter-hybrid",
         image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/chromosomeinterpreter-hybrid:latest",
         image_pull_policy="Always",
+        resources=resources,
         args=["--island.number="+str(island_number), "--slave.number="+str(interpreter_number)])
     # Create the specification of pod
     #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
@@ -178,11 +196,17 @@ def create_pod_object_interpreter(interpreter_number, island_number):
     return pod
 
 def create_pod_object_calculation(calculation_number, island_number):
+    # Configure Resources
+    resources = client.V1ResourceRequirements(
+        requests={"cpu": "250m"},
+        limits={"cpu": "500m"}
+    )
     # Configurate Pod container
     container = client.V1Container(
         name="calculation-hybrid",
         image="docker-energylab.iai-artifactory.iai.kit.edu/opt-framework-scheduling-hybrid/calculation-hybrid:latest",
         image_pull_policy="Always",
+        resources=resources,
         args=["--island.number="+str(island_number), "--slave.number="+str(calculation_number)])
     # Create the specification of pod
     #v1localObjectReference = client.V1LocalObjectReference(name="myregistrykey")
@@ -192,7 +216,7 @@ def create_pod_object_calculation(calculation_number, island_number):
     pod_calculation = client.V1Pod(
         api_version="v1",
         kind="Pod",
-        metadata=client.V1ObjectMeta(name=JOB_NAME_calculation +str(island_number)+'.'+ str(calculation_number), namespace=NAMESPACE),
+        metadata=client.V1ObjectMeta(name=JOB_NAME_calculation +str(island_number)+"." + str(calculation_number), namespace=NAMESPACE),
         spec=spec)
     return pod_calculation
 #################################

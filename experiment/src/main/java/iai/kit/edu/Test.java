@@ -74,8 +74,9 @@ public class Test {
 
         String configurationJson = gson.toJson(experimentConfig);
         RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://ea-hybrid.cloud.iai.kit.edu/ojm/start/jobs", configurationJson, String.class);
         //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs", configurationJson, String.class);
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671//ojm/start/jobs", configurationJson, String.class);
     }
 
@@ -156,8 +157,9 @@ public class Test {
 
         String configurationJson = gson.toJson(heteroConfiguration);
         RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://ea-hybrid.cloud.iai.kit.edu/ojm/start/job/hetero", configurationJson, String.class);
         //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/job/hetero", configurationJson, String.class);
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/hetero", configurationJson, String.class);
+        //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/job/hetero", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/job/hetero", configurationJson, String.class);
     }
 
@@ -182,18 +184,13 @@ public class Test {
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String[] topology = {"ring"};
 
-        boolean[] asyncMigration = {true};
+        boolean[] asyncMigration = {false};
 
         String[][] epochTerminationCriterion= new String[][] {{"generation","generation","generation","generation","generation","generation","generation","generation","generation","generation"}}; // evaluation ; fitness ;generation
         int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000}};
         double[][] epochTerminationFitness= new double[][] {{30000,30000,30000,30000,30000,30000,30000,30000,30000,30000}};
         int[][] epochTerminationGeneration = new int[][] {
-                {1,1,1,1,1,1,1,1,1,1},
-                {2,2,2,2,2,2,2,2,2,2},
-                {4,4,4,4,4,4,4,4,4,4},
-                {8,8,8,8,8,8,8,8,8,8},
-                {12,12,12,12,12,12,12,12,12,12},
-                {16,16,16,16,16,16,16,16,16,16},
+                {1,1,1,1,1,1,1,1,1,1}
         }; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[][] epochTerminationTime = new int[][] {{5,5,5,5,5,5,5,5,5,5}};
         int[][] epochTerminationGDV = new int[][] {{500,500,500,500,500,500,500,500,500,500}};
@@ -247,7 +244,8 @@ public class Test {
 
         String configurationJson = gson.toJson(heteroExperimentConfig);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs/hetero", configurationJson, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity("http://ea-hybrid.cloud.iai.kit.edu/ojm/start/jobs/hetero", configurationJson, String.class);
+        // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:30004/ojm/start/jobs/hetero", configurationJson, String.class);
         //ResponseEntity<String> answer1 = restTemplate.postForEntity("http://localhost:8071/ojm/start/jobs/hetero", configurationJson, String.class);
         // ResponseEntity<String> answer1 = restTemplate.postForEntity("http://iai-energy1.iai.kit.edu:31671/start/jobs/hetero", configurationJson, String.class);
     }
