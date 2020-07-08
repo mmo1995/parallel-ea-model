@@ -6,10 +6,10 @@ public class ConstantStrings {
      * Stores application relevant Strings
      */
 
-    /*public static final String coordinationURL = "http://coordination-hybrid:8071";
-    public static String splittingJoining = "splitting-joining-hybrid:8074";*/
-     public static final String coordinationURL = "http://localhost:8071";
-     public static String splittingJoining = "localhost:8074";
+    public static final String coordinationURL = "http://coordination-hybrid:8071";
+    public static String splittingJoining = "splitting-joining-hybrid:8074";
+/*     public static final String coordinationURL = "http://localhost:8071";
+     public static String splittingJoining = "localhost:8074";*/
 
     public static final String islandPath = "./gleam-esso/testfeld/island/";
     public static final String initialPopulationCalculatedFileName = "initialChromosomeSet.aks";
