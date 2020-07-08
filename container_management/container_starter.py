@@ -81,6 +81,7 @@ def create_pod_object_migration(migration_number):
         requests={"cpu": "125m"},
         limits={"cpu": "125m"}
     )
+
     # Configurate Pod container
     container = client.V1Container(
         name="migration-hybrid",
@@ -101,13 +102,10 @@ def create_pod_object_migration(migration_number):
     return pod_migration
 #################################
 def create_pod_EA(api_instance, pod, EA_number):
-    # Create pod
-    include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
     try:
         api_response = api_instance.create_namespaced_pod(
             body=pod,
-            namespace=NAMESPACE,
-            include_uninitialized=include_uninitialized)
+            namespace=NAMESPACE)
         logging.info("EA-master Pod created")
     except ApiException as e:
         if e.reason == "Conflict":
@@ -127,7 +125,7 @@ def create_pod_EA(api_instance, pod, EA_number):
         api_response1 = api_instance.create_namespaced_service(
             body=service,
             namespace=NAMESPACE)
-        logging.info("EA-master Service created")
+        logging.info("EA-master Service created ...")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("The Service of ea-master-hybrid Service already exists, sending initializing signal")
@@ -135,14 +133,11 @@ def create_pod_EA(api_instance, pod, EA_number):
             logging.error(e)
 #--------------------------------------#
 def create_pod_migration(api_instance, pod, migration_number):
-    # Create pod
-    include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
     try:
         api_response = api_instance.create_namespaced_pod(
             body=pod,
-            namespace=NAMESPACE,
-            include_uninitialized=include_uninitialized)
-        logging.info("Migration Pod created")
+            namespace=NAMESPACE)
+        logging.info("Migration Pod created ...")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("Migration Pod already exists, sending initializing signal")
@@ -161,12 +156,12 @@ def create_slaves():
     for island_number in range(1, int(number_of_islands) + 1):
         for interpreter_number in range(1, int(number_of_slaves) + 1):
             pod_interpreter = create_pod_object_interpreter(interpreter_number, island_number)
-            create_pod_interpreter(core_v1_api, pod_interpreter, interpreter_number)
+            create_pod_interpreter(core_v1_api, pod_interpreter,island_number, interpreter_number)
     time.sleep(25)
     for island_number in range(1, int(number_of_islands) + 1):
         for calculation_number in range(1, int(number_of_slaves) + 1):
             pod_calculation=create_pod_object_calculation(calculation_number, island_number)
-            create_pod_calculation(core_v1_api, pod_calculation, calculation_number)
+            create_pod_calculation(core_v1_api, pod_calculation, island_number, calculation_number)
     time.sleep(25)
     return 'ok'
 #################################
@@ -176,6 +171,7 @@ def create_pod_object_interpreter(interpreter_number, island_number):
         requests={"cpu": "125m"},
         limits={"cpu": "125m"}
     )
+
     # Configurate Pod container
     container = client.V1Container(
         name="chromosomeinterpreter-hybrid",
@@ -191,7 +187,7 @@ def create_pod_object_interpreter(interpreter_number, island_number):
     pod = client.V1Pod(
         api_version="v1",
         kind="Pod",
-        metadata=client.V1ObjectMeta(name=JOB_NAME_interpreter+str(island_number)+'.'+str(interpreter_number), namespace=NAMESPACE),
+        metadata=client.V1ObjectMeta(name=JOB_NAME_interpreter+str(island_number)+"."+str(interpreter_number), namespace=NAMESPACE),
         spec=spec)
     return pod
 
@@ -201,6 +197,7 @@ def create_pod_object_calculation(calculation_number, island_number):
         requests={"cpu": "125m"},
         limits={"cpu": "125m"}
     )
+
     # Configurate Pod container
     container = client.V1Container(
         name="calculation-hybrid",
@@ -216,35 +213,29 @@ def create_pod_object_calculation(calculation_number, island_number):
     pod_calculation = client.V1Pod(
         api_version="v1",
         kind="Pod",
-        metadata=client.V1ObjectMeta(name=JOB_NAME_calculation +str(island_number)+"." + str(calculation_number), namespace=NAMESPACE),
+        metadata=client.V1ObjectMeta(name=JOB_NAME_calculation +str(island_number)+"."+ str(calculation_number), namespace=NAMESPACE),
         spec=spec)
     return pod_calculation
 #################################
-def create_pod_calculation(api_instance, pod, calculation_number):
-    # Create pod
-    include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
+def create_pod_calculation(api_instance, pod, island_number, calculation_number):
     try:
         api_response = api_instance.create_namespaced_pod(
             body=pod,
-            namespace=NAMESPACE,
-            include_uninitialized=include_uninitialized)
-        logging.info("Calculation Pod created")
+            namespace=NAMESPACE)
+        logging.info("Calculation Pod created ...")
     except ApiException as e:
         if e.reason == "Conflict":
-            logging.info("Calculation Service already exists, sending initializing signal")
+            logging.info("Calculation Service"+str(island_number) + "." + str(calculation_number)+" already exists, sending initializing signal")
             r.publish(initialize_calculation_channel, str(island_number) + "." + str(calculation_number))
         else:
             logging.error(e)
 
-def create_pod_interpreter(api_instance, pod, interpreter_number):
-    # Create pod
-    include_uninitialized = True  # bool | If true, partially initialized resources are included in the response. (optional)
+def create_pod_interpreter(api_instance, pod, island_number, interpreter_number):
     try:
         api_response = api_instance.create_namespaced_pod(
             body=pod,
-            namespace=NAMESPACE,
-            include_uninitialized=include_uninitialized)
-        logging.info("Chromosomeinterpreter Pod created")
+            namespace=NAMESPACE)
+        logging.info("Chromosomeinterpreter Pod created ...")
     except ApiException as e:
         if e.reason == "Conflict":
             logging.info("Chromosomeinterpreter already exists, sending initializing signal")
