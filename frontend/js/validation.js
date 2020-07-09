@@ -96,3 +96,12 @@ function checkValidation(){
 
     return true;
 }
+
+
+function validateHeteroIslandsNumber(){
+    var inputHeteroIslandsNumber = $("#hetero-islands-number").val();
+    if(parseInt(inputHeteroIslandsNumber)>5 || parseInt(inputHeteroIslandsNumber)<1 || inputHeteroIslandsNumber.length== 0){
+        return false;
+    }
+    return true;
+}
