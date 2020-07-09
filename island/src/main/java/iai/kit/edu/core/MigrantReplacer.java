@@ -138,7 +138,7 @@ public class MigrantReplacer {
         // remove as many (worst) chromosomes from the population as there are migrants and add the migrants
         for (int i = 0; i < cachedMigrants.size(); i++) {
             population.remove(0);
-            population.add(cachedMigrants.get(0));
+            population.add(cachedMigrants.get(i));
             population.sort();
         }
 
@@ -148,6 +148,7 @@ public class MigrantReplacer {
     * */
     public void clearMigrants() {
         this.generations.clear();
+        this.cachedMigrants.clear();
     }
 
 }
