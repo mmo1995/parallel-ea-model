@@ -1,3 +1,4 @@
+var numberOfJobs = 0;
 var experiment = {"globalPopulationSize": [],
             "numberOfIslands": [],
             "numberOfSlaves": [],
@@ -167,6 +168,7 @@ $(document).ready(function(){
                   break;
               }
             }
+            numberOfJobs++;
             successfullJobSubmition();
             clearFields(); 
         }
@@ -176,41 +178,49 @@ $(document).ready(function(){
 
   $(document).ready(function(){
     $("#send-experiment").click(function(){
-        experiment.globalPopulationSize = globalPopulationSizeArray;
-        experiment.numberOfIslands = numberOfIslandsArray;
-        experiment.numberOfSlaves = numberOfSlavesArray;
-        experiment.numberOfGenerations = numberOfGenerationsArray;
-        experiment.migrationRate = migrationRatesArray;
-        experiment.topology = topologyArray;
-        experiment.initialSelectionPolicy = initialSelectionPolicyArray;
-        experiment.amountFitness = amountFitnessArray;
-        experiment.selectionPolicy = selectionPolicyArray;
-        experiment.replacementPolicy = replacementPolicyArray;
-        experiment.initialSelectionPolicyInitializer = initialSelectionPolicyInitializerArray;
-        experiment.amountFitnessInitializer = amountFitnessInitializerArray;
-        experiment.demeSize = demeSizeArray;
-        experiment.asyncMigration = asyncMigrationArray;
-        experiment.acceptRuleForOffspring = acceptRuleForOffspringArray;
-        experiment.rankingParameter = rankingParameterArray;
-        experiment.minimalHammingDistance = minimalHammingDistanceArray;
-        experiment.globalTerminationCriterion = globalTerminationCriterionArray;
-        experiment.globalTerminationEpoch = globalTerminationEpochArray;
-        experiment.globalTerminationFitness = globalTerminationFitnessArray;
-        experiment.globalTerminationEvaluation = globalTerminationEvaluationArray;
-        experiment.globalTerminationGeneration = globalTerminationGenerationArray;
-        experiment.globalTerminationTime = globalTerminationTimeArray;
-        experiment.globalTerminationGDV = globalTerminationGDVArray;
-        experiment.globalTerminationGAK = globalTerminationGAKArray;
-        experiment.epochTerminationCriterion = epochTerminationCriterionArray;
-        experiment.epochTerminationEvaluation = epochTerminationEvaluationArray;
-        experiment.epochTerminationFitness = epochTerminationFitnessArray;
-        experiment.epochTerminationGeneration = epochTerminationGenerationArray;
-        experiment.epochTerminationTime = epochTerminationTimeArray;
-        experiment.epochTerminationGDV = epochTerminationGDVArray;
-        experiment.epochTerminationGAK = epochTerminationGAKArray;
-        experimentJson = JSON.stringify(experiment);
-        var jsonObject = JSON.parse(experimentJson);
-        console.log(jsonObject);
+        if(numberOfJobs>0){
+          experiment.globalPopulationSize = globalPopulationSizeArray;
+          experiment.numberOfIslands = numberOfIslandsArray;
+          experiment.numberOfSlaves = numberOfSlavesArray;
+          experiment.numberOfGenerations = numberOfGenerationsArray;
+          experiment.migrationRate = migrationRatesArray;
+          experiment.topology = topologyArray;
+          experiment.initialSelectionPolicy = initialSelectionPolicyArray;
+          experiment.amountFitness = amountFitnessArray;
+          experiment.selectionPolicy = selectionPolicyArray;
+          experiment.replacementPolicy = replacementPolicyArray;
+          experiment.initialSelectionPolicyInitializer = initialSelectionPolicyInitializerArray;
+          experiment.amountFitnessInitializer = amountFitnessInitializerArray;
+          experiment.demeSize = demeSizeArray;
+          experiment.asyncMigration = asyncMigrationArray;
+          experiment.acceptRuleForOffspring = acceptRuleForOffspringArray;
+          experiment.rankingParameter = rankingParameterArray;
+          experiment.minimalHammingDistance = minimalHammingDistanceArray;
+          experiment.globalTerminationCriterion = globalTerminationCriterionArray;
+          experiment.globalTerminationEpoch = globalTerminationEpochArray;
+          experiment.globalTerminationFitness = globalTerminationFitnessArray;
+          experiment.globalTerminationEvaluation = globalTerminationEvaluationArray;
+          experiment.globalTerminationGeneration = globalTerminationGenerationArray;
+          experiment.globalTerminationTime = globalTerminationTimeArray;
+          experiment.globalTerminationGDV = globalTerminationGDVArray;
+          experiment.globalTerminationGAK = globalTerminationGAKArray;
+          experiment.epochTerminationCriterion = epochTerminationCriterionArray;
+          experiment.epochTerminationEvaluation = epochTerminationEvaluationArray;
+          experiment.epochTerminationFitness = epochTerminationFitnessArray;
+          experiment.epochTerminationGeneration = epochTerminationGenerationArray;
+          experiment.epochTerminationTime = epochTerminationTimeArray;
+          experiment.epochTerminationGDV = epochTerminationGDVArray;
+          experiment.epochTerminationGAK = epochTerminationGAKArray;
+          experimentJson = JSON.stringify(experiment);
+          var jsonObject = JSON.parse(experimentJson);
+          console.log(jsonObject);
+          console.log("Number Of Jobs: " + numberOfJobs);
+          successExperimentSending();
+          numberOfJobs = 0;
+          clearArrays();
+        } else{
+          failedExperimentSending();
+        }
     });
   });
 
@@ -238,13 +248,59 @@ function clearFields(){
   
   }
 
+  function clearArrays(){
+      globalPopulationSizeArray = [];
+      numberOfIslandsArray = [];
+      numberOfSlavesArray = [];
+      numberOfGenerationsArray = [];
+      migrationRatesArray = [];
+      topologyArray = [];
+      initialSelectionPolicyArray = [];
+      amountFitnessArray = [];
+      initialSelectionPolicyInitializerArray = [];
+      amountFitnessInitializerArray = [];
+      selectionPolicyArray = [];
+      replacementPolicyArray = [];
+      demeSizeArray = [];
+      asyncMigrationArray = [];
+      acceptRuleForOffspringArray = [];
+      rankingParameterArray = [];
+      minimalHammingDistanceArray = [];
+      delayArray = [];
+      globalTerminationCriterionArray = [];
+      globalTerminationEpochArray = [];
+      globalTerminationFitnessArray = [];
+      globalTerminationEvaluationArray = [];
+      globalTerminationGenerationArray = [];
+      globalTerminationTimeArray = [];
+      globalTerminationGDVArray = [];
+      globalTerminationGAKArray = [];
+      epochTerminationCriterionArray = [];
+      epochTerminationEvaluationArray = [];
+      epochTerminationFitnessArray = [];
+      epochTerminationGenerationArray = [];
+      epochTerminationTimeArray = [];
+      epochTerminationGDVArray = [];
+      epochTerminationGAKArray = [];
+  }
+
   function successfullJobSubmition(){
-    $("#success-alert").fadeTo(2000,500).slideUp(500, function(){
-      $("#success-alert").slideUp(500);
+    $("#success-alert-job").fadeTo(2000,500).slideUp(500, function(){
+      $("#success-alert-job").slideUp(500);
   });
   }
   function failedJobSubmition(){
-    $("#failure-alert").fadeTo(2000,500).slideUp(500, function(){
-      $("#failure-alert").slideUp(500);
+    $("#failure-alert-job").fadeTo(2000,500).slideUp(500, function(){
+      $("#failure-alert-job").slideUp(500);
+  });
+}
+  function successExperimentSending(){
+    $("#success-alert-experiment").fadeTo(2000,500).slideUp(500, function(){
+      $("#success-alert-experiment").slideUp(500);
+  });
+  }
+  function failedExperimentSending(){
+    $("#failure-alert-experiment").fadeTo(2000,500).slideUp(500, function(){
+      $("#failure-alert-experiment").slideUp(500);
   });
   }

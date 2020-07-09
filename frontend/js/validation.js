@@ -54,8 +54,6 @@ function checkValidation(){
         if(inputEpochLimit.length == 0){
             return false;
         }
-
-
     }
     if($("select#models").val()=="master-slave" || $("select#models").val()=="hybrid"){
         if(parseInt(inputSlavesNumber)>5 || parseInt(inputSlavesNumber)<1 || inputSlavesNumber.length == 0){
