@@ -138,11 +138,12 @@ $(document).ready(function(){
               break;
           }
           if($("select#models").val()=="master-slave"){
-            epochTerminationCriterionArray.push(globalTerminationCriterionArray[globalTerminationCriterionArray.length]);
-            epochTerminationEvaluationArray.push(globalTerminationEvaluationArray[globalTerminationEvaluationArray.length]);
-            epochTerminationFitnessArray.push(globalTerminationFitnessArray[globalTerminationFitnessArray.length]);
-            epochTerminationGenerationArray.push(globalTerminationEpochArray[globalTerminationEpochArray.length]);
+            epochTerminationCriterionArray.push(globalTerminationCriterionArray[globalTerminationCriterionArray.length-1]);
+            epochTerminationEvaluationArray.push(globalTerminationEvaluationArray[globalTerminationEvaluationArray.length-1]);
+            epochTerminationFitnessArray.push(globalTerminationFitnessArray[globalTerminationFitnessArray.length-1]);
+            epochTerminationGenerationArray.push(globalTerminationEpochArray[globalTerminationEpochArray.length-1]);
           } else{
+            epochTerminationCriterionArray.push($("#epoch-criterion").val());
             switch($("#epoch-criterion").val()){
               case "fitness":
                 epochTerminationGenerationArray.push(0);
@@ -163,7 +164,8 @@ $(document).ready(function(){
                 break;
             }
           }
-          clearFields();
+          successfullJobSubmition();
+          clearFields(); 
     });
   });
 
@@ -210,5 +212,34 @@ $(document).ready(function(){
 function clearFields(){
   $('#islands-number').val('');
   $('#slaves-number').val('');
+  $('#population').val('');
+  $('#migration-rate').val('');
+  $("#initial-selection-policy-form")[0].reset();
+  $("#strategy-parameter").val('');
+  $("#initial-selection-policy-initializer-form")[0].reset();
+  $("#strategy-parameter-initializer").val('');
+  $("#topology-form")[0].reset();
+  $("#selection-policy-form")[0].reset();
+  $("#replacement-policy-form")[0].reset();
+  $("#deme-size").val('');
+  $("#async-migration-form")[0].reset();
+  $("#accept-offspring-form")[0].reset();
+  $("#ranking-parameter").val('');
+  $("#min-hamming").val('');
+  $("#global-criterion-form")[0].reset();
+  $("#global-criterion-limit").val('');
+  $("#epoch-criterion-form")[0].reset();
+  $("#epoch-criterion-limit").val('');
   
+  }
+
+  function successfullJobSubmition(){
+    $("#success-alert").fadeTo(2000,500).slideUp(500, function(){
+      $("#success-alert").slideUp(500);
+  });
+  }
+  function failedJobSubmition(){
+    $("#failure-alert").fadeTo(2000,500).slideUp(500, function(){
+      $("#failure-alert").slideUp(500);
+  });
   }
