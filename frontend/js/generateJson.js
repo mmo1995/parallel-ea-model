@@ -171,6 +171,7 @@ $(document).ready(function(){
             numberOfJobs++;
             successfullJobSubmition();
             clearFields(); 
+            $("#number-submitted-jobs").text("Number Of Submitted Jobs: " + numberOfJobs);
         }
 
     });
@@ -218,6 +219,7 @@ $(document).ready(function(){
           successExperimentSending();
           numberOfJobs = 0;
           clearArrays();
+          $("#number-submitted-jobs").text("Number Of Submitted Jobs: " + numberOfJobs);
         } else{
           failedExperimentSending();
         }
