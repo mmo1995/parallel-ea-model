@@ -225,8 +225,8 @@ public class Calculation {
         );
 
         //float result = absoulteValue*priceInThishour[0] ;
-       // double result =  priceInThishour[0] + (priceInThishour[0]+ (priceInThishour[0]*5/100)*absoulteValue + (priceInThishour[0]*3/100)*pow(absoulteValue,2));
-        double result = absoulteValue*priceInThishour[0];
+       double result =  priceInThishour[0] + (priceInThishour[0]+ (priceInThishour[0]*5/100)*absoulteValue + (priceInThishour[0]*3/100)*pow(absoulteValue,2));
+        //double result = absoulteValue*priceInThishour[0];
         // System.out.println("the cost of this hour for this resource is  :"+ result);
         return result;
 
