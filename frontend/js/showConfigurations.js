@@ -51,6 +51,7 @@ $(document).ready(function(){
             break;
         default:
             $("#config").hide();
+            $("#buttons").hide();
             break;
             
     }
