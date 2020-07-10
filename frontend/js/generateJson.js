@@ -172,6 +172,7 @@ $(document).ready(function(){
             successfullJobSubmition();
             clearFields(); 
             $("#number-submitted-jobs").text("Number Of Submitted Jobs: " + numberOfJobs);
+            $("#hetero-islands-config").hide();
         }
 
     });
@@ -250,58 +251,62 @@ function clearFields(){
 
   $("#hetero-islands-number").val('');
   $("#migration-rate-1").val('');
-  $("#initial-selection-policy-1").val();
+  $("#initial-selection-policy-form-1")[0].reset();
   $("#strategy-parameter-1").val('');
-  $("#selection-policy-1").val();
-  $("#replacement-policy-1").val();
-  $("#epoch-criterion-1").val();
+  $("#selection-policy-form-1")[0].reset();
+  $("#replacement-policy-form-1")[0].reset();
+  $("#epoch-criterion-form-1")[0].reset();
   $("#epoch-criterion-limit-1").val('');
   $("#deme-size-1").val('');
-  $("#accept-offspring-1").val();
+  $("#accept-offspring-form-1")[0].reset();
   $("#ranking-parameter-1").val('');
   $("#min-hamming-1").val('');
+
   $("#migration-rate-2").val('');
-  $("#initial-selection-policy-2").val();
+  $("#initial-selection-policy-form-2")[0].reset();
   $("#strategy-parameter-2").val('');
-  $("#selection-policy-2").val();
-  $("#replacement-policy-2").val();
-  $("#epoch-criterion-2").val();
+  $("#selection-policy-form-2")[0].reset();
+  $("#replacement-policy-form-2")[0].reset();
+  $("#epoch-criterion-form-2")[0].reset();
   $("#epoch-criterion-limit-2").val('');
   $("#deme-size-2").val('');
-  $("#accept-offspring-2").val();
+  $("#accept-offspring-form-2")[0].reset();
   $("#ranking-parameter-2").val('');
   $("#min-hamming-2").val('');
+
   $("#migration-rate-3").val('');
-  $("#initial-selection-policy-3").val();
+  $("#initial-selection-policy-form-3")[0].reset();
   $("#strategy-parameter-3").val('');
-  $("#selection-policy-3").val();
-  $("#replacement-policy-3").val();
-  $("#epoch-criterion-3").val();
+  $("#selection-policy-form-3")[0].reset();
+  $("#replacement-policy-form-3")[0].reset();
+  $("#epoch-criterion-form-3")[0].reset();
   $("#epoch-criterion-limit-3").val('');
   $("#deme-size-3").val('');
-  $("#accept-offspring-3").val();
+  $("#accept-offspring-form-3")[0].reset();
   $("#ranking-parameter-3").val('');
   $("#min-hamming-3").val('');
+
   $("#migration-rate-4").val('');
-  $("#initial-selection-policy-4").val();
+  $("#initial-selection-policy-form-4")[0].reset();
   $("#strategy-parameter-4").val('');
-  $("#selection-policy-4").val();
-  $("#replacement-policy-4").val();
-  $("#epoch-criterion-4").val();
+  $("#selection-policy-form-4")[0].reset();
+  $("#replacement-policy-form-4")[0].reset();
+  $("#epoch-criterion-form-4")[0].reset();
   $("#epoch-criterion-limit-4").val('');
   $("#deme-size-4").val('');
-  $("#accept-offspring-4").val();
+  $("#accept-offspring-form-4")[0].reset();
   $("#ranking-parameter-4").val('');
   $("#min-hamming-4").val('');
+
   $("#migration-rate-5").val('');
-  $("#initial-selection-policy-5").val();
+  $("#initial-selection-policy-form-5")[0].reset();
   $("#strategy-parameter-5").val('');
-  $("#selection-policy-5").val();
-  $("#replacement-policy-5").val();
-  $("#epoch-criterion-5").val();
+  $("#selection-policy-form-5")[0].reset();
+  $("#replacement-policy-form-5")[0].reset();
+  $("#epoch-criterion-form-5")[0].reset();
   $("#epoch-criterion-limit-5").val('');
   $("#deme-size-5").val('');
-  $("#accept-offspring-5").val();
+  $("#accept-offspring-form-5")[0].reset();
   $("#ranking-parameter-5").val('');
   $("#min-hamming-5").val('');
   
