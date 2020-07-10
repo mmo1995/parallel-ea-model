@@ -5,13 +5,19 @@ $(document).ready(function(){
             $("#config").show();
             $("#island-number-div").hide();
             $("#slave-number-div").show();
+            $("#initial-selection-policy-div").show();
+            $("#strategy-parameter-div").show();
             $("#migration-rate-div").hide();
             $("#selection-policy-div").hide();
             $("#replacement-policy-div").hide();
             $("#topology-div").hide();
+            $("#deme-size-div").show();
             $("#async-migration-div").hide();
             $("#epoch-criterion-div").hide();
             $("#epoch-criterion-limit-div").hide();
+            $("#accept-offspring-div").show();
+            $("#ranking-parameter-div").show();
+            $("#min-hamming-div").show();
             $("#buttons").show();
             $("#master-h5").show();
             $("#island-h5").hide();
@@ -24,9 +30,15 @@ $(document).ready(function(){
             $("#island-number-div").show();
             $("#slave-number-div").hide();
             $("#migration-rate-div").show();
+            $("#initial-selection-policy-div").show();
+            $("#strategy-parameter-div").show();
             $("#selection-policy-div").show();
             $("#replacement-policy-div").show();
             $("#topology-div").show();
+            $("#accept-offspring-div").show();
+            $("#ranking-parameter-div").show();
+            $("#min-hamming-div").show();
+            $("#deme-size-div").show();
             $("#async-migration-div").show();
             $("#epoch-criterion-div").show();
             $("#epoch-criterion-limit-div").show();
@@ -37,6 +49,18 @@ $(document).ready(function(){
             $("#hetero-homo-div").show();
             if($("#hetero").is(":checked")){
                 $("#hetero-container").show();
+                $("#island-number-div").hide();
+                $("#migration-rate-div").hide();
+                $("#initial-selection-policy-div").hide();
+                $("#strategy-parameter-div").hide();
+                $("#selection-policy-div").hide();
+                $("#replacement-policy-div").hide();
+                $("#deme-size-div").hide();
+                $("#accept-offspring-div").hide();
+                $("#ranking-parameter-div").hide();
+                $("#min-hamming-div").hide();
+                $("#epoch-criterion-div").hide();
+                $("#epoch-criterion-limit-div").hide();
             }
             break;
         case 'hybrid':           
@@ -44,9 +68,15 @@ $(document).ready(function(){
             $("#island-number-div").show();
             $("#slave-number-div").show();
             $("#migration-rate-div").show();
+            $("#initial-selection-policy-div").show();
+            $("#strategy-parameter-div").show();
             $("#selection-policy-div").show();
             $("#replacement-policy-div").show();
             $("#topology-div").show();
+            $("#accept-offspring-div").show();
+            $("#ranking-parameter-div").show();
+            $("#min-hamming-div").show();
+            $("#deme-size-div").show();
             $("#async-migration-div").show();
             $("#epoch-criterion-div").show();
             $("#epoch-criterion-limit-div").show();
@@ -57,6 +87,18 @@ $(document).ready(function(){
             $("#hetero-homo-div").show();
             if($("#hetero").is(":checked")){
                 $("#hetero-container").show();
+                $("#island-number-div").hide();
+                $("#migration-rate-div").hide();
+                $("#initial-selection-policy-div").hide();
+                $("#strategy-parameter-div").hide();
+                $("#selection-policy-div").hide();
+                $("#replacement-policy-div").hide();
+                $("#deme-size-div").hide();
+                $("#accept-offspring-div").hide();
+                $("#ranking-parameter-div").hide();
+                $("#min-hamming-div").hide();
+                $("#epoch-criterion-div").hide();
+                $("#epoch-criterion-limit-div").hide();
             }
             break;
         default:
@@ -73,9 +115,33 @@ $(document).ready(function(){
     $("#hetero").click(function(){
         if($(this).is(":checked")){
             $("#hetero-container").show();
+            $("#island-number-div").hide();
+            $("#migration-rate-div").hide();
+            $("#initial-selection-policy-div").hide();
+            $("#strategy-parameter-div").hide();
+            $("#selection-policy-div").hide();
+            $("#replacement-policy-div").hide();
+            $("#deme-size-div").hide();
+            $("#accept-offspring-div").hide();
+            $("#ranking-parameter-div").hide();
+            $("#min-hamming-div").hide();
+            $("#epoch-criterion-div").hide();
+            $("#epoch-criterion-limit-div").hide();
         }
         else if($(this).is(":not(:checked)")){
             $("#hetero-container").hide();
+            $("#island-number-div").show();
+            $("#migration-rate-div").show();
+            $("#initial-selection-policy-div").show();
+            $("#strategy-parameter-div").show();
+            $("#selection-policy-div").show();
+            $("#replacement-policy-div").show();
+            $("#deme-size-div").show();
+            $("#accept-offspring-div").show();
+            $("#ranking-parameter-div").show();
+            $("#min-hamming-div").show();
+            $("#epoch-criterion-div").show();
+            $("#epoch-criterion-limit-div").show();
         }
     });
 });

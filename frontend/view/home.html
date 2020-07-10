@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div id="initial-selection-policy-div" class="col-sm-3">
                     <form id="initial-selection-policy-form">
                         <label for="initial-selection-policy">Initial Selection Policy</label>
                         <select name="initialSelectionPolicy" class="custom-select" id="initial-selection-policy">
@@ -90,7 +90,7 @@
                         </select>
                       </form>
                 </div>
-                <div class="col-sm-3">
+                <div id="strategy-parameter-div" class="col-sm-3">
                     <div class="form-group">
                         <label for="strategy-parameter">Initial Strategy Parameter</label>
                         <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter">
@@ -148,7 +148,7 @@
                         </select>
                       </form>
                 </div>
-                <div class="col-sm-3">
+                <div id="deme-size-div" class="col-sm-3">
                     <div class="form-group">
                         <label for="deme-size">Deme Size</label>
                         <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size">
@@ -166,7 +166,7 @@
                         </select>
                       </form>
                   </div>
-                  <div class="col-sm-3">
+                  <div id="accept-offspring-div" class="col-sm-3">
                     <form id="accept-offspring-form">
                         <label for="accept-offspring">Offspring Acception Rule</label>
                         <select name="accept-offspring" class="custom-select" id="accept-offspring">
@@ -178,13 +178,13 @@
                         </select>
                       </form>
                   </div>
-                  <div class="col-sm-3">
+                  <div id="ranking-parameter-div" class="col-sm-3">
                     <div class="form-group">
                         <label for="ranking-parameter">Ranking Parameter</label>
                         <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter">
                       </div>
                 </div>
-                <div class="col-sm-3">
+                <div id="min-hamming-div" class="col-sm-3">
                     <div class="form-group">
                         <label for="min-hamming">Min. Hamming Distance</label>
                         <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming">
@@ -267,23 +267,519 @@
                   <div class="tab-content">
                     <div id="island1" class="container tab-pane active"><br>
                       <h3>Island 1</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <br>
+                      <div class="row">
+                        <div  class="col-sm-4">
+                          <div class="form-group">
+                              <label for="migration-rate-1">Migration Rate</label>
+                              <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate-1">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="initial-selection-policy-1">Initial Selection Policy</label>
+                              <select name="initial-selection-policy-1" class="custom-select" id="initial-selection-policy-1">
+                                <option selected>Select Initial Selection Policy</option>
+                                <option value="new">new</option>
+                                <option value="best">best</option>
+                                <option value="mix">mix</option>
+                                <option value="bestNew">bestNew</option>
+                              </select>
+                            </form>
+                      </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="strategy-parameter-1">Initial Strategy Parameter</label>
+                                <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter-1">
+                              </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="selection-policy-1">Migration Selection Policy</label>
+                              <select name="selection-policy-1" class="custom-select" id="selection-policy-1">
+                                <option selected>Select Selection Policy</option>
+                                <option value="best">best</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                          <form>
+                              <label for="replacement-policy-1">Migration Replacement Policy</label>
+                              <select name="replacement-policy-1" class="custom-select" id="replacement-policy-1">
+                                <option selected>Select Replacement Policy</option>
+                                <option value="worst">worst</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="deme-size-1">Deme Size</label>
+                            <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size-1">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="accept-offspring-1">Offspring Acception Rule</label>
+                              <select name="accept-offspring-1" class="custom-select" id="accept-offspring-1">
+                                <option selected>Select Offspring Acception Rule</option>
+                                <option value="always">always</option>
+                                <option value="localLeast">localLeast</option>
+                                <option value="localLeast-ES">localLeast-ES</option>
+                                <option value="betterParent">betterParent</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="ranking-parameter-1">Ranking Parameter</label>
+                              <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter-1">
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="min-hamming-1">Min. Hamming Distance</label>
+                              <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming-1">
+                            </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="epoch-criterion-1">Epoch Termination Criterion</label>
+                              <select name="epoch-criterion-1" class="custom-select" id="epoch-criterion-1">
+                                <option selected>Epoch Termination Criterion</option>
+                                <option value="fitness">fitness</option>
+                                <option value="evaluation">evaluation</option>
+                                <option value="generation">generation</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="epoch-criterion-limit-1">Epoch Criterion Limit</label>
+                              <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit-1">
+                            </div>
+                      </div>
+                      </div>
+
                     </div>
                     <div id="island2" class="container tab-pane fade"><br>
                       <h3>Island 2</h3>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <br>
+                      <div class="row">
+                        <div  class="col-sm-4">
+                          <div class="form-group">
+                              <label for="migration-rate-2">Migration Rate</label>
+                              <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate-2">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="initial-selection-policy-2">Initial Selection Policy</label>
+                              <select name="initial-selection-policy-2" class="custom-select" id="initial-selection-policy-2">
+                                <option selected>Select Initial Selection Policy</option>
+                                <option value="new">new</option>
+                                <option value="best">best</option>
+                                <option value="mix">mix</option>
+                                <option value="bestNew">bestNew</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="strategy-parameter-2">Initial Strategy Parameter</label>
+                            <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter-2">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="selection-policy-2">Migration Selection Policy</label>
+                              <select name="selection-policy-2" class="custom-select" id="selection-policy-2">
+                                <option selected>Select Selection Policy</option>
+                                <option value="best">best</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                          <form>
+                              <label for="replacement-policy-2">Migration Replacement Policy</label>
+                              <select name="replacement-policy-2" class="custom-select" id="replacement-policy-2">
+                                <option selected>Select Replacement Policy</option>
+                                <option value="worst">worst</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="deme-size-2">Deme Size</label>
+                            <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size-2">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="accept-offspring-2">Offspring Acception Rule</label>
+                              <select name="accept-offspring-2" class="custom-select" id="accept-offspring-2">
+                                <option selected>Select Offspring Acception Rule</option>
+                                <option value="always">always</option>
+                                <option value="localLeast">localLeast</option>
+                                <option value="localLeast-ES">localLeast-ES</option>
+                                <option value="betterParent">betterParent</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="ranking-parameter-2">Ranking Parameter</label>
+                              <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter-2">
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="min-hamming-2">Min. Hamming Distance</label>
+                              <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming-2">
+                            </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="epoch-criterion-2">Epoch Termination Criterion</label>
+                              <select name="epoch-criterion-2" class="custom-select" id="epoch-criterion-2">
+                                <option selected>Epoch Termination Criterion</option>
+                                <option value="fitness">fitness</option>
+                                <option value="evaluation">evaluation</option>
+                                <option value="generation">generation</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="epoch-criterion-limit-2">Epoch Criterion Limit</label>
+                              <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit-2">
+                            </div>
+                      </div>
+                      </div>
                     </div>
                     <div id="island3" class="container tab-pane fade"><br>
                       <h3>Island 3</h3>
-                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                      <br>
+                      <div class="row">
+                        <div  class="col-sm-4">
+                          <div class="form-group">
+                              <label for="migration-rate-3">Migration Rate</label>
+                              <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate-3">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="initial-selection-policy-3">Initial Selection Policy</label>
+                              <select name="initial-selection-policy-3" class="custom-select" id="initial-selection-policy-3">
+                                <option selected>Select Initial Selection Policy</option>
+                                <option value="new">new</option>
+                                <option value="best">best</option>
+                                <option value="mix">mix</option>
+                                <option value="bestNew">bestNew</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="strategy-parameter-3">Initial Strategy Parameter</label>
+                            <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter-3">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="selection-policy-3">Migration Selection Policy</label>
+                              <select name="selection-policy-3" class="custom-select" id="selection-policy-3">
+                                <option selected>Select Selection Policy</option>
+                                <option value="best">best</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                          <form>
+                              <label for="replacement-policy-3">Migration Replacement Policy</label>
+                              <select name="replacement-policy-3" class="custom-select" id="replacement-policy-3">
+                                <option selected>Select Replacement Policy</option>
+                                <option value="worst">worst</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="deme-size-3">Deme Size</label>
+                            <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size-3">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="accept-offspring-3">Offspring Acception Rule</label>
+                              <select name="accept-offspring-3" class="custom-select" id="accept-offspring-3">
+                                <option selected>Select Offspring Acception Rule</option>
+                                <option value="always">always</option>
+                                <option value="localLeast">localLeast</option>
+                                <option value="localLeast-ES">localLeast-ES</option>
+                                <option value="betterParent">betterParent</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="ranking-parameter-3">Ranking Parameter</label>
+                              <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter-3">
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="min-hamming-3">Min. Hamming Distance</label>
+                              <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming-3">
+                            </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="epoch-criterion-3">Epoch Termination Criterion</label>
+                              <select name="epoch-criterion-3" class="custom-select" id="epoch-criterion-3">
+                                <option selected>Epoch Termination Criterion</option>
+                                <option value="fitness">fitness</option>
+                                <option value="evaluation">evaluation</option>
+                                <option value="generation">generation</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="epoch-criterion-limit-3">Epoch Criterion Limit</label>
+                              <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit-3">
+                            </div>
+                      </div>
+                      </div>
                     </div>
                     <div id="island4" class="container tab-pane fade"><br>
                       <h3>Island 4</h3>
-                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                      <br>
+                      <div class="row">
+                        <div  class="col-sm-4">
+                          <div class="form-group">
+                              <label for="migration-rate-4">Migration Rate</label>
+                              <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate-4">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="initial-selection-policy-4">Initial Selection Policy</label>
+                              <select name="initial-selection-policy-4" class="custom-select" id="initial-selection-policy-4">
+                                <option selected>Select Initial Selection Policy</option>
+                                <option value="new">new</option>
+                                <option value="best">best</option>
+                                <option value="mix">mix</option>
+                                <option value="bestNew">bestNew</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="strategy-parameter-4">Initial Strategy Parameter</label>
+                            <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter-4">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="selection-policy-4">Migration Selection Policy</label>
+                              <select name="selection-policy-4" class="custom-select" id="selection-policy-4">
+                                <option selected>Select Selection Policy</option>
+                                <option value="best">best</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                          <form>
+                              <label for="replacement-policy-4">Migration Replacement Policy</label>
+                              <select name="replacement-policy-4" class="custom-select" id="replacement-policy-4">
+                                <option selected>Select Replacement Policy</option>
+                                <option value="worst">worst</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="deme-size-4">Deme Size</label>
+                            <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size-4">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="accept-offspring-4">Offspring Acception Rule</label>
+                              <select name="accept-offspring-4" class="custom-select" id="accept-offspring-4">
+                                <option selected>Select Offspring Acception Rule</option>
+                                <option value="always">always</option>
+                                <option value="localLeast">localLeast</option>
+                                <option value="localLeast-ES">localLeast-ES</option>
+                                <option value="betterParent">betterParent</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="ranking-parameter-4">Ranking Parameter</label>
+                              <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter-4">
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="min-hamming-4">Min. Hamming Distance</label>
+                              <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming-4">
+                            </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="epoch-criterion-4">Epoch Termination Criterion</label>
+                              <select name="epoch-criterion-4" class="custom-select" id="epoch-criterion-4">
+                                <option selected>Epoch Termination Criterion</option>
+                                <option value="fitness">fitness</option>
+                                <option value="evaluation">evaluation</option>
+                                <option value="generation">generation</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="epoch-criterion-limit-4">Epoch Criterion Limit</label>
+                              <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit-4">
+                            </div>
+                      </div>
+                      </div>
                     </div>
                     <div id="island5" class="container tab-pane fade"><br>
                       <h3>Island 5</h3>
-                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                      <br>
+                      <div class="row">
+                        <div  class="col-sm-4">
+                          <div class="form-group">
+                              <label for="migration-rate-5">Migration Rate</label>
+                              <input type="number" min="1" max="50" class="form-control" placeholder="Enter Migration Rate" id="migration-rate-5">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="initial-selection-policy-5">Initial Selection Policy</label>
+                              <select name="initial-selection-policy-5" class="custom-select" id="initial-selection-policy-5">
+                                <option selected>Select Initial Selection Policy</option>
+                                <option value="new">new</option>
+                                <option value="best">best</option>
+                                <option value="mix">mix</option>
+                                <option value="bestNew">bestNew</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="strategy-parameter-5">Initial Strategy Parameter</label>
+                            <input type="number" min="1" max="10" class="form-control" placeholder="Enter Initial Strategy Parameter" id="strategy-parameter-5">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="selection-policy-5">Migration Selection Policy</label>
+                              <select name="selection-policy-5" class="custom-select" id="selection-policy-5">
+                                <option selected>Select Selection Policy</option>
+                                <option value="best">best</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                          <form>
+                              <label for="replacement-policy-5">Migration Replacement Policy</label>
+                              <select name="replacement-policy-5" class="custom-select" id="replacement-policy-5">
+                                <option selected>Select Replacement Policy</option>
+                                <option value="worst">worst</option>
+                                <option value="random">random</option>
+                              </select>
+                            </form>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="deme-size-5">Deme Size</label>
+                            <input type="number" min="1" max="8" class="form-control" placeholder="Enter Deme Size" id="deme-size-5">
+                          </div>
+                    </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="accept-offspring-5">Offspring Acception Rule</label>
+                              <select name="accept-offspring-5" class="custom-select" id="accept-offspring-5">
+                                <option selected>Select Offspring Acception Rule</option>
+                                <option value="always">always</option>
+                                <option value="localLeast">localLeast</option>
+                                <option value="localLeast-ES">localLeast-ES</option>
+                                <option value="betterParent">betterParent</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="ranking-parameter-5">Ranking Parameter</label>
+                              <input type="number" min="1" max="2" step="0.01" class="form-control" placeholder="Ranking Parameter" id="ranking-parameter-5">
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="min-hamming-5">Min. Hamming Distance</label>
+                              <input type="number" min="0" max="1" step="0.01" class="form-control" placeholder="Minimal Hamming Distance" id="min-hamming-5">
+                            </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <form>
+                              <label for="epoch-criterion-5">Epoch Termination Criterion</label>
+                              <select name="epoch-criterion-5" class="custom-select" id="epoch-criterion-5">
+                                <option selected>Epoch Termination Criterion</option>
+                                <option value="fitness">fitness</option>
+                                <option value="evaluation">evaluation</option>
+                                <option value="generation">generation</option>
+                              </select>
+                            </form>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="epoch-criterion-limit-5">Epoch Criterion Limit</label>
+                              <input type="number" class="form-control" placeholder="Enter Epoch Limit" id="epoch-criterion-limit-5">
+                            </div>
+                      </div>
+                      </div>
                     </div>
                   </div>
                 </div>
