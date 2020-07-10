@@ -47,6 +47,7 @@ public class IntermediatePopulationSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.info("received intermediate population");
+        islandConfig.setReceivedIntermediatePopulation(true);
         population.readFromJSON(message.toString());
         List<Chromosome> migrants = migrantSelector.selectMigrants();
         migrantPublisher.publish(migrants);
@@ -63,7 +64,6 @@ public class IntermediatePopulationSubscriber implements MessageListener {
             configResetter.reset();
 
         } else if(islandConfig.getMigrationConfig().isAsyncMigration()){
-            islandConfig.setReceivedIntermediatePopulation(true);
             migrantReplacer.checkAsyncMigration();
         }
 
