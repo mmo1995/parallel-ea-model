@@ -1,5 +1,7 @@
 var numberOfJobs = 0;
-var experiment = {"globalPopulationSize": [],
+var experiment = {
+            "heteroConfiguration": [],
+            "globalPopulationSize": [],
             "numberOfIslands": [],
             "numberOfSlaves": [],
             "numberOfGenerations": [],
@@ -66,6 +68,7 @@ var epochTerminationGenerationArray = [];
 var epochTerminationTimeArray = [];
 var epochTerminationGDVArray = [];
 var epochTerminationGAKArray = [];
+var heteroArray = [];
 $(document).ready(function(){
     $("#submit").click(function(){
         if(!checkValidation()){
@@ -74,6 +77,7 @@ $(document).ready(function(){
           globalPopulationSizeArray.push(parseInt($("#population").val()));
           if($("select#models").val()=="master-slave"){
             numberOfIslandsArray.push(1);
+            heteroArray.push(false);
           } else {
             numberOfIslandsArray.push(parseInt($("#islands-number").val()));
           }
@@ -82,11 +86,22 @@ $(document).ready(function(){
           }else{
             numberOfSlavesArray.push(parseInt($("#slaves-number").val()));
           }
-          numberOfGenerationsArray.push(3);
+          if($("#hetero").is(":checked")){
+            pushHeteroNumberOfGenerations();
+          } else{
+            numberOfGenerationsArray.push(3);
+          }
+          
           if($("select#models").val()=="master-slave"){
             migrationRatesArray.push(1);
           } else{
-            migrationRatesArray.push(parseInt($("#migration-rate").val()));
+            if($("#hetero").is(":checked")){
+              heteroArray.push(true);
+              pushHeteroMigrationRate();
+            } else{
+              heteroArray.push(false);
+              migrationRatesArray.push(parseInt($("#migration-rate").val()));
+            }
           }
           if($("select#models").val()=="master-slave"){
             topologyArray.push("ring");
@@ -100,13 +115,22 @@ $(document).ready(function(){
           if($("select#models").val()=="master-slave"){
             selectionPolicyArray.push("best");
           } else{
-            selectionPolicyArray.push(($("#selection-policy").val()));
+            if($("#hetero").is(":checked")){
+              pushHeteroSelectionPolicy();
+            } else{
+              selectionPolicyArray.push(($("#selection-policy").val()));
+            }
+            
           }
           if($("select#models").val()=="master-slave"){
             replacementPolicyArray.push("worst");
             asyncMigrationArray.push("false");
           } else{
-            replacementPolicyArray.push($("#replacement-policy").val());
+            if($("#hetero").is(":checked")){
+              pushHeteroReplacementPolicy();
+            } else{
+              replacementPolicyArray.push($("#replacement-policy").val());
+            }
             asyncMigrationArray.push($("#async-migration").val());
           }
             demeSizeArray.push(parseInt($("#deme-size").val()));
@@ -213,6 +237,7 @@ $(document).ready(function(){
           experiment.epochTerminationTime = epochTerminationTimeArray;
           experiment.epochTerminationGDV = epochTerminationGDVArray;
           experiment.epochTerminationGAK = epochTerminationGAKArray;
+          experiment.heteroConfiguration = heteroArray; 
           experimentJson = JSON.stringify(experiment);
           var jsonObject = JSON.parse(experimentJson);
           console.log(jsonObject);
@@ -346,6 +371,7 @@ function clearFields(){
       epochTerminationTimeArray = [];
       epochTerminationGDVArray = [];
       epochTerminationGAKArray = [];
+      heteroArray = [];
   }
 
   function successfullJobSubmition(){
@@ -367,4 +393,38 @@ function clearFields(){
     $("#failure-alert-experiment").fadeTo(2000,500).slideUp(500, function(){
       $("#failure-alert-experiment").slideUp(500);
   });
+  }
+
+
+  function pushHeteroMigrationRate(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroMigrationArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroMigrationArray.push(parseInt($(`#migration-rate-${i}`).val()));
+    }
+    migrationRatesArray.push(heteroMigrationArray);
+  }
+  function pushHeteroNumberOfGenerations(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroGenerationAmountArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroGenerationAmountArray.push(3);    
+    }
+    numberOfGenerationsArray.push(heteroGenerationAmountArray);
+  }
+  function pushHeteroSelectionPolicy(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroSelectionPolicyArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroSelectionPolicyArray.push($(`#selection-policy-${i}`).val());
+    }
+    selectionPolicyArray.push(heteroSelectionPolicyArray);
+  }
+  function pushHeteroReplacementPolicy(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroReplacementPolicyArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroReplacementPolicyArray.push($(`#replacement-policy-${i}`).val());
+    }
+    replacementPolicyArray.push(heteroReplacementPolicyArray);
   }

@@ -150,6 +150,11 @@ $(document).ready(function(){
         if(validateHeteroIslandsNumber()){
             $("#hetero-islands-config").show();
             createHeteroConfigElements();
+            $("#island1-a").addClass("active");
+            $("#island2-a").removeClass("active");
+            $("#island3-a").removeClass("active");
+            $("#island4-a").removeClass("active");
+            $("#island5-a").removeClass("active");
         } else {
             failedHeteroConfig();
         }
