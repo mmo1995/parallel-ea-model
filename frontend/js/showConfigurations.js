@@ -83,6 +83,7 @@ $(document).ready(function(){
     $("#start-hetero-config").click(function(){
         if(validateHeteroIslandsNumber()){
             $("#hetero-islands-config").show();
+            createHeteroConfigElements();
         } else {
             failedHeteroConfig();
         }
@@ -93,4 +94,64 @@ function failedHeteroConfig(){
     $("#failure-alert-hetero").fadeTo(2000,500).slideUp(500, function(){
       $("#failure-alert-hetero").slideUp(500);
   });
+}
+
+function createHeteroConfigElements() {
+    var islandNumber = parseInt($("#hetero-islands-number").val());
+    switch (islandNumber) {
+        case 1: 
+        showOneIsland();
+        break;
+        case 2:
+        showTwoIslands();
+        break;
+        case 3:
+        showThreeIslands();
+        break;
+        case 4:
+        showFourIslands();
+        break;
+        case 5:
+        showFiveIslands();
+        break;
+        default:
+        break;  
+
+    }
+    
+}
+function showOneIsland(){
+    $("#island1-li").show();
+    $("#island2-li").hide();
+    $("#island3-li").hide();
+    $("#island4-li").hide();
+    $("#island5-li").hide();
+}
+function showTwoIslands(){
+    $("#island1-li").show();
+    $("#island2-li").show();
+    $("#island3-li").hide();
+    $("#island4-li").hide();
+    $("#island5-li").hide();
+}
+function showThreeIslands(){
+    $("#island1-li").show();
+    $("#island2-li").show();
+    $("#island3-li").show();
+    $("#island4-li").hide();
+    $("#island5-li").hide();
+}
+function showFourIslands(){
+    $("#island1-li").show();
+    $("#island2-li").show();
+    $("#island3-li").show();
+    $("#island4-li").show();
+    $("#island5-li").hide();
+}
+function showFiveIslands(){
+    $("#island1-li").show();
+    $("#island2-li").show();
+    $("#island3-li").show();
+    $("#island4-li").show();
+    $("#island5-li").show();
 }
