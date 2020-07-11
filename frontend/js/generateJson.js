@@ -79,7 +79,11 @@ $(document).ready(function(){
             numberOfIslandsArray.push(1);
             heteroArray.push(false);
           } else {
-            numberOfIslandsArray.push(parseInt($("#islands-number").val()));
+            if($("#hetero").is(":checked")){
+              numberOfIslandsArray.push(parseInt($("#hetero-islands-number").val()));
+            }else{
+              numberOfIslandsArray.push(parseInt($("#islands-number").val()));
+            }
           }
           if($("select#models").val()=="island"){
             numberOfSlavesArray.push(1);
@@ -108,8 +112,12 @@ $(document).ready(function(){
           } else{
             topologyArray.push(($("#topology").val()));
           }
-          initialSelectionPolicyArray.push($("#initial-selection-policy").val());
-          amountFitnessArray.push(parseInt($("#strategy-parameter").val()));
+          if($("#hetero").is(":checked")){
+            pushHeteroInitialSelectionPolicy();
+          } else{
+            initialSelectionPolicyArray.push($("#initial-selection-policy").val());
+            amountFitnessArray.push(parseInt($("#strategy-parameter").val()));
+          }
           initialSelectionPolicyInitializerArray.push($("#initial-selection-policy-initializer").val());
           amountFitnessInitializerArray.push(parseInt($("#strategy-parameter-initializer").val()));
           if($("select#models").val()=="master-slave"){
@@ -133,19 +141,31 @@ $(document).ready(function(){
             }
             asyncMigrationArray.push($("#async-migration").val());
           }
+          if($("#hetero").is(":checked")){
+            pushHeteroDemeSize();
+          } else{
             demeSizeArray.push(parseInt($("#deme-size").val()));
-            acceptRuleForOffspringArray.push($("#accept-offspring").val());
-            rankingParameterArray.push(parseFloat($("#ranking-parameter").val()));
-            minimalHammingDistanceArray.push(parseFloat($("#min-hamming").val()));
+          }
+            if($("#hetero").is(":checked")){
+              pushHeteroAcceptRuleOffspring();
+              pushHeteroRankingParameter();
+              pushHeteroMinimalHammingDistance();
+            }else{
+              acceptRuleForOffspringArray.push($("#accept-offspring").val());
+              rankingParameterArray.push(parseFloat($("#ranking-parameter").val()));
+              minimalHammingDistanceArray.push(parseFloat($("#min-hamming").val()));
+            }
             delayArray.push(0);
             globalTerminationCriterionArray.push($("#global-criterion").val());
             globalTerminationGenerationArray.push(1000);
             globalTerminationGAKArray.push(0);
             globalTerminationGDVArray.push(0);
             globalTerminationTimeArray.push(0);
-            epochTerminationGAKArray.push(0);
-            epochTerminationGDVArray.push(0);
-            epochTerminationTimeArray.push(0);
+            if($("#hetero").is(":not(:checked)")){
+              epochTerminationGAKArray.push(0);
+              epochTerminationGDVArray.push(0);
+              epochTerminationTimeArray.push(0);
+            }            
             switch($("#global-criterion").val()){
               case "fitness":
                 globalTerminationEpochArray.push(0);
@@ -171,25 +191,29 @@ $(document).ready(function(){
               epochTerminationFitnessArray.push(globalTerminationFitnessArray[globalTerminationFitnessArray.length-1]);
               epochTerminationGenerationArray.push(globalTerminationEpochArray[globalTerminationEpochArray.length-1]);
             } else{
-              epochTerminationCriterionArray.push($("#epoch-criterion").val());
-              switch($("#epoch-criterion").val()){
-                case "fitness":
-                  epochTerminationGenerationArray.push(0);
-                  epochTerminationFitnessArray.push(parseInt($("#epoch-criterion-limit").val()));
-                  epochTerminationEvaluationArray.push(0);
-                  break;
-                case "evaluation":
-                  epochTerminationGenerationArray.push(0);
-                  epochTerminationFitnessArray.push(0);
-                  epochTerminationEvaluationArray.push(parseInt($("#epoch-criterion-limit").val()));
-                  break;
-                case "generation":
-                  epochTerminationGenerationArray.push(parseInt($("#epoch-criterion-limit").val()));
-                  epochTerminationFitnessArray.push(0);
-                  epochTerminationEvaluationArray.push(0);
-                  break;
-                default:
-                  break;
+              if($("#hetero").is(":checked")){
+                  pushHeteroEpochTermination();
+              } else{
+                epochTerminationCriterionArray.push($("#epoch-criterion").val());
+                switch($("#epoch-criterion").val()){
+                  case "fitness":
+                    epochTerminationGenerationArray.push(0);
+                    epochTerminationFitnessArray.push(parseInt($("#epoch-criterion-limit").val()));
+                    epochTerminationEvaluationArray.push(0);
+                    break;
+                  case "evaluation":
+                    epochTerminationGenerationArray.push(0);
+                    epochTerminationFitnessArray.push(0);
+                    epochTerminationEvaluationArray.push(parseInt($("#epoch-criterion-limit").val()));
+                    break;
+                  case "generation":
+                    epochTerminationGenerationArray.push(parseInt($("#epoch-criterion-limit").val()));
+                    epochTerminationFitnessArray.push(0);
+                    epochTerminationEvaluationArray.push(0);
+                    break;
+                  default:
+                    break;
+                }
               }
             }
             numberOfJobs++;
@@ -238,6 +262,7 @@ $(document).ready(function(){
           experiment.epochTerminationGDV = epochTerminationGDVArray;
           experiment.epochTerminationGAK = epochTerminationGAKArray;
           experiment.heteroConfiguration = heteroArray; 
+          experiment.delay = delayArray;
           experimentJson = JSON.stringify(experiment);
           var jsonObject = JSON.parse(experimentJson);
           console.log(jsonObject);
@@ -427,4 +452,91 @@ function clearFields(){
       heteroReplacementPolicyArray.push($(`#replacement-policy-${i}`).val());
     }
     replacementPolicyArray.push(heteroReplacementPolicyArray);
+  }
+
+  function pushHeteroInitialSelectionPolicy(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroInitialSelectionPolicyArray = [];
+    var heteroAmountFitness = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroInitialSelectionPolicyArray.push($(`#initial-selection-policy-${i}`).val());
+      heteroAmountFitness.push(parseInt($(`#strategy-parameter-${i}`).val()));
+    }
+    initialSelectionPolicyArray.push(heteroInitialSelectionPolicyArray);
+    amountFitnessArray.push(heteroAmountFitness);
+  }
+
+  function pushHeteroEpochTermination(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroEpochTerminationCriterionArray = [];
+    var heteroEpochTerminationGinerationArray = [];
+    var heteroEpochTerminationFitnessArray = [];
+    var heteroEpochTerminationEvaluationArray = [];
+    var heteroEpochTerminationGAKArray = [];
+    var heteroEpochTerminationGDVArray = [];
+    var heteroEpochTerminationTimeArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroEpochTerminationGDVArray.push(0);
+      heteroEpochTerminationGAKArray.push(0);
+      heteroEpochTerminationTimeArray.push(0);
+      heteroEpochTerminationCriterionArray.push($(`#epoch-criterion-${i}`).val());
+      switch($(`#epoch-criterion-${i}`).val()){
+        case "fitness":
+          heteroEpochTerminationGinerationArray.push(0);
+          heteroEpochTerminationFitnessArray.push(parseInt($(`#epoch-criterion-limit-${i}`).val()));
+          heteroEpochTerminationEvaluationArray.push(0);
+          break;
+        case "evaluation":
+          heteroEpochTerminationGinerationArray.push(0);
+          heteroEpochTerminationFitnessArray.push(0);
+          heteroEpochTerminationEvaluationArray.push(parseInt($(`#epoch-criterion-limit-${i}`).val()));
+          break;
+        case "generation":
+          heteroEpochTerminationGinerationArray.push(parseInt($(`#epoch-criterion-limit-${i}`).val()));
+          heteroEpochTerminationFitnessArray.push(0);
+          heteroEpochTerminationEvaluationArray.push(0);
+          break;
+        default:
+          break;
+      }
+    }
+    epochTerminationCriterionArray.push(heteroEpochTerminationCriterionArray);
+    epochTerminationGenerationArray.push(heteroEpochTerminationGinerationArray);
+    epochTerminationFitnessArray.push(heteroEpochTerminationFitnessArray);
+    epochTerminationEvaluationArray.push(heteroEpochTerminationEvaluationArray);
+    epochTerminationGAKArray.push(heteroEpochTerminationGAKArray);
+    epochTerminationGDVArray.push(heteroEpochTerminationGDVArray);
+    epochTerminationTimeArray.push(heteroEpochTerminationTimeArray);
+  }
+  function pushHeteroDemeSize(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroDemeSizeArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroDemeSizeArray.push(parseInt($(`#deme-size-${i}`).val()));
+    }
+    demeSizeArray.push(heteroDemeSizeArray);
+  }
+  function pushHeteroAcceptRuleOffspring(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroAcceptRuleArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroAcceptRuleArray.push($(`#accept-offspring-${i}`).val());
+    }
+    acceptRuleForOffspringArray.push(heteroAcceptRuleArray);
+  }
+  function pushHeteroRankingParameter(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroRankingParameterArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroRankingParameterArray.push(parseFloat($(`#ranking-parameter-${i}`).val()));
+    }
+    rankingParameterArray.push(heteroRankingParameterArray);
+  }
+  function pushHeteroMinimalHammingDistance(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroMinHammingArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroMinHammingArray.push(parseFloat($(`#min-hamming-${i}`).val()));
+    }
+    minimalHammingDistanceArray.push(heteroMinHammingArray);
   }
