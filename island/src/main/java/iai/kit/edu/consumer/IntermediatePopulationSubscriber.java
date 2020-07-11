@@ -53,10 +53,6 @@ public class IntermediatePopulationSubscriber implements MessageListener {
         migrantPublisher.publish(migrants);
         if(algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.isStopped() && islandConfig.getMigrationConfig().getGlobalTerminationCriterion().equals(ConstantStrings.terminationFitness)){
             stopPublisher.publish();
-            migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
-            migrationOverheadController.sendExecutiontimeToCoordination();
-            resultController.sendResult();
-            configResetter.reset();
         } else if(islandConfig.isStopped()){
             migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
             migrationOverheadController.sendExecutiontimeToCoordination();

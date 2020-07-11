@@ -1,5 +1,10 @@
 package iai.kit.edu.consumer;
 
+import iai.kit.edu.config.ConfigResetter;
+import iai.kit.edu.config.ConstantStrings;
+import iai.kit.edu.config.IslandConfig;
+import iai.kit.edu.controller.MigrationOverheadController;
+import iai.kit.edu.controller.ResultController;
 import iai.kit.edu.core.AlgorithmWrapper;
 import iai.kit.edu.core.MigrantReplacer;
 import org.slf4j.Logger;
@@ -14,9 +19,17 @@ import org.springframework.data.redis.connection.MessageListener;
 public class MigrationCompletedSubscriber implements MessageListener {
 
     @Autowired
-    private AlgorithmWrapper algorithmWrapper;
+    AlgorithmWrapper algorithmWrapper;
     @Autowired
-    private MigrantReplacer migrantReplacer;
+    MigrantReplacer migrantReplacer;
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
+    @Autowired
+    ResultController resultController;
+    @Autowired
+    ConfigResetter configResetter;
+    @Autowired
+    IslandConfig islandConfig;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,6 +39,13 @@ public class MigrationCompletedSubscriber implements MessageListener {
         logger.info("completing migration");
         logger.info("received start signal");
         migrantReplacer.replace();
-        algorithmWrapper.startEpoch();
+        if (!algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.isStopped()) {
+            algorithmWrapper.startEpoch();
+        } else if(algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.getMigrationConfig().getGlobalTerminationCriterion().equals(ConstantStrings.terminationFitness)){
+            migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
+            migrationOverheadController.sendExecutiontimeToCoordination();
+            resultController.sendResult();
+            configResetter.reset();
+        }
     }
 }

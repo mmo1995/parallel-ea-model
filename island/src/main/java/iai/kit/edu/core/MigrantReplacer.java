@@ -1,7 +1,10 @@
 package iai.kit.edu.core;
 
+import iai.kit.edu.config.ConfigResetter;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.IslandConfig;
+import iai.kit.edu.controller.MigrationOverheadController;
+import iai.kit.edu.controller.ResultController;
 import iai.kit.edu.producer.MigrationCompletedPublisher;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -29,7 +32,13 @@ public class MigrantReplacer {
     @Autowired
     private MigrationCompletedPublisher migrationCompletedPublisher;
     @Autowired
-    private AlgorithmWrapper algorithmWrapper;
+    AlgorithmWrapper algorithmWrapper;
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
+    @Autowired
+    ResultController resultController;
+    @Autowired
+    ConfigResetter configResetter;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
@@ -93,12 +102,18 @@ public class MigrantReplacer {
     public void checkAsyncMigration() {
         if(!generations.isEmpty()){
             if(generations.get(0).size() == islandConfig.getNeighbors().size() && islandConfig.isReceivedIntermediatePopulation()){
-                islandConfig.setReceivedIntermediatePopulation(false);
                 logger.info("completing migration");
                 this.prepareAsyncMigrants();
                 this.replace();
                 generations.remove(0);
-                algorithmWrapper.startEpoch();
+                if(!algorithmWrapper.isGlobalTerminationCriterionReached()){
+                    algorithmWrapper.startEpoch();
+                } else if(algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.getMigrationConfig().getGlobalTerminationCriterion().equals(ConstantStrings.terminationFitness)){
+                    migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
+                    migrationOverheadController.sendExecutiontimeToCoordination();
+                    resultController.sendResult();
+                    configResetter.reset();
+                }
             }
         }
     }

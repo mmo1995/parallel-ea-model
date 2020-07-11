@@ -103,21 +103,12 @@ public class AlgorithmWrapper {
      */
     public void startEpoch() {
         synchronized (population) {
-            if (isGlobalTerminationCriterionReached() || islandConfig.isStopped()) {
-                migrationOverheadController.setEndIslandExecution(System.currentTimeMillis());
-                migrationOverheadController.sendExecutiontimeToCoordination();
-                resultController.sendResult();
-                configResetter.reset();
-
-            } else {
-
                 eaEpochConfig.setPopulation((GLEAMPopulation) population);
                 logger.info("starting epoch ");
                 eaEpochPublisher.publishEAEpochConfig(eaEpochConfig);
                 eaEpochConfig.deletePopulation();
-            }
+                islandConfig.setReceivedIntermediatePopulation(false);
         }
-
     }
 
     public boolean isGlobalTerminationCriterionReached() {
