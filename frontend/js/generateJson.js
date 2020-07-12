@@ -265,8 +265,7 @@ $(document).ready(function(){
           experiment.delay = delayArray;
           experimentJson = JSON.stringify(experiment);
           var jsonObject = JSON.parse(experimentJson);
-          console.log(jsonObject);
-          console.log("Number Of Jobs: " + numberOfJobs);
+          sendJsonExperiment(experimentJson);
           successExperimentSending();
           numberOfJobs = 0;
           clearArrays();
@@ -539,4 +538,17 @@ function clearFields(){
       heteroMinHammingArray.push(parseFloat($(`#min-hamming-${i}`).val()));
     }
     minimalHammingDistanceArray.push(heteroMinHammingArray);
+  }
+
+  function sendJsonExperiment(jsonObject){
+    $.ajax(
+      { 
+        url:"http://localhost:8071/ojm/start/jobs/frontend",
+        type: "POST",
+        data: jsonObject,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+      }
+    )
   }
