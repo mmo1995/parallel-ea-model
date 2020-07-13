@@ -5,11 +5,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import iai.kit.edu.config.*;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -20,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -58,6 +61,8 @@ public class AlgorithmController {
 
     private boolean hetero;
 
+    private boolean frontend;
+
     private RedisAtomicInteger amountOfGeneration;
 
     private JedisConnectionFactory jedisConnectionFactory;
@@ -80,6 +85,7 @@ public class AlgorithmController {
     public void receiveStartConfiguration(@RequestBody String json) {
         experiment = false;
         hetero = false;
+        frontend = false;
         jobConfig.readFromJson(json);
         logger.info("received job config: " + jobConfig.toString());
         overhead.setStartEvolution(System.currentTimeMillis());
@@ -96,6 +102,7 @@ public class AlgorithmController {
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
         hetero = false;
+        frontend = false;
         Gson gson = new Gson();
         resultsCollection = new ArrayList<>();
         ExperimentConfig experimentConfig = gson.fromJson(json, ExperimentConfig.class);
@@ -209,6 +216,7 @@ public class AlgorithmController {
     public void receiveHeteroStartConfiguration(@RequestBody String json) {
         experiment = false;
         hetero = true;
+        frontend = false;
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         resultsCollection = new ArrayList<>();
         heteroJobConfig.readFromJson(json);
@@ -228,6 +236,7 @@ public class AlgorithmController {
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
         hetero = true;
+        frontend = false;
         Gson gson = new Gson();
         resultsCollection = new ArrayList<>();
         HeteroExperimentConfig heteroExperimentConfig = gson.fromJson(json, HeteroExperimentConfig.class);
@@ -370,10 +379,13 @@ public class AlgorithmController {
     public void receiveFrontendStartConfiguration(@RequestBody String json) {
         amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
         experiment = true;
+        frontend = true;
+        resultsCollection = new ArrayList<>();
+        jobConfigList = new ArrayList<>();
+        heteroJobConfigList = new ArrayList<>();
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         JsonArray heteroConfiguration = jsonObject.get("heteroConfiguration").getAsJsonArray();
         jsonObject.remove("heteroConfiguration");
-        String jsonString = jsonObject.toString();
 
         boolean[] heteroArray = new boolean[heteroConfiguration.size()];
         for(int i = 0; i< heteroConfiguration.size(); i++){
@@ -383,54 +395,200 @@ public class AlgorithmController {
                 heteroArray[i] = false;
             }
         }
-        hetero = true;
-        Gson gson = new Gson();
-        resultsCollection = new ArrayList<>();
-        HeteroExperimentConfig heteroExperimentConfig = gson.fromJson(jsonString, HeteroExperimentConfig.class);
-        int[] numberOfIslands = heteroExperimentConfig.getNumberOfIslands();
-        int[] numberOfSlaves = heteroExperimentConfig.getNumberOfSlaves();
-        int[] populationSizes = heteroExperimentConfig.getGlobalPopulationSize();
-        int[] delays = heteroExperimentConfig.getDelay();
-        int[][] numberOfGeneration = heteroExperimentConfig.getNumberOfGeneration();
-        int[][] migrationRate = heteroExperimentConfig.getMigrationRate();
-        String[] topology = heteroExperimentConfig.getTopology();
-        String[][] initialSelectionPolicy = heteroExperimentConfig.getInitialSelectionPolicy();
-        int[][] amountFitness = heteroExperimentConfig.getAmountFitness();
-        String[] initialSelectionPolicyInitializer = heteroExperimentConfig.getInitialSelectionPolicyInitializer();
-        int[] amountFitnessInitializer = heteroExperimentConfig.getAmountFitnessInitializer();
-        String[][] selectionPolicy = heteroExperimentConfig.getSelectionPolicy();
-        String[][] replacementPolicy = heteroExperimentConfig.getReplacementPolicy();
-        int[][] demeSize = heteroExperimentConfig.getDemeSize();
-        boolean[] asyncMigration = heteroExperimentConfig.getAsyncMigration();
-        String[][] acceptRuleForOffspring = heteroExperimentConfig.getAcceptRuleForOffspring();
-        double[][] rankingParameter = heteroExperimentConfig.getRankingParameter();
-        double[][] minimalHammingDistance = heteroExperimentConfig.getMinimalHammingDistance();
+        JsonArray globalPopulationSizeArray = jsonObject.get("globalPopulationSize").getAsJsonArray();
+        JsonArray numberOfIslandsArray = jsonObject.get("numberOfIslands").getAsJsonArray();
+        JsonArray numberOfSlavesArray = jsonObject.get("numberOfSlaves").getAsJsonArray();
+        JsonArray numberOfGenerationsArray = jsonObject.get("numberOfGenerations").getAsJsonArray();
+        JsonArray migrationRateArray = jsonObject.get("migrationRate").getAsJsonArray();
+        JsonArray topologyArray = jsonObject.get("topology").getAsJsonArray();
+        JsonArray initialSelectionPolicyArray = jsonObject.get("initialSelectionPolicy").getAsJsonArray();
+        JsonArray amountFitnessArray = jsonObject.get("amountFitness").getAsJsonArray();
+        JsonArray initialSelectionPolicyInitializerArray = jsonObject.get("initialSelectionPolicyInitializer").getAsJsonArray();
+        JsonArray amountFitnessInitializerArray = jsonObject.get("amountFitnessInitializer").getAsJsonArray();
+        JsonArray selectionPolicyArray = jsonObject.get("selectionPolicy").getAsJsonArray();
+        JsonArray replacementPolicyArray = jsonObject.get("replacementPolicy").getAsJsonArray();
+        JsonArray demeSizeArray = jsonObject.get("demeSize").getAsJsonArray();
+        JsonArray asyncMigrationArray = jsonObject.get("asyncMigration").getAsJsonArray();
+        JsonArray acceptRuleForOffspringArray = jsonObject.get("acceptRuleForOffspring").getAsJsonArray();
+        JsonArray rankingParameterArray = jsonObject.get("rankingParameter").getAsJsonArray();
+        JsonArray minimalHammingDistanceArray = jsonObject.get("minimalHammingDistance").getAsJsonArray();
+        JsonArray delayArray = jsonObject.get("delay").getAsJsonArray();
+        JsonArray globalTerminationCriterionArray = jsonObject.get("globalTerminationCriterion").getAsJsonArray();
+        JsonArray globalTerminationEpochArray = jsonObject.get("globalTerminationEpoch").getAsJsonArray();
+        JsonArray globalTerminationEvaluationArray = jsonObject.get("globalTerminationEvaluation").getAsJsonArray();
+        JsonArray globalTerminationFitnessArray = jsonObject.get("globalTerminationFitness").getAsJsonArray();
+        JsonArray globalTerminationGenerationArray = jsonObject.get("globalTerminationGeneration").getAsJsonArray();
+        JsonArray globalTerminationTimeArray = jsonObject.get("globalTerminationTime").getAsJsonArray();
+        JsonArray globalTerminationGDVArray = jsonObject.get("globalTerminationGDV").getAsJsonArray();
+        JsonArray globalTerminationGAKArray = jsonObject.get("globalTerminationGAK").getAsJsonArray();
+        JsonArray epochTerminationCriterionArray = jsonObject.get("epochTerminationCriterion").getAsJsonArray();
+        JsonArray epochTerminationEvaluationArray = jsonObject.get("epochTerminationEvaluation").getAsJsonArray();
+        JsonArray epochTerminationFitnessArray = jsonObject.get("epochTerminationFitness").getAsJsonArray();
+        JsonArray epochTerminationGenerationArray = jsonObject.get("epochTerminationGeneration").getAsJsonArray();
+        JsonArray epochTerminationTimeArray = jsonObject.get("epochTerminationTime").getAsJsonArray();
+        JsonArray epochTerminationGDVArray = jsonObject.get("epochTerminationGDV").getAsJsonArray();
+        JsonArray epochTerminationGAKArray = jsonObject.get("epochTerminationGAK").getAsJsonArray();
 
-        String[][] epochTerminationCriterion = heteroExperimentConfig.getEpochTerminationCriterion();
-        int[][] epochTerminationEvaluation = heteroExperimentConfig.getEpochTerminationEvaluation();
-        double[][] epochTerminationFitness = heteroExperimentConfig.getEpochTerminationFitness();
-        int[][] epochTerminationGeneration = heteroExperimentConfig.getEpochTerminationGeneration();
-        int[][] epochTerminationTime = heteroExperimentConfig.getEpochTerminationTime();
-        int[][] epochTerminationGDV = heteroExperimentConfig.getEpochTerminationGDV();
-        int[][] epochTerminationGAK = heteroExperimentConfig.getEpochTerminationGAK();
-
-        String globalTerminationCriterion = heteroExperimentConfig.getGlobalTerminationCriterion();
-        int globalTerminationEpoch = heteroExperimentConfig.getGlobalTerminationEpoch();
-        int globalTerminationEvaluation = heteroExperimentConfig.getGlobalTerminationEvaluation();
-        double globalTerminationFitness = heteroExperimentConfig.getGlobalTerminationFitness();
-        int globalTerminationGeneration = heteroExperimentConfig.getGlobalTerminationGeneration();
-        int globalTerminationTime = heteroExperimentConfig.getGlobalTerminationTime();
-        int globalTerminationGDV = heteroExperimentConfig.getGlobalTerminationGDV();
-        int globalTerminationGAK = heteroExperimentConfig.getGlobalTerminationGAK();
-
-        heteroJobConfigList = new ArrayList<>();
-
-        heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
-        logger.info("received job config: " + heteroJobConfig.toString());
-        //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
-        overhead.setStartEvolution(System.currentTimeMillis());
-        overhead.setStartInitializationOverhead(System.currentTimeMillis());
-        algorithmManager.initialize(true);
+        for(int i = 0; i< heteroArray.length; i++){
+            if(heteroArray[i] == true){
+                HeteroJobConfig heteroJobConfig = new HeteroJobConfig();
+                heteroJobConfig.setGlobalPopulationSize(globalPopulationSizeArray.get(i).getAsInt());
+                heteroJobConfig.setNumberOfIslands(numberOfIslandsArray.get(i).getAsInt());
+                heteroJobConfig.setNumberOfSlaves(numberOfSlavesArray.get(i).getAsInt());
+                int[] numberOfGenerations = new int[numberOfGenerationsArray.get(i).getAsJsonArray().size()];
+                for(int j = 0; j<numberOfGenerations.length; j++){
+                    numberOfGenerations[j] = numberOfGenerationsArray.get(i).getAsJsonArray().get(j).getAsInt();
+                }
+                heteroJobConfig.setNumberOfGeneration(numberOfGenerations);
+                int[] migrationRates = new int[migrationRateArray.get(i).getAsJsonArray().size()];
+                for(int k = 0; k<migrationRates.length; k++){
+                    migrationRates[k] = migrationRateArray.get(i).getAsJsonArray().get(k).getAsInt();
+                }
+                heteroJobConfig.setMigrationRate(migrationRates);
+                heteroJobConfig.setTopology(topologyArray.get(i).getAsString());
+                String[] initialSelectionPolicy = new String[initialSelectionPolicyArray.get(i).getAsJsonArray().size()];
+                for(int l = 0; l<initialSelectionPolicy.length; l++){
+                    initialSelectionPolicy[l] = initialSelectionPolicyArray.get(i).getAsJsonArray().get(l).getAsString();
+                }
+                heteroJobConfig.setInitialSelectionPolicy(initialSelectionPolicy);
+                int[] amountFitness = new int[amountFitnessArray.get(i).getAsJsonArray().size()];
+                for(int m = 0; m<amountFitness.length; m++){
+                    amountFitness[m] = amountFitnessArray.get(i).getAsJsonArray().get(m).getAsInt();
+                }
+                heteroJobConfig.setAmountFitness(amountFitness);
+                heteroJobConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializerArray.get(i).getAsString());
+                heteroJobConfig.setAmountFitnessInitializer(amountFitnessInitializerArray.get(i).getAsInt());
+                String[] selectionPolicy = new String[selectionPolicyArray.get(i).getAsJsonArray().size()];
+                for(int n = 0; n<selectionPolicy.length; n++){
+                    selectionPolicy[n] = selectionPolicyArray.get(i).getAsJsonArray().get(n).getAsString();
+                }
+                heteroJobConfig.setSelectionPolicy(selectionPolicy);
+                String[] replacementPolicy = new String[replacementPolicyArray.get(i).getAsJsonArray().size()];
+                for(int n = 0; n<selectionPolicy.length; n++){
+                    replacementPolicy[n] = replacementPolicyArray.get(i).getAsJsonArray().get(n).getAsString();
+                }
+                heteroJobConfig.setReplacementPolicy(replacementPolicy);
+                int[] demeSize = new int[demeSizeArray.get(i).getAsJsonArray().size()];
+                for(int o = 0; o<demeSize.length; o++){
+                    demeSize[o] = demeSizeArray.get(i).getAsJsonArray().get(o).getAsInt();
+                }
+                heteroJobConfig.setDemeSize(demeSize);
+                heteroJobConfig.setAsyncMigration(asyncMigrationArray.get(i).getAsBoolean());
+                String[] acceptRuleForOffspring = new String[acceptRuleForOffspringArray.get(i).getAsJsonArray().size()];
+                for(int p = 0; p< acceptRuleForOffspring.length; p++){
+                    acceptRuleForOffspring[p] = acceptRuleForOffspringArray.get(i).getAsJsonArray().get(p).getAsString();
+                }
+                heteroJobConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
+                double[] rankingParameter = new double[rankingParameterArray.get(i).getAsJsonArray().size()];
+                for(int q = 0; q< rankingParameter.length; q++){
+                    rankingParameter[q] = rankingParameterArray.get(i).getAsJsonArray().get(q).getAsDouble();
+                }
+                heteroJobConfig.setRankingParameter(rankingParameter);
+                double[] minimalHammingDistance = new double[minimalHammingDistanceArray.get(i).getAsJsonArray().size()];
+                for(int r = 0; r<minimalHammingDistance.length;r++){
+                    minimalHammingDistance[r] = minimalHammingDistanceArray.get(i).getAsJsonArray().get(r).getAsDouble();
+                }
+                heteroJobConfig.setMinimalHammingDistance(minimalHammingDistance);
+                heteroJobConfig.setDelay(delayArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationCriterion(globalTerminationCriterionArray.get(i).getAsString());
+                heteroJobConfig.setGlobalTerminationGeneration(globalTerminationGenerationArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationEpoch(globalTerminationEpochArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationFitness(globalTerminationFitnessArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationEvaluation(globalTerminationEvaluationArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationTime(globalTerminationTimeArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationGDV(globalTerminationGDVArray.get(i).getAsInt());
+                heteroJobConfig.setGlobalTerminationGAK(globalTerminationGAKArray.get(i).getAsInt());
+                String[] epochTerminationCriterion = new String[epochTerminationCriterionArray.get(i).getAsJsonArray().size()];
+                for(int s = 0; s<epochTerminationCriterion.length; s++){
+                    epochTerminationCriterion[s] = epochTerminationCriterionArray.get(i).getAsJsonArray().get(s).getAsString();
+                }
+                heteroJobConfig.setEpochTerminationCriterion(epochTerminationCriterion);
+                double[] epochTerminationFitness = new double[epochTerminationFitnessArray.get(i).getAsJsonArray().size()];
+                for(int t= 0; t<epochTerminationFitness.length; t++){
+                    epochTerminationFitness[t] = epochTerminationFitnessArray.get(i).getAsJsonArray().get(t).getAsDouble();
+                }
+                heteroJobConfig.setEpochTerminationFitness(epochTerminationFitness);
+                int[] epochTerminationGeneration = new int[epochTerminationGenerationArray.get(i).getAsJsonArray().size()];
+                for(int u= 0; u<epochTerminationGeneration.length; u++){
+                    epochTerminationGeneration[u] = epochTerminationGenerationArray.get(i).getAsJsonArray().get(u).getAsInt();
+                }
+                heteroJobConfig.setEpochTerminationGeneration(epochTerminationGeneration);
+                int[] epochTerminationEvaluation = new int[epochTerminationEvaluationArray.get(i).getAsJsonArray().size()];
+                for(int v= 0; v<epochTerminationEvaluation.length; v++){
+                    epochTerminationEvaluation[v] = epochTerminationEvaluationArray.get(i).getAsJsonArray().get(v).getAsInt();
+                }
+                heteroJobConfig.setEpochTerminationEvaluation(epochTerminationEvaluation);
+                int[] epochTerminationTime = new int[epochTerminationTimeArray.get(i).getAsJsonArray().size()];
+                for(int w= 0; w<epochTerminationTime.length; w++){
+                    epochTerminationTime[w] = epochTerminationTimeArray.get(i).getAsJsonArray().get(w).getAsInt();
+                }
+                heteroJobConfig.setEpochTerminationTime(epochTerminationTime);
+                int[] epochTerminationGAK = new int[epochTerminationGAKArray.get(i).getAsJsonArray().size()];
+                for(int x= 0; x<epochTerminationGAK.length; x++){
+                    epochTerminationGAK[x] = epochTerminationGAKArray.get(i).getAsJsonArray().get(x).getAsInt();
+                }
+                heteroJobConfig.setEpochTerminationGAK(epochTerminationGAK);
+                int[] epochTerminationGDV = new int[epochTerminationGDVArray.get(i).getAsJsonArray().size()];
+                for(int y= 0; y<epochTerminationGDV.length; y++){
+                    epochTerminationGDV[y] = epochTerminationGDVArray.get(i).getAsJsonArray().get(y).getAsInt();
+                }
+                heteroJobConfig.setEpochTerminationGDV(epochTerminationGDV);
+                heteroJobConfigList.add(heteroJobConfig);
+            } else {
+                JobConfig jobConfig = new JobConfig();
+                jobConfig.setGlobalPopulationSize(globalPopulationSizeArray.get(i).getAsInt());
+                jobConfig.setNumberOfIslands(numberOfIslandsArray.get(i).getAsInt());
+                jobConfig.setNumberOfSlaves(numberOfSlavesArray.get(i).getAsInt());
+                jobConfig.setNumberOfGeneration(numberOfGenerationsArray.get(i).getAsInt());
+                jobConfig.setMigrationRate(migrationRateArray.get(i).getAsInt());
+                jobConfig.setTopology(topologyArray.get(i).getAsString());
+                jobConfig.setInitialSelectionPolicy(initialSelectionPolicyArray.get(i).getAsString());
+                jobConfig.setAmountFitness(amountFitnessArray.get(i).getAsInt());
+                jobConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializerArray.get(i).getAsString());
+                jobConfig.setAmountFitnessInitializer(amountFitnessInitializerArray.get(i).getAsInt());
+                jobConfig.setSelectionPolicy(selectionPolicyArray.get(i).getAsString());
+                jobConfig.setReplacementPolicy(replacementPolicyArray.get(i).getAsString());
+                jobConfig.setDemeSize(demeSizeArray.get(i).getAsInt());
+                jobConfig.setAsyncMigration(asyncMigrationArray.get(i).getAsBoolean());
+                jobConfig.setAcceptRuleForOffspring(acceptRuleForOffspringArray.get(i).getAsString());
+                jobConfig.setRankingParameter(rankingParameterArray.get(i).getAsDouble());
+                jobConfig.setMinimalHammingDistance(minimalHammingDistanceArray.get(i).getAsDouble());
+                jobConfig.setDelay(delayArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationCriterion(globalTerminationCriterionArray.get(i).getAsString());
+                jobConfig.setGlobalTerminationGeneration(globalTerminationGenerationArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationEpoch(globalTerminationEpochArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationFitness(globalTerminationFitnessArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationEvaluation(globalTerminationEvaluationArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationTime(globalTerminationTimeArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationGDV(globalTerminationGDVArray.get(i).getAsInt());
+                jobConfig.setGlobalTerminationGAK(globalTerminationGAKArray.get(i).getAsInt());
+                jobConfig.setEpochTerminationCriterion(epochTerminationCriterionArray.get(i).getAsString());
+                jobConfig.setEpochTerminationFitness(epochTerminationFitnessArray.get(i).getAsDouble());
+                jobConfig.setEpochTerminationEvaluation(epochTerminationEvaluationArray.get(i).getAsInt());
+                jobConfig.setEpochTerminationGeneration(epochTerminationGenerationArray.get(i).getAsInt());
+                jobConfig.setEpochTerminationTime(epochTerminationTimeArray.get(i).getAsInt());
+                jobConfig.setEpochTerminationGDV(epochTerminationGDVArray.get(i).getAsInt());
+                jobConfig.setEpochTerminationGAK(epochTerminationGAKArray.get(i).getAsInt());
+                jobConfigList.add(jobConfig);
+            }
+        }
+        if(heteroArray[0]){
+            hetero = true;
+            heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
+            logger.info("received job config: " + heteroJobConfig.toString());
+            //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+            overhead.setStartEvolution(System.currentTimeMillis());
+            overhead.setStartInitializationOverhead(System.currentTimeMillis());
+            algorithmManager.initialize(true);
+        } else {
+            hetero = false;
+            jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
+            logger.info("received job config: " + jobConfig.toString());
+            //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+            overhead.setStartEvolution(System.currentTimeMillis());
+            overhead.setStartInitializationOverhead(System.currentTimeMillis());
+            algorithmManager.initialize(false);
+        }
     }
 
 
@@ -592,7 +750,9 @@ public class AlgorithmController {
         String jsonInString1 = gson.toJson(dataToVisualizeObject);
         String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
         resultsCollection.add(replacedJsonInString1);
+        if(frontend){
 
+        } else
         if (experiment && !hetero && jobConfigList.size() != 0) {
             //jRedisconn.flushAll();
             executionTimeEAs =  new HashMap<>();
