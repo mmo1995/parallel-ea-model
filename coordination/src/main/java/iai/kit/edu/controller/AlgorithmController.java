@@ -362,6 +362,77 @@ public class AlgorithmController {
         algorithmManager.initialize(true);
     }
 
+    /**
+     * Receive configuration for multiple jobs from frontend
+     * @param json of configurations
+     */
+    @RequestMapping(value = "/start/jobs/frontend", method = RequestMethod.POST)
+    public void receiveFrontendStartConfiguration(@RequestBody String json) {
+        amountOfGeneration = new RedisAtomicInteger(ConstantStrings.gleamConfigurationsGeneration, template.getConnectionFactory());
+        experiment = true;
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        JsonArray heteroConfiguration = jsonObject.get("heteroConfiguration").getAsJsonArray();
+        jsonObject.remove("heteroConfiguration");
+        String jsonString = jsonObject.toString();
+
+        boolean[] heteroArray = new boolean[heteroConfiguration.size()];
+        for(int i = 0; i< heteroConfiguration.size(); i++){
+            if(heteroConfiguration.get(i).getAsString().equals("true")){
+                heteroArray[i] = true;
+            } else{
+                heteroArray[i] = false;
+            }
+        }
+        hetero = true;
+        Gson gson = new Gson();
+        resultsCollection = new ArrayList<>();
+        HeteroExperimentConfig heteroExperimentConfig = gson.fromJson(jsonString, HeteroExperimentConfig.class);
+        int[] numberOfIslands = heteroExperimentConfig.getNumberOfIslands();
+        int[] numberOfSlaves = heteroExperimentConfig.getNumberOfSlaves();
+        int[] populationSizes = heteroExperimentConfig.getGlobalPopulationSize();
+        int[] delays = heteroExperimentConfig.getDelay();
+        int[][] numberOfGeneration = heteroExperimentConfig.getNumberOfGeneration();
+        int[][] migrationRate = heteroExperimentConfig.getMigrationRate();
+        String[] topology = heteroExperimentConfig.getTopology();
+        String[][] initialSelectionPolicy = heteroExperimentConfig.getInitialSelectionPolicy();
+        int[][] amountFitness = heteroExperimentConfig.getAmountFitness();
+        String[] initialSelectionPolicyInitializer = heteroExperimentConfig.getInitialSelectionPolicyInitializer();
+        int[] amountFitnessInitializer = heteroExperimentConfig.getAmountFitnessInitializer();
+        String[][] selectionPolicy = heteroExperimentConfig.getSelectionPolicy();
+        String[][] replacementPolicy = heteroExperimentConfig.getReplacementPolicy();
+        int[][] demeSize = heteroExperimentConfig.getDemeSize();
+        boolean[] asyncMigration = heteroExperimentConfig.getAsyncMigration();
+        String[][] acceptRuleForOffspring = heteroExperimentConfig.getAcceptRuleForOffspring();
+        double[][] rankingParameter = heteroExperimentConfig.getRankingParameter();
+        double[][] minimalHammingDistance = heteroExperimentConfig.getMinimalHammingDistance();
+
+        String[][] epochTerminationCriterion = heteroExperimentConfig.getEpochTerminationCriterion();
+        int[][] epochTerminationEvaluation = heteroExperimentConfig.getEpochTerminationEvaluation();
+        double[][] epochTerminationFitness = heteroExperimentConfig.getEpochTerminationFitness();
+        int[][] epochTerminationGeneration = heteroExperimentConfig.getEpochTerminationGeneration();
+        int[][] epochTerminationTime = heteroExperimentConfig.getEpochTerminationTime();
+        int[][] epochTerminationGDV = heteroExperimentConfig.getEpochTerminationGDV();
+        int[][] epochTerminationGAK = heteroExperimentConfig.getEpochTerminationGAK();
+
+        String globalTerminationCriterion = heteroExperimentConfig.getGlobalTerminationCriterion();
+        int globalTerminationEpoch = heteroExperimentConfig.getGlobalTerminationEpoch();
+        int globalTerminationEvaluation = heteroExperimentConfig.getGlobalTerminationEvaluation();
+        double globalTerminationFitness = heteroExperimentConfig.getGlobalTerminationFitness();
+        int globalTerminationGeneration = heteroExperimentConfig.getGlobalTerminationGeneration();
+        int globalTerminationTime = heteroExperimentConfig.getGlobalTerminationTime();
+        int globalTerminationGDV = heteroExperimentConfig.getGlobalTerminationGDV();
+        int globalTerminationGAK = heteroExperimentConfig.getGlobalTerminationGAK();
+
+        heteroJobConfigList = new ArrayList<>();
+
+        heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
+        logger.info("received job config: " + heteroJobConfig.toString());
+        //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+        overhead.setStartEvolution(System.currentTimeMillis());
+        overhead.setStartInitializationOverhead(System.currentTimeMillis());
+        algorithmManager.initialize(true);
+    }
+
 
     /**
      * Receive result
