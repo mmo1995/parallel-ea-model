@@ -43,12 +43,12 @@ public class IntermediatePopulationPublisher {
 
         ValueOperations<String, String> ops = this.stringTemplate.opsForValue();
         ops.set(ConstantStrings.resultPopulation + "." + islandConfig.getIslandNumber() + "." + islandConfig.getSlaveNumber(), intermediatePopulation.toString());
+        logger.info("********************************************************************************");
         int[] islandAndSlaveNumber = {islandConfig.getIslandNumber(), islandConfig.getSlaveNumber()};
+        logger.info("********************************************************************************");
         ResponseEntity<String> request = restTemplate.postForEntity(ConstantStrings.splittingJoiningURL + "/sjs/slavesPopulation/result",islandAndSlaveNumber, String.class);
-
         //logger.info("publishing the calculated results of one generation");
         logger.info("********************************************************************************");
-
     }
 
 

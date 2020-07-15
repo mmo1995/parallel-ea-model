@@ -54,6 +54,9 @@ public class SlaveReadinessSubscriber implements MessageListener {
             algorithmStarter.setFirstEpoch(true);
             algorithmStarter.setStopeped(false);
             eaReadinessPublisher.publish();
+            slavesReadyCounter.set(0);
+            slavesConfig.setAllSlavesInitialized(false);
+            slavesConfig.setAllSlavesReady(false);
         }
     }
 
