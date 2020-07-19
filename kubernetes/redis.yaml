@@ -37,9 +37,16 @@ spec:
         k8s-app: redis
     spec:
       containers:
-      - image: redis:4.0.9
+      - image: redis
         imagePullPolicy: IfNotPresent
         name: redis
+        resources:
+          requests:
+            cpu: "1000m"
+            memory:  3000Mi
+          limits:
+            cpu: "1000m"
+            memory:  3000Mi
         ports:
         - containerPort: 6379
           protocol: TCP
