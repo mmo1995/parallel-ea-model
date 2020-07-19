@@ -24,6 +24,7 @@ $(document).ready(function(){
             $("#hybrid-h5").hide();
             $("#hetero-homo-div").hide();
             $("#hetero-container").hide();
+            $("#hetero").prop("checked", false);
             break;
         case 'island':
             $("#config").show();

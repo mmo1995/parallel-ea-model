@@ -265,6 +265,7 @@ $(document).ready(function(){
           experiment.delay = delayArray;
           experimentJson = JSON.stringify(experiment);
           var jsonObject = JSON.parse(experimentJson);
+          console.log(jsonObject);
           sendJsonExperiment(experimentJson);
           successExperimentSending();
           numberOfJobs = 0;
