@@ -168,8 +168,8 @@ def create_slaves():
 def create_pod_object_interpreter(interpreter_number, island_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "250m"},
-        limits={"cpu": "250m"}
+        requests={"cpu": "250m", "memory": "1500Mi"},
+        limits={"cpu": "250m", "memory": "1500Mi"}
     )
 
     # Configurate Pod container
@@ -194,8 +194,8 @@ def create_pod_object_interpreter(interpreter_number, island_number):
 def create_pod_object_calculation(calculation_number, island_number):
     # Configure Resources
     resources = client.V1ResourceRequirements(
-        requests={"cpu": "250m"},
-        limits={"cpu": "250m"}
+        requests={"cpu": "250m", "memory": "1500Mi"},
+        limits={"cpu": "250m", "memory": "1500Mi"}
     )
 
     # Configurate Pod container

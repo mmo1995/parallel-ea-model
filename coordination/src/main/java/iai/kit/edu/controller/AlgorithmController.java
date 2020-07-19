@@ -56,6 +56,7 @@ public class AlgorithmController {
 
     private List<JobConfig> jobConfigList;
     private List<HeteroJobConfig> heteroJobConfigList;
+    private List<Boolean> heteroList;
 
     private boolean experiment;
 
@@ -383,16 +384,17 @@ public class AlgorithmController {
         resultsCollection = new ArrayList<>();
         jobConfigList = new ArrayList<>();
         heteroJobConfigList = new ArrayList<>();
+        heteroList = new ArrayList<>();
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         JsonArray heteroConfiguration = jsonObject.get("heteroConfiguration").getAsJsonArray();
         jsonObject.remove("heteroConfiguration");
 
-        boolean[] heteroArray = new boolean[heteroConfiguration.size()];
+
         for(int i = 0; i< heteroConfiguration.size(); i++){
             if(heteroConfiguration.get(i).getAsString().equals("true")){
-                heteroArray[i] = true;
+                heteroList.add(true);
             } else{
-                heteroArray[i] = false;
+                heteroList.add(false);
             }
         }
         JsonArray globalPopulationSizeArray = jsonObject.get("globalPopulationSize").getAsJsonArray();
@@ -429,8 +431,8 @@ public class AlgorithmController {
         JsonArray epochTerminationGDVArray = jsonObject.get("epochTerminationGDV").getAsJsonArray();
         JsonArray epochTerminationGAKArray = jsonObject.get("epochTerminationGAK").getAsJsonArray();
 
-        for(int i = 0; i< heteroArray.length; i++){
-            if(heteroArray[i] == true){
+        for(int i = 0; i< heteroList.size(); i++){
+            if(heteroList.get(i) == true){
                 HeteroJobConfig heteroJobConfig = new HeteroJobConfig();
                 heteroJobConfig.setGlobalPopulationSize(globalPopulationSizeArray.get(i).getAsInt());
                 heteroJobConfig.setNumberOfIslands(numberOfIslandsArray.get(i).getAsInt());
@@ -572,7 +574,7 @@ public class AlgorithmController {
                 jobConfigList.add(jobConfig);
             }
         }
-        if(heteroArray[0]){
+        if(heteroList.get(0)){
             hetero = true;
             heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
             logger.info("received job config: " + heteroJobConfig.toString());
@@ -580,6 +582,7 @@ public class AlgorithmController {
             overhead.setStartEvolution(System.currentTimeMillis());
             overhead.setStartInitializationOverhead(System.currentTimeMillis());
             algorithmManager.initialize(true);
+            heteroList.remove(0);
         } else {
             hetero = false;
             jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
@@ -588,6 +591,7 @@ public class AlgorithmController {
             overhead.setStartEvolution(System.currentTimeMillis());
             overhead.setStartInitializationOverhead(System.currentTimeMillis());
             algorithmManager.initialize(false);
+            heteroList.remove(0);
         }
     }
 
@@ -751,7 +755,37 @@ public class AlgorithmController {
         String replacedJsonInString1 = jsonInString1.replaceAll("ResourcePlan", "resourcePlan");
         resultsCollection.add(replacedJsonInString1);
         if(frontend){
-
+            if(heteroList.size()!= 0){
+                if(heteroList.get(0)){
+                    hetero = true;
+                    heteroJobConfig.readFromExistingJobConfig(heteroJobConfigList.remove(0));
+                    logger.info("received job config: " + heteroJobConfig.toString());
+                    //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+                    overhead.setStartEvolution(System.currentTimeMillis());
+                    overhead.setStartInitializationOverhead(System.currentTimeMillis());
+                    algorithmManager.initialize(true);
+                    heteroList.remove(0);
+                } else {
+                    hetero = false;
+                    jobConfig.readFromExistingJobConfig(jobConfigList.remove(0));
+                    logger.info("received job config: " + jobConfig.toString());
+                    //amountOfGeneration.set(heteroJobConfig.getEpochTerminationGeneration()+1);
+                    overhead.setStartEvolution(System.currentTimeMillis());
+                    overhead.setStartInitializationOverhead(System.currentTimeMillis());
+                    algorithmManager.initialize(false);
+                    heteroList.remove(0);
+                }
+            } else {
+                executionTimeEAs =  new HashMap<>();
+                executionTimeIslands = new HashMap<>();
+                logger.info("All jobs are finished");
+                jobId = 0;
+                if(hetero){
+                    heteroJobConfig.setNumberOfIslands(0);
+                } else{
+                    jobConfig.setNumberOfIslands(0);
+                }
+            }
         } else
         if (experiment && !hetero && jobConfigList.size() != 0) {
             //jRedisconn.flushAll();

@@ -32,7 +32,7 @@ public class Autowiring {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         jedisConFactory.setHostName("redis");
-        /*jedisConFactory.setHostName("localhost");*/
+//        jedisConFactory.setHostName("localhost");
         jedisConFactory.setPort(6379);
         return jedisConFactory;
     }
