@@ -63,7 +63,7 @@ public class GLEAMConfig extends AlgorithmConfig {
                 contentBuilder.replace(contentBuilder.toString().indexOf("Mindesthammingabstand"), contentBuilder.toString().indexOf("# Kein XO"), "Mindesthammingabstand f.XO/Reko [%] = "+ minimalHammingDistance+ "   ");
             }
             if(fileName.equals("experiment.exp")){
-                contentBuilder.replace(contentBuilder.toString().indexOf("Evolutionsparameter"),contentBuilder.toString().indexOf("Chromosomenspeicher"),"Evolutionsparameter                 = " + evoFileName);
+                contentBuilder.replace(contentBuilder.toString().indexOf("Evolutionsparameter"),contentBuilder.toString().indexOf("Chromosomenspeicher"),"Evolutionsparameter                 = " + evoFileName + "\n");
             }
             files.add(contentBuilder.toString());
         }

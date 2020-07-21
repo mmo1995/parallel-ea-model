@@ -168,8 +168,8 @@ public class Test {
     }
 
     private static void runHeteroExperiment(){
-        int[] numberOfIslands = {1};
-        int[] numberOfSlaves = {35};
+        int[] numberOfIslands = {10};
+        int[] numberOfSlaves = {1};
         int[] populationSize = {240};
         int[][] migrationRates = new int[][]{
                 {1,1,1,1,1,1,1,1,1,1},
@@ -212,7 +212,7 @@ public class Test {
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
+        int globalTerminationEpoch = 2; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
         double globalTerminationFitness = 35000;
         int globalTerminationGeneration = 1; // the max number of generation if we use Fitness as a termination criterium
@@ -261,8 +261,8 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     runExperiment();
+     //runExperiment();
      //runHetero();
-        //runHeteroExperiment();
+        runHeteroExperiment();
     }
 }
