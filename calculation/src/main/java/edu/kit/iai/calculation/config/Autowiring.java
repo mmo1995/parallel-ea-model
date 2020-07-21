@@ -17,6 +17,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.ErrorHandler;
 import redis.clients.jedis.Protocol;
 
 
@@ -45,6 +46,7 @@ public class Autowiring {
     @Bean
     RedisMessageListenerContainer redisContainer() {
         final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setErrorHandler(throwable -> System.out.println("Message: " + throwable.getMessage()));
         container.setConnectionFactory(jedisConnectionFactory());
         return container;
     }

@@ -2,6 +2,7 @@ package iai.kit.edu.controller;
 
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.IslandConfig;
+import iai.kit.edu.core.MigrantReplacer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class MigrationOverheadController {
     private RestTemplate restTemplate = new RestTemplate();
 
     private static long startIslandExecution = 0;
-
-
     private static long endIslandExecution = 0;
+
+    private static double migrationOverhead = 0;
     private static int eaExecutiontime = 0;
 
     private static int numberOfMigrations = 0;
@@ -60,6 +61,10 @@ public class MigrationOverheadController {
         MigrationOverheadController.eaExecutiontime = eaExecutiontime;
     }
 
+    public static void setMigrationOverhead(double migrationOverhead) {
+        MigrationOverheadController.migrationOverhead = migrationOverhead;
+    }
+
     public static int getNumberOfMigrations() {
         return numberOfMigrations;
     }
@@ -72,19 +77,23 @@ public class MigrationOverheadController {
         String executiontime = TimeUnit.MILLISECONDS.toSeconds(endIslandExecution - startIslandExecution) + "";
         logger.info("Execution time of Island: " + executiontime + " seconds");
         logger.info("Sum execution times of EA: " + eaExecutiontime + " seconds");
-        logger.info("Migration overhead: " + (Integer.parseInt(executiontime) - eaExecutiontime) + " seconds");
         String islandNumberString = String.valueOf(islandConfig.getIslandNumber());
         String sumEAExecutionString = String.valueOf(eaExecutiontime);
+        String migrationOverheadString = String.valueOf(migrationOverhead);
         executiontime = executiontime.concat("#").concat(String.valueOf(numberOfMigrations));
-        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL+"/ojm/"+islandNumberString+"/"+sumEAExecutionString+"/executiontime", executiontime, String.class);
+        ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.coordinationURL+"/ojm/"+islandNumberString+"/"+sumEAExecutionString+ "/"+ migrationOverheadString +"/executiontime", executiontime, String.class);
         setStartIslandExecution(0);
         setEndIslandExecution(0);
         setNumberOfMigrations(0);
         setEaExecutiontime(0);
+        setMigrationOverhead(0);
     }
 
     public static void addEAExecutiontime(String eaExecutiontime){
         MigrationOverheadController.eaExecutiontime += Integer.parseInt(eaExecutiontime);
         MigrationOverheadController.numberOfMigrations++;
+    }
+    public static void addMigrationOverhead(double migrationOverhead){
+        MigrationOverheadController.migrationOverhead += migrationOverhead;
     }
 }

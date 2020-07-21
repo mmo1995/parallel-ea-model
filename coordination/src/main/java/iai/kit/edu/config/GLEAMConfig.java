@@ -46,7 +46,7 @@ public class GLEAMConfig extends AlgorithmConfig {
         }
     }
 
-    public void readFiles(double minimalHammingDistance) {
+    public void readFiles(double minimalHammingDistance, String evoFileName) {
         File gleamWorkspace = new File(workspacePath);
         File[] fileArray = gleamWorkspace.listFiles(new GleamFileFilter());
         this.storeFileNames(fileArray);
@@ -61,6 +61,9 @@ public class GLEAMConfig extends AlgorithmConfig {
             }
             if(fileName.contains(".tsk")){
                 contentBuilder.replace(contentBuilder.toString().indexOf("Mindesthammingabstand"), contentBuilder.toString().indexOf("# Kein XO"), "Mindesthammingabstand f.XO/Reko [%] = "+ minimalHammingDistance+ "   ");
+            }
+            if(fileName.equals("experiment.exp")){
+                contentBuilder.replace(contentBuilder.toString().indexOf("Evolutionsparameter"),contentBuilder.toString().indexOf("Chromosomenspeicher"),"Evolutionsparameter                 = " + evoFileName);
             }
             files.add(contentBuilder.toString());
         }

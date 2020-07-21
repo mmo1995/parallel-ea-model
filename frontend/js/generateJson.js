@@ -544,7 +544,7 @@ function clearFields(){
   function sendJsonExperiment(jsonObject){
     $.ajax(
       { 
-        url:"http://localhost:8071/ojm/start/jobs/frontend",
+        url:"http://ea-hybrid.cloud.iai.kit.edu/ojm/start/jobs/frontend",
         type: "POST",
         data: jsonObject,
         contentType: "application/json; charset=utf-8",

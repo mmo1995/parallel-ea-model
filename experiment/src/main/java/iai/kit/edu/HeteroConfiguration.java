@@ -24,6 +24,7 @@ public class HeteroConfiguration {
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
     double[] minimalHammingDistance;
+    String[] evoFileName;
 
     private String[] epochTerminationCriterion;
     private int[] epochTerminationEvaluation;
@@ -308,5 +309,13 @@ public class HeteroConfiguration {
 
     public void setAsyncMigration(boolean asyncMigration) {
         this.asyncMigration = asyncMigration;
+    }
+
+    public String[] getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String[] evoFileName) {
+        this.evoFileName = evoFileName;
     }
 }

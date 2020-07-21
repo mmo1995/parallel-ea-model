@@ -8,38 +8,39 @@ import org.springframework.web.client.RestTemplate;
 public class Test {
 
     private static void runExperiment(){
-        int[] numberOfIslands = new int[]{1};
+        int[] numberOfIslands = new int[]{5};
         int[] numberOfSlaves = new int[] {1};
-        int[] populationSizes = new int[]{10}; //240 for each island
-        int[] migrationRates = new int[]{1};
+        int[] populationSizes = new int[]{512}; //240 for each island
+        int[] migrationRates = new int[]{5};
         int[] generationAmount = new int[]{3};
         int[] delays = new int[]{0};
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String[] topologies = new String[]{"ring"};
 
-        int[] demeSize = new int[]{6};
-        String[] acceptRuleForOffspring = {"localLeast-ES"}; //always, localLeast, betterParent
+        int[] demeSize = new int[]{8};
+        String[] acceptRuleForOffspring = {"always"}; //always, localLeast, betterParent
         double[] rankingParameter = {1.45};
 
         String[] initialSelectionPolicyInitializer= {"new"};
         int[] amountFitnessInitializer = {0};
 
-        String[] initialSelectionPolicy= {"bestNew"};
-        int[] amountFitness = {1};
+        String[] initialSelectionPolicy= {"new"};
+        int[] amountFitness = {0};
 
-        boolean[] asyncMigration = {true};
+        boolean[] asyncMigration = {false};
 
-        double[] minimalHammingDistance = {0.2};
+        double[] minimalHammingDistance = {0.3};
+        String[] evoFileName = {"lsk_stnd.evo"}; // lsk_stnd.evo, lsk_stnd_1.evo, ... , lsk_stnd_10.evo
 
         String epochTerminationCriterion= "generation"; // evaluation ; fitness ;generation
         int epochTerminationEvaluation= 1000000;
         double epochTerminationFitness= 100000;
-        int epochTerminationGeneration = 1; // number of evolution inside the each island i.e. nr. of generation of Master-slave
+        int epochTerminationGeneration = 50; // number of evolution inside the each island i.e. nr. of generation of Master-slave
 
-        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
+        String globalTerminationCriterion = "fitness"; // evaluation ; fitness ; generation
         int globalTerminationEpoch = 3; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
-        double globalTerminationFitness = 85000;
+        double globalTerminationFitness = 70000;
         int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
         Gson gson = new Gson();
         ExperimentConfig experimentConfig = new ExperimentConfig();
@@ -54,6 +55,7 @@ public class Test {
         experimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
         experimentConfig.setRankingParameter(rankingParameter);
         experimentConfig.setMinimalHammingDistance(minimalHammingDistance);
+        experimentConfig.setEvoFileName(evoFileName);
         experimentConfig.setInitialSelectionPolicy(initialSelectionPolicy);
         experimentConfig.setAmountFitness(amountFitness);
         experimentConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
@@ -113,6 +115,7 @@ public class Test {
         String[] acceptRuleForOffspring = {"always","localLeast"}; //localLeast-ES, always, localLeast, betterParent
         double[] rankingParameter = {1.46, 1.50};
         double[] minimalHammingDistance = {0.3,0.2};
+        String[] evoFileName = {"lsk_stnd_1.evo, lsk_stnd_2.evo"}; // lsk_stnd.evo, lsk_stnd_1.evo, ... , lsk_stnd_10.evo
 
 
         String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
@@ -135,6 +138,7 @@ public class Test {
         heteroConfiguration.setAcceptRuleForOffspring(acceptRuleForOffspring);
         heteroConfiguration.setRankingParameter(rankingParameter);
         heteroConfiguration.setMinimalHammingDistance(minimalHammingDistance);
+        heteroConfiguration.setEvoFileName(evoFileName);
         heteroConfiguration.setInitialSelectionPolicy(initialSelectionPolicy);
         heteroConfiguration.setAmountFitness(amountFitness);
         heteroConfiguration.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
@@ -164,10 +168,12 @@ public class Test {
     }
 
     private static void runHeteroExperiment(){
-        int[] numberOfIslands = {5};
-        int[] numberOfSlaves = {1};
-        int[] populationSize = {300};
+        int[] numberOfIslands = {1};
+        int[] numberOfSlaves = {35};
+        int[] populationSize = {240};
         int[][] migrationRates = new int[][]{
+                {1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1}
         };
         int[][] generationAmount = new int[][]{{3,3,3,3,3,3,3,3,3,3}};
@@ -184,13 +190,13 @@ public class Test {
         //String[] topologies = new String[]{"ring", "biRing","ladder","complete"};
         String[] topology = {"ring"};
 
-        boolean[] asyncMigration = {false};
+        boolean[] asyncMigration = {true};
 
         String[][] epochTerminationCriterion= new String[][] {{"generation","generation","generation","generation","generation","generation","generation","generation","generation","generation"}}; // evaluation ; fitness ;generation
         int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000}};
         double[][] epochTerminationFitness= new double[][] {{30000,30000,30000,30000,30000,30000,30000,30000,30000,30000}};
         int[][] epochTerminationGeneration = new int[][] {
-                {1,1,1,1,1,1,1,1,1,1}
+                {3,3,3,3,3,3,3,3,3,3},
         }; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[][] epochTerminationTime = new int[][] {{5,5,5,5,5,5,5,5,5,5}};
         int[][] epochTerminationGDV = new int[][] {{500,500,500,500,500,500,500,500,500,500}};
@@ -200,13 +206,16 @@ public class Test {
         String[][] acceptRuleForOffspring = {{"always","always","always","always","always","always","always","always","always","always"}}; //localLeast-ES, always, localLeast, betterParent
         double[][] rankingParameter = {{1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50,1.46, 1.50}};
         double[][] minimalHammingDistance = {{0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}};
+        String[][] evoFileName = {{"lsk_stnd_1.evo","lsk_stnd_2.evo","lsk_stnd_3.evo","lsk_stnd_4.evo",
+                                    "lsk_stnd_5.evo","lsk_stnd_6.evo","lsk_stnd_7.evo","lsk_stnd_8.evo",
+                                    "lsk_stnd_9.evo","lsk_stnd_10.evo"}}; // lsk_stnd.evo, lsk_stnd_1.evo, ... , lsk_stnd_10.evo
 
 
-        String globalTerminationCriterion = "fitness"; // evaluation ; fitness ; generation
-        int globalTerminationEpoch = 10; // number of epochs i.e. set to 100
+        String globalTerminationCriterion = "generation"; // evaluation ; fitness ; generation
+        int globalTerminationEpoch = 1; // number of epochs i.e. set to 100
         int globalTerminationEvaluation = 1000000;
-        double globalTerminationFitness = 60000;
-        int globalTerminationGeneration = 1000; // the max number of generation if we use Fitness as a termination criterium
+        double globalTerminationFitness = 35000;
+        int globalTerminationGeneration = 1; // the max number of generation if we use Fitness as a termination criterium
         Gson gson = new Gson();
         HeteroExperimentConfig heteroExperimentConfig = new HeteroExperimentConfig();
         heteroExperimentConfig.setNumberOfIslands(numberOfIslands);
@@ -222,6 +231,7 @@ public class Test {
         heteroExperimentConfig.setAcceptRuleForOffspring(acceptRuleForOffspring);
         heteroExperimentConfig.setRankingParameter(rankingParameter);
         heteroExperimentConfig.setMinimalHammingDistance(minimalHammingDistance);
+        heteroExperimentConfig.setEvoFileName(evoFileName);
         heteroExperimentConfig.setInitialSelectionPolicy(initialSelectionPolicy);
         heteroExperimentConfig.setAmountFitness(amountFitness);
         heteroExperimentConfig.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer);
@@ -251,8 +261,8 @@ public class Test {
     }
 
     public static void main(String[] args) {
-     //runExperiment();
+     runExperiment();
      //runHetero();
-        runHeteroExperiment();
+        //runHeteroExperiment();
     }
 }

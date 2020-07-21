@@ -50,6 +50,7 @@ public class JobConfig {
 
 
     private double minimalHammingDistance = 0.1;
+    private String evoFileName = "lsk_stnd.evo";
 
     public int getDelay() {
         return delay;
@@ -308,6 +309,14 @@ public class JobConfig {
 
     public void setAmountFitnessInitializer(int amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public String getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String evoFileName) {
+        this.evoFileName = evoFileName;
     }
 
     public boolean isAsyncMigration() {

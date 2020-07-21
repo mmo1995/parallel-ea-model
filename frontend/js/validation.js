@@ -46,7 +46,7 @@ function checkValidation(){
         return validateHybridHeteroModel();
     }
     function validateIslandModel(){
-        if(parseInt(inputIslandsNumber)>5 || parseInt(inputIslandsNumber)<1 || inputIslandsNumber.length == 0){
+        if(parseInt(inputIslandsNumber)>20 || parseInt(inputIslandsNumber)<1 || inputIslandsNumber.length == 0){
             return false;
         }
         if(parseInt(inputMigrationRate)>50 || parseInt(inputMigrationRate)<1 || inputMigrationRate.length == 0){
@@ -70,19 +70,19 @@ function checkValidation(){
         if(inputEpochLimit.length == 0){
             return false;
         }
-        if(parseInt(inputPopulationSize)>500 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
+        if(parseInt(inputPopulationSize)>550 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicy)== -1){
             return false;
         }
-        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<1 || inputStrategyParameter.length == 0){
+        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<0 || inputStrategyParameter.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicyInitializer)==-1){
             return false;
         }
-        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<1 || inputStrategyParameterInitializer.length == 0){
+        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<0 || inputStrategyParameterInitializer.length == 0){
             return false;
         }
         if(parseInt(inputDemeSize)>8 || parseInt(inputDemeSize)<1 || inputDemeSize.length == 0){
@@ -109,19 +109,19 @@ function checkValidation(){
         if(parseInt(inputSlavesNumber)>5 || parseInt(inputSlavesNumber)<1 || inputSlavesNumber.length == 0){
             return false;
         }
-        if(parseInt(inputPopulationSize)>500 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
+        if(parseInt(inputPopulationSize)>550 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicy)== -1){
             return false;
         }
-        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<1 || inputStrategyParameter.length == 0){
+        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<0 || inputStrategyParameter.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicyInitializer)==-1){
             return false;
         }
-        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<1 || inputStrategyParameterInitializer.length == 0){
+        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<0 || inputStrategyParameterInitializer.length == 0){
             return false;
         }
         if(parseInt(inputDemeSize)>8 || parseInt(inputDemeSize)<1 || inputDemeSize.length == 0){
@@ -145,7 +145,7 @@ function checkValidation(){
         return true;
     }
     function validateHybridModel(){
-        if(parseInt(inputIslandsNumber)>5 || parseInt(inputIslandsNumber)<1 || inputIslandsNumber.length == 0){
+        if(parseInt(inputIslandsNumber)>20 || parseInt(inputIslandsNumber)<1 || inputIslandsNumber.length == 0){
             return false;
         }
         if(parseInt(inputSlavesNumber)>5 || parseInt(inputSlavesNumber)<1 || inputSlavesNumber.length == 0){
@@ -172,19 +172,19 @@ function checkValidation(){
         if(inputEpochLimit.length == 0){
             return false;
         }
-        if(parseInt(inputPopulationSize)>500 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
+        if(parseInt(inputPopulationSize)>550 || parseInt(inputPopulationSize)<50 || inputPopulationSize.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicy)== -1){
             return false;
         }
-        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<1 || inputStrategyParameter.length == 0){
+        if(parseInt(inputStrategyParameter)>10 || parseInt(inputStrategyParameter)<0 || inputStrategyParameter.length == 0){
             return false;
         }
         if(initialSelectionPolicyValidValues.indexOf(inputInitialSelectionPolicyInitializer)==-1){
             return false;
         }
-        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<1 || inputStrategyParameterInitializer.length == 0){
+        if(parseInt(inputStrategyParameterInitializer)>10 || parseInt(inputStrategyParameterInitializer)<0 || inputStrategyParameterInitializer.length == 0){
             return false;
         }
         if(parseInt(inputDemeSize)>8 || parseInt(inputDemeSize)<1 || inputDemeSize.length == 0){

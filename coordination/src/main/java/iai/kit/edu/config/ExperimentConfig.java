@@ -20,6 +20,7 @@ public class ExperimentConfig {
     String[] acceptRuleForOffspring = {"localLeast-ES"};
     double[] rankingParameter = {1.45};
     double[] minimalHammingDistance = {0.1};
+    String[] evoFileName = {"lsk_stnd.evo"};
 
     private boolean[] asyncMigration;
 
@@ -203,6 +204,14 @@ public class ExperimentConfig {
 
     public void setMinimalHammingDistance(double[] minimalHammingDistance) {
         this.minimalHammingDistance = minimalHammingDistance;
+    }
+
+    public String[] getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String[] evoFileName) {
+        this.evoFileName = evoFileName;
     }
 
     public String[] getInitialSelectionPolicy() {

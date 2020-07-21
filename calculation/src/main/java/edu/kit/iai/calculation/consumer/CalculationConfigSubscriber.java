@@ -48,6 +48,7 @@ public class CalculationConfigSubscriber implements MessageListener {
         partPopulationJson = partPopulationJson.substring(0, partPopulationJson.indexOf("#"));
         JsonArray partPopulationJsonAsJsonArray = gson.fromJson(partPopulationJson, JsonArray.class);
         logger.info("received a sub population with  " + partPopulationJsonAsJsonArray.size()+ " chromosomes");
+
         // to execute calculation
         calculation.calculationPrice(partPopulationJsonAsJsonArray, idNumber);
 

@@ -33,7 +33,6 @@ public class CalculationConfigPublisher {
     public void publishCalculationConfig(String populationPart) {
         ChannelTopic topic = calculationConfigTopic;
         Gson gson = new Gson();
-
         String populationPartJSON = gson.toJson(populationPart);
         stringTemplate.convertAndSend(topic.getTopic(),populationPartJSON);
         logger.info("the interpreted sub population is published");

@@ -16,7 +16,7 @@ public abstract class AlgorithmConfig {
 
     private int amountFitness;
 
-    public abstract void readFiles(double minimalHammingDistance);
+    public abstract void readFiles(double minimalHammingDistance, String evoFileName);
 
     public abstract void writeFiles();
 

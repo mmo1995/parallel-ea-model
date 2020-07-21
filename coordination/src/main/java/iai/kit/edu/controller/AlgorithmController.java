@@ -5,13 +5,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import iai.kit.edu.config.*;
 import iai.kit.edu.core.AlgorithmManager;
 import iai.kit.edu.core.Overhead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -22,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -71,6 +68,7 @@ public class AlgorithmController {
     private int numberOfMigrationsFitness = 0;
     private Map<Integer, Double> executionTimeEAs = new HashMap<>();
     private Map<Integer, Double> executionTimeIslands = new HashMap<>();
+    private Map<Integer, Double> migrationOverheadIslands = new HashMap<>();
     @Autowired
     private Overhead overhead;
 
@@ -135,6 +133,7 @@ public class AlgorithmController {
         int globalTerminationGeneration_1 = experimentConfig.getGlobalTerminationGeneration();
         int[] numberOfGeneration = experimentConfig.getNumberOfGeneration();
         double[] minimalHammingDistance = experimentConfig.getMinimalHammingDistance();
+        String[] evoFileName = experimentConfig.getEvoFileName();
 
         jobConfigList = new ArrayList<>();
         for (int i = 0; i < numberOfIslands.length; i++) {
@@ -153,35 +152,38 @@ public class AlgorithmController {
                                                             for(int t = 0; t<initialSelectionPolicyInitializer.length; t++){
                                                                 for(int u = 0; u< amountOfFitnessInitializer.length; u++){
                                                                     for(int v = 0; v<asyncMigration.length; v++){
-                                                                        JobConfig jobConfigTemp = new JobConfig();
-                                                                        jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                                                                        jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
-                                                                        jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
-                                                                        jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
-                                                                        jobConfigTemp.setDelay(delays[k]);
-                                                                        jobConfigTemp.setMigrationRate(migrationRates[l]);
-                                                                        jobConfigTemp.setTopology(topologies[m]);
-                                                                        jobConfigTemp.setDemeSize(demeSizes[n]);
-                                                                        jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
-                                                                        jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
-                                                                        jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
-                                                                        jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
-                                                                        jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
-                                                                        jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
-                                                                        jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
-                                                                        jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
-                                                                        jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
-                                                                        jobConfigTemp.setAcceptRuleForOffspring(acceptanceRulesForOffspring[o]);
-                                                                        jobConfigTemp.setRankingParameter(rankingParameters[p]);
-                                                                        jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[q]);
-                                                                        jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[r]);
-                                                                        jobConfigTemp.setAmountFitness(amountOfFitness[s]);
-                                                                        jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[t]);
-                                                                        jobConfigTemp.setAmountFitnessInitializer(amountOfFitnessInitializer[u]);
-                                                                        jobConfigTemp.setAsyncMigration(asyncMigration[v]);
-                                                                        jobConfigList.add(jobConfigTemp);
-                                                                        // speedupresults.setJobConfig(jobConfig);
-                                                                        // speedUpResultsList.add(speedupresults);
+                                                                        for(int vv = 0; vv<evoFileName.length; vv++){
+                                                                            JobConfig jobConfigTemp = new JobConfig();
+                                                                            jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
+                                                                            jobConfigTemp.setNumberOfSlaves(numberOfSlaves[ii]);
+                                                                            jobConfigTemp.setGlobalPopulationSize(populationSizes[j]);
+                                                                            jobConfigTemp.setNumberOfGeneration(numberOfGeneration[jj]);
+                                                                            jobConfigTemp.setDelay(delays[k]);
+                                                                            jobConfigTemp.setMigrationRate(migrationRates[l]);
+                                                                            jobConfigTemp.setTopology(topologies[m]);
+                                                                            jobConfigTemp.setDemeSize(demeSizes[n]);
+                                                                            jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion_1);
+                                                                            jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration_1);
+                                                                            jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation_1);
+                                                                            jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness_1);
+                                                                            jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion_1);
+                                                                            jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch_1);
+                                                                            jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation_1);
+                                                                            jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration_1);
+                                                                            jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness_1);
+                                                                            jobConfigTemp.setAcceptRuleForOffspring(acceptanceRulesForOffspring[o]);
+                                                                            jobConfigTemp.setRankingParameter(rankingParameters[p]);
+                                                                            jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[q]);
+                                                                            jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[r]);
+                                                                            jobConfigTemp.setAmountFitness(amountOfFitness[s]);
+                                                                            jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[t]);
+                                                                            jobConfigTemp.setAmountFitnessInitializer(amountOfFitnessInitializer[u]);
+                                                                            jobConfigTemp.setAsyncMigration(asyncMigration[v]);
+                                                                            jobConfigTemp.setEvoFileName(evoFileName[vv]);
+                                                                            jobConfigList.add(jobConfigTemp);
+                                                                            // speedupresults.setJobConfig(jobConfig);
+                                                                            // speedUpResultsList.add(speedupresults);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -259,6 +261,7 @@ public class AlgorithmController {
         String[][] acceptRuleForOffspring = heteroExperimentConfig.getAcceptRuleForOffspring();
         double[][] rankingParameter = heteroExperimentConfig.getRankingParameter();
         double[][] minimalHammingDistance = heteroExperimentConfig.getMinimalHammingDistance();
+        String[][] evoFileName = heteroExperimentConfig.getEvoFileName();
 
         String[][] epochTerminationCriterion = heteroExperimentConfig.getEpochTerminationCriterion();
         int[][] epochTerminationEvaluation = heteroExperimentConfig.getEpochTerminationEvaluation();
@@ -303,41 +306,44 @@ public class AlgorithmController {
                                                                                                 for(int mm=0; mm< epochTerminationTime.length; mm++ ){
                                                                                                     for(int nn=0; nn<epochTerminationGDV.length; nn++){
                                                                                                         for(int oo=0; oo<epochTerminationGAK.length;oo++){
-                                                                                                            HeteroJobConfig jobConfigTemp = new HeteroJobConfig();
-                                                                                                            jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
-                                                                                                            jobConfigTemp.setNumberOfSlaves(numberOfSlaves[j]);
-                                                                                                            jobConfigTemp.setGlobalPopulationSize(populationSizes[k]);
-                                                                                                            jobConfigTemp.setDelay(delays[l]);
-                                                                                                            jobConfigTemp.setNumberOfGeneration(numberOfGeneration[m]);
-                                                                                                            jobConfigTemp.setMigrationRate(migrationRate[n]);
-                                                                                                            jobConfigTemp.setTopology(topology[o]);
-                                                                                                            jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[p]);
-                                                                                                            jobConfigTemp.setAmountFitness(amountFitness[q]);
-                                                                                                            jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[r]);
-                                                                                                            jobConfigTemp.setAmountFitnessInitializer(amountFitnessInitializer[s]);
-                                                                                                            jobConfigTemp.setSelectionPolicy(selectionPolicy[t]);
-                                                                                                            jobConfigTemp.setReplacementPolicy(replacementPolicy[u]);
-                                                                                                            jobConfigTemp.setDemeSize(demeSize[v]);
-                                                                                                            jobConfigTemp.setAsyncMigration(asyncMigration[w]);
-                                                                                                            jobConfigTemp.setAcceptRuleForOffspring(acceptRuleForOffspring[x]);
-                                                                                                            jobConfigTemp.setRankingParameter(rankingParameter[y]);
-                                                                                                            jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[z]);
-                                                                                                            jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion[ii]);
-                                                                                                            jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation[jj]);
-                                                                                                            jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness[kk]);
-                                                                                                            jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration[ll]);
-                                                                                                            jobConfigTemp.setEpochTerminationTime(epochTerminationTime[mm]);
-                                                                                                            jobConfigTemp.setEpochTerminationGDV(epochTerminationGDV[nn]);
-                                                                                                            jobConfigTemp.setEpochTerminationGAK(epochTerminationGAK[oo]);
-                                                                                                            jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion);
-                                                                                                            jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch);
-                                                                                                            jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation);
-                                                                                                            jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness);
-                                                                                                            jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration);
-                                                                                                            jobConfigTemp.setGlobalTerminationTime(globalTerminationTime);
-                                                                                                            jobConfigTemp.setGlobalTerminationGDV(globalTerminationGDV);
-                                                                                                            jobConfigTemp.setGlobalTerminationGAK(globalTerminationGAK);
-                                                                                                            heteroJobConfigList.add(jobConfigTemp);
+                                                                                                            for(int vv=0; vv<evoFileName.length; vv++){
+                                                                                                                HeteroJobConfig jobConfigTemp = new HeteroJobConfig();
+                                                                                                                jobConfigTemp.setNumberOfIslands(numberOfIslands[i]);
+                                                                                                                jobConfigTemp.setNumberOfSlaves(numberOfSlaves[j]);
+                                                                                                                jobConfigTemp.setGlobalPopulationSize(populationSizes[k]);
+                                                                                                                jobConfigTemp.setDelay(delays[l]);
+                                                                                                                jobConfigTemp.setNumberOfGeneration(numberOfGeneration[m]);
+                                                                                                                jobConfigTemp.setMigrationRate(migrationRate[n]);
+                                                                                                                jobConfigTemp.setTopology(topology[o]);
+                                                                                                                jobConfigTemp.setInitialSelectionPolicy(initialSelectionPolicy[p]);
+                                                                                                                jobConfigTemp.setAmountFitness(amountFitness[q]);
+                                                                                                                jobConfigTemp.setInitialSelectionPolicyInitializer(initialSelectionPolicyInitializer[r]);
+                                                                                                                jobConfigTemp.setAmountFitnessInitializer(amountFitnessInitializer[s]);
+                                                                                                                jobConfigTemp.setSelectionPolicy(selectionPolicy[t]);
+                                                                                                                jobConfigTemp.setReplacementPolicy(replacementPolicy[u]);
+                                                                                                                jobConfigTemp.setDemeSize(demeSize[v]);
+                                                                                                                jobConfigTemp.setAsyncMigration(asyncMigration[w]);
+                                                                                                                jobConfigTemp.setAcceptRuleForOffspring(acceptRuleForOffspring[x]);
+                                                                                                                jobConfigTemp.setRankingParameter(rankingParameter[y]);
+                                                                                                                jobConfigTemp.setMinimalHammingDistance(minimalHammingDistance[z]);
+                                                                                                                jobConfigTemp.setEpochTerminationCriterion(epochTerminationCriterion[ii]);
+                                                                                                                jobConfigTemp.setEpochTerminationEvaluation(epochTerminationEvaluation[jj]);
+                                                                                                                jobConfigTemp.setEpochTerminationFitness(epochTerminationFitness[kk]);
+                                                                                                                jobConfigTemp.setEpochTerminationGeneration(epochTerminationGeneration[ll]);
+                                                                                                                jobConfigTemp.setEpochTerminationTime(epochTerminationTime[mm]);
+                                                                                                                jobConfigTemp.setEpochTerminationGDV(epochTerminationGDV[nn]);
+                                                                                                                jobConfigTemp.setEpochTerminationGAK(epochTerminationGAK[oo]);
+                                                                                                                jobConfigTemp.setEvoFileName(evoFileName[vv]);
+                                                                                                                jobConfigTemp.setGlobalTerminationCriterion(globalTerminationCriterion);
+                                                                                                                jobConfigTemp.setGlobalTerminationEpoch(globalTerminationEpoch);
+                                                                                                                jobConfigTemp.setGlobalTerminationEvaluation(globalTerminationEvaluation);
+                                                                                                                jobConfigTemp.setGlobalTerminationFitness(globalTerminationFitness);
+                                                                                                                jobConfigTemp.setGlobalTerminationGeneration(globalTerminationGeneration);
+                                                                                                                jobConfigTemp.setGlobalTerminationTime(globalTerminationTime);
+                                                                                                                jobConfigTemp.setGlobalTerminationGDV(globalTerminationGDV);
+                                                                                                                jobConfigTemp.setGlobalTerminationGAK(globalTerminationGAK);
+                                                                                                                heteroJobConfigList.add(jobConfigTemp);
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                 }
@@ -430,6 +436,7 @@ public class AlgorithmController {
         JsonArray epochTerminationTimeArray = jsonObject.get("epochTerminationTime").getAsJsonArray();
         JsonArray epochTerminationGDVArray = jsonObject.get("epochTerminationGDV").getAsJsonArray();
         JsonArray epochTerminationGAKArray = jsonObject.get("epochTerminationGAK").getAsJsonArray();
+        JsonArray evoFileNameArray = jsonObject.get("evoFileName").getAsJsonArray();
 
         for(int i = 0; i< heteroList.size(); i++){
             if(heteroList.get(i) == true){
@@ -535,6 +542,11 @@ public class AlgorithmController {
                     epochTerminationGDV[y] = epochTerminationGDVArray.get(i).getAsJsonArray().get(y).getAsInt();
                 }
                 heteroJobConfig.setEpochTerminationGDV(epochTerminationGDV);
+                String[] evoFileName = new String[evoFileNameArray.get(i).getAsJsonArray().size()];
+                for(int z = 0; z <evoFileName.length; z++){
+                    evoFileName[z] = evoFileNameArray.get(i).getAsJsonArray().get(z).getAsString();
+                }
+                heteroJobConfig.setEvoFileName(evoFileName);
                 heteroJobConfigList.add(heteroJobConfig);
             } else {
                 JobConfig jobConfig = new JobConfig();
@@ -571,6 +583,7 @@ public class AlgorithmController {
                 jobConfig.setEpochTerminationTime(epochTerminationTimeArray.get(i).getAsInt());
                 jobConfig.setEpochTerminationGDV(epochTerminationGDVArray.get(i).getAsInt());
                 jobConfig.setEpochTerminationGAK(epochTerminationGAKArray.get(i).getAsInt());
+                jobConfig.setEvoFileName(evoFileNameArray.get(i).getAsString());
                 jobConfigList.add(jobConfig);
             }
         }
@@ -612,13 +625,14 @@ public class AlgorithmController {
     }
 
 
-    @RequestMapping(value = "/{islandNumber}/{sumEAExecution}/executiontime", method = RequestMethod.POST)
-    public synchronized void  receiveExecutionTime(@PathVariable String islandNumber, @PathVariable String sumEAExecution, @RequestBody String migrationOverhead) {
+    @RequestMapping(value = "/{islandNumber}/{sumEAExecution}/{migrationOverheads}/executiontime", method = RequestMethod.POST)
+    public synchronized void  receiveExecutionTime(@PathVariable String islandNumber, @PathVariable String sumEAExecution,@PathVariable String migrationOverheads, @RequestBody String migrationOverhead) {
         String islandExecutiontime = migrationOverhead.substring(0,migrationOverhead.indexOf("#"));
         String numberOfMigrations = migrationOverhead.substring(migrationOverhead.indexOf("#")+1);
 
         executionTimeEAs.put(Integer.parseInt(islandNumber), Double.parseDouble(sumEAExecution));
         executionTimeIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(islandExecutiontime));
+        migrationOverheadIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(migrationOverheads));
         numberOfMigrationsFitness = Integer.parseInt(numberOfMigrations);
 
     }
@@ -641,15 +655,15 @@ public class AlgorithmController {
         }
         return sum / (double) executionTimeEAs.size();
     }
-    public double returnMigrationOverheadMax()
+    public double returnMaxIslandExecutionTime()
     {
         return Collections.max(executionTimeIslands.values());
     }
-    public double returnMigrationOverheadMin()
+    public double returnMinIslandExecutionTime()
     {
         return Collections.min(executionTimeIslands.values());
     }
-    public double returnMigrationOverheadAverage()
+    public double returnAverageIslandExecutionTime()
     {
         double sum = 0.0;
         for(double d: executionTimeIslands.values()){
@@ -657,6 +671,8 @@ public class AlgorithmController {
         }
         return sum / (double) executionTimeIslands.size();
     }
+
+    public double returnMigrationOverhead() { return Collections.max(migrationOverheadIslands.values());}
     /**
      * Receive final result
      * @param constraintsAndresultJson of final result
@@ -670,8 +686,8 @@ public class AlgorithmController {
         double overallExecutiontime= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
         double durationIslandsCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
         double durationSlavesCreation = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation());
-        double frameworkOverhead = overallExecutiontime - returnMaxEAExecutionTime();
-        double initializationOverhead = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndInitializationOverhead() - overhead.getStartInitializationOverhead());
+        double frameworkOverhead = overallExecutiontime + returnMigrationOverhead() - returnMaxIslandExecutionTime() - durationIslandsCreation - durationSlavesCreation;
+        double initializationOverhead = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndInitializationOverhead() - overhead.getStartInitializationOverhead()) - durationIslandsCreation - durationSlavesCreation;
 
 
         String  constraintResults = constraintsAndresultJson.substring(0, constraintsAndresultJson.indexOf("#"));
@@ -734,17 +750,18 @@ public class AlgorithmController {
             dataToVisualizeObject.add("Job Configuration",configuration);
         }
         durationDataObject.addProperty("Overall Execution time",overallExecutiontime );
-        durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
+/*        durationDataObject.addProperty("DurationEAExecutionMax",returnMaxEAExecutionTime());
         durationDataObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
-        durationDataObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());
+        durationDataObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());*/
         durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
+        durationDataObject.addProperty("Migration Overhead", returnMigrationOverhead());
         durationDataObject.addProperty("initialization Overhead", initializationOverhead);
+        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - returnMigrationOverhead());
         durationDataObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
-        durationDataObject.addProperty("IslandExecutionTime Max", returnMigrationOverheadMax());
-        durationDataObject.addProperty("IslandExecutionTime Min", returnMigrationOverheadMin());
-        durationDataObject.addProperty("IslandExecutionTime Average", returnMigrationOverheadAverage());
-        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - (returnMigrationOverheadMax() - returnMaxEAExecutionTime()));
         durationDataObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
+        durationDataObject.addProperty("IslandExecutionTime Max", returnMaxIslandExecutionTime());
+        durationDataObject.addProperty("IslandExecutionTime Min", returnMinIslandExecutionTime());
+        durationDataObject.addProperty("IslandExecutionTime Average", returnAverageIslandExecutionTime());
         dataToVisualizeObject.addProperty("Cost", constraintResultsValues[2]);
         dataToVisualizeObject.addProperty("DailyDeviation", constraintResultsValues[3]);
         dataToVisualizeObject.addProperty("NumberOfHourlyDeviation", constraintResultsValues[4]);

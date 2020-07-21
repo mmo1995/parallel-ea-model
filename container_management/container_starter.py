@@ -108,7 +108,7 @@ def create_pod_EA(api_instance, pod, EA_number):
             namespace=NAMESPACE)
         logging.info("EA-master Pod created")
     except ApiException as e:
-        if e.reason == "Conflict":
+        if e.reason == "Conflict" or "Forbidden":
             logging.info("EA-master  pod already exists, sending initializing signal")
             r.publish(initialize_ea_channel, EA_number)
         else:
@@ -139,7 +139,7 @@ def create_pod_migration(api_instance, pod, migration_number):
             namespace=NAMESPACE)
         logging.info("Migration Pod created ...")
     except ApiException as e:
-        if e.reason == "Conflict":
+        if e.reason == "Conflict" or "Forbidden":
             logging.info("Migration Pod already exists, sending initializing signal")
             r.publish(initialize_islands_channel, migration_number)
         else:
@@ -224,7 +224,7 @@ def create_pod_calculation(api_instance, pod, island_number, calculation_number)
             namespace=NAMESPACE)
         logging.info("Calculation Pod created ...")
     except ApiException as e:
-        if e.reason == "Conflict":
+        if e.reason == "Conflict" or "Forbidden":
             logging.info("Calculation Service"+str(island_number) + "." + str(calculation_number)+" already exists, sending initializing signal")
             r.publish(initialize_calculation_channel, str(island_number) + "." + str(calculation_number))
         else:
@@ -237,7 +237,7 @@ def create_pod_interpreter(api_instance, pod, island_number, interpreter_number)
             namespace=NAMESPACE)
         logging.info("Chromosomeinterpreter Pod created ...")
     except ApiException as e:
-        if e.reason == "Conflict":
+        if e.reason == "Conflict" or "Forbidden":
             logging.info("Chromosomeinterpreter already exists, sending initializing signal")
             r.publish(initialize_interpreter_channel, str(island_number) + "." + str(interpreter_number))
         else:

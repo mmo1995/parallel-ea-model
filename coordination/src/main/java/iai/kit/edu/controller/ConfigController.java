@@ -36,7 +36,7 @@ public class ConfigController {
         algorithmConfig.setRankingParameter(jobConfig.getRankingParameter());
         algorithmConfig.setInitStrategy(jobConfig.getInitialSelectionPolicy());
         algorithmConfig.setAmountFitness(jobConfig.getAmountFitness());
-        algorithmConfig.readFiles(jobConfig.getMinimalHammingDistance());
+        algorithmConfig.readFiles(jobConfig.getMinimalHammingDistance(), jobConfig.getEvoFileName());
         List<List<String>> neighbors = topologyConfig.getNeighbors(jobConfig.getNumberOfIslands(), jobConfig.getTopology());
         Gson gson = new Gson();
         sendToSplittingJoining(gson.toJson(migrationConfig), "migration");
@@ -55,7 +55,7 @@ public class ConfigController {
             algorithmConfig.setRankingParameter(heteroJobConfig.getRankingParameter()[i]);
             algorithmConfig.setInitStrategy(heteroJobConfig.getInitialSelectionPolicy()[i]);
             algorithmConfig.setAmountFitness(heteroJobConfig.getAmountFitness()[i]);
-            algorithmConfig.readFiles(heteroJobConfig.getMinimalHammingDistance()[i]);
+            algorithmConfig.readFiles(heteroJobConfig.getMinimalHammingDistance()[i], heteroJobConfig.getEvoFileName()[i]);
             algorithmConfigs[i] = algorithmConfig;
         }
 

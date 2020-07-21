@@ -27,6 +27,7 @@ public class ExperimentConfig {
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
     double[] minimalHammingDistance = {0.1};
+    String[] evoFileName = {"lsk_stnd.evo"};
 
 
     public String epochTerminationCriterion;
@@ -250,5 +251,13 @@ public class ExperimentConfig {
 
     public void setAsyncMigration(boolean[] asyncMigration) {
         this.asyncMigration = asyncMigration;
+    }
+
+    public String[] getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String[] evoFileName) {
+        this.evoFileName = evoFileName;
     }
 }

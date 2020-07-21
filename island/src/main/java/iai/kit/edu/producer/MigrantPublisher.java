@@ -3,6 +3,7 @@ package iai.kit.edu.producer;
 import com.google.gson.Gson;
 import iai.kit.edu.config.ConstantStrings;
 import iai.kit.edu.config.IslandConfig;
+import iai.kit.edu.controller.MigrationOverheadController;
 import iai.kit.edu.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class MigrantPublisher {
 
     @Autowired
     IslandConfig islandConfig;
+    @Autowired
+    MigrationOverheadController migrationOverheadController;
 
     @Autowired
     @Qualifier("stringTemplate")
@@ -39,9 +42,12 @@ public class MigrantPublisher {
         Gson gson = new Gson();
         String migrantJson = gson.toJson(migrants);
         migrantJson = migrantJson.concat("#" + islandConfig.getIslandNumber());
+        double startMigrationTime = System.currentTimeMillis();
         logger.info("starting migration");
         stringTemplate.convertAndSend(topic.getTopic(), migrantJson);
         logger.info(migrants.size() + " are migrated");
+        double endMigrationTime = System.currentTimeMillis();
+        migrationOverheadController.addMigrationOverhead(endMigrationTime - startMigrationTime);
         numberofMigration++;
     }
 

@@ -37,7 +37,6 @@ public class MigrationCompletedSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         logger.info("completing migration");
-        logger.info("received start signal");
         migrantReplacer.replace();
         if (!algorithmWrapper.isGlobalTerminationCriterionReached() && !islandConfig.isStopped()) {
             algorithmWrapper.startEpoch();

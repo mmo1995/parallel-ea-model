@@ -46,6 +46,7 @@ public class HeteroJobConfig {
     String[] acceptRuleForOffspring;
     double[] rankingParameter;
     double[] minimalHammingDistance;
+    String[] evoFileName;
 
     public int getDelay() {
         return delay;
@@ -303,6 +304,14 @@ public class HeteroJobConfig {
 
     public void setAmountFitnessInitializer(int amountFitnessInitializer) {
         this.amountFitnessInitializer = amountFitnessInitializer;
+    }
+
+    public String[] getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String[] evoFileName) {
+        this.evoFileName = evoFileName;
     }
 
     public boolean isAsyncMigration() {

@@ -21,6 +21,7 @@ public class HeteroExperimentConfig {
     String[][] acceptRuleForOffspring;
     double[][] rankingParameter;
     double[][] minimalHammingDistance;
+    String[][] evoFileName;
 
     private String[][] epochTerminationCriterion;
     private int[][] epochTerminationEvaluation;
@@ -303,5 +304,13 @@ public class HeteroExperimentConfig {
 
     public void setDelay(int[] delay) {
         this.delay = delay;
+    }
+
+    public String[][] getEvoFileName() {
+        return evoFileName;
+    }
+
+    public void setEvoFileName(String[][] evoFileName) {
+        this.evoFileName = evoFileName;
     }
 }
