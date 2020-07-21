@@ -6,6 +6,9 @@ var asyncMigrationValidValues = ["true","false"];
 var acceptOffspringValidValues = ["always","localLeast","localLeast-ES", "betterParent"];
 var globalCriterionValidValues = ["fitness","evaluation","generation"];
 var epochCriterionValidValues = ["fitness", "evaluation", "generation"];
+var evoFileValidValues = ["lsk_stnd.evo", "lsk_stnd_1.evo","lsk_stnd_2.evo", "lsk_stnd_3.evo", "lsk_stnd_4.evo",
+                          "lsk_stnd_5.evo","lsk_stnd_6.evo", "lsk_stnd_7.evo","lsk_stnd_8.evo", "lsk_stnd_9.evo",
+                          "lsk_stnd_10.evo"];
 
 function checkValidation(){
     var inputIslandsNumber = $("#islands-number").val();
@@ -28,6 +31,7 @@ function checkValidation(){
     var inputGlobalLimit = $("#global-criterion-limit").val();
     var inputEpochCriterion = $("#epoch-criterion").val();
     var inputEpochLimit = $("#epoch-criterion-limit").val();
+    var inputEvoFile = $("#evo-file").val();
     
 
     if($("select#models").val()=="island" && $("#hetero").is(":not(:checked)")){
@@ -103,6 +107,9 @@ function checkValidation(){
         if(inputGlobalLimit.length == 0){
             return false;
         }
+        if(evoFileValidValues.indexOf(inputEvoFile)==-1){
+            return false;
+        }
         return true;
     }
     function validateMasterSlaveModel(){
@@ -140,6 +147,9 @@ function checkValidation(){
             return false;
         }
         if(inputGlobalLimit.length == 0){
+            return false;
+        }
+        if(evoFileValidValues.indexOf(inputEvoFile)==-1){
             return false;
         }
         return true;
@@ -203,6 +213,9 @@ function checkValidation(){
             return false;
         }
         if(inputGlobalLimit.length == 0){
+            return false;
+        }
+        if(evoFileValidValues.indexOf(inputEvoFile)==-1){
             return false;
         }
         return true;
@@ -321,7 +334,7 @@ function validateIslandOneHetero() {
     var inputAcceptOffspring1 = $("#accept-offspring-1").val();
     var inputRankingParameter1 = $("#ranking-parameter-1").val();
     var inputMinHamming1 = $("#min-hamming-1").val();
-
+    var inputEvoFile1 = $("#evo-file-1").val();
     if(parseInt(inputMigrationRate1)>50 || parseInt(inputMigrationRate1)<1 || inputMigrationRate1.length == 0){
         return false;
     }
@@ -355,6 +368,9 @@ function validateIslandOneHetero() {
     if(parseFloat(inputMinHamming1)>1 || parseFloat(inputMinHamming1)<0 || inputMinHamming1.length == 0){
         return false;
     }
+    if(evoFileValidValues.indexOf(inputEvoFile1)==-1){
+        return false;
+    }
     return true;
 }
 function validateIslandTwoHetero() {
@@ -369,7 +385,7 @@ function validateIslandTwoHetero() {
     var inputAcceptOffspring2 = $("#accept-offspring-2").val();
     var inputRankingParameter2 = $("#ranking-parameter-2").val();
     var inputMinHamming2 = $("#min-hamming-2").val();
-
+    var inputEvoFile2 = $("#evo-file-2").val();
     if(parseInt(inputMigrationRate2)>50 || parseInt(inputMigrationRate2)<1 || inputMigrationRate2.length == 0){
         return false;
     }
@@ -403,6 +419,9 @@ function validateIslandTwoHetero() {
     if(parseFloat(inputMinHamming2)>1 || parseFloat(inputMinHamming2)<0 || inputMinHamming2.length == 0){
         return false;
     }
+    if(evoFileValidValues.indexOf(inputEvoFile2)==-1){
+        return false;
+    }
     return true;
 }
 function validateIslandThreeHetero() {
@@ -417,7 +436,7 @@ function validateIslandThreeHetero() {
     var inputAcceptOffspring3 = $("#accept-offspring-3").val();
     var inputRankingParameter3 = $("#ranking-parameter-3").val();
     var inputMinHamming3 = $("#min-hamming-3").val();
-
+    var inputEvoFile3 = $("#evo-file-3").val();
     if(parseInt(inputMigrationRate3)>50 || parseInt(inputMigrationRate3)<1 || inputMigrationRate3.length == 0){
         return false;
     }
@@ -451,6 +470,9 @@ function validateIslandThreeHetero() {
     if(parseFloat(inputMinHamming3)>1 || parseFloat(inputMinHamming3)<0 || inputMinHamming3.length == 0){
         return false;
     }
+    if(evoFileValidValues.indexOf(inputEvoFile3)==-1){
+        return false;
+    }
     return true;
 }
 function validateIslandFourHetero() {
@@ -465,7 +487,7 @@ function validateIslandFourHetero() {
     var inputAcceptOffspring4 = $("#accept-offspring-4").val();
     var inputRankingParameter4 = $("#ranking-parameter-4").val();
     var inputMinHamming4 = $("#min-hamming-4").val();
-
+    var inputEvoFile4 = $("#evo-file-4").val();
     if(parseInt(inputMigrationRate4)>50 || parseInt(inputMigrationRate4)<1 || inputMigrationRate4.length == 0){
         return false;
     }
@@ -499,6 +521,9 @@ function validateIslandFourHetero() {
     if(parseFloat(inputMinHamming4)>1 || parseFloat(inputMinHamming4)<0 || inputMinHamming4.length == 0){
         return false;
     }
+    if(evoFileValidValues.indexOf(inputEvoFile4)==-1){
+        return false;
+    }
     return true;
 }
 function validateIslandFiveHetero() {
@@ -513,6 +538,7 @@ function validateIslandFiveHetero() {
     var inputAcceptOffspring5 = $("#accept-offspring-5").val();
     var inputRankingParameter5 = $("#ranking-parameter-5").val();
     var inputMinHamming5 = $("#min-hamming-5").val();
+    var inputEvoFile5 = $("#evo-file-5").val();
 
     if(parseInt(inputMigrationRate5)>50 || parseInt(inputMigrationRate5)<1 || inputMigrationRate5.length == 0){
         return false;
@@ -545,6 +571,9 @@ function validateIslandFiveHetero() {
         return false;
     }
     if(parseFloat(inputMinHamming5)>1 || parseFloat(inputMinHamming5)<0 || inputMinHamming5.length == 0){
+        return false;
+    }
+    if(evoFileValidValues.indexOf(inputEvoFile5)==-1){
         return false;
     }
     return true;

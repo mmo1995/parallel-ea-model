@@ -33,7 +33,8 @@ var experiment = {
             "epochTerminationGeneration": [],
             "epochTerminationTime": [],
             "epochTerminationGDV": [],
-            "epochTerminationGAK": []
+            "epochTerminationGAK": [],
+            "evoFileName": []
             }
 var globalPopulationSizeArray = [];
 var numberOfIslandsArray = [];
@@ -69,6 +70,7 @@ var epochTerminationTimeArray = [];
 var epochTerminationGDVArray = [];
 var epochTerminationGAKArray = [];
 var heteroArray = [];
+var evoFileNameArray = [];
 $(document).ready(function(){
     $("#submit").click(function(){
         if(!checkValidation()){
@@ -150,8 +152,10 @@ $(document).ready(function(){
               pushHeteroAcceptRuleOffspring();
               pushHeteroRankingParameter();
               pushHeteroMinimalHammingDistance();
+              pushHeteroEvoFile();
             }else{
               acceptRuleForOffspringArray.push($("#accept-offspring").val());
+              evoFileNameArray.push($("#evo-file").val());
               rankingParameterArray.push(parseFloat($("#ranking-parameter").val()));
               minimalHammingDistanceArray.push(parseFloat($("#min-hamming").val()));
             }
@@ -263,6 +267,7 @@ $(document).ready(function(){
           experiment.epochTerminationGAK = epochTerminationGAKArray;
           experiment.heteroConfiguration = heteroArray; 
           experiment.delay = delayArray;
+          experiment.evoFileName = evoFileNameArray;
           experimentJson = JSON.stringify(experiment);
           var jsonObject = JSON.parse(experimentJson);
           console.log(jsonObject);
@@ -298,6 +303,7 @@ function clearFields(){
   $("#global-criterion-limit").val('');
   $("#epoch-criterion-form")[0].reset();
   $("#epoch-criterion-limit").val('');
+  $("#evo-file-form")[0].reset();
 
   $("#hetero-islands-number").val('');
   $("#migration-rate-1").val('');
@@ -311,6 +317,7 @@ function clearFields(){
   $("#accept-offspring-form-1")[0].reset();
   $("#ranking-parameter-1").val('');
   $("#min-hamming-1").val('');
+  $("#evo-file-form-1")[0].reset();
 
   $("#migration-rate-2").val('');
   $("#initial-selection-policy-form-2")[0].reset();
@@ -323,6 +330,7 @@ function clearFields(){
   $("#accept-offspring-form-2")[0].reset();
   $("#ranking-parameter-2").val('');
   $("#min-hamming-2").val('');
+  $("#evo-file-form-2")[0].reset();
 
   $("#migration-rate-3").val('');
   $("#initial-selection-policy-form-3")[0].reset();
@@ -335,6 +343,7 @@ function clearFields(){
   $("#accept-offspring-form-3")[0].reset();
   $("#ranking-parameter-3").val('');
   $("#min-hamming-3").val('');
+  $("#evo-file-form-3")[0].reset();
 
   $("#migration-rate-4").val('');
   $("#initial-selection-policy-form-4")[0].reset();
@@ -347,6 +356,7 @@ function clearFields(){
   $("#accept-offspring-form-4")[0].reset();
   $("#ranking-parameter-4").val('');
   $("#min-hamming-4").val('');
+  $("#evo-file-form-4")[0].reset();
 
   $("#migration-rate-5").val('');
   $("#initial-selection-policy-form-5")[0].reset();
@@ -359,6 +369,7 @@ function clearFields(){
   $("#accept-offspring-form-5")[0].reset();
   $("#ranking-parameter-5").val('');
   $("#min-hamming-5").val('');
+  $("#evo-file-form-5")[0].reset();
   
   }
 
@@ -397,6 +408,7 @@ function clearFields(){
       epochTerminationGDVArray = [];
       epochTerminationGAKArray = [];
       heteroArray = [];
+      evoFileNameArray = [];
   }
 
   function successfullJobSubmition(){
@@ -523,6 +535,14 @@ function clearFields(){
       heteroAcceptRuleArray.push($(`#accept-offspring-${i}`).val());
     }
     acceptRuleForOffspringArray.push(heteroAcceptRuleArray);
+  }
+  function pushHeteroEvoFile(){
+    var numberOfIslands = parseInt($("#hetero-islands-number").val());
+    var heteroEvoFileArray = [];
+    for(i = 1; i<=numberOfIslands; i++){
+      heteroEvoFileArray.push($(`#evo-file-${i}`).val());
+    }
+    evoFileNameArray.push(heteroEvoFileArray);
   }
   function pushHeteroRankingParameter(){
     var numberOfIslands = parseInt($("#hetero-islands-number").val());

@@ -10,6 +10,7 @@ $(document).ready(function(){
             $("#migration-rate-div").hide();
             $("#selection-policy-div").hide();
             $("#replacement-policy-div").hide();
+            $("#evo-file-div").show();
             $("#topology-div").hide();
             $("#deme-size-div").show();
             $("#async-migration-div").hide();
@@ -35,6 +36,7 @@ $(document).ready(function(){
             $("#strategy-parameter-div").show();
             $("#selection-policy-div").show();
             $("#replacement-policy-div").show();
+            $("#evo-file-div").show();
             $("#topology-div").show();
             $("#accept-offspring-div").show();
             $("#ranking-parameter-div").show();
@@ -56,6 +58,7 @@ $(document).ready(function(){
                 $("#strategy-parameter-div").hide();
                 $("#selection-policy-div").hide();
                 $("#replacement-policy-div").hide();
+                $("#evo-file-div").hide();
                 $("#deme-size-div").hide();
                 $("#accept-offspring-div").hide();
                 $("#ranking-parameter-div").hide();
@@ -73,6 +76,7 @@ $(document).ready(function(){
             $("#strategy-parameter-div").show();
             $("#selection-policy-div").show();
             $("#replacement-policy-div").show();
+            $("#evo-file-div").show();
             $("#topology-div").show();
             $("#accept-offspring-div").show();
             $("#ranking-parameter-div").show();
@@ -94,6 +98,7 @@ $(document).ready(function(){
                 $("#strategy-parameter-div").hide();
                 $("#selection-policy-div").hide();
                 $("#replacement-policy-div").hide();
+                $("#evo-file-div").hide();
                 $("#deme-size-div").hide();
                 $("#accept-offspring-div").hide();
                 $("#ranking-parameter-div").hide();
@@ -122,6 +127,7 @@ $(document).ready(function(){
             $("#strategy-parameter-div").hide();
             $("#selection-policy-div").hide();
             $("#replacement-policy-div").hide();
+            $("#evo-file-div").hide();
             $("#deme-size-div").hide();
             $("#accept-offspring-div").hide();
             $("#ranking-parameter-div").hide();
@@ -137,6 +143,7 @@ $(document).ready(function(){
             $("#strategy-parameter-div").show();
             $("#selection-policy-div").show();
             $("#replacement-policy-div").show();
+            $("#evo-file-div").show();
             $("#deme-size-div").show();
             $("#accept-offspring-div").show();
             $("#ranking-parameter-div").show();
