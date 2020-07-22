@@ -196,7 +196,7 @@ public class Test {
         int[][] epochTerminationEvaluation= new int[][] {{1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000}};
         double[][] epochTerminationFitness= new double[][] {{30000,30000,30000,30000,30000,30000,30000,30000,30000,30000}};
         int[][] epochTerminationGeneration = new int[][] {
-                {3,3,3,3,3,3,3,3,3,3},
+                {1,1,1,1,1,1,1,1,1,1},
         }; // number of evolution inside the each island i.e. nr. of generation of Master-slave
         int[][] epochTerminationTime = new int[][] {{5,5,5,5,5,5,5,5,5,5}};
         int[][] epochTerminationGDV = new int[][] {{500,500,500,500,500,500,500,500,500,500}};

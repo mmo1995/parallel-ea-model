@@ -33,7 +33,6 @@ public class SlavesInitializedController {
     @RequestMapping(value = "/slaves/ready", method = RequestMethod.POST)
     public void receiveIslandStatusInitialized(@RequestBody String message) {
         logger.info("islands and slaves are ready");
-        overhead.setEndSlaveCreation(System.currentTimeMillis());
         overhead.setEndInitializationOverhead(System.currentTimeMillis());
     }
 

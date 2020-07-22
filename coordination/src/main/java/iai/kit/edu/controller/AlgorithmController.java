@@ -68,7 +68,7 @@ public class AlgorithmController {
     private int numberOfMigrationsFitness = 0;
     private Map<Integer, Double> executionTimeEAs = new HashMap<>();
     private Map<Integer, Double> executionTimeIslands = new HashMap<>();
-    private Map<Integer, Double> migrationOverheadIslands = new HashMap<>();
+    private Map<Integer, Long> migrationOverheadIslands = new HashMap<>();
     @Autowired
     private Overhead overhead;
 
@@ -632,7 +632,7 @@ public class AlgorithmController {
 
         executionTimeEAs.put(Integer.parseInt(islandNumber), Double.parseDouble(sumEAExecution));
         executionTimeIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(islandExecutiontime));
-        migrationOverheadIslands.put(Integer.parseInt(islandNumber), Double.parseDouble(migrationOverheads));
+        migrationOverheadIslands.put(Integer.parseInt(islandNumber), Long.parseLong(migrationOverheads));
         numberOfMigrationsFitness = Integer.parseInt(numberOfMigrations);
 
     }
@@ -672,7 +672,7 @@ public class AlgorithmController {
         return sum / (double) executionTimeIslands.size();
     }
 
-    public double returnMigrationOverhead() { return Collections.max(migrationOverheadIslands.values());}
+    public long returnMigrationOverhead() { return Collections.max(migrationOverheadIslands.values());}
     /**
      * Receive final result
      * @param constraintsAndresultJson of final result
@@ -686,7 +686,7 @@ public class AlgorithmController {
         double overallExecutiontime= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndEvolution() - overhead.getStartEvolution());
         double durationIslandsCreation= TimeUnit.MILLISECONDS.toSeconds(overhead.getEndIslandCreation() - overhead.getStartIslandCreation());
         double durationSlavesCreation = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndSlaveCreation() - overhead.getStartSlaveCreation());
-        double frameworkOverhead = overallExecutiontime + returnMigrationOverhead() - returnMaxIslandExecutionTime() - durationIslandsCreation - durationSlavesCreation;
+        double frameworkOverhead = overallExecutiontime + TimeUnit.MILLISECONDS.toSeconds(returnMigrationOverhead()) - returnMaxIslandExecutionTime() - durationIslandsCreation - durationSlavesCreation;
         double initializationOverhead = TimeUnit.MILLISECONDS.toSeconds(overhead.getEndInitializationOverhead() - overhead.getStartInitializationOverhead()) - durationIslandsCreation - durationSlavesCreation;
 
 
@@ -723,6 +723,7 @@ public class AlgorithmController {
             configuration.addProperty("Ranking Parameter",jobConfig.getRankingParameter());
             configuration.addProperty("Async Migration",jobConfig.isAsyncMigration());
             configuration.addProperty("Minimal Hamming Distance",jobConfig.getMinimalHammingDistance());
+            configuration.addProperty("Evo File Name", jobConfig.getEvoFileName());
             dataToVisualizeObject.add("Job Configuration", configuration);
         } else {
 
@@ -745,6 +746,7 @@ public class AlgorithmController {
                 islandObject.addProperty("Acceptance Rule for Offspring",heteroJobConfig.getAcceptRuleForOffspring()[i]);
                 islandObject.addProperty("Ranking Parameter",heteroJobConfig.getRankingParameter()[i]);
                 islandObject.addProperty("Minimal Hamming Distance",heteroJobConfig.getMinimalHammingDistance()[i]);
+                islandObject.addProperty("Evo File Name", heteroJobConfig.getEvoFileName()[i]);
                 configuration.add(islandObject);
             }
             dataToVisualizeObject.add("Job Configuration",configuration);
@@ -754,9 +756,9 @@ public class AlgorithmController {
         durationDataObject.addProperty("DurationEAExecutionAverage",returnAverageEAExecutionTime());
         durationDataObject.addProperty("DurationEAExecutionMin",returnMinEAExecutionTime());*/
         durationDataObject.addProperty("FrameworkOverhead",frameworkOverhead);
-        durationDataObject.addProperty("Migration Overhead", returnMigrationOverhead());
+        durationDataObject.addProperty("Migration Overhead in Milliseconds", returnMigrationOverhead());
         durationDataObject.addProperty("initialization Overhead", initializationOverhead);
-        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - returnMigrationOverhead());
+        durationDataObject.addProperty("Result Collection Overhead", frameworkOverhead - initializationOverhead - TimeUnit.MILLISECONDS.toSeconds(returnMigrationOverhead()));
         durationDataObject.addProperty("Containers Creation",durationIslandsCreation + durationSlavesCreation);
         durationDataObject.addProperty("numberOfMigrations",numberOfMigrationsFitness);
         durationDataObject.addProperty("IslandExecutionTime Max", returnMaxIslandExecutionTime());

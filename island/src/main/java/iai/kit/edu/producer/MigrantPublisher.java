@@ -42,11 +42,11 @@ public class MigrantPublisher {
         Gson gson = new Gson();
         String migrantJson = gson.toJson(migrants);
         migrantJson = migrantJson.concat("#" + islandConfig.getIslandNumber());
-        double startMigrationTime = System.currentTimeMillis();
+        long startMigrationTime = System.currentTimeMillis();
         logger.info("starting migration");
         stringTemplate.convertAndSend(topic.getTopic(), migrantJson);
         logger.info(migrants.size() + " are migrated");
-        double endMigrationTime = System.currentTimeMillis();
+        long endMigrationTime = System.currentTimeMillis();
         migrationOverheadController.addMigrationOverhead(endMigrationTime - startMigrationTime);
         numberofMigration++;
     }

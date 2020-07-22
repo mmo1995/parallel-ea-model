@@ -27,7 +27,7 @@ public class MigrationOverheadController {
     private static long startIslandExecution = 0;
     private static long endIslandExecution = 0;
 
-    private static double migrationOverhead = 0;
+    private static long migrationOverhead = 0;
     private static int eaExecutiontime = 0;
 
     private static int numberOfMigrations = 0;
@@ -61,7 +61,7 @@ public class MigrationOverheadController {
         MigrationOverheadController.eaExecutiontime = eaExecutiontime;
     }
 
-    public static void setMigrationOverhead(double migrationOverhead) {
+    public static void setMigrationOverhead(long migrationOverhead) {
         MigrationOverheadController.migrationOverhead = migrationOverhead;
     }
 
@@ -93,7 +93,7 @@ public class MigrationOverheadController {
         MigrationOverheadController.eaExecutiontime += Integer.parseInt(eaExecutiontime);
         MigrationOverheadController.numberOfMigrations++;
     }
-    public static void addMigrationOverhead(double migrationOverhead){
+    public static void addMigrationOverhead(long migrationOverhead){
         MigrationOverheadController.migrationOverhead += migrationOverhead;
     }
 }

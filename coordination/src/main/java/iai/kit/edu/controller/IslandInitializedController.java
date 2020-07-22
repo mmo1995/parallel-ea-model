@@ -47,7 +47,6 @@ public class IslandInitializedController {
         logger.info("islands initialized: "+initializedIslands);
         if (initializedIslands == jobConfig.getNumberOfIslands() || initializedIslands == heteroJobConfig.getNumberOfIslands()) {
             logger.info("islands initialized");
-            overhead.setEndIslandCreation(System.currentTimeMillis());
             if(jobConfig.getNumberOfIslands() != 0){
                 algorithmManager.sendConfig(false);
                 slaveNumberPublisher.publishNumberOfSlaves(jobConfig.getNumberOfSlaves());

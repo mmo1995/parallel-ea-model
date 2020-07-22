@@ -29,5 +29,6 @@ public class SlaveController {
         logger.info("creating slaves");
         overhead.setStartSlaveCreation(System.currentTimeMillis());
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/slaves", numberOfSlaves, String.class);
+        overhead.setEndSlaveCreation(System.currentTimeMillis());
     }
 }
