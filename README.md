@@ -25,7 +25,6 @@ This framework runs on the cluster using Kubernetes orchestration and Container-
 1. Upload the Docker images to the cloud using Dockerfile
 2. Deploy the Microservices using the .yaml files in [kubernetes folder](./kubernetes)
 3. Open [frontend](./frontend/view/home.html) in browser and submit job to be optimized
-4. Alternatively, you can send a job using the [Test.java](./experiment/src/main/java/iai/kit/edu/Test.java) file.
 
 
 
@@ -44,7 +43,7 @@ Framework Papers:
 * Khalloof, H., Jakob, W., Liu, J., Braun, E., Shahoud, S., Duepmeier, C., Hagenmeyer, V.: A Generic Distributed Microservices and Container based Framework for Metaheuristic Optimization
 *  Khalloof, H., Ostheimer, P., Jakob, W., Shahoud, S., Duepmeier, C., Hagenmeyer, V.: A Distributed Modular Scalable and Generic Framework for Parallelizing Population-Based Metaheuristics.
 
-Contact: [Hatem Khalloof](hatem.khalloof@kit.edu)
+Contact: [Hatem Khalloof](mailto:hatem.khalloof@kit.edu)
 
 ## Authors
 
