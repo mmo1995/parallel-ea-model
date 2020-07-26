@@ -71,6 +71,7 @@ var epochTerminationGDVArray = [];
 var epochTerminationGAKArray = [];
 var heteroArray = [];
 var evoFileNameArray = [];
+
 $(document).ready(function(){
     $("#submit").click(function(){
         if(!checkValidation()){

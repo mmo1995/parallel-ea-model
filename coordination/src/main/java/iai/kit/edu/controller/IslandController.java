@@ -28,6 +28,5 @@ public class IslandController {
         overhead.setStartIslandCreation(System.currentTimeMillis());
         logger.info("creating islands");
         ResponseEntity<String> answer1 = restTemplate.postForEntity(ConstantStrings.containerManagementURL +"/com/create/islands", numberOfIslands, String.class);
-        overhead.setEndIslandCreation(System.currentTimeMillis());
     }
 }
